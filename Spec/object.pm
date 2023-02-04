@@ -433,14 +433,24 @@ $bench_flags  = '-Idealii/include -Idealii/bundled/boost-1.70.0/include -ISample
     mcmc-laplace.cc
     ));
 
-# Return a list of hashes describing runs to do.
 sub invoke {
-    push @rc, {
-        'command' => "/usr/bin/echo",
-        'args'    => [ $exename, " has", "no", $size, "workload", "yet" ],
-        'output'  => "$exename.out",
-        'error'   => "$exename.err", 
-    };
+    my ($me) = @_;
+    my $exe_full_name = $me->exe_file; # including tune, label
+    if ($me->size() eq 'refrate') {
+        push @rc, {
+            'command' => $exe_full_name,
+            'args'    => [ ],
+            'output'  => "$exename.out",
+            'error'   => "$exename.err",
+        };
+    } else {
+        push @rc, {
+            'command' => "/usr/bin/echo",
+            'args'    => [ $exename, " has", "no", $me->size(), "workload", "yet" ],
+            'output'  => "$exename.out",
+            'error'   => "$exename.err",
+        };
+    }
     return @rc;
 }
 
