@@ -1,4 +1,0 @@
- 
-Cannot find Makefile.spec.  You might try:
-    runspec --action buildsetup
- 
