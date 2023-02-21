@@ -1,7 +1,7 @@
 $benchnum  = '747';
 $benchname = 'sampleflow_r';
 $exename   = 'sampleflow_r';
-$benchlang = 'CXX'; 
+$benchlang = 'CXX';
 @base_exe  = ($exename);
 
 $calctol = 0;
@@ -435,7 +435,9 @@ $bench_flags  = '-Idealii/include -Idealii/bundled/boost-1.70.0/include -ISample
 
 sub invoke {
     my ($me) = @_;
+    my @rc;
     my $exe_full_name = $me->exe_file; # including tune, label
+
     if ($me->size() eq 'refrate') {
         push @rc, {
             'command' => $exe_full_name,
