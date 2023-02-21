@@ -191,7 +191,7 @@ namespace SampleFlow
       if (random_seed != std::mt19937::result_type {})
         rng.seed(random_seed);
 
-      std::uniform_real_distribution<> uniform_distribution(0,1);
+      SampleFlow::random::uniform_real_distribution<> uniform_distribution(0,1);
 
       OutputType current_sample         = starting_point;
       double     current_log_likelihood = log_likelihood (current_sample);

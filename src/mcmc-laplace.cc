@@ -30,6 +30,7 @@
 #include <deal.II/fe/fe_values.h>
 #include <deal.II/base/quadrature_lib.h>
 #include <deal.II/base/function.h>
+#include <deal.II/base/parameter_handler.h>
 #include <deal.II/numerics/vector_tools.h>
 #include <deal.II/numerics/matrix_tools.h>
 #include <deal.II/lac/vector.h>
@@ -54,6 +55,7 @@
 #include <sampleflow/filters/take_every_nth.h>
 #include <sampleflow/filters/component_splitter.h>
 #include <sampleflow/filters/pass_through.h>
+#include <sampleflow/filters/conversion.h>
 
 #include <sampleflow/consumers/mean_value.h>
 #include <sampleflow/consumers/count_samples.h>
@@ -69,6 +71,9 @@
 #include <sampleflow/consumers/average_cosinus.h>
 #include <sampleflow/consumers/auto_covariance_matrix.h>
 #include <sampleflow/consumers/auto_covariance_trace.h>
+
+
+using SampleType = dealii::Vector<double>;
 
 namespace Filters
 {
@@ -189,6 +194,43 @@ namespace Filters
         std::move(aux_data)
       };
   }
+
+
+  // Downscale the 64-dimensional vector to one that has only 4
+  // components. This improves numerical stability. We do the
+  // downsampling by assigning each of the 64=8x8 parameters to one of
+  // the four quadrants of the domain. This is the function that does
+  // this transformation from the fine to the coarse sample.
+  SampleType downscaler (const SampleType &vector_64)
+  {
+    constexpr unsigned int fine_to_coarse_map[4][16]
+      = 
+      {{  0,1,2,3,
+          8,9,10,11,
+          16,17,18,19,
+          24,25,26,27 },
+       {  4,5,6,7,
+          12,13,14,15,
+          20,21,22,23,
+          28,29,30,31 },
+       {  32,33,34,35,
+          40,41,42,43,
+          48,49,50,51,
+          56,57,58,59 },
+       {  36,37,38,39,
+          44,45,46,47,
+          52,53,54,55,
+          60,61,62,63 }};
+
+    SampleType vector_4 (4);
+    vector_4 = 0;
+    for (unsigned int i=0; i<4; ++i)
+      for (unsigned int j=0; j<16; ++j)
+        vector_4[i] += vector_64[fine_to_coarse_map[i][j]];
+    vector_4 /= 16;
+    
+    return vector_4;
+  };
 }
 
 
@@ -281,9 +323,6 @@ namespace ForwardSimulator
                       "in the definition of the coefficient."));
     GridGenerator::hyper_cube(triangulation, 0, 1);
     triangulation.refine_global(global_refinements);
-
-    std::cout << "   Number of active cells: " << triangulation.n_active_cells()
-              << std::endl;
   }
 
 
@@ -293,9 +332,6 @@ namespace ForwardSimulator
   {
     // First define the finite element space:
     dof_handler.distribute_dofs(fe);
-
-    std::cout << "   Number of degrees of freedom: " << dof_handler.n_dofs()
-              << std::endl;
 
     // Then set up the main data structures that will hold the discrete problem:
     {
@@ -658,7 +694,7 @@ namespace ProposalGenerator
     double         product_of_ratios = 1;
     for (auto &x : new_sample)
       {
-        const double rnd = std::normal_distribution<>(0, log_sigma)(random_number_generator);
+        const double rnd = SampleFlow::random::uniform_real_distribution<>(-log_sigma, log_sigma)(random_number_generator);
         const double exp_rnd = std::exp(rnd);
         x *= exp_rnd;
         product_of_ratios /= exp_rnd;
@@ -668,6 +704,9 @@ namespace ProposalGenerator
   }
 
 } // namespace ProposalGenerator
+
+
+
 
 
 // The final function is `main()`, which simply puts all of these pieces
@@ -697,22 +736,41 @@ namespace ProposalGenerator
 //                                       /* prefix = */ "exact")
 //      .evaluate(exact_coefficients);
 // @endcode
-int main()
+int main(int argc, char **argv)
 {
-  const bool testing = true;
-  const unsigned int n_samplers = 2;
-  const unsigned int n_samples_per_chain = (testing ?
-                                            100000
-                                            :
-                                            100000000);
+  if ((argc < 2) || (argc > 2))
+    {
+      std::cout << "Call this program via the following command line:\n"
+                << "     ./sample-flow <input.prm>\n"
+                << "where <input.prm> is the name of an input file."
+                << std::endl;
+      std::exit(1);
+    }
 
-  // Run with one thread, so as to not step on other processes
-  // doing the same at the same time. It turns out that the problem
-  // is also so small that running with more than one thread
-  // *increases* the runtime.
+  unsigned int n_chains = 3;
+  unsigned int n_samples_per_chain = 10000;
+  
+  ParameterHandler prm;
+  prm.add_parameter ("Number of samples per chain", n_samples_per_chain, "",
+                     Patterns::Integer ());
+  prm.add_parameter ("Number of chains", n_chains, "",
+                     Patterns::Integer (3,100));
+  prm.parse_input (argv[1]);
+  
+  std::cout << "Running with " << n_chains << " chains, computing "
+            << n_samples_per_chain << " samples per chain."
+            << std::endl;
+  
+  
+
+  // This benchmark does not use deal.II's TBB-based threading
+  // capabilities to parallelize deal.II-internal functionality. (It
+  // does, however, use threads at a higher level.) So it probably
+  // doesn't matter whether or not we set a thread limit for these
+  // internal operations, but it also doesn't do any harm.
   MultithreadInfo::set_thread_limit(1);
 
-  const unsigned int random_seed  = (testing ? 1U : std::random_device()());
+  const unsigned int random_seed  = 1U;
 
   const Vector<double> exact_solution(
     {   0.06076511762259369, 0.09601910120848481,
@@ -814,13 +872,14 @@ int main()
     el = 1.;
 
   // Next declare the sampler and all of the filters and consumers we
-  // need to create to evaluate the solution. Because we have more than
-  // one sampler, it is cumbersome to connect all of these objects to
-  // all of the samplers; rather, create a pass through filter that
-  // is itself connected to all samplers, and that serves as inputs for
-  // all of the downstream objects that then only have to be connected
-  // to a single producer (namely, the pass through filter):
-  using SampleType = Vector<double>;
+  // need to create to evaluate the solution. Because the original
+  // version of the code had more than one sampler, it is cumbersome
+  // to connect all of these objects to all of the samplers; rather,
+  // create a pass through filter that is itself connected to all
+  // samplers, and that serves as inputs for all of the downstream
+  // objects that then only have to be connected to a single producer
+  // (namely, the pass through filter). This is no longer the case for
+  // this version of the code, but we'll keep the structure.
   SampleFlow::Producers::DifferentialEvaluationMetropolisHastings<SampleType> sampler;
   
   SampleFlow::Filters::PassThrough<SampleType> pass_through;
@@ -889,7 +948,7 @@ int main()
                                                                                    0, 100, 300);
   pair_histogram_53_54.connect_to_producer (pair_splitter_53_54);
 
-  std::ofstream running_mean_error_output ("running_mean_error.txt");
+  std::ostringstream running_mean_error_output;
   auto compute_running_mean_error
     = [&](SampleType, SampleFlow::AuxiliaryData)
     {
@@ -983,9 +1042,30 @@ int main()
   running_mean_error.connect_to_producer (every_1000th);
 
   
+  auto print_periodic_output
+    = [&](SampleType, SampleFlow::AuxiliaryData)
+    {
+          static unsigned int nth_sample = 1000;
+          std::cout << "Sample number " << nth_sample << std::endl;
+          nth_sample += 1000;
+    };
+  SampleFlow::Consumers::Action<SampleType> periodic_output (print_periodic_output);
+  periodic_output.connect_to_producer (every_1000th);
+
+
+  // Downscale the 64-dimensional vector to one that has only 4
+  // components. This improves numerical stability. We do the
+  // downsampling by assigning each of the 64=8x8 parameters to one of
+  // the four quadrants of the domain.
+  SampleFlow::Filters::Conversion<SampleType,SampleType> downscaling (&Filters::downscaler);
+  downscaling.connect_to_producer (sampler);
+  
+  SampleFlow::Consumers::MeanValue<SampleType> mean_value_4;
+  mean_value_4.connect_to_producer (downscaling);
+  
   // Finally, create the samples:
   std::mt19937 random_number_generator(random_seed);
-  sampler.sample(std::vector<SampleType>(n_samplers, starting_coefficients),
+  sampler.sample(std::vector<SampleType>(n_chains, starting_coefficients),
                  /* log_likelihood = */
                  [&](const SampleType &x) {
                    for (const auto &v : x)
@@ -1016,15 +1096,20 @@ int main()
                    return {result,1.};
                  },
                  /* crossover_gap = */ n_samples_per_chain,
-                 /* n_samples = */ n_samples_per_chain * n_samplers,
+                 /* n_samples = */ n_samples_per_chain * n_chains,
                  /* asynchronous_likelihood_execution = */ true,
                  random_seed);
 
   // Then output some statistics
-  std::cout << "Mean value = ";
-  for (const auto v : mean_value.get())
+  std::cout << "Mean value of the 4-parameter downscaling:\n    ";
+  for (const auto v : mean_value_4.get())
     std::cout << v << ' ';
   std::cout << std::endl;
 
+  std::cout << "Comparison mean value of the downscaled 64-parameter mean:\n    ";
+  for (const auto v : Filters::downscaler(mean_value.get()))
+    std::cout << v << ' ';
+  std::cout << std::endl;
+  
   std::cout << "Number of samples = " << sample_count.get() << std::endl;
 }

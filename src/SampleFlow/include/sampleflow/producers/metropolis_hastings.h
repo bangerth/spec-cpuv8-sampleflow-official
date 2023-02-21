@@ -266,7 +266,7 @@ namespace SampleFlow
      * {
      *   static std::mt19937 rng;
      *   const double delta = 0.1;
-     *   std::uniform_real_distribution<double> distribution(-delta,delta);
+     *   SampleFlow::random::uniform_real_distribution<double> distribution(-delta,delta);
      *
      *   return {x + distribution(rng), 1.0};
      * }
@@ -383,7 +383,7 @@ namespace SampleFlow
      * {
      *   static std::mt19937 rng;
      *   const double delta = 0.1;
-     *   std::uniform_real_distribution<double> distribution(-delta,delta);
+     *   SampleFlow::random::uniform_real_distribution<double> distribution(-delta,delta);
      *
      *   SampleType y = x;
      *   for (unsigned int i=0; i<x.size(); ++i)
@@ -589,7 +589,7 @@ namespace SampleFlow
       if (random_seed != std::mt19937::result_type {})
         rng.seed (random_seed);
 
-      std::uniform_real_distribution<> uniform_distribution(0,1);
+      SampleFlow::random::uniform_real_distribution<> uniform_distribution(0,1);
 
       OutputType current_sample         = starting_point;
       double     current_log_likelihood = log_likelihood (current_sample);

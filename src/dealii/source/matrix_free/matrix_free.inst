@@ -62,62 +62,6 @@ template class MatrixFree< 1 ,
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
-template class MatrixFree< 1 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >;
-
- template void MatrixFree< 1 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >::
- print_memory_consumption<std::ostream>(std::ostream &) const;
-
- template void MatrixFree< 1 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >::
- print_memory_consumption<ConditionalOStream>(ConditionalOStream &) const;
-
- template void MatrixFree< 1 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >::
- internal_reinit< VectorizedArray<double,2> ::value_type>(
- const std::shared_ptr<hp::MappingCollection< 1 >> &,
- const std::vector<const DoFHandler< 1 > *> &,
- const std::vector<
- const AffineConstraints< VectorizedArray<double,2> ::value_type> *> &,
- const std::vector<IndexSet> &,
- const std::vector<hp::QCollection< 1 >> &,
- const AdditionalData &);
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
-template class MatrixFree< 1 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >;
-
- template void MatrixFree< 1 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
- print_memory_consumption<std::ostream>(std::ostream &) const;
-
- template void MatrixFree< 1 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
- print_memory_consumption<ConditionalOStream>(ConditionalOStream &) const;
-
- template void MatrixFree< 1 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
- internal_reinit< VectorizedArray<float,4> ::value_type>(
- const std::shared_ptr<hp::MappingCollection< 1 >> &,
- const std::vector<const DoFHandler< 1 > *> &,
- const std::vector<
- const AffineConstraints< VectorizedArray<float,4> ::value_type> *> &,
- const std::vector<IndexSet> &,
- const std::vector<hp::QCollection< 1 >> &,
- const AdditionalData &);
- 
-#endif
 #if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
 template class MatrixFree< 2 ,
   VectorizedArray<double,1> ::value_type,
@@ -169,62 +113,6 @@ template class MatrixFree< 2 ,
  const std::vector<const DoFHandler< 2 > *> &,
  const std::vector<
  const AffineConstraints< VectorizedArray<float,1> ::value_type> *> &,
- const std::vector<IndexSet> &,
- const std::vector<hp::QCollection< 2 >> &,
- const AdditionalData &);
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
-template class MatrixFree< 2 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >;
-
- template void MatrixFree< 2 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >::
- print_memory_consumption<std::ostream>(std::ostream &) const;
-
- template void MatrixFree< 2 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >::
- print_memory_consumption<ConditionalOStream>(ConditionalOStream &) const;
-
- template void MatrixFree< 2 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >::
- internal_reinit< VectorizedArray<double,2> ::value_type>(
- const std::shared_ptr<hp::MappingCollection< 2 >> &,
- const std::vector<const DoFHandler< 2 > *> &,
- const std::vector<
- const AffineConstraints< VectorizedArray<double,2> ::value_type> *> &,
- const std::vector<IndexSet> &,
- const std::vector<hp::QCollection< 2 >> &,
- const AdditionalData &);
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
-template class MatrixFree< 2 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >;
-
- template void MatrixFree< 2 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
- print_memory_consumption<std::ostream>(std::ostream &) const;
-
- template void MatrixFree< 2 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
- print_memory_consumption<ConditionalOStream>(ConditionalOStream &) const;
-
- template void MatrixFree< 2 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
- internal_reinit< VectorizedArray<float,4> ::value_type>(
- const std::shared_ptr<hp::MappingCollection< 2 >> &,
- const std::vector<const DoFHandler< 2 > *> &,
- const std::vector<
- const AffineConstraints< VectorizedArray<float,4> ::value_type> *> &,
  const std::vector<IndexSet> &,
  const std::vector<hp::QCollection< 2 >> &,
  const AdditionalData &);
@@ -286,79 +174,10 @@ template class MatrixFree< 3 ,
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
-template class MatrixFree< 3 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >;
-
- template void MatrixFree< 3 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >::
- print_memory_consumption<std::ostream>(std::ostream &) const;
-
- template void MatrixFree< 3 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >::
- print_memory_consumption<ConditionalOStream>(ConditionalOStream &) const;
-
- template void MatrixFree< 3 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >::
- internal_reinit< VectorizedArray<double,2> ::value_type>(
- const std::shared_ptr<hp::MappingCollection< 3 >> &,
- const std::vector<const DoFHandler< 3 > *> &,
- const std::vector<
- const AffineConstraints< VectorizedArray<double,2> ::value_type> *> &,
- const std::vector<IndexSet> &,
- const std::vector<hp::QCollection< 3 >> &,
- const AdditionalData &);
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
-template class MatrixFree< 3 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >;
-
- template void MatrixFree< 3 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
- print_memory_consumption<std::ostream>(std::ostream &) const;
-
- template void MatrixFree< 3 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
- print_memory_consumption<ConditionalOStream>(ConditionalOStream &) const;
-
- template void MatrixFree< 3 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
- internal_reinit< VectorizedArray<float,4> ::value_type>(
- const std::shared_ptr<hp::MappingCollection< 3 >> &,
- const std::vector<const DoFHandler< 3 > *> &,
- const std::vector<
- const AffineConstraints< VectorizedArray<float,4> ::value_type> *> &,
- const std::vector<IndexSet> &,
- const std::vector<hp::QCollection< 3 >> &,
- const AdditionalData &);
- 
-#endif
 #if 1 && (SPLIT_INSTANTIATIONS_CHECK(12))
 template void MatrixFree< 1 ,
   VectorizedArray<float,1> ::value_type,
   VectorizedArray<float,1> >::
- internal_reinit<double>(
- const std::shared_ptr<hp::MappingCollection< 1 >> &,
- const std::vector<const DoFHandler< 1 > *> &,
- const std::vector<const AffineConstraints<double> *> &,
- const std::vector<IndexSet> &,
- const std::vector<hp::QCollection< 1 >> &,
- const AdditionalData &);
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(13))
-template void MatrixFree< 1 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
  internal_reinit<double>(
  const std::shared_ptr<hp::MappingCollection< 1 >> &,
  const std::vector<const DoFHandler< 1 > *> &,
@@ -381,36 +200,10 @@ template void MatrixFree< 2 ,
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(15))
-template void MatrixFree< 2 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
- internal_reinit<double>(
- const std::shared_ptr<hp::MappingCollection< 2 >> &,
- const std::vector<const DoFHandler< 2 > *> &,
- const std::vector<const AffineConstraints<double> *> &,
- const std::vector<IndexSet> &,
- const std::vector<hp::QCollection< 2 >> &,
- const AdditionalData &);
- 
-#endif
 #if 1 && (SPLIT_INSTANTIATIONS_CHECK(16))
 template void MatrixFree< 3 ,
   VectorizedArray<float,1> ::value_type,
   VectorizedArray<float,1> >::
- internal_reinit<double>(
- const std::shared_ptr<hp::MappingCollection< 3 >> &,
- const std::vector<const DoFHandler< 3 > *> &,
- const std::vector<const AffineConstraints<double> *> &,
- const std::vector<IndexSet> &,
- const std::vector<hp::QCollection< 3 >> &,
- const AdditionalData &);
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(17))
-template void MatrixFree< 3 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
  internal_reinit<double>(
  const std::shared_ptr<hp::MappingCollection< 3 >> &,
  const std::vector<const DoFHandler< 3 > *> &,
@@ -440,26 +233,6 @@ template void MatrixFree< 3 ,
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(20))
-#if  1  <=  1 
- template bool MatrixFree< 1 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >::
- is_supported(
- const FiniteElement< 1 ,  1 > &);
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(21))
-#if  1  <=  1 
- template bool MatrixFree< 1 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
- is_supported(
- const FiniteElement< 1 ,  1 > &);
-#endif
- 
-#endif
 #if 1 && (SPLIT_INSTANTIATIONS_CHECK(22))
 #if  1  <=  2 
  template bool MatrixFree< 1 ,
@@ -475,26 +248,6 @@ template void MatrixFree< 3 ,
  template bool MatrixFree< 1 ,
   VectorizedArray<float,1> ::value_type,
   VectorizedArray<float,1> >::
- is_supported(
- const FiniteElement< 1 ,  2 > &);
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(24))
-#if  1  <=  2 
- template bool MatrixFree< 1 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >::
- is_supported(
- const FiniteElement< 1 ,  2 > &);
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(25))
-#if  1  <=  2 
- template bool MatrixFree< 1 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
  is_supported(
  const FiniteElement< 1 ,  2 > &);
 #endif
@@ -520,26 +273,6 @@ template void MatrixFree< 3 ,
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(28))
-#if  1  <=  3 
- template bool MatrixFree< 1 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >::
- is_supported(
- const FiniteElement< 1 ,  3 > &);
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(29))
-#if  1  <=  3 
- template bool MatrixFree< 1 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
- is_supported(
- const FiniteElement< 1 ,  3 > &);
-#endif
- 
-#endif
 #if 1 && (SPLIT_INSTANTIATIONS_CHECK(30))
 #if  2  <=  1 
  template bool MatrixFree< 2 ,
@@ -555,26 +288,6 @@ template void MatrixFree< 3 ,
  template bool MatrixFree< 2 ,
   VectorizedArray<float,1> ::value_type,
   VectorizedArray<float,1> >::
- is_supported(
- const FiniteElement< 2 ,  1 > &);
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(32))
-#if  2  <=  1 
- template bool MatrixFree< 2 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >::
- is_supported(
- const FiniteElement< 2 ,  1 > &);
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(33))
-#if  2  <=  1 
- template bool MatrixFree< 2 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
  is_supported(
  const FiniteElement< 2 ,  1 > &);
 #endif
@@ -600,26 +313,6 @@ template void MatrixFree< 3 ,
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(36))
-#if  2  <=  2 
- template bool MatrixFree< 2 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >::
- is_supported(
- const FiniteElement< 2 ,  2 > &);
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(37))
-#if  2  <=  2 
- template bool MatrixFree< 2 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
- is_supported(
- const FiniteElement< 2 ,  2 > &);
-#endif
- 
-#endif
 #if 1 && (SPLIT_INSTANTIATIONS_CHECK(38))
 #if  2  <=  3 
  template bool MatrixFree< 2 ,
@@ -635,26 +328,6 @@ template void MatrixFree< 3 ,
  template bool MatrixFree< 2 ,
   VectorizedArray<float,1> ::value_type,
   VectorizedArray<float,1> >::
- is_supported(
- const FiniteElement< 2 ,  3 > &);
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(40))
-#if  2  <=  3 
- template bool MatrixFree< 2 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >::
- is_supported(
- const FiniteElement< 2 ,  3 > &);
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(41))
-#if  2  <=  3 
- template bool MatrixFree< 2 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
  is_supported(
  const FiniteElement< 2 ,  3 > &);
 #endif
@@ -680,26 +353,6 @@ template void MatrixFree< 3 ,
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(44))
-#if  3  <=  1 
- template bool MatrixFree< 3 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >::
- is_supported(
- const FiniteElement< 3 ,  1 > &);
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(45))
-#if  3  <=  1 
- template bool MatrixFree< 3 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
- is_supported(
- const FiniteElement< 3 ,  1 > &);
-#endif
- 
-#endif
 #if 1 && (SPLIT_INSTANTIATIONS_CHECK(46))
 #if  3  <=  2 
  template bool MatrixFree< 3 ,
@@ -715,26 +368,6 @@ template void MatrixFree< 3 ,
  template bool MatrixFree< 3 ,
   VectorizedArray<float,1> ::value_type,
   VectorizedArray<float,1> >::
- is_supported(
- const FiniteElement< 3 ,  2 > &);
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(48))
-#if  3  <=  2 
- template bool MatrixFree< 3 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >::
- is_supported(
- const FiniteElement< 3 ,  2 > &);
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(49))
-#if  3  <=  2 
- template bool MatrixFree< 3 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
  is_supported(
  const FiniteElement< 3 ,  2 > &);
 #endif
@@ -760,25 +393,4 @@ template void MatrixFree< 3 ,
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(52))
-#if  3  <=  3 
- template bool MatrixFree< 3 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >::
- is_supported(
- const FiniteElement< 3 ,  3 > &);
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(53))
-#if  3  <=  3 
- template bool MatrixFree< 3 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >::
- is_supported(
- const FiniteElement< 3 ,  3 > &);
-#endif
- 
-#endif
-
 #undef SPLIT_INSTANTIATIONS_CHECK

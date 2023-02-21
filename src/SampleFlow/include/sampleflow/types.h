@@ -20,6 +20,7 @@
 #include <complex>
 
 #include <sampleflow/element_access.h>
+#include <sampleflow/random.h>
 
 
 namespace SampleFlow

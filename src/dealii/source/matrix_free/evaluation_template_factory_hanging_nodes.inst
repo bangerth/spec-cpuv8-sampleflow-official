@@ -20,20 +20,6 @@ template struct dealii::internal::FEEvaluationHangingNodesFactory<
   VectorizedArray<float,1> >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
-template struct dealii::internal::FEEvaluationHangingNodesFactory<
-  1 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >;
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
-template struct dealii::internal::FEEvaluationHangingNodesFactory<
-  1 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >;
- 
-#endif
 #if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
 template struct dealii::internal::FEEvaluationHangingNodesFactory<
   2 ,
@@ -48,20 +34,6 @@ template struct dealii::internal::FEEvaluationHangingNodesFactory<
   VectorizedArray<float,1> >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
-template struct dealii::internal::FEEvaluationHangingNodesFactory<
-  2 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >;
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
-template struct dealii::internal::FEEvaluationHangingNodesFactory<
-  2 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >;
- 
-#endif
 #if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
 template struct dealii::internal::FEEvaluationHangingNodesFactory<
   3 ,
@@ -74,20 +46,6 @@ template struct dealii::internal::FEEvaluationHangingNodesFactory<
   3 ,
   VectorizedArray<float,1> ::value_type,
   VectorizedArray<float,1> >;
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
-template struct dealii::internal::FEEvaluationHangingNodesFactory<
-  3 ,
-  VectorizedArray<double,2> ::value_type,
-  VectorizedArray<double,2> >;
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
-template struct dealii::internal::FEEvaluationHangingNodesFactory<
-  3 ,
-  VectorizedArray<float,4> ::value_type,
-  VectorizedArray<float,4> >;
  
 #endif
 

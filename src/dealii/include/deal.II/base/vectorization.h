@@ -59,19 +59,21 @@
       "Mismatch in vectorization capabilities: AVX-512F was detected during configuration of deal.II and switched on, but it is apparently not available for the file you are trying to compile at the moment. Check compilation flags controlling the instruction set, such as -march=native."
 #  endif
 
-#  ifdef _MSC_VER
-#    include <intrin.h>
-#  elif defined(__ALTIVEC__)
-#    include <altivec.h>
 
-// altivec.h defines vector, pixel, bool, but we do not use them, so undefine
-// them before they make trouble
-#    undef vector
-#    undef pixel
-#    undef bool
-#  else
-#    include <x86intrin.h>
-#  endif
+// The SPEC benchmark does not use vectorization intrinsics
+// #  ifdef _MSC_VER
+// #    include <intrin.h>
+// #  elif defined(__ALTIVEC__)
+// #    include <altivec.h>
+
+// // altivec.h defines vector, pixel, bool, but we do not use them, so undefine
+// // them before they make trouble
+// #    undef vector
+// #    undef pixel
+// #    undef bool
+// #  else
+// #    include <x86intrin.h>
+// #  endif
 
 #endif
 

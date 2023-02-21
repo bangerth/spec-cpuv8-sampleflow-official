@@ -20,6 +20,7 @@
 #include <sampleflow/producer.h>
 #include <sampleflow/scope_exit.h>
 #include <sampleflow/types.h>
+#include <sampleflow/thread_pool.h>
 
 #include <algorithm>
 #include <future>
@@ -136,11 +137,7 @@ namespace SampleFlow
          *
          * @note When `asynchronous_likelihood_execution` is set to `true`, the
          *   function evaluates the likelihoods for the current sample on all
-         *   chains in parallel by calling `std::async` with `std::launch::async`
-         *   as first argument. This may mean that the function evaluations are
-         *   run on separate threads; you may therefore want to limit the number
-         *   of chains to at most a small multiple of the number of processor
-         *   cores available on the machine.
+         *   chains in parallel, using a thread pool.
          */
         void
         sample (const std::vector<OutputType> &starting_points,
@@ -180,7 +177,7 @@ namespace SampleFlow
         rng.seed (random_seed);
 
       // Initialize distribution for comparing to acceptance ratio
-      std::uniform_real_distribution<> uniform_distribution(0,1);
+      SampleFlow::random::uniform_real_distribution<> uniform_distribution(0,1);
 
       std::vector<OutputType> current_samples = starting_points;
       std::vector<double> current_log_likelihoods(n_chains);
@@ -190,6 +187,8 @@ namespace SampleFlow
       // Include another array to store new values so that all crossovers
       // can be performed with the previous set of samples
       std::vector<OutputType> next_samples = starting_points;
+
+      ThreadPool thread_pool;
 
       // Loop over the desired number of samples, using an outer loop over
       // "generations" and an inner loop over the individual chains. We
@@ -223,7 +222,7 @@ namespace SampleFlow
                   (generation > 0))
                 {
                   // Pick one of the other chains from which we want to draw from:
-                  std::uniform_int_distribution<typename std::vector<OutputType>::size_type>
+                  SampleFlow::random::uniform_int_distribution<typename std::vector<OutputType>::size_type>
                   a_dist(0, n_chains - 2);
 
                   typename std::vector<OutputType>::size_type a = a_dist(rng);
@@ -232,7 +231,7 @@ namespace SampleFlow
                   const OutputType trial_a = current_samples[a];
 
                   // Then the other chain to draw from:
-                  std::uniform_int_distribution<typename std::vector<OutputType>::size_type>
+                  SampleFlow::random::uniform_int_distribution<typename std::vector<OutputType>::size_type>
                   b_dist(0, n_chains - 3);
 
                   typename std::vector<OutputType>::size_type b = b_dist(rng);
@@ -253,7 +252,7 @@ namespace SampleFlow
               // Now that we have a trial sample, we need to evaluate the likelihood
               // on it. We can do this sequentially or in parallel, and for this, we
               // enclose everything into a lambda function that we can then execute
-              // either right away, or via a std::async. The only thing we need to pay
+              // either right away, or via a thread pool. The only thing we need to pay
               // attention to is that we create random numbers in a fixed order.
               // We do this by evaluating the random number generator upon creating
               // the lambda function.
@@ -294,7 +293,14 @@ namespace SampleFlow
               // create a packaged task that we can ask for a future, then
               // just execute the task synchronously.
               if (asynchronous_likelihood_execution)
-                chain_evaluation_results.emplace_back (std::async(std::launch::async, task));
+                {
+                  std::shared_ptr<std::packaged_task<bool()>> t
+                    = std::make_shared<std::packaged_task<bool()>>(task);
+                  chain_evaluation_results.emplace_back (t->get_future());
+
+                  auto f = [tt = std::move(t) ]() { (*tt)(); };
+                  thread_pool.enqueue_task (f);
+                }
               else
                 {
                   std::packaged_task<bool()> t(task);
@@ -303,6 +309,10 @@ namespace SampleFlow
                 }
             }
 
+          // Wait for all of the tasks to finish:
+          thread_pool.join_all();
+
+
           // We have either executed the log likelihood function for
           // all chains right away, or at least set up the asynchronous
           // execution. Now it is time to let the cows come in for
@@ -310,14 +320,20 @@ namespace SampleFlow
           //
           // In the following, we are in essence only issuing the new
           // samples. We could have done that in the lambda function
-          // above, but that would have issued samples in unpredictable
-          // orders. Doing this relatively cheap step here sequentially
-          // guarantees a stable order.
+          // above, but that would have issued samples in
+          // unpredictable orders. That is in general not ok, but for
+          // the purposes of this SPEC benchmark, that works, so put
+          // things back into the same kind of queue that we already
+          // used above.
           for (typename std::vector<OutputType>::size_type chain = 0; chain < n_chains; ++chain)
             {
-              // Return if we have already generated the desired number of
-              // samples. The ScopeExit object above also makes sure that
-              // we flush the downstream consumers.
+              // Return if we have already generated the desired
+              // number of samples. The ScopeExit object above also
+              // makes sure that we flush the downstream consumers. We
+              // do have to wait for the thread pool to be done,
+              // though, and that happens in the destructor of the
+              // thread_pool variable that is executed in the 'return'
+              // statement.
               if (generation * n_chains + chain >= n_samples)
                 return;
 
@@ -325,13 +341,22 @@ namespace SampleFlow
               // (which may of course be equal to the old sample).
               assert (chain < chain_evaluation_results.size());
               const bool accepted_sample = chain_evaluation_results[chain].get();
-              this->issue_sample (next_samples[chain],
-              {
-                {"relative log likelihood", boost::any(current_log_likelihoods[chain])},
-                {"sample is repeated", boost::any(!accepted_sample)},
-                {"chain number", boost::any(std::size_t(chain))}
-              });
+
+              auto task =
+                [&,this,chain,accepted_sample]()
+                  {
+                    this->issue_sample (next_samples[chain],
+                                        {
+                                              {"relative log likelihood", boost::any(current_log_likelihoods[chain])},
+                                              {"sample is repeated", boost::any(!accepted_sample)},
+                                              {"chain number", boost::any(std::size_t(chain))}
+                                        });
+                  };
+              thread_pool.enqueue_task (std::move(task));
             }
+
+          // Again wait for all of the tasks to finish:
+          thread_pool.join_all();
 
           current_samples = next_samples;
         }
