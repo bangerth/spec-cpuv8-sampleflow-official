@@ -436,12 +436,14 @@ $bench_flags  = '-Idealii/include -Idealii/bundled/boost-1.70.0/include -ISample
 sub invoke {
     my ($me) = @_;
     my @rc;
-    my $exe_full_name = $me->exe_file; # including tune, label
+    my $exe_full_name = $me->exe_file;    # including tune, label
+    my $exe_short_name = $exename;
+    $exe_short_name =~ s/_[rs]$//;        # chop off trailing _r or _s
     push @rc, {
         'command' => $exe_full_name,
         'args'    => [ $me->size() . ".prm" ],
-        'output'  => "$exename.out",
-        'error'   => "$exename.err",
+        'output'  => "$exe_short_name.out",
+        'error'   => "$exe_short_name.err",
     };
 return @rc;
 }
