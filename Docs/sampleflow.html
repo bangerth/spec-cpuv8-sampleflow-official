@@ -13,6 +13,7 @@ li {margin-top:.2em;}
       <div style="text-align: center">
          <h1>747.sampleflow_r<br>
             SPEC CPU&reg;v8 Benchmark Description</h1>
+
       </div>
 
       <h3>Benchmark Name</h3>
@@ -22,51 +23,93 @@ li {margin-top:.2em;}
 
       <h3 id="authors">Benchmark Authors</h3>
 
-      <p>First Last &lt;mumble[at]mumble.org&gt; </p>
+      <p>Wolfgang Bangerth &lt;bangerth at gmail dot com&gt;, Colorado State University.</p>
+
+      <p>The benchmark contains the deal.II library in a simplified version, primarily stripping out all external
+      dependencies. Many people have contributed over the past 25 years to deal.II, see its list of 
+      <a href="https://dealii.org/authors.html" class="external">authors</a>.
+
+      <p>The benchmark also contains the SampleFlow library; the list of
+      authors for SampleFlow can be found at 
+      <a href="https://github.com/bangerth/SampleFlow/graphs/contributors">
+         https://github.com/bangerth/SampleFlow/graphs/contributors</a>.
+
+      <p>Finally, deal.II contains a stripped-down version of
+      <a href="https://www.boost.org/" class="external">BOOST</a>.</p>
 
 
       <h3 id="category">Benchmark Program General Category</h3>
 
-      <p>A one liner similar to those at
-      <a href="https://www.spec.org/cpu2017/Docs/#benchmarks">
-      https://www.spec.org/cpu2017/Docs/#benchmarks
-      </a>
-      </p>
+      <p>Monte Carlo sampling for an inverse problem involving partial differential equations.</p>
 
 
       <h3 id="description">Benchmark Description</h3>
 
-      <p>Some info </p>
+         <p>747.sampleflow is a benchmark for the SPEC CPUv8 test suite that is based on the deal.II and SampleFlow
+         libraries, see <a href="https://www.dealii.org" class="external">https://www.dealii.org</a> and 
+         <a href="https://github.com/bangerth/sampleFlow/" class="external">https://github.com/bangerth/sampleFlow/</a>.  The
+         deal.II library has previously already served as the basis for 
+         <a href="https://www.spec.org/cpu2006/Docs/447.dealII.html" class="external">447.dealIIi</a> in SPEC CPU 2006 and 
+         <a href="https://www.spec.org/cpu2017/Docs/benchmarks/510.parest_r.html" class="external">510.parest_r</a> in SPEC
+         CPU 2017.</p>
 
-      <p>Some more info </p>
+         <p>The current benchmark is an implementation of a testcase that uses a Monte Carlo sampling method to gain
+         information about a probability distribution p(x). The definition of the function p(x) involves the solution of a
+         partial differential equation using the finite element method. The overall problem this benchmark solves is
+         concisely defined in <a href="https://arxiv.org/abs/2102.07263" class="external">this preprint</a> (which has been
+         accepted for publication in SIAM Review); it is intended as a problem that is simple enough to solve yet complicated
+         enough that one needs sophisticated algorithms to get answers with sufficient accuracy. For example, the "ground
+         truth" answers provided in the preprint above were obtained using some 30 CPU years of computations. More
+         sophisticated algorithms than those used in the preprint should be able to obtain the same accuracy with far less
+         effort, but generally the accuracy one gets is inversely proportional to (the square root of) the computational
+         effort and the very large effort made for the results in the paper reflects a desire to have published results with
+         as much accuracy as possible.</p>
 
+         <p>This benchmark implements a sampling algorithm for p(x) that is based on a variation of the Differential
+         Evaluation algorithm, which is a parallel version of the 
+         <a href="https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm" class="external">Metropolis-Hastings
+            algorithm</a> In it, a number _N_ of chains are running in parallel, occasionally exchanging information. In the
+         version used for this benchmark, _N_ is a parameter that is set in the input file. The resulting algorithm is then
+         of the fork-join type: At the beginning of each iteration, _N_ work items are created to generate a new sample on
+         each of these chains, and these items can be worked on independently; once done, we start another parallel phase
+         where the samples are post-processed.</p> 
+         
+         <p>The fork-join approach of this benchmark is implemented using a simple C++ std::thread pool that maps tasks on
+         available worker threads. It creates as many worker threads as directed by the SPEC CPU toolset, or, in the absence
+         of such direction, then as many as <samp>std::thread::hardward_concurrency()</samp> states the machine can
+         provide.</p>
 
       <h3 id="input">Input Description</h3>
 
-      <p>Describe the inputs, including how users could create their own.  </p>
-
-      <p>If there are debugging options, please describe them.  </p>
-
-      <p>If there is a user guide, add it to the <samp>747.sampleflow_r/Docs/</samp> directory, and say so here.  </p>
-
+      <p>The input files contain two lines, which set the number of samples per chain and the number of chains.  
 
       <h3 id="output">Output Description</h3>
 
-      <p>Describe how to interpret the output.</p>
+      <p>Monte Carlo methods are often difficult to make bit-by-bit reproducible on different platforms because they depend
+      on randomness. The benchmark addresses this in three ways: (i) it ensures that *what* is computed is independent of the
+      choice of random numbers and round-off, ensuring the exact same load, (ii) it computes statistics that are relatively
+      insensitive to round-off as output quantities to ensure correctness of benchmark runs, (iii) in all places where
+      numbers subject to round-off are compared, it first casts to lower-precision data types to avoid the vast majority of
+      round-off errors from making a difference. </p>
 
-      <p>If there is optional output, describe that, and say how to obtain it.</p>
+      <p>The output reports the "Mean value of the 4-parameter downscaling" and the 
+      "Comparison mean value of the downscaled 64-parameter mean".  </p>
+
+      <p>XXX describe what these mean</p>
 
 
       <h3 id="language">Programming Language</h3>
 
-      <p> Babbage Difference Engine Ada <!-- Yes this is a test to see if you have touched this file.  If you found this
-      comment you might be the kind of person who would enjoy
-      https://en.wikipedia.org/wiki/The_Thrilling_Adventures_of_Lovelace_and_Babbage
-      --> </p>
+      <p>C++</p>
 
       <h3 id="threads">Threading Model</h3>
 
-      <p>The SPECrate version is single-threaded.  The SPECspeed version uses insert description here.</p>
+         <p>For the SPECspeed version of this benchmark, the fork-join approach is implemented using a simple C++ std::thread
+         pool that maps tasks on available worker threads. It creates as many worker threads as directed by the SPEC CPU
+         toolset, or, in the absence of such direction, then as many as <samp>std::thread::hardward_concurrency()</samp>
+         states the machine can provide.</p>
+
+         <p>The SPECrate version maps all work to a single thread.</p>
 
       <h3 id="portability">Known Portability Issues</h3>
 
@@ -75,14 +118,14 @@ li {margin-top:.2em;}
 
       <h3 id="license">Sources and Licensing</h3>
 
-      <p>In this section, identify Program by its original name (example: POV-Ray, not 511.povray_r).</p>
+      <p>SampleFlow is licensed under the GNU LGPL 2.1.</p>
 
-      <p>If there are several components, repeat the next two paragraphs as often as needed,
-      or create a table similar to the one at
-      <a href="https://www.spec.org/cpu2017/Docs/licenses.html#bmk526.blender_r">
-      https://www.spec.org/cpu2017/Docs/licenses.html#bmk526.blender_r
-      </a>
-      </p>
+      <p>deal.II is licensed under the GNU LGPL 2.1 or later.</p>
+
+      <p>BOOST is licensed under the 
+      <a href="https://www.boost.org/users/license.html" class="external">
+         BOOST Software License</a></p>
+
 
       <p>If Program is available at a public location, provide a reference to the exact version of Program that SPEC started
       from.  (example: 706.stockfish_r was branched from
@@ -90,12 +133,8 @@ li {margin-top:.2em;}
       616eb60008308f686930c0c94116aab170398dc1).  If the source is not posted to the public, then say something like "Program
       was contributed directly to SPEC by author name".
 
-      <p>Program is licensed to SPEC under: Be specific.  Be detailed.  You are attempting to generate the level of detail
-      found at
-      <a href="https://www.spec.org/cpu2017/Docs/licenses.html#benchmarks">
-      https://www.spec.org/cpu2017/Docs/licenses.html#benchmarks
-      </a>
-      </p>
+      <p>XXX what do we want to say here?   Do we want to mention https://github.com/bangerth/spec-cpuv8-sampleflow?</p>
+
 
 
       <h3 id="references">References</h3>
