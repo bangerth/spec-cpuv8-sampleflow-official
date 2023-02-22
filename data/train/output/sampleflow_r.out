@@ -1,1 +1,30 @@
-sampleflow_r has no train workload yet
+Running with 8 chains, computing 3000 samples per chain.
+Sample number 1000
+Sample number 2000
+Sample number 3000
+Sample number 4000
+Sample number 5000
+Sample number 6000
+Sample number 7000
+Sample number 8000
+Sample number 9000
+Sample number 10000
+Sample number 11000
+Sample number 12000
+Sample number 13000
+Sample number 14000
+Sample number 15000
+Sample number 16000
+Sample number 17000
+Sample number 18000
+Sample number 19000
+Sample number 20000
+Sample number 21000
+Sample number 22000
+Sample number 23000
+Sample number 24000
+Mean value of the 4-parameter downscaling:
+    1.33021 1.97301 1.67588 3.33036 
+Comparison mean value of the downscaled 64-parameter mean:
+    1.33021 1.97301 1.67588 3.33036 
+Number of samples = 24000

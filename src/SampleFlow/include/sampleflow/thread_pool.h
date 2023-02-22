@@ -95,8 +95,8 @@ namespace SampleFlow
     // all.
     if (concurrency >= 2)
       {
-        std::cout << "Starting thread pool with "
-                  << concurrency << " threads." << std::endl;
+        //SPEC Do not print because output is validated std::cout << "Starting thread pool with "
+        //SPECC          << concurrency << " threads." << std::endl;
     
         worker_threads.reserve (concurrency);
         for (unsigned int t=0; t<concurrency; ++t)
@@ -104,7 +104,7 @@ namespace SampleFlow
       }
     else
       {
-        std::cout << "Running sequentially without a thread pool." << std::endl;
+        //SPEC Do not print because output is validated std::cout << "Running sequentially without a thread pool." << std::endl;
       }  
   }
   
