@@ -49,6 +49,10 @@
 #include <thread>
 #include <memory>
 
+#if defined(SPEC)
+double spec_exp10(double x) {return pow(10,x);}
+#endif
+
 #include <deal.II/base/logstream.h>
 
 #include <sampleflow/producers/differential_evaluation_mh.h>
@@ -914,7 +918,11 @@ int main(int argc, char **argv)
       component_splitters.emplace_back (c);
       component_splitters.back().connect_to_producer (pass_through);
 
-      histograms.emplace_back(-3, 3, 1000, &exp10);
+#if defined(SPEC)
+      histograms.emplace_back(-3,3,1000,&spec_exp10);
+#else    
+      histograms.emplace_back(-3,3,1000,&exp10);
+#endif      
       histograms.back().connect_to_producer (component_splitters[c]);
     }
 
