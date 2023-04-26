@@ -105,7 +105,7 @@
 /* #undef DEAL_II_HAVE_GLIBC_STACKTRACE */
 /* #undef DEAL_II_HAVE_LIBSTDCXX_DEMANGLER */
 /* #undef __PRETTY_FUNCTION__ */
-#define DEAL_II_ALWAYS_INLINE __attribute__((always_inline))
+#define DEAL_II_ALWAYS_INLINE
 #define DEAL_II_RESTRICT __restrict
 #define DEAL_II_COMPILER_HAS_DIAGNOSTIC_PRAGMA
 
