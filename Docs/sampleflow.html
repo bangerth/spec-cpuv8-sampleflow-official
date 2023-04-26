@@ -85,17 +85,36 @@ li {margin-top:.2em;}
 
       <h3 id="output">Output Description</h3>
 
-      <p>Monte Carlo methods are often difficult to make bit-by-bit reproducible on different platforms because they depend
-      on randomness. The benchmark addresses this in three ways: (i) it ensures that *what* is computed is independent of the
-      choice of random numbers and round-off, ensuring the exact same load, (ii) it computes statistics that are relatively
-      insensitive to round-off as output quantities to ensure correctness of benchmark runs, (iii) in all places where
-      numbers subject to round-off are compared, it first casts to lower-precision data types to avoid the vast majority of
-      round-off errors from making a difference. </p>
+      <p>The benchmark internally creates a "chain" of samples, i.e., a long sequence of 64-dimensional vectors that have are
+      samples from a specific statistical distribution (in the same way as coin flips are samples from a binomial
+      distribution heads/tails). From these samples, the program then computes statistics such as the mean value of the
+      samples, and these are output.</p>
 
-      <p>The output reports the "Mean value of the 4-parameter downscaling" and the 
-      "Comparison mean value of the downscaled 64-parameter mean".  </p>
+      <p>The way the samples are computed is via a Monte Carlo method. Monte Carlo methods are often difficult to make
+      bit-by-bit reproducible on different platforms because they depend on randomness. The benchmark addresses this in three
+      ways: (i) it ensures that *what* is computed is independent of the choice of random numbers and round-off, ensuring the
+      exact same load, (ii) it computes statistics that are relatively insensitive to round-off as output quantities to
+      ensure correctness of benchmark runs, (iii) in all places where numbers subject to round-off are compared, it first
+      casts to lower-precision data types to avoid the vast majority of round-off errors from making a difference.</p>
 
-      <p>XXX describe what these mean</p>
+      <p>The specific statistics that are computed by the program are not directly on the 64-dimensional vectors that are
+      internally computed. Rather, the program "pools" the elements of each 64-dimensional vector by adding 16 elements each
+      into one number, resulting in one 4-dimensional vector per sample, in order to improve the numerical stability of the
+      computation. It then computes the average of these 4-dimensional vectors and outputs this as the "Mean value of the
+      4-parameter downscaling" (which is of course also a 4-dimensional vector). The program also computes this quantity by
+      first computing the mean of all of the 64-dimensional vectors, and then applying the 16-component summation; this needs
+      to result in the same outcome as before and is reported as "Comparison mean value of the downscaled 64-parameter
+      mean".</p>
+
+      <p>The output will then look similar to:</p>
+      <pre>
+      Mean value of the 4-parameter downscaling:
+      0.836776 1.13711 1.18733 1.35706
+      Comparison mean value of the downscaled 64-parameter mean:
+      0.836776 1.13711 1.18733 1.35706
+      Number of samples = 900
+      </pre>
+
 
 
       <h3 id="language">Programming Language</h3>
