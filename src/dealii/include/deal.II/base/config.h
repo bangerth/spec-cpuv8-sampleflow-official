@@ -188,10 +188,10 @@
  * For documentation see cmake/checks/check_02_system_features.cmake
  */
 
-#define DEAL_II_HAVE_SYS_RESOURCE_H
-#define DEAL_II_HAVE_UNISTD_H
-#define DEAL_II_HAVE_GETHOSTNAME
-#define DEAL_II_HAVE_GETPID
+/* #define DEAL_II_HAVE_SYS_RESOURCE_H */
+/* #define DEAL_II_HAVE_UNISTD_H */
+/* #define DEAL_II_HAVE_GETHOSTNAME */
+/* #define DEAL_II_HAVE_GETPID */
 /* #undef DEAL_II_HAVE_JN */
 
 /* #undef DEAL_II_MSVC */
