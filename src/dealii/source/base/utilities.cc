@@ -1046,7 +1046,7 @@ namespace Utilities
     void
     posix_memalign(void **memptr, std::size_t alignment, std::size_t size)
     {
-#ifndef DEAL_II_MSVC
+#if !defined(DEAL_II_MSVC) && !defined(SPEC_WINDOWS)
       const int ierr = ::posix_memalign(memptr, alignment, size);
 
       AssertThrow(ierr == 0, ExcOutOfMemory(size));
