@@ -88,7 +88,7 @@ namespace SampleFlow
 
     // Start all of the worker threads. If we are allowed concurrency
     // (i.e., if concurrency>=2), then start as many threads as there
-    // are cores on the machine. Note that hardward_concurrency() is
+    // are cores on the machine. Note that hardware_concurrency() is
     // documented as possibly returning zero if the system does not
     // have the capability to say how many cores it actually might
     // have. In that case, we just bail and not start any threads at

@@ -76,7 +76,7 @@ li {margin-top:.2em;}
          
          <p>The fork-join approach of this benchmark is implemented using a simple C++ std::thread pool that maps tasks on
          available worker threads. It creates as many worker threads as directed by the SPEC CPU toolset, or, in the absence
-         of such direction, then as many as <samp>std::thread::hardward_concurrency()</samp> states the machine can
+         of such direction, then as many as <samp>std::thread::hardware_concurrency()</samp> states the machine can
          provide.</p>
 
       <h3 id="input">Input Description</h3>
@@ -125,7 +125,7 @@ li {margin-top:.2em;}
 
          <p>For the SPECspeed version of this benchmark, the fork-join approach is implemented using a simple C++ std::thread
          pool that maps tasks on available worker threads. It creates as many worker threads as directed by the SPEC CPU
-         toolset, or, in the absence of such direction, then as many as <samp>std::thread::hardward_concurrency()</samp>
+         toolset, or, in the absence of such direction, then as many as <samp>std::thread::hardware_concurrency()</samp>
          states the machine can provide.</p>
 
          <p>The SPECrate version maps all work to a single thread.</p>
