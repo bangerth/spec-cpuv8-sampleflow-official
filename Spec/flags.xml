@@ -30,4 +30,9 @@ You can't make reportable runs with this benchmark until this flags file is
 fixed.
 </flag>
 
+<flag name="DSPEC_NO_CXX17_SPECIAL_MATH_FUNCTIONS" class="portability">
+Use of this flag indicates that the compiler lacks support for C++17 Special Math Functions,
+and will cause those to be substituted with the versions supplied by BOOST.
+</flag>
+
 </flagsdescription>
