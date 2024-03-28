@@ -1,0 +1,16 @@
+# Ignore Mac system files
+.DS_Store
+
+# Ignore object files
+*.o
+*.obj
+
+# Ignore vim swap files and other editor backup files
+*.sw[pa-g]
+*~
+
+# Ignore git and CI/CD stuff from upstream
+.git*
+
+# But not ourselves
+!/.gitignore
