@@ -1,4 +1,4 @@
-Running with 8 chains, computing 3000 samples per chain.
+Running with 8 chains, computing 4500 samples per chain.
 Sample number 1000
 Sample number 2000
 Sample number 3000
@@ -23,8 +23,20 @@ Sample number 21000
 Sample number 22000
 Sample number 23000
 Sample number 24000
+Sample number 25000
+Sample number 26000
+Sample number 27000
+Sample number 28000
+Sample number 29000
+Sample number 30000
+Sample number 31000
+Sample number 32000
+Sample number 33000
+Sample number 34000
+Sample number 35000
+Sample number 36000
 Mean value of the 4-parameter downscaling:
-    1.33021 1.97301 1.67588 3.33036 
+    1.96994 2.4099 5.00459 4.30076 
 Comparison mean value of the downscaled 64-parameter mean:
-    1.33021 1.97301 1.67588 3.33036 
-Number of samples = 24000
+    1.96994 2.4099 5.00459 4.30076 
+Number of samples = 36000
