@@ -3,7 +3,7 @@ $benchname = 'sampleflow_r';
 $exename   = 'sampleflow_r';
 $benchlang = 'CXX';
 @base_exe  = ($exename);
-@benchsets = qw(grayrate pthread specrate);
+@benchsets = qw(fprate pthread specrate);
 
 $calctol = 0;
 
