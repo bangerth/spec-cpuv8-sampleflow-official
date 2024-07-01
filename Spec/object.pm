@@ -11,6 +11,13 @@ use Config;
 $bench_flags  = '-Idealii/include -Idealii/bundled/boost-1.70.0/include -ISampleFlow/include';
 
 @sources = (qw(
+    dealii/source/base/trilinos_utilities.cc
+    dealii/source/cgal/intersections.cc
+    dealii/source/distributed/field_transfer.cc
+    dealii/source/lac/affine_constraints_cuda.cc
+    dealii/source/lac/sparsity_pattern_base.cc
+    dealii/source/lac/tensor_product_matrix.cc
+    dealii/source/matrix_free/cuda_matrix_free.cc
     dealii/source/algorithms/general_data_storage.cc
     dealii/source/algorithms/operator.cc
     dealii/source/algorithms/timestep_control.cc
@@ -262,7 +269,6 @@ $bench_flags  = '-Idealii/include -Idealii/bundled/boost-1.70.0/include -ISample
     dealii/source/lac/slepc_solver.cc
     dealii/source/lac/slepc_spectral_transformation.cc
     dealii/source/lac/solver.cc
-    dealii/source/lac/solver_bicgstab.cc
     dealii/source/lac/solver_control.cc
     dealii/source/lac/sparse_decomposition.cc
     dealii/source/lac/sparse_direct.cc
