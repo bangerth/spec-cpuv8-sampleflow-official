@@ -612,7 +612,9 @@ namespace internal
                 const unsigned int *dof_indices =
                   this->dof_indices.data() +
                   row_starts[i * vectorization_length * n_components].first;
-                for (unsigned int k = 0; k < ndofs; ++k)
+                for (unsigned int k = 0;
+                     k < ndofs && indices_are_interleaved_and_contiguous;
+                     ++k)
                   for (unsigned int j = 0; j < n_comp; ++j)
                     if (dof_indices[j * ndofs + k] !=
                         dof_indices[0] + k * n_comp + j)
@@ -663,7 +665,9 @@ namespace internal
                   for (unsigned int j = 0; j < n_comp; ++j)
                     offsets[j] =
                       dof_indices[j * ndofs + 1] - dof_indices[j * ndofs];
-                  for (unsigned int k = 0; k < ndofs; ++k)
+                  for (unsigned int k = 0;
+                       k < ndofs && indices_are_interleaved_and_mixed != 0;
+                       ++k)
                     for (unsigned int j = 0; j < n_comp; ++j)
                       // the first if case is to avoid negative offsets
                       // (invalid)
@@ -712,19 +716,36 @@ namespace internal
                         index_storage_variants[dof_access_cell][i] =
                           IndexStorageVariants::full;
 
-                      // do not use interleaved storage if two vectorized
-                      // components point to the same field (scatter not
-                      // possible)
-                      for (unsigned int k = 0; k < ndofs; ++k)
-                        for (unsigned int l = 0; l < n_comp; ++l)
-                          for (unsigned int j = l + 1; j < n_comp; ++j)
-                            if (dof_indices[j * ndofs + k] ==
-                                dof_indices[l * ndofs + k])
-                              {
-                                index_storage_variants[dof_access_cell][i] =
-                                  IndexStorageVariants::full;
-                                break;
-                              }
+                      // do not use interleaved storage if two entries within
+                      // vectorized array point to the same index (scatter not
+                      // possible due to race condition)
+                      for (const unsigned int *indices = dof_indices;
+                           indices != dof_indices + ndofs;
+                           ++indices)
+                        {
+                          bool         is_sorted = true;
+                          unsigned int previous  = indices[0];
+                          for (unsigned int l = 1; l < n_comp; ++l)
+                            {
+                              const unsigned int current = indices[l * ndofs];
+                              if (current <= previous)
+                                is_sorted = false;
+
+                              // the simple check failed, must compare all
+                              // indices manually - due to short sizes this
+                              // O(n^2) algorithm is better than sorting
+                              if (!is_sorted)
+                                for (unsigned int j = 0; j < l; ++j)
+                                  if (indices[j * ndofs] == current)
+                                    {
+                                      index_storage_variants
+                                        [dof_access_cell][i] =
+                                          IndexStorageVariants::full;
+                                      break;
+                                    }
+                              previous = current;
+                            }
+                        }
                     }
                 }
             }
@@ -842,15 +863,20 @@ namespace internal
                             vectorization_length);
             AssertIndexRange(
               row_starts[i * vectorization_length * n_components].first,
-              this->dof_indices_interleaved.size());
+              this->dof_indices_interleaved.size() + 1);
             AssertIndexRange(
               row_starts[i * vectorization_length * n_components].first +
                 ndofs * vectorization_length,
               this->dof_indices_interleaved.size() + 1);
             for (unsigned int k = 0; k < ndofs; ++k)
-              for (unsigned int j = 0; j < vectorization_length; ++j)
-                interleaved_dof_indices[k * vectorization_length + j] =
-                  dof_indices[j * ndofs + k];
+              {
+                const unsigned int *my_dof_indices = dof_indices + k;
+                const unsigned int *end =
+                  interleaved_dof_indices + vectorization_length;
+                for (; interleaved_dof_indices != end;
+                     ++interleaved_dof_indices, my_dof_indices += ndofs)
+                  *interleaved_dof_indices = *my_dof_indices;
+              }
           }
     }
 
@@ -994,16 +1020,19 @@ namespace internal
           const std::function<void(
             const std::function<void(
               const unsigned int, const unsigned int, const bool)> &)> &loop) {
-          bool all_nodal_and_tensorial = true;
-          for (unsigned int c = 0; c < n_base_elements; ++c)
-            {
-              const auto &si =
-                shape_info(global_base_element_offset + c, 0).data.front();
-              if (!si.nodal_at_cell_boundaries ||
-                  (si.element_type ==
-                   MatrixFreeFunctions::ElementType::tensor_none))
-                all_nodal_and_tensorial = false;
-            }
+          bool all_nodal_and_tensorial = shape_info.size(1) == 1;
+
+          if (all_nodal_and_tensorial)
+            for (unsigned int c = 0; c < n_base_elements; ++c)
+              {
+                const auto &si =
+                  shape_info(global_base_element_offset + c, 0).data.front();
+                if (!si.nodal_at_cell_boundaries ||
+                    (si.element_type ==
+                     MatrixFreeFunctions::ElementType::tensor_none))
+                  all_nodal_and_tensorial = false;
+              }
+
           if (all_nodal_and_tensorial == false)
             vector_partitioner_values = vector_partitioner;
           else
@@ -1082,11 +1111,13 @@ namespace internal
           const std::function<void(
             const std::function<void(
               const unsigned int, const unsigned int, const bool)> &)> &loop) {
-          bool all_hermite = true;
-          for (unsigned int c = 0; c < n_base_elements; ++c)
-            if (shape_info(global_base_element_offset + c, 0).element_type !=
-                MatrixFreeFunctions::tensor_symmetric_hermite)
-              all_hermite = false;
+          bool all_hermite = shape_info.size(1) == 1;
+
+          if (all_hermite)
+            for (unsigned int c = 0; c < n_base_elements; ++c)
+              if (shape_info(global_base_element_offset + c, 0).element_type !=
+                  MatrixFreeFunctions::tensor_symmetric_hermite)
+                all_hermite = false;
           if (all_hermite == false ||
               vector_partitoner_values.get() == vector_partitioner.get())
             vector_partitioner_gradients = vector_partitioner;
@@ -1512,16 +1543,6 @@ namespace internal
 {
   namespace MatrixFreeFunctions
   {
-    template struct ConstraintValues<double>;
-
-    template unsigned short
-    ConstraintValues<double>::insert_entries(
-      const std::vector<std::pair<types::global_dof_index, float>> &);
-    template unsigned short
-    ConstraintValues<double>::insert_entries(
-      const std::vector<std::pair<types::global_dof_index, double>> &);
-
-
     template void
     DoFInfo::read_dof_indices<double>(
       const std::vector<types::global_dof_index> &,

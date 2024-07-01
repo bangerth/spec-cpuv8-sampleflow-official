@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 #if  1  > 1
  template void GridOut::write_dx(const Triangulation< 1 > &,
  std::ostream &) const;
@@ -59,7 +59,7 @@
  const Mapping< 1 ,  1 > *) const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 #if  2  > 1
  template void GridOut::write_dx(const Triangulation< 2 > &,
  std::ostream &) const;
@@ -112,7 +112,7 @@
  const Mapping< 2 ,  2 > *) const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 #if  3  > 1
  template void GridOut::write_dx(const Triangulation< 3 > &,
  std::ostream &) const;
@@ -165,7 +165,7 @@
  const Mapping< 3 ,  3 > *) const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 #if  1  <=  1 
  
  
@@ -220,7 +220,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 #if  1  <=  2 
  
  
@@ -275,7 +275,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 #if  1  <=  3 
  
  
@@ -330,7 +330,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 #if  2  <=  1 
  
  
@@ -385,7 +385,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 #if  2  <=  2 
  
  
@@ -440,7 +440,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 #if  2  <=  3 
  
  
@@ -495,7 +495,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
+#if (SPLIT_INSTANTIATIONS_CHECK(9))
 #if  3  <=  1 
  
  
@@ -550,7 +550,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
+#if (SPLIT_INSTANTIATIONS_CHECK(10))
 #if  3  <=  2 
  
  
@@ -605,7 +605,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
+#if (SPLIT_INSTANTIATIONS_CHECK(11))
 #if  3  <=  3 
  
  

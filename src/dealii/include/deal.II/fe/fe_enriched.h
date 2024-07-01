@@ -22,13 +22,14 @@
 #include <deal.II/base/quadrature.h>
 #include <deal.II/base/symmetric_tensor.h>
 
+#include <deal.II/dofs/dof_handler.h>
+
 #include <deal.II/fe/fe.h>
 #include <deal.II/fe/fe_nothing.h>
 #include <deal.II/fe/fe_q.h>
 #include <deal.II/fe/fe_system.h>
 #include <deal.II/fe/fe_update_flags.h>
 
-#include <deal.II/hp/dof_handler.h>
 #include <deal.II/hp/fe_collection.h>
 
 #include <map>
@@ -328,7 +329,7 @@ public:
     const RefinementCase<dim> &refinement_case =
       RefinementCase<dim>::isotropic_refinement) const override;
 
-  //@}
+  /** @} */
 
   /**
    * @name Functions to support hp
@@ -422,7 +423,7 @@ public:
   compare_for_domination(const FiniteElement<dim, spacedim> &fe_other,
                          const unsigned int codim = 0) const override final;
 
-  //@}
+  /** @} */
 
 
   /**

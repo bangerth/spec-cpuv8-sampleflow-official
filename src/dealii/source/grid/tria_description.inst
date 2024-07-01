@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 namespace TriangulationDescription
  {
  namespace Utilities
@@ -54,7 +54,7 @@ namespace TriangulationDescription
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 namespace TriangulationDescription
  {
  namespace Utilities
@@ -102,7 +102,7 @@ namespace TriangulationDescription
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 namespace TriangulationDescription
  {
  namespace Utilities
@@ -150,7 +150,7 @@ namespace TriangulationDescription
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 namespace TriangulationDescription
  {
  namespace Utilities
@@ -198,7 +198,7 @@ namespace TriangulationDescription
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 namespace TriangulationDescription
  {
  namespace Utilities
@@ -246,7 +246,7 @@ namespace TriangulationDescription
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 namespace TriangulationDescription
  {
  namespace Utilities
@@ -294,7 +294,7 @@ namespace TriangulationDescription
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 namespace TriangulationDescription
  {
  namespace Utilities
@@ -342,7 +342,7 @@ namespace TriangulationDescription
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 namespace TriangulationDescription
  {
  namespace Utilities
@@ -390,7 +390,7 @@ namespace TriangulationDescription
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 namespace TriangulationDescription
  {
  namespace Utilities
@@ -438,15 +438,15 @@ namespace TriangulationDescription
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
+#if (SPLIT_INSTANTIATIONS_CHECK(9))
 template struct CellData< 1 >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
+#if (SPLIT_INSTANTIATIONS_CHECK(10))
 template struct CellData< 2 >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
+#if (SPLIT_INSTANTIATIONS_CHECK(11))
 template struct CellData< 3 >;
  
 #endif

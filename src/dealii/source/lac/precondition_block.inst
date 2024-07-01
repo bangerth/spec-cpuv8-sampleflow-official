@@ -6,43 +6,43 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 template class PreconditionBlockBase< double >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 template class PreconditionBlockBase< float >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 template class PreconditionBlock<SparseMatrix< double >,  double >;
  template class PreconditionBlockJacobi<SparseMatrix< double >,  double >;
  template class PreconditionBlockSOR<SparseMatrix< double >,  double >;
  template class PreconditionBlockSSOR<SparseMatrix< double >,  double >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 template class PreconditionBlock<SparseMatrix< double >,  float >;
  template class PreconditionBlockJacobi<SparseMatrix< double >,  float >;
  template class PreconditionBlockSOR<SparseMatrix< double >,  float >;
  template class PreconditionBlockSSOR<SparseMatrix< double >,  float >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 template class PreconditionBlock<SparseMatrix< float >,  double >;
  template class PreconditionBlockJacobi<SparseMatrix< float >,  double >;
  template class PreconditionBlockSOR<SparseMatrix< float >,  double >;
  template class PreconditionBlockSSOR<SparseMatrix< float >,  double >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 template class PreconditionBlock<SparseMatrix< float >,  float >;
  template class PreconditionBlockJacobi<SparseMatrix< float >,  float >;
  template class PreconditionBlockSOR<SparseMatrix< float >,  float >;
  template class PreconditionBlockSSOR<SparseMatrix< float >,  float >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 template void PreconditionBlockJacobi<SparseMatrix< double >,  double >::vmult< double >(
  Vector< double > &, const Vector< double > &) const;
  template void PreconditionBlockJacobi<SparseMatrix< double >,  double >::Tvmult< double >(
@@ -81,7 +81,7 @@ template void PreconditionBlockJacobi<SparseMatrix< double >,  double >::vmult< 
  Vector< double > &, const Vector< double > &) const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 template void PreconditionBlockJacobi<SparseMatrix< double >,  double >::vmult< float >(
  Vector< float > &, const Vector< float > &) const;
  template void PreconditionBlockJacobi<SparseMatrix< double >,  double >::Tvmult< float >(
@@ -120,7 +120,7 @@ template void PreconditionBlockJacobi<SparseMatrix< double >,  double >::vmult< 
  Vector< float > &, const Vector< float > &) const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 template void PreconditionBlockJacobi<SparseMatrix< double >,  float >::vmult< double >(
  Vector< double > &, const Vector< double > &) const;
  template void PreconditionBlockJacobi<SparseMatrix< double >,  float >::Tvmult< double >(
@@ -159,7 +159,7 @@ template void PreconditionBlockJacobi<SparseMatrix< double >,  float >::vmult< d
  Vector< double > &, const Vector< double > &) const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
+#if (SPLIT_INSTANTIATIONS_CHECK(9))
 template void PreconditionBlockJacobi<SparseMatrix< double >,  float >::vmult< float >(
  Vector< float > &, const Vector< float > &) const;
  template void PreconditionBlockJacobi<SparseMatrix< double >,  float >::Tvmult< float >(
@@ -198,7 +198,7 @@ template void PreconditionBlockJacobi<SparseMatrix< double >,  float >::vmult< f
  Vector< float > &, const Vector< float > &) const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
+#if (SPLIT_INSTANTIATIONS_CHECK(10))
 template void PreconditionBlockJacobi<SparseMatrix< float >,  double >::vmult< double >(
  Vector< double > &, const Vector< double > &) const;
  template void PreconditionBlockJacobi<SparseMatrix< float >,  double >::Tvmult< double >(
@@ -237,7 +237,7 @@ template void PreconditionBlockJacobi<SparseMatrix< float >,  double >::vmult< d
  Vector< double > &, const Vector< double > &) const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
+#if (SPLIT_INSTANTIATIONS_CHECK(11))
 template void PreconditionBlockJacobi<SparseMatrix< float >,  double >::vmult< float >(
  Vector< float > &, const Vector< float > &) const;
  template void PreconditionBlockJacobi<SparseMatrix< float >,  double >::Tvmult< float >(
@@ -276,7 +276,7 @@ template void PreconditionBlockJacobi<SparseMatrix< float >,  double >::vmult< f
  Vector< float > &, const Vector< float > &) const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(12))
+#if (SPLIT_INSTANTIATIONS_CHECK(12))
 template void PreconditionBlockJacobi<SparseMatrix< float >,  float >::vmult< double >(
  Vector< double > &, const Vector< double > &) const;
  template void PreconditionBlockJacobi<SparseMatrix< float >,  float >::Tvmult< double >(
@@ -315,7 +315,7 @@ template void PreconditionBlockJacobi<SparseMatrix< float >,  float >::vmult< do
  Vector< double > &, const Vector< double > &) const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(13))
+#if (SPLIT_INSTANTIATIONS_CHECK(13))
 template void PreconditionBlockJacobi<SparseMatrix< float >,  float >::vmult< float >(
  Vector< float > &, const Vector< float > &) const;
  template void PreconditionBlockJacobi<SparseMatrix< float >,  float >::Tvmult< float >(

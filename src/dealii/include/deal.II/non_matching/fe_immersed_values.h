@@ -60,8 +60,8 @@ namespace NonMatching
      * Constructor. Gets cell-independent data from mapping and finite element
      * objects, matching the quadrature rule and update flags.
      *
-     * @note Currently this class is only implemented for MappingCartesian and
-     * MappingQ.
+     * @note Currently this class is only implemented for MappingCartesian,
+     * MappingQ and MappingFEField.
      */
     FEImmersedSurfaceValues(const Mapping<dim> &                  mapping,
                             const FiniteElement<dim> &            element,
@@ -76,7 +76,7 @@ namespace NonMatching
     reinit(const typename Triangulation<dim>::cell_iterator &cell);
 
     /**
-     * Reinitialize quantitites (shape function values, gradients, etc) for the
+     * Reinitialize quantities (shape function values, gradients, etc) for the
      * given cell of type "iterator into a DoFHandler object", and the finite
      * element associated with this object.
      */

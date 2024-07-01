@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 namespace parallel
  {
  namespace distributed
@@ -56,7 +56,7 @@ namespace parallel
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 namespace parallel
  {
  namespace distributed
@@ -106,7 +106,7 @@ namespace parallel
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 namespace parallel
  {
  namespace distributed
@@ -156,7 +156,7 @@ namespace parallel
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 namespace parallel
  {
  namespace distributed
@@ -206,7 +206,7 @@ namespace parallel
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 namespace parallel
  {
  namespace distributed
@@ -256,7 +256,7 @@ namespace parallel
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 namespace parallel
  {
  namespace distributed
@@ -306,7 +306,7 @@ namespace parallel
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 namespace parallel
  {
  namespace distributed
@@ -356,7 +356,7 @@ namespace parallel
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 namespace parallel
  {
  namespace distributed
@@ -406,7 +406,7 @@ namespace parallel
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 namespace parallel
  {
  namespace distributed

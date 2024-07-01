@@ -13,10 +13,10 @@
 //
 // ---------------------------------------------------------------------
 
-#include <deal.II/base/quadrature_lib.h>
+#include <deal.II/base/mpi.h>
+#include <deal.II/base/quadrature.h>
 #include <deal.II/base/table.h>
 #include <deal.II/base/template_constraints.h>
-#include <deal.II/base/utilities.h>
 
 #include <deal.II/distributed/shared_tria.h>
 #include <deal.II/distributed/tria.h>
@@ -31,21 +31,16 @@
 
 #include <deal.II/grid/filtered_iterator.h>
 #include <deal.II/grid/grid_tools.h>
-#include <deal.II/grid/intergrid_map.h>
 #include <deal.II/grid/tria.h>
 #include <deal.II/grid/tria_iterator.h>
 
-#include <deal.II/hp/dof_handler.h>
 #include <deal.II/hp/fe_collection.h>
 #include <deal.II/hp/fe_values.h>
 #include <deal.II/hp/mapping_collection.h>
 #include <deal.II/hp/q_collection.h>
 
 #include <deal.II/lac/affine_constraints.h>
-#include <deal.II/lac/block_sparsity_pattern.h>
-#include <deal.II/lac/dynamic_sparsity_pattern.h>
 #include <deal.II/lac/sparsity_pattern.h>
-#include <deal.II/lac/trilinos_sparsity_pattern.h>
 #include <deal.II/lac/vector.h>
 
 #include <algorithm>
@@ -227,8 +222,8 @@ namespace DoFTools
       for (const auto &c :
            dof.active_cell_iterators() | IteratorFilters::LocallyOwnedCell())
         {
-          const unsigned int fe_index      = c->active_fe_index();
-          const unsigned int dofs_per_cell = c->get_fe().n_dofs_per_cell();
+          const types::fe_index fe_index      = c->active_fe_index();
+          const unsigned int    dofs_per_cell = c->get_fe().n_dofs_per_cell();
           indices.resize(dofs_per_cell);
           c->get_dof_indices(indices);
           for (unsigned int i = 0; i < dofs_per_cell; ++i)
@@ -287,7 +282,7 @@ namespace DoFTools
       for (const auto &cell : dof.active_cell_iterators())
         if (cell->is_locally_owned())
           {
-            const unsigned int fe_index      = cell->active_fe_index();
+            const types::fe_index fe_index   = cell->active_fe_index();
             const unsigned int dofs_per_cell = cell->get_fe().n_dofs_per_cell();
             indices.resize(dofs_per_cell);
             cell->get_dof_indices(indices);
@@ -1374,8 +1369,9 @@ namespace DoFTools
     AssertDimension(active_fe_indices.size(),
                     dof_handler.get_triangulation().n_active_cells());
 
-    for (const auto &cell : dof_handler.active_cell_iterators())
-      active_fe_indices[cell->active_cell_index()] = cell->active_fe_index();
+    std::vector<types::fe_index> indices = dof_handler.get_active_fe_indices();
+
+    active_fe_indices.assign(indices.begin(), indices.end());
   }
 
   template <int dim, int spacedim>

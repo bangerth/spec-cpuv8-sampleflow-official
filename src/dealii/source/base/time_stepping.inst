@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 template class RungeKutta< Vector < double >>;
  template class ExplicitRungeKutta< Vector < double >>;
  template class LowStorageRungeKutta< Vector < double >>;
@@ -14,7 +14,7 @@ template class RungeKutta< Vector < double >>;
  template class EmbeddedExplicitRungeKutta< Vector < double >>;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 template class RungeKutta< BlockVector < double >>;
  template class ExplicitRungeKutta< BlockVector < double >>;
  template class LowStorageRungeKutta< BlockVector < double >>;
@@ -22,7 +22,7 @@ template class RungeKutta< BlockVector < double >>;
  template class EmbeddedExplicitRungeKutta< BlockVector < double >>;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 template class RungeKutta< Vector < float >>;
  template class ExplicitRungeKutta< Vector < float >>;
  template class LowStorageRungeKutta< Vector < float >>;
@@ -30,7 +30,7 @@ template class RungeKutta< Vector < float >>;
  template class EmbeddedExplicitRungeKutta< Vector < float >>;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 template class RungeKutta< BlockVector < float >>;
  template class ExplicitRungeKutta< BlockVector < float >>;
  template class LowStorageRungeKutta< BlockVector < float >>;
@@ -38,7 +38,7 @@ template class RungeKutta< BlockVector < float >>;
  template class EmbeddedExplicitRungeKutta< BlockVector < float >>;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 template class RungeKutta<LinearAlgebra::distributed:: Vector < double >>;
  template class ExplicitRungeKutta<LinearAlgebra::distributed:: Vector < double >>;
  template class LowStorageRungeKutta<LinearAlgebra::distributed:: Vector < double >>;
@@ -46,7 +46,7 @@ template class RungeKutta<LinearAlgebra::distributed:: Vector < double >>;
  template class EmbeddedExplicitRungeKutta<LinearAlgebra::distributed:: Vector < double >>;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 template class RungeKutta<LinearAlgebra::distributed:: BlockVector < double >>;
  template class ExplicitRungeKutta<LinearAlgebra::distributed:: BlockVector < double >>;
  template class LowStorageRungeKutta<LinearAlgebra::distributed:: BlockVector < double >>;
@@ -54,7 +54,7 @@ template class RungeKutta<LinearAlgebra::distributed:: BlockVector < double >>;
  template class EmbeddedExplicitRungeKutta<LinearAlgebra::distributed:: BlockVector < double >>;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 template class RungeKutta<LinearAlgebra::distributed:: Vector < float >>;
  template class ExplicitRungeKutta<LinearAlgebra::distributed:: Vector < float >>;
  template class LowStorageRungeKutta<LinearAlgebra::distributed:: Vector < float >>;
@@ -62,7 +62,7 @@ template class RungeKutta<LinearAlgebra::distributed:: Vector < float >>;
  template class EmbeddedExplicitRungeKutta<LinearAlgebra::distributed:: Vector < float >>;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 template class RungeKutta<LinearAlgebra::distributed:: BlockVector < float >>;
  template class ExplicitRungeKutta<LinearAlgebra::distributed:: BlockVector < float >>;
  template class LowStorageRungeKutta<LinearAlgebra::distributed:: BlockVector < float >>;

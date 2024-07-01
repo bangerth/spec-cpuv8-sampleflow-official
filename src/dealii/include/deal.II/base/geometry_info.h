@@ -520,7 +520,7 @@ struct RefinementPossibilities
    * local coordinate system within the global coordinate system of the
    * space it lives in.
    */
-  enum Possibilities
+  enum Possibilities : std::uint8_t
   {
     /**
      * Do not perform refinement.
@@ -590,7 +590,7 @@ struct RefinementPossibilities<1>
    * local coordinate system within the global coordinate system of the
    * space it lives in.
    */
-  enum Possibilities
+  enum Possibilities : std::uint8_t
   {
     /**
      * Do not refine.
@@ -656,7 +656,7 @@ struct RefinementPossibilities<2>
    * local coordinate system within the global coordinate system of the
    * space it lives in.
    */
-  enum Possibilities
+  enum Possibilities : std::uint8_t
   {
     /**
      * Do not refine.
@@ -731,7 +731,7 @@ struct RefinementPossibilities<3>
    * local coordinate system within the global coordinate system of the
    * space it lives in.
    */
-  enum Possibilities
+  enum Possibilities : std::uint8_t
   {
     /**
      * Do not refine.
@@ -3675,6 +3675,10 @@ GeometryInfo<2>::face_refinement_case(
                    RefinementCase<dim>::isotropic_refinement + 1);
   AssertIndexRange(face_no, GeometryInfo<dim>::faces_per_cell);
 
+  // simple special case
+  if (cell_refinement_case == RefinementCase<dim>::cut_xy)
+    return RefinementCase<1>::cut_x;
+
   const RefinementCase<dim - 1>
     ref_cases[RefinementCase<dim>::isotropic_refinement +
               1][GeometryInfo<dim>::faces_per_cell / 2] = {
@@ -3705,6 +3709,10 @@ GeometryInfo<3>::face_refinement_case(
   AssertIndexRange(cell_refinement_case,
                    RefinementCase<dim>::isotropic_refinement + 1);
   AssertIndexRange(face_no, GeometryInfo<dim>::faces_per_cell);
+
+  // simple special case
+  if (cell_refinement_case == RefinementCase<dim>::cut_xyz)
+    return RefinementCase<dim - 1>::cut_xy;
 
   const RefinementCase<dim - 1>
     ref_cases[RefinementCase<dim>::isotropic_refinement + 1]
@@ -3815,6 +3823,10 @@ GeometryInfo<3>::line_refinement_case(
   AssertIndexRange(cell_refinement_case,
                    RefinementCase<dim>::isotropic_refinement + 1);
   AssertIndexRange(line_no, GeometryInfo<dim>::lines_per_cell);
+
+  // simple special case
+  if (cell_refinement_case == RefinementCase<dim>::cut_xyz)
+    return RefinementCase<1>::cut_x;
 
   // array indicating, which simple refine
   // case cuts a line in direction x, y or

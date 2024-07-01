@@ -22,8 +22,6 @@
 #include <deal.II/grid/tria_iterator.h>
 #include <deal.II/grid/tria_iterator.templates.h>
 
-#include <deal.II/hp/dof_handler.h>
-
 #include <deal.II/lac/block_vector.h>
 #include <deal.II/lac/la_parallel_block_vector.h>
 #include <deal.II/lac/la_parallel_vector.h>
@@ -46,13 +44,13 @@ template <int dim, int spacedim, bool lda>
 template <class InputVector, typename number>
 void
 DoFCellAccessor<dim, spacedim, lda>::get_interpolated_dof_values(
-  const InputVector &values,
-  Vector<number> &   interpolated_values,
-  const unsigned int fe_index_) const
+  const InputVector &   values,
+  Vector<number> &      interpolated_values,
+  const types::fe_index fe_index_) const
 {
-  const unsigned int fe_index =
+  const types::fe_index fe_index =
     (this->dof_handler->hp_capability_enabled == false &&
-     fe_index_ == DoFHandler<dim, spacedim>::invalid_fe_index) ?
+     fe_index_ == numbers::invalid_fe_index) ?
       DoFHandler<dim, spacedim>::default_fe_index :
       fe_index_;
 
@@ -66,7 +64,7 @@ DoFCellAccessor<dim, spacedim, lda>::get_interpolated_dof_values(
           // active cells, you either don't specify an fe_index,
           // or that you specify the correct one
           (fe_index == this->active_fe_index()) ||
-          (fe_index == DoFHandler<dim, spacedim>::invalid_fe_index))
+          (fe_index == numbers::invalid_fe_index))
         this->get_dof_values(values, interpolated_values);
       else
         {
@@ -104,7 +102,7 @@ DoFCellAccessor<dim, spacedim, lda>::get_interpolated_dof_values(
       // space to this cell's (unknown) FE space unless an explicit
       // fe_index is given
       Assert((this->dof_handler->hp_capability_enabled == false) ||
-               (fe_index != DoFHandler<dim, spacedim>::invalid_fe_index),
+               (fe_index != numbers::invalid_fe_index),
              ExcMessage(
                "You cannot call this function on non-active cells "
                "of DoFHandler objects unless you provide an explicit "

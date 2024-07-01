@@ -51,9 +51,9 @@
 #  include <CGAL/make_mesh_3.h>
 #  include <CGAL/make_surface_mesh.h>
 #  include <deal.II/cgal/surface_mesh.h>
-//#  include <CGAL/tetrahedral_remeshing.h> REQUIRES CGAL_VERSION>=5.1.5
 
 #  include <fstream>
+#  include <limits>
 #  include <type_traits>
 
 
@@ -410,66 +410,22 @@ namespace CGALWrappers
 
     constexpr int spacedim =
       CGALTriangulationType::Point::Ambient_dimension::value;
-    QGaussSimplex<spacedim>                           quad(degree);
-    std::vector<dealii::Point<spacedim>>              pts;
-    std::vector<double>                               wts;
-    std::array<dealii::Point<spacedim>, spacedim + 1> vertices; // tets
+    std::vector<std::array<dealii::Point<spacedim>, spacedim + 1>>
+      vec_of_simplices; // tets
 
-    const auto is_c3t3 = boost::hana::is_valid(
-      [](auto &&obj) -> decltype(obj.cells_in_complex_begin()) {});
-
-    const auto is_tria3 = boost::hana::is_valid(
-      [](auto &&obj) -> decltype(obj.finite_cell_handles()) {});
-
-    if constexpr (decltype(is_c3t3(tria)){})
+    std::array<dealii::Point<spacedim>, spacedim + 1> simplex;
+    for (const auto &f : tria.finite_cell_handles())
       {
-        for (auto iter = tria.cells_in_complex_begin();
-             iter != tria.cells_in_complex_end();
-             ++iter)
+        for (unsigned int i = 0; i < (spacedim + 1); ++i)
           {
-            for (unsigned int i = 0; i < (spacedim + 1); ++i)
-              {
-                vertices[i] = cgal_point_to_dealii_point<spacedim>(
-                  iter->vertex(i)->point());
-              }
-
-            auto local_quad = quad.compute_affine_transformation(vertices);
-            std::transform(local_quad.get_points().begin(),
-                           local_quad.get_points().end(),
-                           std::back_inserter(pts),
-                           [&pts](const auto &p) { return p; });
-            std::transform(local_quad.get_weights().begin(),
-                           local_quad.get_weights().end(),
-                           std::back_inserter(wts),
-                           [&wts](const double w) { return w; });
+            simplex[i] =
+              cgal_point_to_dealii_point<spacedim>(f->vertex(i)->point());
           }
-      }
-    else if constexpr (decltype(is_tria3(tria)){})
-      {
-        for (const auto &f : tria.finite_cell_handles())
-          {
-            for (unsigned int i = 0; i < (spacedim + 1); ++i)
-              {
-                vertices[i] =
-                  cgal_point_to_dealii_point<spacedim>(f->vertex(i)->point());
-              }
 
-            auto local_quad = quad.compute_affine_transformation(vertices);
-            std::transform(local_quad.get_points().begin(),
-                           local_quad.get_points().end(),
-                           std::back_inserter(pts),
-                           [&pts](const auto &p) { return p; });
-            std::transform(local_quad.get_weights().begin(),
-                           local_quad.get_weights().end(),
-                           std::back_inserter(wts),
-                           [&wts](const double w) { return w; });
-          }
+        vec_of_simplices.push_back(simplex);
       }
-    else
-      {
-        Assert(false, ExcMessage("Not a valid CGAL Triangulation."));
-      }
-    return Quadrature<spacedim>(pts, wts);
+
+    return QGaussSimplex<spacedim>(degree).mapped_quadrature(vec_of_simplices);
   }
 
 
@@ -506,26 +462,20 @@ namespace CGALWrappers
       {
         using K         = CGAL::Exact_predicates_inexact_constructions_kernel;
         using CGALPoint = CGAL::Point_3<K>;
+        using CGALTriangulation = CGAL::Triangulation_3<K>;
         CGAL::Surface_mesh<CGALPoint> surface_1, surface_2, out_surface;
         dealii_cell_to_cgal_surface_mesh(cell0, mapping0, surface_1);
         dealii_cell_to_cgal_surface_mesh(cell1, mapping1, surface_2);
         // They have to be triangle meshes
         CGAL::Polygon_mesh_processing::triangulate_faces(surface_1);
         CGAL::Polygon_mesh_processing::triangulate_faces(surface_2);
-        Assert(CGAL::is_triangle_mesh(surface_1),
+        Assert(CGAL::is_triangle_mesh(surface_1) &&
+                 CGAL::is_triangle_mesh(surface_2),
                ExcMessage("The surface must be a triangle mesh."));
         compute_boolean_operation(surface_1, surface_2, bool_op, out_surface);
 
-        using Mesh_domain = CGAL::Polyhedral_mesh_domain_with_features_3<
-          K,
-          CGAL::Surface_mesh<CGALPoint>>;
-        using Tr            = typename CGAL::Mesh_triangulation_3<Mesh_domain,
-                                                       CGAL::Default,
-                                                       ConcurrencyTag>::type;
-        using Mesh_criteria = CGAL::Mesh_criteria_3<Tr>;
-        using C3t3          = CGAL::Mesh_complex_3_in_triangulation_3<Tr>;
-        C3t3 tria;
-        cgal_surface_mesh_to_cgal_triangulation(out_surface, tria);
+        CGALTriangulation tria;
+        tria.insert(out_surface.points().begin(), out_surface.points().end());
         return compute_quadrature(tria, degree);
       }
   }
@@ -642,6 +592,39 @@ namespace CGALWrappers
         Assert(false, ExcInternalError());
       }
   }
+
+
+  /**
+   * Get vertices of cell in CGAL ordering.
+   *
+   * @param cell A cell_iterator to a deal.II cell.
+   * @param mapping Mapping object for the cell.
+   * @return  Array of vertices in CGAL order.
+   */
+  template <int n_vertices, int dim, int spacedim>
+  std::array<Point<spacedim>, n_vertices>
+  get_vertices_in_cgal_order(
+    const typename dealii::Triangulation<dim, spacedim>::cell_iterator &cell,
+    const Mapping<dim, spacedim> &                                      mapping)
+  {
+    // Elements have to be rectangular or simplices
+    Assert(n_vertices == std::pow(2, dim) || n_vertices == dim + 1,
+           ExcNotImplemented());
+    AssertDimension(mapping.get_vertices(cell).size(), n_vertices);
+
+    std::array<Point<spacedim>, n_vertices> vertices;
+
+    std::copy_n(mapping.get_vertices(cell).begin(),
+                vertices.size(),
+                vertices.begin());
+
+    if (ReferenceCell::n_vertices_to_type(dim, n_vertices) ==
+        ReferenceCells::Quadrilateral)
+      std::swap(vertices[2], vertices[3]);
+
+    return vertices;
+  }
+
 } // namespace CGALWrappers
 #  endif
 

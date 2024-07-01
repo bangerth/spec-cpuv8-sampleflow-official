@@ -19,14 +19,11 @@
 #include <deal.II/base/config.h>
 
 #include <deal.II/base/memory_consumption.h>
-#include <deal.II/base/multithread_info.h>
-#include <deal.II/base/thread_management.h>
 #include <deal.II/base/utilities.h>
 
 #include <deal.II/fe/fe_dgq.h>
 #include <deal.II/fe/fe_nothing.h>
 #include <deal.II/fe/fe_values.h>
-#include <deal.II/fe/mapping_q.h>
 
 #include <deal.II/matrix_free/evaluation_template_factory.h>
 #include <deal.II/matrix_free/mapping_info_storage.h>
@@ -112,6 +109,7 @@ namespace internal
         {
           jacobians[i].clear();
           jacobian_gradients[i].clear();
+          jacobian_gradients_non_inverse[i].clear();
           normals_times_jacobians[i].clear();
         }
       quadrature_point_offsets.clear();
@@ -124,7 +122,8 @@ namespace internal
     UpdateFlags
     MappingInfoStorage<structdim, spacedim, Number>::compute_update_flags(
       const UpdateFlags                                     update_flags,
-      const std::vector<dealii::hp::QCollection<spacedim>> &quads)
+      const std::vector<dealii::hp::QCollection<spacedim>> &quads,
+      const bool                                            piola_transform)
     {
       // this class is build around the evaluation of jacobians, so compute
       // them in any case. The Jacobians will be inverted manually. Since we
@@ -135,7 +134,10 @@ namespace internal
       // Jacobians (these two together will give use the gradients of the
       // inverse Jacobians, which is what we need)
       if ((update_flags & update_hessians) != 0u ||
-          (update_flags & update_jacobian_grads) != 0u)
+          (update_flags & update_jacobian_grads) != 0u ||
+          (piola_transform &&
+           ((update_flags &
+             (update_gradients | update_contravariant_transformation)) != 0u)))
         new_flags |= update_jacobian_grads;
 
       if ((update_flags & update_quadrature_points) != 0u)
@@ -179,6 +181,10 @@ namespace internal
              MemoryConsumption::memory_consumption(jacobians[1]) +
              MemoryConsumption::memory_consumption(jacobian_gradients[0]) +
              MemoryConsumption::memory_consumption(jacobian_gradients[1]) +
+             MemoryConsumption::memory_consumption(
+               jacobian_gradients_non_inverse[0]) +
+             MemoryConsumption::memory_consumption(
+               jacobian_gradients_non_inverse[1]) +
              MemoryConsumption::memory_consumption(normals_times_jacobians[0]) +
              MemoryConsumption::memory_consumption(normals_times_jacobians[1]) +
              MemoryConsumption::memory_consumption(quadrature_point_offsets) +
@@ -214,7 +220,11 @@ namespace internal
           task_info.print_memory_statistics(
             out,
             MemoryConsumption::memory_consumption(jacobian_gradients[0]) +
-              MemoryConsumption::memory_consumption(jacobian_gradients[1]));
+              MemoryConsumption::memory_consumption(jacobian_gradients[1]) +
+              MemoryConsumption::memory_consumption(
+                jacobian_gradients_non_inverse[0]) +
+              MemoryConsumption::memory_consumption(
+                jacobian_gradients_non_inverse[1]));
         }
       const std::size_t normal_size =
         Utilities::MPI::sum(normal_vectors.size(), task_info.communicator);

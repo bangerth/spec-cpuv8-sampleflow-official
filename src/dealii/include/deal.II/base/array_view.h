@@ -23,12 +23,16 @@
 #include <deal.II/base/symmetric_tensor.h>
 #include <deal.II/base/tensor.h>
 
+#include <array>
 #include <type_traits>
 #include <vector>
 
 DEAL_II_NAMESPACE_OPEN
 
 // Forward declaration
+template <class T>
+class AlignedVector;
+
 template <int N, typename T>
 class Table;
 
@@ -239,6 +243,14 @@ public:
   /**
    * Compare two ArrayView objects of the same type. Two objects are considered
    * equal if they have the same size and the same starting pointer.
+   *
+   * Note that this means that the operation tests that the *views* are the
+   * same. If they are, then of course the elements represented by the view
+   * are also the same. But the converse is not true: Two ArrayView objects
+   * may point to different parts of the memory space and in that case the
+   * comparison for equality will return `false` even if the *elements* the
+   * views point to are the same.
+   *
    * This version always compares with the const value_type.
    */
   bool
@@ -248,6 +260,14 @@ public:
   /**
    * Compare two ArrayView objects of the same type. Two objects are considered
    * equal if they have the same size and the same starting pointer.
+   *
+   * Note that this means that the operation tests that the *views* are the
+   * same. If they are, then of course the elements represented by the view
+   * are also the same. But the converse is not true: Two ArrayView objects
+   * may point to different parts of the memory space and in that case the
+   * comparison for equality will return `false` even if the *elements* the
+   * views point to are the same.
+   *
    * This version always compares with the non-const value_type.
    */
   bool
@@ -256,7 +276,18 @@ public:
 
   /**
    * Compare two ArrayView objects of the same type. Two objects are considered
-   * equal if they have the same size and the same starting pointer.
+   * equal if they have the same size and the same starting pointer, and the
+   * current operation therefore returns `true` if the two views being compared
+   * point to different memory locations, or if they point to the same memory
+   * location but represent different sizes.
+   *
+   * Note that this means that the operation tests that the *views* are the
+   * not the same. But this does not mean that the elements pointed to by
+   * the view are not equal: Two ArrayView objects
+   * may point to different parts of the memory space and in that case the
+   * comparison for inequality will return `true` even if the *elements* the
+   * views point to are the same.
+   *
    * This version always compares with the const value_type.
    */
   bool
@@ -266,6 +297,14 @@ public:
   /**
    * Compare two ArrayView objects of the same type. Two objects are considered
    * equal if they have the same size and the same starting pointer.
+   *
+   * Note that this means that the operation tests that the *views* are the
+   * not the same. But this does not mean that the elements pointed to by
+   * the view are not equal: Two ArrayView objects
+   * may point to different parts of the memory space and in that case the
+   * comparison for inequality will return `true` even if the *elements* the
+   * views point to are the same.
+   *
    * This version always compares with the non-const value_type.
    */
   bool
@@ -278,6 +317,12 @@ public:
    */
   std::size_t
   size() const;
+
+  /**
+   * Return a bool whether the array view is empty.
+   */
+  bool
+  empty() const;
 
   /**
    * Return a pointer to the underlying array serving as element storage.
@@ -345,45 +390,6 @@ private:
 //---------------------------------------------------------------------------
 
 
-namespace internal
-{
-  namespace ArrayViewHelper
-  {
-    template <typename MemorySpaceType>
-    inline bool
-    is_in_correct_memory_space(const void *const ptr)
-    {
-#ifndef DEAL_II_COMPILER_CUDA_AWARE
-      (void)ptr;
-      static_assert(std::is_same<MemorySpaceType, MemorySpace::Host>::value,
-                    "If the compiler doesn't understand CUDA code, "
-                    "the only possible memory space is 'MemorySpace::Host'!");
-      return true;
-#else
-      cudaPointerAttributes attributes;
-      const cudaError_t cuda_error = cudaPointerGetAttributes(&attributes, ptr);
-      if (cuda_error != cudaErrorInvalidValue)
-        {
-          AssertCuda(cuda_error);
-          if (std::is_same<MemorySpaceType, MemorySpace::Host>::value)
-            return (attributes.type == cudaMemoryTypeHost) ||
-                   (attributes.type == cudaMemoryTypeUnregistered);
-          else
-            return attributes.type == cudaMemoryTypeDevice;
-        }
-      else
-        {
-          // ignore and reset the error since host pointers produce an error
-          cudaGetLastError();
-          return std::is_same<MemorySpaceType, MemorySpace::Host>::value;
-        }
-#endif
-    }
-  } // namespace ArrayViewHelper
-} // namespace internal
-
-
-
 template <typename ElementType, typename MemorySpaceType>
 inline ArrayView<ElementType, MemorySpaceType>::ArrayView()
   : starting_element(nullptr)
@@ -398,14 +404,7 @@ inline ArrayView<ElementType, MemorySpaceType>::ArrayView(
   const std::size_t n_elements)
   : starting_element(starting_element)
   , n_elements(n_elements)
-{
-  Assert(
-    n_elements == 0 ||
-      internal::ArrayViewHelper::is_in_correct_memory_space<MemorySpaceType>(
-        starting_element),
-    ExcMessage("The memory space indicated by the template parameter "
-               "and the one derived from the pointer value do not match!"));
-}
+{}
 
 
 
@@ -549,8 +548,9 @@ ArrayView<ElementType, MemorySpaceType>::operator!=(
 
 
 template <typename ElementType, typename MemorySpaceType>
-inline typename ArrayView<ElementType, MemorySpaceType>::value_type *
-ArrayView<ElementType, MemorySpaceType>::data() const noexcept
+inline
+  typename ArrayView<ElementType, MemorySpaceType>::value_type *
+  ArrayView<ElementType, MemorySpaceType>::data() const noexcept
 {
   if (n_elements == 0)
     return nullptr;
@@ -576,6 +576,15 @@ inline std::size_t
 ArrayView<ElementType, MemorySpaceType>::size() const
 {
   return n_elements;
+}
+
+
+
+template <typename ElementType, typename MemorySpaceType>
+inline bool
+ArrayView<ElementType, MemorySpaceType>::empty() const
+{
+  return n_elements == 0;
 }
 
 
@@ -621,10 +630,6 @@ inline typename ArrayView<ElementType, MemorySpaceType>::value_type &
 ArrayView<ElementType, MemorySpaceType>::operator[](const std::size_t i) const
 {
   AssertIndexRange(i, n_elements);
-  Assert(
-    (std::is_same<MemorySpaceType, MemorySpace::Host>::value),
-    ExcMessage(
-      "Accessing elements is only allowed if the data is stored in CPU memory!"));
 
   return *(starting_element + i);
 }
@@ -701,10 +706,10 @@ make_array_view(const Iterator begin, const Iterator end)
   static_assert(
     std::is_same<typename std::iterator_traits<Iterator>::iterator_category,
                  typename std::random_access_iterator_tag>::value,
-    "The provided iterator should be a random access iterator.");
+    "The provided iterator needs to be a random access iterator.");
   Assert(begin <= end,
          ExcMessage(
-           "The beginning of the array view should be before the end."));
+           "The beginning of the array view needs to be before the end."));
   Assert(internal::ArrayViewHelper::is_contiguous(begin, end),
          ExcMessage("The provided range isn't contiguous in memory!"));
   // the reference type, not the value type, knows the constness of the iterator
@@ -730,7 +735,7 @@ make_array_view(ElementType *const begin, ElementType *const end)
 {
   Assert(begin <= end,
          ExcMessage(
-           "The beginning of the array view should be before the end."));
+           "The beginning of the array view needs to be before the end."));
   return ArrayView<ElementType, MemorySpaceType>(begin, end - begin);
 }
 
@@ -796,7 +801,7 @@ make_array_view(ArrayView<Number, MemorySpaceType> &array_view)
  * @relatesalso ArrayView
  */
 template <int rank, int dim, typename Number>
-DEAL_II_DEPRECATED_EARLY inline ArrayView<const Number>
+DEAL_II_DEPRECATED inline ArrayView<const Number>
 make_array_view(const Tensor<rank, dim, Number> &tensor)
 {
   return make_array_view(tensor.begin_raw(), tensor.end_raw());
@@ -826,7 +831,7 @@ make_array_view(const Tensor<rank, dim, Number> &tensor)
  * @relatesalso ArrayView
  */
 template <int rank, int dim, typename Number>
-DEAL_II_DEPRECATED_EARLY inline ArrayView<Number>
+DEAL_II_DEPRECATED inline ArrayView<Number>
 make_array_view(Tensor<rank, dim, Number> &tensor)
 {
   return make_array_view(tensor.begin_raw(), tensor.end_raw());
@@ -856,7 +861,7 @@ make_array_view(Tensor<rank, dim, Number> &tensor)
  * @relatesalso ArrayView
  */
 template <int rank, int dim, typename Number>
-DEAL_II_DEPRECATED_EARLY inline ArrayView<const Number>
+DEAL_II_DEPRECATED inline ArrayView<const Number>
 make_array_view(const SymmetricTensor<rank, dim, Number> &tensor)
 {
   return make_array_view(tensor.begin_raw(), tensor.end_raw());
@@ -887,7 +892,7 @@ make_array_view(const SymmetricTensor<rank, dim, Number> &tensor)
  * @relatesalso ArrayView
  */
 template <int rank, int dim, typename Number>
-DEAL_II_DEPRECATED_EARLY inline ArrayView<Number>
+DEAL_II_DEPRECATED inline ArrayView<Number>
 make_array_view(SymmetricTensor<rank, dim, Number> &tensor)
 {
   return make_array_view(tensor.begin_raw(), tensor.end_raw());
@@ -1072,6 +1077,128 @@ make_array_view(const std::vector<ElementType> &vector,
                     "create would lead to a view that extends beyond the end "
                     "of the given vector."));
   return ArrayView<const ElementType>(&vector[starting_index], size_of_view);
+}
+
+
+
+/**
+ * Create a writable view to an entire AlignedVector object. See the
+ * documentation of the corresponding overload for std::vector for more
+ * information.
+ *
+ * @relatesalso ArrayView
+ */
+template <typename ElementType>
+inline ArrayView<ElementType>
+make_array_view(AlignedVector<ElementType> &vector)
+{
+  return ArrayView<ElementType>(vector.data(), vector.size());
+}
+
+
+
+/**
+ * Create a read-only view to an entire AlignedVector object. See the
+ * documentation of the corresponding overload for std::vector for more
+ * information.
+ *
+ * @relatesalso ArrayView
+ */
+template <typename ElementType>
+inline ArrayView<const ElementType>
+make_array_view(const AlignedVector<ElementType> &vector)
+{
+  return ArrayView<const ElementType>(vector.data(), vector.size());
+}
+
+
+
+/**
+ * Create a writable view to a part of an AlignedVector object. See the
+ * documentation of the corresponding overload for std::vector for more
+ * information.
+ *
+ * @relatesalso ArrayView
+ */
+template <typename ElementType>
+inline ArrayView<ElementType>
+make_array_view(AlignedVector<ElementType> &vector,
+                const std::size_t           starting_index,
+                const std::size_t           size_of_view)
+{
+  Assert(starting_index + size_of_view <= vector.size(),
+         ExcMessage("The starting index and size of the view you want to "
+                    "create would lead to a view that extends beyond the end "
+                    "of the given vector."));
+  return ArrayView<ElementType>(&vector[starting_index], size_of_view);
+}
+
+
+
+/**
+ * Create a read-only view to a part of an AlignedVector object. See the
+ * documentation of the corresponding overload for std::vector for more
+ * information.
+ *
+ * @relatesalso ArrayView
+ */
+template <typename ElementType>
+inline ArrayView<const ElementType>
+make_array_view(const AlignedVector<ElementType> &vector,
+                const std::size_t                 starting_index,
+                const std::size_t                 size_of_view)
+{
+  Assert(starting_index + size_of_view <= vector.size(),
+         ExcMessage("The starting index and size of the view you want to "
+                    "create would lead to a view that extends beyond the end "
+                    "of the given vector."));
+  return ArrayView<const ElementType>(&vector[starting_index], size_of_view);
+}
+
+
+
+/**
+ * Create a view to an entire std::array object. This is equivalent to
+ * initializing an ArrayView object with a pointer to the first element and
+ * the size of the given argument.
+ *
+ * This function is used for non-@p const references to objects of array
+ * type. Such objects contain elements that can be written to. Consequently,
+ * the return type of this function is a view to a set of writable objects.
+ *
+ * @param[in] array The std::array object for which we want to have an array
+ * view object. The array view corresponds to the <em>entire</em> array.
+ *
+ * @relatesalso ArrayView
+ */
+template <typename ElementType, std::size_t N>
+inline ArrayView<ElementType>
+make_array_view(std::array<ElementType, N> &array)
+{
+  return ArrayView<ElementType>(array);
+}
+
+
+
+/**
+ * Create a view to an entire std::array object. This is equivalent to
+ * initializing an ArrayView object with a pointer to the first element and
+ * the size of the given argument.
+ *
+ * This function is used for @p const references to objects of array type
+ * because they contain immutable elements. Consequently, the return type of
+ * this function is a view to a set of @p const objects.
+ *
+ * @param[in] array The std::array object for which we want to have an array
+ * view object. The array view corresponds to the <em>entire</em> array.
+ *
+ * @relatesalso ArrayView
+ */
+template <typename ElementType, std::size_t N>
+inline ArrayView<const ElementType>
+make_array_view(const std::array<ElementType, N> &array)
+{
+  return ArrayView<const ElementType>(array);
 }
 
 

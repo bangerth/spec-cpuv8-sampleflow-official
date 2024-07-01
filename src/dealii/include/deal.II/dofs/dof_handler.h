@@ -25,8 +25,7 @@
 #include <deal.II/base/index_set.h>
 #include <deal.II/base/iterator_range.h>
 #include <deal.II/base/smartpointer.h>
-
-#include <deal.II/distributed/tria_base.h>
+#include <deal.II/base/types.h>
 
 #include <deal.II/dofs/block_info.h>
 #include <deal.II/dofs/dof_accessor.h>
@@ -516,17 +515,22 @@ public:
   /**
    * The default index of the finite element to be used on a given cell.
    */
-  static const unsigned int default_fe_index = 0;
+  static const types::fe_index default_fe_index = 0;
 
   /**
    * Invalid index of the finite element to be used on a given cell.
+   *
+   * @deprecated Use numbers::invalid_fe_index instead.
    */
-  static const unsigned int invalid_fe_index = numbers::invalid_unsigned_int;
+  static const unsigned int invalid_fe_index DEAL_II_DEPRECATED =
+    numbers::invalid_fe_index;
 
   /**
    * The type in which we store the active FE index.
+   *
+   * @deprecated Use types::fe_index instead.
    */
-  using active_fe_index_type = unsigned short int;
+  using active_fe_index_type DEAL_II_DEPRECATED = types::fe_index;
 
   /**
    * The type in which we store the offsets in the CRS data structures.
@@ -536,9 +540,11 @@ public:
   /**
    * Invalid active FE index which will be used as a default value to determine
    * whether a future FE index has been set or not.
+   *
+   * @deprecated Use numbers::invalid_fe_index instead.
    */
-  static const active_fe_index_type invalid_active_fe_index =
-    static_cast<active_fe_index_type>(-1);
+  static const types::fe_index invalid_active_fe_index DEAL_II_DEPRECATED =
+    numbers::invalid_fe_index;
 
   /**
    * Standard constructor, not initializing any data. After constructing an
@@ -574,76 +580,94 @@ public:
   operator=(const DoFHandler &) = delete;
 
   /**
-   * Assign a Triangulation and a FiniteElement to the DoFHandler and compute
-   * the distribution of degrees of freedom over the mesh.
+   * For each locally owned cell, set the active finite element index to the
+   * corresponding value given in @p active_fe_indices.
    *
-   * @deprecated Use reinit() and distribute_dofs() instead.
+   * The vector @p active_fe_indices needs to have as many entries as there
+   * are active cells. The FE indices must be in the order in which we iterate
+   * over active cells. Vector entries corresponding to active cells that are
+   * not locally owned are ignored.
+   *
+   * Active FE indices will only be set for locally owned cells. Ghost and
+   * artificial cells will be ignored; no active FE index will be assigned to
+   * them.
    */
-  DEAL_II_DEPRECATED
   void
-  initialize(const Triangulation<dim, spacedim> &tria,
-             const FiniteElement<dim, spacedim> &fe);
+  set_active_fe_indices(const std::vector<types::fe_index> &active_fe_indices);
 
   /**
-   * Same as above but taking an hp::FECollection object.
+   * @copydoc set_active_fe_indices()
    *
-   * @deprecated Use reinit() and distribute_dofs() instead.
+   * @deprecated Use set_active_fe_indices() with the types::fe_index datatype.
    */
-  DEAL_II_DEPRECATED
-  void
-  initialize(const Triangulation<dim, spacedim> &   tria,
-             const hp::FECollection<dim, spacedim> &fe);
-
-  /**
-   * Assign a FiniteElement @p fe to this object.
-   *
-   * @note This function makes a copy of the finite element given as
-   * argument, and stores it as a member variable. Consequently, it is
-   * possible to write code such as
-   * @code
-   *   dof_handler.set_fe(FE_Q<dim>(2));
-   * @endcode
-   * You can then access the finite element later on by calling
-   * DoFHandler::get_fe(). However, it is often more convenient to
-   * keep a named finite element object as a member variable in your
-   * main class and refer to it directly whenever you need to access
-   * properties of the finite element (such as
-   * FiniteElementData::dofs_per_cell). This is what all tutorial programs do.
-   *
-   * @warning This function only sets a FiniteElement. Degrees of freedom have
-   * either not been distributed yet, or are distributed using a previously set
-   * element. In both cases, accessing degrees of freedom will lead to invalid
-   * results. To restore consistency, call distribute_dofs().
-   *
-   * @deprecated Use distribute_dofs() instead.
-   */
-  DEAL_II_DEPRECATED
-  void
-  set_fe(const FiniteElement<dim, spacedim> &fe);
-
-  /**
-   * Same as above but taking an hp::FECollection object.
-   *
-   * @deprecated Use distribute_dofs() instead.
-   */
-  DEAL_II_DEPRECATED
-  void
-  set_fe(const hp::FECollection<dim, spacedim> &fe);
-
-  /**
-   * Go through the triangulation and set the active FE indices of all
-   * active cells to the values given in @p active_fe_indices.
-   */
+  DEAL_II_DEPRECATED_EARLY
   void
   set_active_fe_indices(const std::vector<unsigned int> &active_fe_indices);
 
   /**
-   * Go through the triangulation and store the active FE indices of all
-   * active cells to the vector @p active_fe_indices. This vector is
-   * resized, if necessary.
+   * For each locally relevant cell, extract the active finite element index and
+   * return them in the order in which we iterate over active cells.
+   *
+   * As we do not know the active FE index on artificial cells, they are set to
+   * the invalid value numbers::invalid_fe_index.
+   *
+   * For DoFHandler objects without hp-capabilities, the vector will consist of
+   * zeros, indicating that all cells use the same finite element. In hp-mode,
+   * the values may be different, though.
+   *
+   * The returned vector has as many entries as there are active cells.
    */
+  std::vector<types::fe_index>
+  get_active_fe_indices() const;
+
+  /**
+   * For each locally relevant cell, extract the active finite element index and
+   * fill the vector @p active_fe_indices in the order in which we iterate over
+   * active cells. This vector is resized, if necessary.
+   *
+   * As we do not know the active FE index on artificial cells, they are set to
+   * the invalid value numbers::invalid_fe_index.
+   *
+   * For DoFHandler objects without hp-capabilities, the vector will consist of
+   * zeros, indicating that all cells use the same finite element. In hp-mode,
+   * the values may be different, though.
+   *
+   * The returned vector has as many entries as there are active cells.
+   *
+   * @deprecated Use get_active_fe_indices() that returns the result vector.
+   */
+  DEAL_II_DEPRECATED_EARLY
   void
   get_active_fe_indices(std::vector<unsigned int> &active_fe_indices) const;
+
+  /**
+   * For each locally owned cell, set the future finite element index to the
+   * corresponding value given in @p future_fe_indices.
+   *
+   * The vector @p future_fe_indices needs to have as many entries as there
+   * are active cells. The FE indices must be in the order in which we iterate
+   * over active cells. Vector entries corresponding to active cells that are
+   * not locally owned are ignored.
+   *
+   * Future FE indices will only be set for locally owned cells. Ghost and
+   * artificial cells will be ignored; no future FE index will be assigned to
+   * them.
+   */
+  void
+  set_future_fe_indices(const std::vector<types::fe_index> &future_fe_indices);
+
+  /**
+   * For each locally owned cell, extract the future finite element index and
+   * return them in the order in which we iterate over active cells.
+   *
+   * As we do not know the future FE index on ghost and artificial cells, they
+   * are set to the invalid value numbers::invalid_fe_index. The same applies to
+   * locally owned cells that have no future FE index assigned.
+   *
+   * The returned vector has as many entries as there are active cells.
+   */
+  std::vector<types::fe_index>
+  get_future_fe_indices() const;
 
   /**
    * Assign a Triangulation to the DoFHandler.
@@ -1197,7 +1221,7 @@ public:
    * used by this object.
    */
   const FiniteElement<dim, spacedim> &
-  get_fe(const unsigned int index = 0) const;
+  get_fe(const types::fe_index index = 0) const;
 
   /**
    * Return a constant reference to the set of finite element objects that
@@ -1431,26 +1455,28 @@ private:
      * Container to temporarily store the iterator and future active FE index
      * of cells that persist.
      */
-    std::map<const cell_iterator, const unsigned int> persisting_cells_fe_index;
+    std::map<const cell_iterator, const types::fe_index>
+      persisting_cells_fe_index;
 
     /**
      * Container to temporarily store the iterator and future active FE index
      * of cells that will be refined.
      */
-    std::map<const cell_iterator, const unsigned int> refined_cells_fe_index;
+    std::map<const cell_iterator, const types::fe_index> refined_cells_fe_index;
 
     /**
      * Container to temporarily store the iterator and future active FE index
      * of parent cells that will remain after coarsening.
      */
-    std::map<const cell_iterator, const unsigned int> coarsened_cells_fe_index;
+    std::map<const cell_iterator, const types::fe_index>
+      coarsened_cells_fe_index;
 
     /**
      * Container to temporarily store the active FE index of every locally
      * owned cell for transfer across parallel::distributed::Triangulation
      * objects.
      */
-    std::vector<unsigned int> active_fe_indices;
+    std::vector<types::fe_index> active_fe_indices;
 
     /**
      * Helper object to transfer all active FE indices on
@@ -1459,7 +1485,7 @@ private:
      */
     std::unique_ptr<
       parallel::distributed::
-        CellDataTransfer<dim, spacedim, std::vector<unsigned int>>>
+        CellDataTransfer<dim, spacedim, std::vector<types::fe_index>>>
       cell_data_transfer;
   };
 
@@ -1511,20 +1537,6 @@ private:
     mg_number_cache;
 
   /**
-   * Cached indices of the degrees of freedom of all active cell. Identification
-   * of the appropriate position of a cell in the vectors is done via
-   * cell_dof_cache_ptr (CRS scheme).
-   */
-  mutable std::vector<std::vector<types::global_dof_index>>
-    cell_dof_cache_indices;
-
-  /**
-   * Pointer to the first cached degree of freedom of an active cell
-   * (identified by level and level index) within cell_dof_cache_indices.
-   */
-  mutable std::vector<std::vector<offset_type>> cell_dof_cache_ptr;
-
-  /**
    * Indices of degree of freedom of each d+1 geometric object (3D: vertex,
    * line, quad, hex) for all relevant active finite elements. Identification
    * of the appropriate position is done via object_dof_ptr (CRS scheme).
@@ -1548,7 +1560,7 @@ private:
    * of the appropriate position of a cell in the vectors is done via
    * hp_object_fe_ptr (CRS scheme).
    */
-  mutable std::array<std::vector<active_fe_index_type>, dim + 1>
+  mutable std::array<std::vector<types::fe_index>, dim + 1>
     hp_object_fe_indices;
 
   /**
@@ -1560,15 +1572,13 @@ private:
    * Active FE index of an active cell (identified by level and level index).
    * This vector is only used in hp-mode.
    */
-  mutable std::vector<std::vector<active_fe_index_type>>
-    hp_cell_active_fe_indices;
+  mutable std::vector<std::vector<types::fe_index>> hp_cell_active_fe_indices;
 
   /**
    * Future FE index of an active cell (identified by level and level index).
    * This vector is only used in hp-mode.
    */
-  mutable std::vector<std::vector<active_fe_index_type>>
-    hp_cell_future_fe_indices;
+  mutable std::vector<std::vector<types::fe_index>> hp_cell_future_fe_indices;
 
   /**
    * An array to store the indices for level degrees of freedom located at
@@ -1883,7 +1893,7 @@ DoFHandler<dim, spacedim>::locally_owned_mg_dofs(const unsigned int level) const
 
 template <int dim, int spacedim>
 inline const FiniteElement<dim, spacedim> &
-DoFHandler<dim, spacedim>::get_fe(const unsigned int number) const
+DoFHandler<dim, spacedim>::get_fe(const types::fe_index number) const
 {
   Assert(fe_collection.size() > 0,
          ExcMessage("No finite element collection is associated with "
@@ -1990,9 +2000,6 @@ DoFHandler<dim, spacedim>::save(Archive &ar, const unsigned int) const
       ar &this->object_dof_indices;
       ar &this->object_dof_ptr;
 
-      ar &this->cell_dof_cache_indices;
-      ar &this->cell_dof_cache_ptr;
-
       ar &this->hp_cell_active_fe_indices;
       ar &this->hp_cell_future_fe_indices;
 
@@ -2020,9 +2027,6 @@ DoFHandler<dim, spacedim>::save(Archive &ar, const unsigned int) const
       ar &this->object_dof_indices;
       ar &this->object_dof_ptr;
 
-      ar &this->cell_dof_cache_indices;
-      ar &this->cell_dof_cache_ptr;
-
       // write out the number of triangulation cells and later check during
       // loading that this number is indeed correct; same with something that
       // identifies the FE and the policy
@@ -2045,9 +2049,6 @@ DoFHandler<dim, spacedim>::load(Archive &ar, const unsigned int)
     {
       ar &this->object_dof_indices;
       ar &this->object_dof_ptr;
-
-      ar &this->cell_dof_cache_indices;
-      ar &this->cell_dof_cache_ptr;
 
       ar &this->hp_cell_active_fe_indices;
       ar &this->hp_cell_future_fe_indices;
@@ -2090,9 +2091,6 @@ DoFHandler<dim, spacedim>::load(Archive &ar, const unsigned int)
 
       ar &this->object_dof_indices;
       ar &this->object_dof_ptr;
-
-      ar &this->cell_dof_cache_indices;
-      ar &this->cell_dof_cache_ptr;
 
       // these are the checks that correspond to the last block in the save()
       // function

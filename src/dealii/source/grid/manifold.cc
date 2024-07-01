@@ -29,6 +29,7 @@ DEAL_II_DISABLE_EXTRA_DIAGNOSTICS
 DEAL_II_DISABLE_EXTRA_DIAGNOSTICS
 
 #include <cmath>
+#include <limits>
 #include <memory>
 
 DEAL_II_NAMESPACE_OPEN
@@ -205,9 +206,45 @@ Manifold<3, 3>::normal_vector(const Triangulation<3, 3>::face_iterator &face,
          ExcMessage("The search for possible directions did not succeed."));
 
   // Compute tangents and normal for selected vertices
-  Tensor<1, spacedim> t1     = get_tangent_vector(p, vertices[first_index]);
-  Tensor<1, spacedim> t2     = get_tangent_vector(p, vertices[second_index]);
-  Tensor<1, spacedim> normal = cross_product_3d(t1, t2);
+  Tensor<1, spacedim> t1;
+  Tensor<1, spacedim> t2;
+  Tensor<1, spacedim> normal;
+
+  bool              done = false;
+  std::vector<bool> tested_vertices(vertices.size(), false);
+  tested_vertices[first_index]  = true;
+  tested_vertices[second_index] = true;
+
+  do
+    {
+      // Compute tangents and normal for selected vertices
+      t1     = get_tangent_vector(p, vertices[first_index]);
+      t2     = get_tangent_vector(p, vertices[second_index]);
+      normal = cross_product_3d(t1, t2);
+
+      // if normal is zero, try some other combination of vertices
+      if (normal.norm_square() < 1e4 * std::numeric_limits<double>::epsilon() *
+                                   t1.norm_square() * t2.norm_square())
+        {
+          // See if we have tested all vertices already
+          auto first_false =
+            std::find(tested_vertices.begin(), tested_vertices.end(), false);
+          if (first_false == tested_vertices.end())
+            {
+              done = true;
+            }
+          else
+            {
+              *first_false = true;
+              second_index = first_false - tested_vertices.begin();
+            }
+        }
+      else
+        {
+          done = true;
+        }
+    }
+  while (!done);
 
   Assert(
     normal.norm_square() > 1e4 * std::numeric_limits<double>::epsilon() *

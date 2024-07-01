@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 namespace NonMatching
  {
  template class QuadratureGenerator< 1 >;
@@ -68,7 +68,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 namespace NonMatching
  {
  template class QuadratureGenerator< 2 >;
@@ -130,7 +130,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 namespace NonMatching
  {
  template class QuadratureGenerator< 3 >;
@@ -192,70 +192,70 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 #if 1 <  1 
  template class NonMatching::internal::QuadratureGeneratorImplementation::
  UpThroughDimensionCreator< 1 ,  1 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 #if 1 <  1 
  template class NonMatching::internal::QuadratureGeneratorImplementation::
  UpThroughDimensionCreator< 1 ,  2 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 #if 1 <  1 
  template class NonMatching::internal::QuadratureGeneratorImplementation::
  UpThroughDimensionCreator< 1 ,  3 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 #if 1 <  2 
  template class NonMatching::internal::QuadratureGeneratorImplementation::
  UpThroughDimensionCreator< 2 ,  1 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 #if 1 <  2 
  template class NonMatching::internal::QuadratureGeneratorImplementation::
  UpThroughDimensionCreator< 2 ,  2 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 #if 1 <  2 
  template class NonMatching::internal::QuadratureGeneratorImplementation::
  UpThroughDimensionCreator< 2 ,  3 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
+#if (SPLIT_INSTANTIATIONS_CHECK(9))
 #if 1 <  3 
  template class NonMatching::internal::QuadratureGeneratorImplementation::
  UpThroughDimensionCreator< 3 ,  1 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
+#if (SPLIT_INSTANTIATIONS_CHECK(10))
 #if 1 <  3 
  template class NonMatching::internal::QuadratureGeneratorImplementation::
  UpThroughDimensionCreator< 3 ,  2 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
+#if (SPLIT_INSTANTIATIONS_CHECK(11))
 #if 1 <  3 
  template class NonMatching::internal::QuadratureGeneratorImplementation::
  UpThroughDimensionCreator< 3 ,  3 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(12))
+#if (SPLIT_INSTANTIATIONS_CHECK(12))
 template NonMatching::DiscreteQuadratureGenerator< 1 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 1 > &,
@@ -269,7 +269,7 @@ template NonMatching::DiscreteQuadratureGenerator< 1 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(13))
+#if (SPLIT_INSTANTIATIONS_CHECK(13))
 template NonMatching::DiscreteQuadratureGenerator< 2 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 2 > &,
@@ -283,7 +283,7 @@ template NonMatching::DiscreteQuadratureGenerator< 2 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(14))
+#if (SPLIT_INSTANTIATIONS_CHECK(14))
 template NonMatching::DiscreteQuadratureGenerator< 3 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 3 > &,
@@ -297,7 +297,7 @@ template NonMatching::DiscreteQuadratureGenerator< 3 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(15))
+#if (SPLIT_INSTANTIATIONS_CHECK(15))
 template NonMatching::DiscreteQuadratureGenerator< 1 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 1 > &,
@@ -311,7 +311,7 @@ template NonMatching::DiscreteQuadratureGenerator< 1 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(16))
+#if (SPLIT_INSTANTIATIONS_CHECK(16))
 template NonMatching::DiscreteQuadratureGenerator< 2 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 2 > &,
@@ -325,7 +325,7 @@ template NonMatching::DiscreteQuadratureGenerator< 2 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(17))
+#if (SPLIT_INSTANTIATIONS_CHECK(17))
 template NonMatching::DiscreteQuadratureGenerator< 3 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 3 > &,
@@ -339,7 +339,7 @@ template NonMatching::DiscreteQuadratureGenerator< 3 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(18))
+#if (SPLIT_INSTANTIATIONS_CHECK(18))
 template NonMatching::DiscreteQuadratureGenerator< 1 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 1 > &,
@@ -353,7 +353,7 @@ template NonMatching::DiscreteQuadratureGenerator< 1 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(19))
+#if (SPLIT_INSTANTIATIONS_CHECK(19))
 template NonMatching::DiscreteQuadratureGenerator< 2 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 2 > &,
@@ -367,7 +367,7 @@ template NonMatching::DiscreteQuadratureGenerator< 2 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(20))
+#if (SPLIT_INSTANTIATIONS_CHECK(20))
 template NonMatching::DiscreteQuadratureGenerator< 3 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 3 > &,
@@ -381,7 +381,7 @@ template NonMatching::DiscreteQuadratureGenerator< 3 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(21))
+#if (SPLIT_INSTANTIATIONS_CHECK(21))
 template NonMatching::DiscreteQuadratureGenerator< 1 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 1 > &,
@@ -395,7 +395,7 @@ template NonMatching::DiscreteQuadratureGenerator< 1 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(22))
+#if (SPLIT_INSTANTIATIONS_CHECK(22))
 template NonMatching::DiscreteQuadratureGenerator< 2 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 2 > &,
@@ -409,7 +409,7 @@ template NonMatching::DiscreteQuadratureGenerator< 2 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(23))
+#if (SPLIT_INSTANTIATIONS_CHECK(23))
 template NonMatching::DiscreteQuadratureGenerator< 3 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 3 > &,
@@ -423,7 +423,7 @@ template NonMatching::DiscreteQuadratureGenerator< 3 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(24))
+#if (SPLIT_INSTANTIATIONS_CHECK(24))
 template NonMatching::DiscreteQuadratureGenerator< 1 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 1 > &,
@@ -437,7 +437,7 @@ template NonMatching::DiscreteQuadratureGenerator< 1 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(25))
+#if (SPLIT_INSTANTIATIONS_CHECK(25))
 template NonMatching::DiscreteQuadratureGenerator< 2 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 2 > &,
@@ -451,7 +451,7 @@ template NonMatching::DiscreteQuadratureGenerator< 2 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(26))
+#if (SPLIT_INSTANTIATIONS_CHECK(26))
 template NonMatching::DiscreteQuadratureGenerator< 3 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 3 > &,
@@ -465,7 +465,7 @@ template NonMatching::DiscreteQuadratureGenerator< 3 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(27))
+#if (SPLIT_INSTANTIATIONS_CHECK(27))
 template NonMatching::DiscreteQuadratureGenerator< 1 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 1 > &,
@@ -479,7 +479,7 @@ template NonMatching::DiscreteQuadratureGenerator< 1 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(28))
+#if (SPLIT_INSTANTIATIONS_CHECK(28))
 template NonMatching::DiscreteQuadratureGenerator< 2 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 2 > &,
@@ -493,7 +493,7 @@ template NonMatching::DiscreteQuadratureGenerator< 2 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(29))
+#if (SPLIT_INSTANTIATIONS_CHECK(29))
 template NonMatching::DiscreteQuadratureGenerator< 3 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 3 > &,
@@ -507,7 +507,7 @@ template NonMatching::DiscreteQuadratureGenerator< 3 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(30))
+#if (SPLIT_INSTANTIATIONS_CHECK(30))
 template NonMatching::DiscreteQuadratureGenerator< 1 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 1 > &,
@@ -521,7 +521,7 @@ template NonMatching::DiscreteQuadratureGenerator< 1 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(31))
+#if (SPLIT_INSTANTIATIONS_CHECK(31))
 template NonMatching::DiscreteQuadratureGenerator< 2 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 2 > &,
@@ -535,7 +535,7 @@ template NonMatching::DiscreteQuadratureGenerator< 2 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(32))
+#if (SPLIT_INSTANTIATIONS_CHECK(32))
 template NonMatching::DiscreteQuadratureGenerator< 3 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 3 > &,
@@ -549,7 +549,7 @@ template NonMatching::DiscreteQuadratureGenerator< 3 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(33))
+#if (SPLIT_INSTANTIATIONS_CHECK(33))
 template NonMatching::DiscreteQuadratureGenerator< 1 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 1 > &,
@@ -563,7 +563,7 @@ template NonMatching::DiscreteQuadratureGenerator< 1 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(34))
+#if (SPLIT_INSTANTIATIONS_CHECK(34))
 template NonMatching::DiscreteQuadratureGenerator< 2 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 2 > &,
@@ -577,7 +577,7 @@ template NonMatching::DiscreteQuadratureGenerator< 2 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(35))
+#if (SPLIT_INSTANTIATIONS_CHECK(35))
 template NonMatching::DiscreteQuadratureGenerator< 3 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 3 > &,
@@ -591,7 +591,7 @@ template NonMatching::DiscreteQuadratureGenerator< 3 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(36))
+#if (SPLIT_INSTANTIATIONS_CHECK(36))
 template NonMatching::DiscreteQuadratureGenerator< 1 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 1 > &,
@@ -605,7 +605,7 @@ template NonMatching::DiscreteQuadratureGenerator< 1 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(37))
+#if (SPLIT_INSTANTIATIONS_CHECK(37))
 template NonMatching::DiscreteQuadratureGenerator< 2 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 2 > &,
@@ -619,7 +619,7 @@ template NonMatching::DiscreteQuadratureGenerator< 2 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(38))
+#if (SPLIT_INSTANTIATIONS_CHECK(38))
 template NonMatching::DiscreteQuadratureGenerator< 3 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 3 > &,
@@ -633,7 +633,7 @@ template NonMatching::DiscreteQuadratureGenerator< 3 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(39))
+#if (SPLIT_INSTANTIATIONS_CHECK(39))
 template NonMatching::DiscreteQuadratureGenerator< 1 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 1 > &,
@@ -647,7 +647,7 @@ template NonMatching::DiscreteQuadratureGenerator< 1 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(40))
+#if (SPLIT_INSTANTIATIONS_CHECK(40))
 template NonMatching::DiscreteQuadratureGenerator< 2 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 2 > &,
@@ -661,7 +661,7 @@ template NonMatching::DiscreteQuadratureGenerator< 2 >::
  const AdditionalData &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(41))
+#if (SPLIT_INSTANTIATIONS_CHECK(41))
 template NonMatching::DiscreteQuadratureGenerator< 3 >::
  DiscreteQuadratureGenerator(const hp::QCollection<1> &,
  const DoFHandler< 3 > &,

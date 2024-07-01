@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 namespace FETools
  {
 #if  1  ==  1 
@@ -26,7 +26,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 namespace FETools
  {
 #if  1  ==  1 
@@ -46,7 +46,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 namespace FETools
  {
 #if  1  ==  1 
@@ -66,7 +66,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 namespace FETools
  {
 #if  1  ==  1 
@@ -86,7 +86,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 namespace FETools
  {
 #if  1  ==  1 
@@ -106,7 +106,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 namespace FETools
  {
 #if  1  ==  1 
@@ -126,7 +126,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 namespace FETools
  {
 #if  1  ==  1 
@@ -146,7 +146,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 namespace FETools
  {
 #if  1  ==  1 
@@ -166,7 +166,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 namespace FETools
  {
 #if  1  ==  1 
@@ -186,7 +186,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
+#if (SPLIT_INSTANTIATIONS_CHECK(9))
 namespace FETools
  {
 #if  1  ==  1 
@@ -206,207 +206,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
-namespace FETools
- {
-#if  1  ==  1 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  Vector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
-  Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  Vector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< Vector<std::complex<double> > ::value_type> &,
-  Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
-namespace FETools
- {
-#if  1  ==  1 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  Vector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
-  Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  Vector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< Vector<std::complex<float> > ::value_type> &,
-  Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(12))
-namespace FETools
- {
-#if  1  ==  1 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  BlockVector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
-  BlockVector<std::complex<double> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  BlockVector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< BlockVector<std::complex<double> > ::value_type> &,
-  BlockVector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(13))
-namespace FETools
- {
-#if  1  ==  1 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  BlockVector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
-  BlockVector<std::complex<float> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  BlockVector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< BlockVector<std::complex<float> > ::value_type> &,
-  BlockVector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(14))
-namespace FETools
- {
-#if  1  ==  1 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::Vector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
-  LinearAlgebra::Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::Vector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(15))
-namespace FETools
- {
-#if  1  ==  1 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::Vector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
-  LinearAlgebra::Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::Vector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(16))
-namespace FETools
- {
-#if  1  ==  1 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
-  LinearAlgebra::distributed::Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::distributed::Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(17))
-namespace FETools
- {
-#if  1  ==  1 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
-  LinearAlgebra::distributed::Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::distributed::Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(18))
-namespace FETools
- {
-#if  1  ==  1 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
-  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(19))
-namespace FETools
- {
-#if  1  ==  1 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
-  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(20))
+#if (SPLIT_INSTANTIATIONS_CHECK(10))
 namespace FETools
  {
 #if  1  ==  2 
@@ -426,7 +226,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(21))
+#if (SPLIT_INSTANTIATIONS_CHECK(11))
 namespace FETools
  {
 #if  1  ==  2 
@@ -446,7 +246,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(22))
+#if (SPLIT_INSTANTIATIONS_CHECK(12))
 namespace FETools
  {
 #if  1  ==  2 
@@ -466,7 +266,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(23))
+#if (SPLIT_INSTANTIATIONS_CHECK(13))
 namespace FETools
  {
 #if  1  ==  2 
@@ -486,7 +286,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(24))
+#if (SPLIT_INSTANTIATIONS_CHECK(14))
 namespace FETools
  {
 #if  1  ==  2 
@@ -506,7 +306,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(25))
+#if (SPLIT_INSTANTIATIONS_CHECK(15))
 namespace FETools
  {
 #if  1  ==  2 
@@ -526,7 +326,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(26))
+#if (SPLIT_INSTANTIATIONS_CHECK(16))
 namespace FETools
  {
 #if  1  ==  2 
@@ -546,7 +346,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(27))
+#if (SPLIT_INSTANTIATIONS_CHECK(17))
 namespace FETools
  {
 #if  1  ==  2 
@@ -566,7 +366,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(28))
+#if (SPLIT_INSTANTIATIONS_CHECK(18))
 namespace FETools
  {
 #if  1  ==  2 
@@ -586,7 +386,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(29))
+#if (SPLIT_INSTANTIATIONS_CHECK(19))
 namespace FETools
  {
 #if  1  ==  2 
@@ -606,207 +406,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(30))
-namespace FETools
- {
-#if  1  ==  2 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  Vector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
-  Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  Vector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< Vector<std::complex<double> > ::value_type> &,
-  Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(31))
-namespace FETools
- {
-#if  1  ==  2 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  Vector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
-  Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  Vector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< Vector<std::complex<float> > ::value_type> &,
-  Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(32))
-namespace FETools
- {
-#if  1  ==  2 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  BlockVector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
-  BlockVector<std::complex<double> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  BlockVector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< BlockVector<std::complex<double> > ::value_type> &,
-  BlockVector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(33))
-namespace FETools
- {
-#if  1  ==  2 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  BlockVector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
-  BlockVector<std::complex<float> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  BlockVector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< BlockVector<std::complex<float> > ::value_type> &,
-  BlockVector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(34))
-namespace FETools
- {
-#if  1  ==  2 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::Vector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
-  LinearAlgebra::Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::Vector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(35))
-namespace FETools
- {
-#if  1  ==  2 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::Vector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
-  LinearAlgebra::Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::Vector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(36))
-namespace FETools
- {
-#if  1  ==  2 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
-  LinearAlgebra::distributed::Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::distributed::Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(37))
-namespace FETools
- {
-#if  1  ==  2 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
-  LinearAlgebra::distributed::Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::distributed::Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(38))
-namespace FETools
- {
-#if  1  ==  2 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
-  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(39))
-namespace FETools
- {
-#if  1  ==  2 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
-  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(40))
+#if (SPLIT_INSTANTIATIONS_CHECK(20))
 namespace FETools
  {
 #if  1  ==  3 
@@ -826,7 +426,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(41))
+#if (SPLIT_INSTANTIATIONS_CHECK(21))
 namespace FETools
  {
 #if  1  ==  3 
@@ -846,7 +446,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(42))
+#if (SPLIT_INSTANTIATIONS_CHECK(22))
 namespace FETools
  {
 #if  1  ==  3 
@@ -866,7 +466,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(43))
+#if (SPLIT_INSTANTIATIONS_CHECK(23))
 namespace FETools
  {
 #if  1  ==  3 
@@ -886,7 +486,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(44))
+#if (SPLIT_INSTANTIATIONS_CHECK(24))
 namespace FETools
  {
 #if  1  ==  3 
@@ -906,7 +506,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(45))
+#if (SPLIT_INSTANTIATIONS_CHECK(25))
 namespace FETools
  {
 #if  1  ==  3 
@@ -926,7 +526,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(46))
+#if (SPLIT_INSTANTIATIONS_CHECK(26))
 namespace FETools
  {
 #if  1  ==  3 
@@ -946,7 +546,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(47))
+#if (SPLIT_INSTANTIATIONS_CHECK(27))
 namespace FETools
  {
 #if  1  ==  3 
@@ -966,7 +566,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(48))
+#if (SPLIT_INSTANTIATIONS_CHECK(28))
 namespace FETools
  {
 #if  1  ==  3 
@@ -986,7 +586,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(49))
+#if (SPLIT_INSTANTIATIONS_CHECK(29))
 namespace FETools
  {
 #if  1  ==  3 
@@ -1006,207 +606,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(50))
-namespace FETools
- {
-#if  1  ==  3 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  Vector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
-  Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  Vector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< Vector<std::complex<double> > ::value_type> &,
-  Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(51))
-namespace FETools
- {
-#if  1  ==  3 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  Vector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
-  Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  Vector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< Vector<std::complex<float> > ::value_type> &,
-  Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(52))
-namespace FETools
- {
-#if  1  ==  3 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  BlockVector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
-  BlockVector<std::complex<double> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  BlockVector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< BlockVector<std::complex<double> > ::value_type> &,
-  BlockVector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(53))
-namespace FETools
- {
-#if  1  ==  3 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  BlockVector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
-  BlockVector<std::complex<float> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  BlockVector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< BlockVector<std::complex<float> > ::value_type> &,
-  BlockVector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(54))
-namespace FETools
- {
-#if  1  ==  3 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::Vector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
-  LinearAlgebra::Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::Vector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(55))
-namespace FETools
- {
-#if  1  ==  3 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::Vector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
-  LinearAlgebra::Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::Vector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(56))
-namespace FETools
- {
-#if  1  ==  3 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
-  LinearAlgebra::distributed::Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::distributed::Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(57))
-namespace FETools
- {
-#if  1  ==  3 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
-  LinearAlgebra::distributed::Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::distributed::Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(58))
-namespace FETools
- {
-#if  1  ==  3 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
-  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(59))
-namespace FETools
- {
-#if  1  ==  3 
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
-  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &);
-
- template void
- extrapolate< 1 >(const DoFHandler< 1 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- const DoFHandler< 1 > &,
- const AffineConstraints< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(60))
+#if (SPLIT_INSTANTIATIONS_CHECK(30))
 namespace FETools
  {
 #if  2  ==  1 
@@ -1226,7 +626,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(61))
+#if (SPLIT_INSTANTIATIONS_CHECK(31))
 namespace FETools
  {
 #if  2  ==  1 
@@ -1246,7 +646,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(62))
+#if (SPLIT_INSTANTIATIONS_CHECK(32))
 namespace FETools
  {
 #if  2  ==  1 
@@ -1266,7 +666,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(63))
+#if (SPLIT_INSTANTIATIONS_CHECK(33))
 namespace FETools
  {
 #if  2  ==  1 
@@ -1286,7 +686,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(64))
+#if (SPLIT_INSTANTIATIONS_CHECK(34))
 namespace FETools
  {
 #if  2  ==  1 
@@ -1306,7 +706,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(65))
+#if (SPLIT_INSTANTIATIONS_CHECK(35))
 namespace FETools
  {
 #if  2  ==  1 
@@ -1326,7 +726,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(66))
+#if (SPLIT_INSTANTIATIONS_CHECK(36))
 namespace FETools
  {
 #if  2  ==  1 
@@ -1346,7 +746,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(67))
+#if (SPLIT_INSTANTIATIONS_CHECK(37))
 namespace FETools
  {
 #if  2  ==  1 
@@ -1366,7 +766,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(68))
+#if (SPLIT_INSTANTIATIONS_CHECK(38))
 namespace FETools
  {
 #if  2  ==  1 
@@ -1386,7 +786,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(69))
+#if (SPLIT_INSTANTIATIONS_CHECK(39))
 namespace FETools
  {
 #if  2  ==  1 
@@ -1406,207 +806,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(70))
-namespace FETools
- {
-#if  2  ==  1 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  Vector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
-  Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  Vector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< Vector<std::complex<double> > ::value_type> &,
-  Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(71))
-namespace FETools
- {
-#if  2  ==  1 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  Vector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
-  Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  Vector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< Vector<std::complex<float> > ::value_type> &,
-  Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(72))
-namespace FETools
- {
-#if  2  ==  1 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  BlockVector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
-  BlockVector<std::complex<double> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  BlockVector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< BlockVector<std::complex<double> > ::value_type> &,
-  BlockVector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(73))
-namespace FETools
- {
-#if  2  ==  1 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  BlockVector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
-  BlockVector<std::complex<float> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  BlockVector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< BlockVector<std::complex<float> > ::value_type> &,
-  BlockVector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(74))
-namespace FETools
- {
-#if  2  ==  1 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::Vector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
-  LinearAlgebra::Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::Vector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(75))
-namespace FETools
- {
-#if  2  ==  1 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::Vector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
-  LinearAlgebra::Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::Vector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(76))
-namespace FETools
- {
-#if  2  ==  1 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
-  LinearAlgebra::distributed::Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::distributed::Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(77))
-namespace FETools
- {
-#if  2  ==  1 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
-  LinearAlgebra::distributed::Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::distributed::Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(78))
-namespace FETools
- {
-#if  2  ==  1 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
-  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(79))
-namespace FETools
- {
-#if  2  ==  1 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
-  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(80))
+#if (SPLIT_INSTANTIATIONS_CHECK(40))
 namespace FETools
  {
 #if  2  ==  2 
@@ -1626,7 +826,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(81))
+#if (SPLIT_INSTANTIATIONS_CHECK(41))
 namespace FETools
  {
 #if  2  ==  2 
@@ -1646,7 +846,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(82))
+#if (SPLIT_INSTANTIATIONS_CHECK(42))
 namespace FETools
  {
 #if  2  ==  2 
@@ -1666,7 +866,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(83))
+#if (SPLIT_INSTANTIATIONS_CHECK(43))
 namespace FETools
  {
 #if  2  ==  2 
@@ -1686,7 +886,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(84))
+#if (SPLIT_INSTANTIATIONS_CHECK(44))
 namespace FETools
  {
 #if  2  ==  2 
@@ -1706,7 +906,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(85))
+#if (SPLIT_INSTANTIATIONS_CHECK(45))
 namespace FETools
  {
 #if  2  ==  2 
@@ -1726,7 +926,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(86))
+#if (SPLIT_INSTANTIATIONS_CHECK(46))
 namespace FETools
  {
 #if  2  ==  2 
@@ -1746,7 +946,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(87))
+#if (SPLIT_INSTANTIATIONS_CHECK(47))
 namespace FETools
  {
 #if  2  ==  2 
@@ -1766,7 +966,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(88))
+#if (SPLIT_INSTANTIATIONS_CHECK(48))
 namespace FETools
  {
 #if  2  ==  2 
@@ -1786,7 +986,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(89))
+#if (SPLIT_INSTANTIATIONS_CHECK(49))
 namespace FETools
  {
 #if  2  ==  2 
@@ -1806,207 +1006,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(90))
-namespace FETools
- {
-#if  2  ==  2 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  Vector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
-  Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  Vector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< Vector<std::complex<double> > ::value_type> &,
-  Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(91))
-namespace FETools
- {
-#if  2  ==  2 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  Vector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
-  Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  Vector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< Vector<std::complex<float> > ::value_type> &,
-  Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(92))
-namespace FETools
- {
-#if  2  ==  2 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  BlockVector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
-  BlockVector<std::complex<double> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  BlockVector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< BlockVector<std::complex<double> > ::value_type> &,
-  BlockVector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(93))
-namespace FETools
- {
-#if  2  ==  2 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  BlockVector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
-  BlockVector<std::complex<float> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  BlockVector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< BlockVector<std::complex<float> > ::value_type> &,
-  BlockVector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(94))
-namespace FETools
- {
-#if  2  ==  2 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::Vector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
-  LinearAlgebra::Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::Vector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(95))
-namespace FETools
- {
-#if  2  ==  2 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::Vector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
-  LinearAlgebra::Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::Vector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(96))
-namespace FETools
- {
-#if  2  ==  2 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
-  LinearAlgebra::distributed::Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::distributed::Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(97))
-namespace FETools
- {
-#if  2  ==  2 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
-  LinearAlgebra::distributed::Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::distributed::Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(98))
-namespace FETools
- {
-#if  2  ==  2 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
-  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(99))
-namespace FETools
- {
-#if  2  ==  2 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
-  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(100))
+#if (SPLIT_INSTANTIATIONS_CHECK(50))
 namespace FETools
  {
 #if  2  ==  3 
@@ -2026,7 +1026,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(101))
+#if (SPLIT_INSTANTIATIONS_CHECK(51))
 namespace FETools
  {
 #if  2  ==  3 
@@ -2046,7 +1046,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(102))
+#if (SPLIT_INSTANTIATIONS_CHECK(52))
 namespace FETools
  {
 #if  2  ==  3 
@@ -2066,7 +1066,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(103))
+#if (SPLIT_INSTANTIATIONS_CHECK(53))
 namespace FETools
  {
 #if  2  ==  3 
@@ -2086,7 +1086,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(104))
+#if (SPLIT_INSTANTIATIONS_CHECK(54))
 namespace FETools
  {
 #if  2  ==  3 
@@ -2106,7 +1106,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(105))
+#if (SPLIT_INSTANTIATIONS_CHECK(55))
 namespace FETools
  {
 #if  2  ==  3 
@@ -2126,7 +1126,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(106))
+#if (SPLIT_INSTANTIATIONS_CHECK(56))
 namespace FETools
  {
 #if  2  ==  3 
@@ -2146,7 +1146,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(107))
+#if (SPLIT_INSTANTIATIONS_CHECK(57))
 namespace FETools
  {
 #if  2  ==  3 
@@ -2166,7 +1166,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(108))
+#if (SPLIT_INSTANTIATIONS_CHECK(58))
 namespace FETools
  {
 #if  2  ==  3 
@@ -2186,7 +1186,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(109))
+#if (SPLIT_INSTANTIATIONS_CHECK(59))
 namespace FETools
  {
 #if  2  ==  3 
@@ -2206,207 +1206,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(110))
-namespace FETools
- {
-#if  2  ==  3 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  Vector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
-  Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  Vector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< Vector<std::complex<double> > ::value_type> &,
-  Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(111))
-namespace FETools
- {
-#if  2  ==  3 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  Vector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
-  Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  Vector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< Vector<std::complex<float> > ::value_type> &,
-  Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(112))
-namespace FETools
- {
-#if  2  ==  3 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  BlockVector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
-  BlockVector<std::complex<double> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  BlockVector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< BlockVector<std::complex<double> > ::value_type> &,
-  BlockVector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(113))
-namespace FETools
- {
-#if  2  ==  3 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  BlockVector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
-  BlockVector<std::complex<float> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  BlockVector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< BlockVector<std::complex<float> > ::value_type> &,
-  BlockVector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(114))
-namespace FETools
- {
-#if  2  ==  3 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::Vector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
-  LinearAlgebra::Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::Vector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(115))
-namespace FETools
- {
-#if  2  ==  3 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::Vector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
-  LinearAlgebra::Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::Vector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(116))
-namespace FETools
- {
-#if  2  ==  3 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
-  LinearAlgebra::distributed::Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::distributed::Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(117))
-namespace FETools
- {
-#if  2  ==  3 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
-  LinearAlgebra::distributed::Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::distributed::Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(118))
-namespace FETools
- {
-#if  2  ==  3 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
-  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(119))
-namespace FETools
- {
-#if  2  ==  3 
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
-  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &);
-
- template void
- extrapolate< 2 >(const DoFHandler< 2 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- const DoFHandler< 2 > &,
- const AffineConstraints< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(120))
+#if (SPLIT_INSTANTIATIONS_CHECK(60))
 namespace FETools
  {
 #if  3  ==  1 
@@ -2426,7 +1226,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(121))
+#if (SPLIT_INSTANTIATIONS_CHECK(61))
 namespace FETools
  {
 #if  3  ==  1 
@@ -2446,7 +1246,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(122))
+#if (SPLIT_INSTANTIATIONS_CHECK(62))
 namespace FETools
  {
 #if  3  ==  1 
@@ -2466,7 +1266,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(123))
+#if (SPLIT_INSTANTIATIONS_CHECK(63))
 namespace FETools
  {
 #if  3  ==  1 
@@ -2486,7 +1286,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(124))
+#if (SPLIT_INSTANTIATIONS_CHECK(64))
 namespace FETools
  {
 #if  3  ==  1 
@@ -2506,7 +1306,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(125))
+#if (SPLIT_INSTANTIATIONS_CHECK(65))
 namespace FETools
  {
 #if  3  ==  1 
@@ -2526,7 +1326,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(126))
+#if (SPLIT_INSTANTIATIONS_CHECK(66))
 namespace FETools
  {
 #if  3  ==  1 
@@ -2546,7 +1346,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(127))
+#if (SPLIT_INSTANTIATIONS_CHECK(67))
 namespace FETools
  {
 #if  3  ==  1 
@@ -2566,7 +1366,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(128))
+#if (SPLIT_INSTANTIATIONS_CHECK(68))
 namespace FETools
  {
 #if  3  ==  1 
@@ -2586,7 +1386,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(129))
+#if (SPLIT_INSTANTIATIONS_CHECK(69))
 namespace FETools
  {
 #if  3  ==  1 
@@ -2606,207 +1406,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(130))
-namespace FETools
- {
-#if  3  ==  1 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  Vector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
-  Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  Vector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< Vector<std::complex<double> > ::value_type> &,
-  Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(131))
-namespace FETools
- {
-#if  3  ==  1 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  Vector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
-  Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  Vector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< Vector<std::complex<float> > ::value_type> &,
-  Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(132))
-namespace FETools
- {
-#if  3  ==  1 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  BlockVector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
-  BlockVector<std::complex<double> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  BlockVector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< BlockVector<std::complex<double> > ::value_type> &,
-  BlockVector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(133))
-namespace FETools
- {
-#if  3  ==  1 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  BlockVector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
-  BlockVector<std::complex<float> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  BlockVector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< BlockVector<std::complex<float> > ::value_type> &,
-  BlockVector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(134))
-namespace FETools
- {
-#if  3  ==  1 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::Vector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
-  LinearAlgebra::Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::Vector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(135))
-namespace FETools
- {
-#if  3  ==  1 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::Vector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
-  LinearAlgebra::Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::Vector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(136))
-namespace FETools
- {
-#if  3  ==  1 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
-  LinearAlgebra::distributed::Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::distributed::Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(137))
-namespace FETools
- {
-#if  3  ==  1 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
-  LinearAlgebra::distributed::Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::distributed::Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(138))
-namespace FETools
- {
-#if  3  ==  1 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
-  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(139))
-namespace FETools
- {
-#if  3  ==  1 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
-  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(140))
+#if (SPLIT_INSTANTIATIONS_CHECK(70))
 namespace FETools
  {
 #if  3  ==  2 
@@ -2826,7 +1426,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(141))
+#if (SPLIT_INSTANTIATIONS_CHECK(71))
 namespace FETools
  {
 #if  3  ==  2 
@@ -2846,7 +1446,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(142))
+#if (SPLIT_INSTANTIATIONS_CHECK(72))
 namespace FETools
  {
 #if  3  ==  2 
@@ -2866,7 +1466,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(143))
+#if (SPLIT_INSTANTIATIONS_CHECK(73))
 namespace FETools
  {
 #if  3  ==  2 
@@ -2886,7 +1486,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(144))
+#if (SPLIT_INSTANTIATIONS_CHECK(74))
 namespace FETools
  {
 #if  3  ==  2 
@@ -2906,7 +1506,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(145))
+#if (SPLIT_INSTANTIATIONS_CHECK(75))
 namespace FETools
  {
 #if  3  ==  2 
@@ -2926,7 +1526,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(146))
+#if (SPLIT_INSTANTIATIONS_CHECK(76))
 namespace FETools
  {
 #if  3  ==  2 
@@ -2946,7 +1546,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(147))
+#if (SPLIT_INSTANTIATIONS_CHECK(77))
 namespace FETools
  {
 #if  3  ==  2 
@@ -2966,7 +1566,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(148))
+#if (SPLIT_INSTANTIATIONS_CHECK(78))
 namespace FETools
  {
 #if  3  ==  2 
@@ -2986,7 +1586,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(149))
+#if (SPLIT_INSTANTIATIONS_CHECK(79))
 namespace FETools
  {
 #if  3  ==  2 
@@ -3006,207 +1606,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(150))
-namespace FETools
- {
-#if  3  ==  2 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  Vector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
-  Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  Vector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< Vector<std::complex<double> > ::value_type> &,
-  Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(151))
-namespace FETools
- {
-#if  3  ==  2 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  Vector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
-  Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  Vector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< Vector<std::complex<float> > ::value_type> &,
-  Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(152))
-namespace FETools
- {
-#if  3  ==  2 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  BlockVector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
-  BlockVector<std::complex<double> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  BlockVector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< BlockVector<std::complex<double> > ::value_type> &,
-  BlockVector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(153))
-namespace FETools
- {
-#if  3  ==  2 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  BlockVector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
-  BlockVector<std::complex<float> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  BlockVector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< BlockVector<std::complex<float> > ::value_type> &,
-  BlockVector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(154))
-namespace FETools
- {
-#if  3  ==  2 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::Vector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
-  LinearAlgebra::Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::Vector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(155))
-namespace FETools
- {
-#if  3  ==  2 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::Vector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
-  LinearAlgebra::Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::Vector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(156))
-namespace FETools
- {
-#if  3  ==  2 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
-  LinearAlgebra::distributed::Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::distributed::Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(157))
-namespace FETools
- {
-#if  3  ==  2 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
-  LinearAlgebra::distributed::Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::distributed::Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(158))
-namespace FETools
- {
-#if  3  ==  2 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
-  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(159))
-namespace FETools
- {
-#if  3  ==  2 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
-  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(160))
+#if (SPLIT_INSTANTIATIONS_CHECK(80))
 namespace FETools
  {
 #if  3  ==  3 
@@ -3226,7 +1626,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(161))
+#if (SPLIT_INSTANTIATIONS_CHECK(81))
 namespace FETools
  {
 #if  3  ==  3 
@@ -3246,7 +1646,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(162))
+#if (SPLIT_INSTANTIATIONS_CHECK(82))
 namespace FETools
  {
 #if  3  ==  3 
@@ -3266,7 +1666,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(163))
+#if (SPLIT_INSTANTIATIONS_CHECK(83))
 namespace FETools
  {
 #if  3  ==  3 
@@ -3286,7 +1686,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(164))
+#if (SPLIT_INSTANTIATIONS_CHECK(84))
 namespace FETools
  {
 #if  3  ==  3 
@@ -3306,7 +1706,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(165))
+#if (SPLIT_INSTANTIATIONS_CHECK(85))
 namespace FETools
  {
 #if  3  ==  3 
@@ -3326,7 +1726,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(166))
+#if (SPLIT_INSTANTIATIONS_CHECK(86))
 namespace FETools
  {
 #if  3  ==  3 
@@ -3346,7 +1746,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(167))
+#if (SPLIT_INSTANTIATIONS_CHECK(87))
 namespace FETools
  {
 #if  3  ==  3 
@@ -3366,7 +1766,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(168))
+#if (SPLIT_INSTANTIATIONS_CHECK(88))
 namespace FETools
  {
 #if  3  ==  3 
@@ -3386,7 +1786,7 @@ namespace FETools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(169))
+#if (SPLIT_INSTANTIATIONS_CHECK(89))
 namespace FETools
  {
 #if  3  ==  3 
@@ -3402,206 +1802,6 @@ namespace FETools
  const DoFHandler< 3 > &,
  const AffineConstraints< LinearAlgebra::distributed::BlockVector<float> ::value_type> &,
   LinearAlgebra::distributed::BlockVector<float>  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(170))
-namespace FETools
- {
-#if  3  ==  3 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  Vector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
-  Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  Vector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< Vector<std::complex<double> > ::value_type> &,
-  Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(171))
-namespace FETools
- {
-#if  3  ==  3 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  Vector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
-  Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  Vector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< Vector<std::complex<float> > ::value_type> &,
-  Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(172))
-namespace FETools
- {
-#if  3  ==  3 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  BlockVector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
-  BlockVector<std::complex<double> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  BlockVector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< BlockVector<std::complex<double> > ::value_type> &,
-  BlockVector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(173))
-namespace FETools
- {
-#if  3  ==  3 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  BlockVector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
-  BlockVector<std::complex<float> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  BlockVector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< BlockVector<std::complex<float> > ::value_type> &,
-  BlockVector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(174))
-namespace FETools
- {
-#if  3  ==  3 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::Vector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
-  LinearAlgebra::Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::Vector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(175))
-namespace FETools
- {
-#if  3  ==  3 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::Vector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
-  LinearAlgebra::Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::Vector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(176))
-namespace FETools
- {
-#if  3  ==  3 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
-  LinearAlgebra::distributed::Vector<std::complex<double> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::distributed::Vector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(177))
-namespace FETools
- {
-#if  3  ==  3 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
-  LinearAlgebra::distributed::Vector<std::complex<float> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::distributed::Vector<std::complex<float> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(178))
-namespace FETools
- {
-#if  3  ==  3 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
-  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
-  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(179))
-namespace FETools
- {
-#if  3  ==  3 
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
-  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &);
-
- template void
- extrapolate< 3 >(const DoFHandler< 3 > &,
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- const DoFHandler< 3 > &,
- const AffineConstraints< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
-  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &);
 #endif
  }
  

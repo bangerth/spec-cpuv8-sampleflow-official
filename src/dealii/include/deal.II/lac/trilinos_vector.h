@@ -21,9 +21,9 @@
 
 #ifdef DEAL_II_WITH_TRILINOS
 #  include <deal.II/base/index_set.h>
-#  include <deal.II/base/mpi.h>
+#  include <deal.II/base/mpi_stub.h>
+#  include <deal.II/base/partitioner.h>
 #  include <deal.II/base/subscriptor.h>
-#  include <deal.II/base/utilities.h>
 
 #  include <deal.II/lac/exceptions.h>
 #  include <deal.II/lac/vector.h>
@@ -35,7 +35,6 @@
 #  include <Epetra_LocalMap.h>
 #  include <Epetra_Map.h>
 #  include <Epetra_MpiComm.h>
-#  include <mpi.h>
 
 #  include <memory>
 #  include <utility>
@@ -414,7 +413,7 @@ namespace TrilinosWrappers
       /**
        * @name 1: Basic Object-handling
        */
-      //@{
+      /** @{ */
       /**
        * Default constructor that generates an empty (zero size) vector. The
        * function <tt>reinit()</tt> will have to give the vector the correct
@@ -601,6 +600,15 @@ namespace TrilinosWrappers
              const IndexSet &ghost_entries,
              const MPI_Comm &communicator    = MPI_COMM_WORLD,
              const bool      vector_writable = false);
+
+      /**
+       * Initialize the vector given to the parallel partitioning described in
+       * @p partitioner using the function above.
+       */
+      void
+      reinit(
+        const std::shared_ptr<const Utilities::MPI::Partitioner> &partitioner,
+        const bool vector_writable = false);
 
       /**
        * Create vector by merging components from a block vector.
@@ -910,13 +918,13 @@ namespace TrilinosWrappers
        */
       bool
       is_non_negative() const;
-      //@}
+      /** @} */
 
 
       /**
        * @name 2: Data-Access
        */
-      //@{
+      /** @{ */
 
       /**
        * Provide access to a given element, both read and write.
@@ -1040,13 +1048,13 @@ namespace TrilinosWrappers
       const_iterator
       end() const;
 
-      //@}
+      /** @} */
 
 
       /**
        * @name 3: Modification of vectors
        */
-      //@{
+      /** @{ */
 
       /**
        * A collective set operation: instead of setting individual elements of a
@@ -1189,12 +1197,12 @@ namespace TrilinosWrappers
        */
       void
       equ(const TrilinosScalar a, const Vector &V);
-      //@}
+      /** @} */
 
       /**
        * @name 4: Mixed stuff
        */
-      //@{
+      /** @{ */
 
       /**
        * Return a const reference to the underlying Trilinos Epetra_MultiVector
@@ -1258,7 +1266,7 @@ namespace TrilinosWrappers
        */
       const MPI_Comm &
       get_mpi_communicator() const;
-      //@}
+      /** @} */
 
       /**
        * Exception
@@ -2209,7 +2217,7 @@ namespace TrilinosWrappers
 
 } /* end of namespace TrilinosWrappers */
 
-/*@}*/
+/** @} */
 
 
 namespace internal
@@ -2265,8 +2273,6 @@ struct is_serial_vector<TrilinosWrappers::MPI::Vector> : std::false_type
 
 DEAL_II_NAMESPACE_CLOSE
 
-#endif // DEAL_II_WITH_TRILINOS
+#endif
 
-/*----------------------------   trilinos_vector.h ---------------------------*/
-
-#endif // dealii_trilinos_vector_h
+#endif

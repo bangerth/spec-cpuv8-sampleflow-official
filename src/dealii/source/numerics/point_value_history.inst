@@ -6,349 +6,349 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 template class PointValueHistory< 1 >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 template class PointValueHistory< 2 >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 template class PointValueHistory< 3 >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &, const  Vector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &, const  Vector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &, const  Vector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &, const  Vector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &, const  Vector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &, const  Vector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
+#if (SPLIT_INSTANTIATIONS_CHECK(9))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &, const  BlockVector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
+#if (SPLIT_INSTANTIATIONS_CHECK(10))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &, const  BlockVector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
+#if (SPLIT_INSTANTIATIONS_CHECK(11))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &, const  BlockVector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(12))
+#if (SPLIT_INSTANTIATIONS_CHECK(12))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &, const  BlockVector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(13))
+#if (SPLIT_INSTANTIATIONS_CHECK(13))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &, const  BlockVector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(14))
+#if (SPLIT_INSTANTIATIONS_CHECK(14))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &, const  BlockVector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(15))
+#if (SPLIT_INSTANTIATIONS_CHECK(15))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &, const  LinearAlgebra::Vector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(16))
+#if (SPLIT_INSTANTIATIONS_CHECK(16))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &, const  LinearAlgebra::Vector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(17))
+#if (SPLIT_INSTANTIATIONS_CHECK(17))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &, const  LinearAlgebra::Vector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(18))
+#if (SPLIT_INSTANTIATIONS_CHECK(18))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &, const  LinearAlgebra::Vector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(19))
+#if (SPLIT_INSTANTIATIONS_CHECK(19))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &, const  LinearAlgebra::Vector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(20))
+#if (SPLIT_INSTANTIATIONS_CHECK(20))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &, const  LinearAlgebra::Vector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(21))
+#if (SPLIT_INSTANTIATIONS_CHECK(21))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &, const  LinearAlgebra::distributed::Vector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(22))
+#if (SPLIT_INSTANTIATIONS_CHECK(22))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &, const  LinearAlgebra::distributed::Vector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(23))
+#if (SPLIT_INSTANTIATIONS_CHECK(23))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &, const  LinearAlgebra::distributed::Vector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(24))
+#if (SPLIT_INSTANTIATIONS_CHECK(24))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &, const  LinearAlgebra::distributed::Vector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(25))
+#if (SPLIT_INSTANTIATIONS_CHECK(25))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &, const  LinearAlgebra::distributed::Vector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(26))
+#if (SPLIT_INSTANTIATIONS_CHECK(26))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &, const  LinearAlgebra::distributed::Vector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(27))
+#if (SPLIT_INSTANTIATIONS_CHECK(27))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &, const  LinearAlgebra::distributed::BlockVector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(28))
+#if (SPLIT_INSTANTIATIONS_CHECK(28))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &, const  LinearAlgebra::distributed::BlockVector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(29))
+#if (SPLIT_INSTANTIATIONS_CHECK(29))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &, const  LinearAlgebra::distributed::BlockVector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(30))
+#if (SPLIT_INSTANTIATIONS_CHECK(30))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &, const  LinearAlgebra::distributed::BlockVector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(31))
+#if (SPLIT_INSTANTIATIONS_CHECK(31))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &, const  LinearAlgebra::distributed::BlockVector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(32))
+#if (SPLIT_INSTANTIATIONS_CHECK(32))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &, const  LinearAlgebra::distributed::BlockVector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(33))
+#if (SPLIT_INSTANTIATIONS_CHECK(33))
 template void
  PointValueHistory< 1 >::evaluate_field_at_requested_location(
  const std::string &, const  Vector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(34))
+#if (SPLIT_INSTANTIATIONS_CHECK(34))
 template void
  PointValueHistory< 2 >::evaluate_field_at_requested_location(
  const std::string &, const  Vector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(35))
+#if (SPLIT_INSTANTIATIONS_CHECK(35))
 template void
  PointValueHistory< 3 >::evaluate_field_at_requested_location(
  const std::string &, const  Vector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(36))
+#if (SPLIT_INSTANTIATIONS_CHECK(36))
 template void
  PointValueHistory< 1 >::evaluate_field_at_requested_location(
  const std::string &, const  Vector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(37))
+#if (SPLIT_INSTANTIATIONS_CHECK(37))
 template void
  PointValueHistory< 2 >::evaluate_field_at_requested_location(
  const std::string &, const  Vector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(38))
+#if (SPLIT_INSTANTIATIONS_CHECK(38))
 template void
  PointValueHistory< 3 >::evaluate_field_at_requested_location(
  const std::string &, const  Vector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(39))
+#if (SPLIT_INSTANTIATIONS_CHECK(39))
 template void
  PointValueHistory< 1 >::evaluate_field_at_requested_location(
  const std::string &, const  BlockVector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(40))
+#if (SPLIT_INSTANTIATIONS_CHECK(40))
 template void
  PointValueHistory< 2 >::evaluate_field_at_requested_location(
  const std::string &, const  BlockVector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(41))
+#if (SPLIT_INSTANTIATIONS_CHECK(41))
 template void
  PointValueHistory< 3 >::evaluate_field_at_requested_location(
  const std::string &, const  BlockVector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(42))
+#if (SPLIT_INSTANTIATIONS_CHECK(42))
 template void
  PointValueHistory< 1 >::evaluate_field_at_requested_location(
  const std::string &, const  BlockVector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(43))
+#if (SPLIT_INSTANTIATIONS_CHECK(43))
 template void
  PointValueHistory< 2 >::evaluate_field_at_requested_location(
  const std::string &, const  BlockVector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(44))
+#if (SPLIT_INSTANTIATIONS_CHECK(44))
 template void
  PointValueHistory< 3 >::evaluate_field_at_requested_location(
  const std::string &, const  BlockVector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(45))
+#if (SPLIT_INSTANTIATIONS_CHECK(45))
 template void
  PointValueHistory< 1 >::evaluate_field_at_requested_location(
  const std::string &, const  LinearAlgebra::Vector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(46))
+#if (SPLIT_INSTANTIATIONS_CHECK(46))
 template void
  PointValueHistory< 2 >::evaluate_field_at_requested_location(
  const std::string &, const  LinearAlgebra::Vector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(47))
+#if (SPLIT_INSTANTIATIONS_CHECK(47))
 template void
  PointValueHistory< 3 >::evaluate_field_at_requested_location(
  const std::string &, const  LinearAlgebra::Vector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(48))
+#if (SPLIT_INSTANTIATIONS_CHECK(48))
 template void
  PointValueHistory< 1 >::evaluate_field_at_requested_location(
  const std::string &, const  LinearAlgebra::Vector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(49))
+#if (SPLIT_INSTANTIATIONS_CHECK(49))
 template void
  PointValueHistory< 2 >::evaluate_field_at_requested_location(
  const std::string &, const  LinearAlgebra::Vector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(50))
+#if (SPLIT_INSTANTIATIONS_CHECK(50))
 template void
  PointValueHistory< 3 >::evaluate_field_at_requested_location(
  const std::string &, const  LinearAlgebra::Vector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(51))
+#if (SPLIT_INSTANTIATIONS_CHECK(51))
 template void
  PointValueHistory< 1 >::evaluate_field_at_requested_location(
  const std::string &, const  LinearAlgebra::distributed::Vector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(52))
+#if (SPLIT_INSTANTIATIONS_CHECK(52))
 template void
  PointValueHistory< 2 >::evaluate_field_at_requested_location(
  const std::string &, const  LinearAlgebra::distributed::Vector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(53))
+#if (SPLIT_INSTANTIATIONS_CHECK(53))
 template void
  PointValueHistory< 3 >::evaluate_field_at_requested_location(
  const std::string &, const  LinearAlgebra::distributed::Vector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(54))
+#if (SPLIT_INSTANTIATIONS_CHECK(54))
 template void
  PointValueHistory< 1 >::evaluate_field_at_requested_location(
  const std::string &, const  LinearAlgebra::distributed::Vector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(55))
+#if (SPLIT_INSTANTIATIONS_CHECK(55))
 template void
  PointValueHistory< 2 >::evaluate_field_at_requested_location(
  const std::string &, const  LinearAlgebra::distributed::Vector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(56))
+#if (SPLIT_INSTANTIATIONS_CHECK(56))
 template void
  PointValueHistory< 3 >::evaluate_field_at_requested_location(
  const std::string &, const  LinearAlgebra::distributed::Vector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(57))
+#if (SPLIT_INSTANTIATIONS_CHECK(57))
 template void
  PointValueHistory< 1 >::evaluate_field_at_requested_location(
  const std::string &, const  LinearAlgebra::distributed::BlockVector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(58))
+#if (SPLIT_INSTANTIATIONS_CHECK(58))
 template void
  PointValueHistory< 2 >::evaluate_field_at_requested_location(
  const std::string &, const  LinearAlgebra::distributed::BlockVector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(59))
+#if (SPLIT_INSTANTIATIONS_CHECK(59))
 template void
  PointValueHistory< 3 >::evaluate_field_at_requested_location(
  const std::string &, const  LinearAlgebra::distributed::BlockVector<double>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(60))
+#if (SPLIT_INSTANTIATIONS_CHECK(60))
 template void
  PointValueHistory< 1 >::evaluate_field_at_requested_location(
  const std::string &, const  LinearAlgebra::distributed::BlockVector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(61))
+#if (SPLIT_INSTANTIATIONS_CHECK(61))
 template void
  PointValueHistory< 2 >::evaluate_field_at_requested_location(
  const std::string &, const  LinearAlgebra::distributed::BlockVector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(62))
+#if (SPLIT_INSTANTIATIONS_CHECK(62))
 template void
  PointValueHistory< 3 >::evaluate_field_at_requested_location(
  const std::string &, const  LinearAlgebra::distributed::BlockVector<float>  &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(63))
+#if (SPLIT_INSTANTIATIONS_CHECK(63))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::vector<std::string> &,
  const  Vector<double>  &,
@@ -356,7 +356,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(64))
+#if (SPLIT_INSTANTIATIONS_CHECK(64))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::vector<std::string> &,
  const  Vector<double>  &,
@@ -364,7 +364,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(65))
+#if (SPLIT_INSTANTIATIONS_CHECK(65))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::vector<std::string> &,
  const  Vector<double>  &,
@@ -372,7 +372,7 @@ template void PointValueHistory< 3 >::evaluate_field(
  const Quadrature< 3 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(66))
+#if (SPLIT_INSTANTIATIONS_CHECK(66))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::vector<std::string> &,
  const  Vector<float>  &,
@@ -380,7 +380,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(67))
+#if (SPLIT_INSTANTIATIONS_CHECK(67))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::vector<std::string> &,
  const  Vector<float>  &,
@@ -388,7 +388,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(68))
+#if (SPLIT_INSTANTIATIONS_CHECK(68))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::vector<std::string> &,
  const  Vector<float>  &,
@@ -396,7 +396,7 @@ template void PointValueHistory< 3 >::evaluate_field(
  const Quadrature< 3 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(69))
+#if (SPLIT_INSTANTIATIONS_CHECK(69))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::vector<std::string> &,
  const  BlockVector<double>  &,
@@ -404,7 +404,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(70))
+#if (SPLIT_INSTANTIATIONS_CHECK(70))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::vector<std::string> &,
  const  BlockVector<double>  &,
@@ -412,7 +412,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(71))
+#if (SPLIT_INSTANTIATIONS_CHECK(71))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::vector<std::string> &,
  const  BlockVector<double>  &,
@@ -420,7 +420,7 @@ template void PointValueHistory< 3 >::evaluate_field(
  const Quadrature< 3 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(72))
+#if (SPLIT_INSTANTIATIONS_CHECK(72))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::vector<std::string> &,
  const  BlockVector<float>  &,
@@ -428,7 +428,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(73))
+#if (SPLIT_INSTANTIATIONS_CHECK(73))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::vector<std::string> &,
  const  BlockVector<float>  &,
@@ -436,7 +436,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(74))
+#if (SPLIT_INSTANTIATIONS_CHECK(74))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::vector<std::string> &,
  const  BlockVector<float>  &,
@@ -444,7 +444,7 @@ template void PointValueHistory< 3 >::evaluate_field(
  const Quadrature< 3 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(75))
+#if (SPLIT_INSTANTIATIONS_CHECK(75))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::vector<std::string> &,
  const  LinearAlgebra::Vector<double>  &,
@@ -452,7 +452,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(76))
+#if (SPLIT_INSTANTIATIONS_CHECK(76))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::vector<std::string> &,
  const  LinearAlgebra::Vector<double>  &,
@@ -460,7 +460,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(77))
+#if (SPLIT_INSTANTIATIONS_CHECK(77))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::vector<std::string> &,
  const  LinearAlgebra::Vector<double>  &,
@@ -468,7 +468,7 @@ template void PointValueHistory< 3 >::evaluate_field(
  const Quadrature< 3 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(78))
+#if (SPLIT_INSTANTIATIONS_CHECK(78))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::vector<std::string> &,
  const  LinearAlgebra::Vector<float>  &,
@@ -476,7 +476,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(79))
+#if (SPLIT_INSTANTIATIONS_CHECK(79))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::vector<std::string> &,
  const  LinearAlgebra::Vector<float>  &,
@@ -484,7 +484,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(80))
+#if (SPLIT_INSTANTIATIONS_CHECK(80))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::vector<std::string> &,
  const  LinearAlgebra::Vector<float>  &,
@@ -492,7 +492,7 @@ template void PointValueHistory< 3 >::evaluate_field(
  const Quadrature< 3 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(81))
+#if (SPLIT_INSTANTIATIONS_CHECK(81))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::vector<std::string> &,
  const  LinearAlgebra::distributed::Vector<double>  &,
@@ -500,7 +500,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(82))
+#if (SPLIT_INSTANTIATIONS_CHECK(82))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::vector<std::string> &,
  const  LinearAlgebra::distributed::Vector<double>  &,
@@ -508,7 +508,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(83))
+#if (SPLIT_INSTANTIATIONS_CHECK(83))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::vector<std::string> &,
  const  LinearAlgebra::distributed::Vector<double>  &,
@@ -516,7 +516,7 @@ template void PointValueHistory< 3 >::evaluate_field(
  const Quadrature< 3 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(84))
+#if (SPLIT_INSTANTIATIONS_CHECK(84))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::vector<std::string> &,
  const  LinearAlgebra::distributed::Vector<float>  &,
@@ -524,7 +524,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(85))
+#if (SPLIT_INSTANTIATIONS_CHECK(85))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::vector<std::string> &,
  const  LinearAlgebra::distributed::Vector<float>  &,
@@ -532,7 +532,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(86))
+#if (SPLIT_INSTANTIATIONS_CHECK(86))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::vector<std::string> &,
  const  LinearAlgebra::distributed::Vector<float>  &,
@@ -540,7 +540,7 @@ template void PointValueHistory< 3 >::evaluate_field(
  const Quadrature< 3 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(87))
+#if (SPLIT_INSTANTIATIONS_CHECK(87))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::vector<std::string> &,
  const  LinearAlgebra::distributed::BlockVector<double>  &,
@@ -548,7 +548,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(88))
+#if (SPLIT_INSTANTIATIONS_CHECK(88))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::vector<std::string> &,
  const  LinearAlgebra::distributed::BlockVector<double>  &,
@@ -556,7 +556,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(89))
+#if (SPLIT_INSTANTIATIONS_CHECK(89))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::vector<std::string> &,
  const  LinearAlgebra::distributed::BlockVector<double>  &,
@@ -564,7 +564,7 @@ template void PointValueHistory< 3 >::evaluate_field(
  const Quadrature< 3 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(90))
+#if (SPLIT_INSTANTIATIONS_CHECK(90))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::vector<std::string> &,
  const  LinearAlgebra::distributed::BlockVector<float>  &,
@@ -572,7 +572,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(91))
+#if (SPLIT_INSTANTIATIONS_CHECK(91))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::vector<std::string> &,
  const  LinearAlgebra::distributed::BlockVector<float>  &,
@@ -580,7 +580,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(92))
+#if (SPLIT_INSTANTIATIONS_CHECK(92))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::vector<std::string> &,
  const  LinearAlgebra::distributed::BlockVector<float>  &,
@@ -588,7 +588,7 @@ template void PointValueHistory< 3 >::evaluate_field(
  const Quadrature< 3 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(93))
+#if (SPLIT_INSTANTIATIONS_CHECK(93))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &,
  const  Vector<double>  &,
@@ -596,7 +596,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(94))
+#if (SPLIT_INSTANTIATIONS_CHECK(94))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &,
  const  Vector<double>  &,
@@ -604,7 +604,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(95))
+#if (SPLIT_INSTANTIATIONS_CHECK(95))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &,
  const  Vector<double>  &,
@@ -612,7 +612,7 @@ template void PointValueHistory< 3 >::evaluate_field(
  const Quadrature< 3 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(96))
+#if (SPLIT_INSTANTIATIONS_CHECK(96))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &,
  const  Vector<float>  &,
@@ -620,7 +620,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(97))
+#if (SPLIT_INSTANTIATIONS_CHECK(97))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &,
  const  Vector<float>  &,
@@ -628,7 +628,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(98))
+#if (SPLIT_INSTANTIATIONS_CHECK(98))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &,
  const  Vector<float>  &,
@@ -636,7 +636,7 @@ template void PointValueHistory< 3 >::evaluate_field(
  const Quadrature< 3 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(99))
+#if (SPLIT_INSTANTIATIONS_CHECK(99))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &,
  const  BlockVector<double>  &,
@@ -644,7 +644,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(100))
+#if (SPLIT_INSTANTIATIONS_CHECK(100))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &,
  const  BlockVector<double>  &,
@@ -652,7 +652,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(101))
+#if (SPLIT_INSTANTIATIONS_CHECK(101))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &,
  const  BlockVector<double>  &,
@@ -660,7 +660,7 @@ template void PointValueHistory< 3 >::evaluate_field(
  const Quadrature< 3 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(102))
+#if (SPLIT_INSTANTIATIONS_CHECK(102))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &,
  const  BlockVector<float>  &,
@@ -668,7 +668,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(103))
+#if (SPLIT_INSTANTIATIONS_CHECK(103))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &,
  const  BlockVector<float>  &,
@@ -676,7 +676,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(104))
+#if (SPLIT_INSTANTIATIONS_CHECK(104))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &,
  const  BlockVector<float>  &,
@@ -684,7 +684,7 @@ template void PointValueHistory< 3 >::evaluate_field(
  const Quadrature< 3 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(105))
+#if (SPLIT_INSTANTIATIONS_CHECK(105))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &,
  const  LinearAlgebra::Vector<double>  &,
@@ -692,7 +692,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(106))
+#if (SPLIT_INSTANTIATIONS_CHECK(106))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &,
  const  LinearAlgebra::Vector<double>  &,
@@ -700,7 +700,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(107))
+#if (SPLIT_INSTANTIATIONS_CHECK(107))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &,
  const  LinearAlgebra::Vector<double>  &,
@@ -708,7 +708,7 @@ template void PointValueHistory< 3 >::evaluate_field(
  const Quadrature< 3 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(108))
+#if (SPLIT_INSTANTIATIONS_CHECK(108))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &,
  const  LinearAlgebra::Vector<float>  &,
@@ -716,7 +716,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(109))
+#if (SPLIT_INSTANTIATIONS_CHECK(109))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &,
  const  LinearAlgebra::Vector<float>  &,
@@ -724,7 +724,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(110))
+#if (SPLIT_INSTANTIATIONS_CHECK(110))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &,
  const  LinearAlgebra::Vector<float>  &,
@@ -732,7 +732,7 @@ template void PointValueHistory< 3 >::evaluate_field(
  const Quadrature< 3 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(111))
+#if (SPLIT_INSTANTIATIONS_CHECK(111))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &,
  const  LinearAlgebra::distributed::Vector<double>  &,
@@ -740,7 +740,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(112))
+#if (SPLIT_INSTANTIATIONS_CHECK(112))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &,
  const  LinearAlgebra::distributed::Vector<double>  &,
@@ -748,7 +748,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(113))
+#if (SPLIT_INSTANTIATIONS_CHECK(113))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &,
  const  LinearAlgebra::distributed::Vector<double>  &,
@@ -756,7 +756,7 @@ template void PointValueHistory< 3 >::evaluate_field(
  const Quadrature< 3 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(114))
+#if (SPLIT_INSTANTIATIONS_CHECK(114))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &,
  const  LinearAlgebra::distributed::Vector<float>  &,
@@ -764,7 +764,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(115))
+#if (SPLIT_INSTANTIATIONS_CHECK(115))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &,
  const  LinearAlgebra::distributed::Vector<float>  &,
@@ -772,7 +772,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(116))
+#if (SPLIT_INSTANTIATIONS_CHECK(116))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &,
  const  LinearAlgebra::distributed::Vector<float>  &,
@@ -780,7 +780,7 @@ template void PointValueHistory< 3 >::evaluate_field(
  const Quadrature< 3 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(117))
+#if (SPLIT_INSTANTIATIONS_CHECK(117))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &,
  const  LinearAlgebra::distributed::BlockVector<double>  &,
@@ -788,7 +788,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(118))
+#if (SPLIT_INSTANTIATIONS_CHECK(118))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &,
  const  LinearAlgebra::distributed::BlockVector<double>  &,
@@ -796,7 +796,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(119))
+#if (SPLIT_INSTANTIATIONS_CHECK(119))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &,
  const  LinearAlgebra::distributed::BlockVector<double>  &,
@@ -804,7 +804,7 @@ template void PointValueHistory< 3 >::evaluate_field(
  const Quadrature< 3 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(120))
+#if (SPLIT_INSTANTIATIONS_CHECK(120))
 template void PointValueHistory< 1 >::evaluate_field(
  const std::string &,
  const  LinearAlgebra::distributed::BlockVector<float>  &,
@@ -812,7 +812,7 @@ template void PointValueHistory< 1 >::evaluate_field(
  const Quadrature< 1 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(121))
+#if (SPLIT_INSTANTIATIONS_CHECK(121))
 template void PointValueHistory< 2 >::evaluate_field(
  const std::string &,
  const  LinearAlgebra::distributed::BlockVector<float>  &,
@@ -820,7 +820,7 @@ template void PointValueHistory< 2 >::evaluate_field(
  const Quadrature< 2 > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(122))
+#if (SPLIT_INSTANTIATIONS_CHECK(122))
 template void PointValueHistory< 3 >::evaluate_field(
  const std::string &,
  const  LinearAlgebra::distributed::BlockVector<float>  &,

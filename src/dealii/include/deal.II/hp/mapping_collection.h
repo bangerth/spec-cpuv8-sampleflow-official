@@ -21,7 +21,7 @@
 #include <deal.II/base/subscriptor.h>
 
 #include <deal.II/fe/fe.h>
-#include <deal.II/fe/mapping_q1.h>
+#include <deal.II/fe/mapping.h>
 
 #include <deal.II/hp/collection.h>
 
@@ -151,7 +151,6 @@ namespace hp
   };
 
 
-
   /* --------------- inline functions ------------------- */
 
   template <int dim, int spacedim>
@@ -172,41 +171,6 @@ namespace hp
     for (const auto p : mapping_pointers)
       push_back(*p);
   }
-
-
-
-  template <int dim, int spacedim>
-  MappingCollection<dim, spacedim>
-    StaticMappingQ1<dim, spacedim>::mapping_collection =
-      MappingCollection<dim, spacedim>(MappingQ1<dim, spacedim>{});
-
-
-#ifndef DOXYGEN
-  // Declare the existence of explicit instantiations of the class
-  // above to avoid certain warnings issues by clang and
-  // newer (LLVM-based) Intel compilers:
-  extern template struct StaticMappingQ1<1, 1>;
-  extern template struct StaticMappingQ1<1, 2>;
-  extern template struct StaticMappingQ1<1, 3>;
-  extern template struct StaticMappingQ1<2, 2>;
-  extern template struct StaticMappingQ1<2, 3>;
-  extern template struct StaticMappingQ1<3, 3>;
-
-#  ifndef _MSC_VER
-  extern template MappingCollection<1, 1>
-    StaticMappingQ1<1, 1>::mapping_collection;
-  extern template MappingCollection<1, 2>
-    StaticMappingQ1<1, 2>::mapping_collection;
-  extern template MappingCollection<1, 3>
-    StaticMappingQ1<1, 3>::mapping_collection;
-  extern template MappingCollection<2, 2>
-    StaticMappingQ1<2, 2>::mapping_collection;
-  extern template MappingCollection<2, 3>
-    StaticMappingQ1<2, 3>::mapping_collection;
-  extern template MappingCollection<3, 3>
-    StaticMappingQ1<3, 3>::mapping_collection;
-#  endif
-#endif
 
 } // namespace hp
 

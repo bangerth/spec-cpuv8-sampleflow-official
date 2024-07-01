@@ -21,6 +21,7 @@
 
 #include <deal.II/base/geometry_info.h>
 #include <deal.II/base/iterator_range.h>
+#include <deal.II/base/partitioner.h>
 #include <deal.II/base/point.h>
 #include <deal.II/base/smartpointer.h>
 #include <deal.II/base/subscriptor.h>
@@ -175,6 +176,18 @@ namespace internal
        * Array holding the number of active lines on each level.
        */
       std::vector<unsigned int> n_active_lines_level;
+
+      /**
+       * Partitioner for the global active cell indices.
+       */
+      std::shared_ptr<const Utilities::MPI::Partitioner>
+        active_cell_index_partitioner;
+
+      /**
+       * Partitioner for the global level cell indices for each level.
+       */
+      std::vector<std::shared_ptr<const Utilities::MPI::Partitioner>>
+        level_cell_index_partitioners;
 
       /**
        * Constructor. Set values to zero by default.
@@ -1616,6 +1629,22 @@ public:
   get_communicator() const;
 
   /**
+   * Return the partitioner for the global indices of the cells on the active
+   * level of the triangulation, which is returned by the function
+   * CellAccessor::global_active_cell_index().
+   */
+  virtual const std::weak_ptr<const Utilities::MPI::Partitioner>
+  global_active_cell_index_partitioner() const;
+
+  /**
+   * Return the partitioner for the global indices of the cells on the given @p
+   * level of the triangulation, which is returned by the function
+   * CellAccessor::global_level_cell_index().
+   */
+  virtual const std::weak_ptr<const Utilities::MPI::Partitioner>
+  global_level_cell_index_partitioner(const unsigned int level) const;
+
+  /**
    * Set the mesh smoothing to @p mesh_smoothing. This overrides the
    * MeshSmoothing given to the constructor. It is allowed to call this
    * function only if the triangulation is empty.
@@ -2256,7 +2285,7 @@ public:
        * Connects an additional base weight function if signal was previously
        * empty.
        */
-      DEAL_II_DEPRECATED_EARLY
+      DEAL_II_DEPRECATED
       boost::signals2::connection
       connect(
         const slot_type &                 slot,
@@ -2279,7 +2308,7 @@ public:
        * Returns the number of connected functions <em>without</em> the base
        * weight.
        */
-      DEAL_II_DEPRECATED_EARLY
+      DEAL_II_DEPRECATED
       std::size_t
       num_slots() const
       {
@@ -2290,7 +2319,7 @@ public:
       /**
        * Checks if there are any connected functions to the signal.
        */
-      DEAL_II_DEPRECATED_EARLY
+      DEAL_II_DEPRECATED
       bool
       empty() const
       {
@@ -2309,7 +2338,7 @@ public:
        * function.
        */
       template <typename S>
-      DEAL_II_DEPRECATED_EARLY void
+      DEAL_II_DEPRECATED void
       disconnect(const S &connection)
       {
         new_signal.disconnect(connection);
@@ -2325,7 +2354,7 @@ public:
       /**
        * Triggers the signal.
        */
-      DEAL_II_DEPRECATED_EARLY
+      DEAL_II_DEPRECATED
       unsigned int
       operator()(const cell_iterator &iterator, const CellStatus status)
       {
@@ -4067,7 +4096,7 @@ private:
   reset_active_cell_indices();
 
   /**
-   * Reset global cell ids and globale level cell ids.
+   * Reset global cell ids and global level cell ids.
    */
   void
   reset_global_cell_indices();

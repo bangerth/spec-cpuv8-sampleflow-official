@@ -6,15 +6,15 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 template class ChunkSparseMatrix< double >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 template class ChunkSparseMatrix< float >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 template ChunkSparseMatrix< double > &ChunkSparseMatrix< double >::copy_from< double >(
  const ChunkSparseMatrix< double > &);
 
@@ -24,7 +24,7 @@ template ChunkSparseMatrix< double > &ChunkSparseMatrix< double >::copy_from< do
  const ChunkSparseMatrix< double > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 template ChunkSparseMatrix< double > &ChunkSparseMatrix< double >::copy_from< float >(
  const ChunkSparseMatrix< float > &);
 
@@ -34,7 +34,7 @@ template ChunkSparseMatrix< double > &ChunkSparseMatrix< double >::copy_from< fl
  const ChunkSparseMatrix< float > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 template ChunkSparseMatrix< float > &ChunkSparseMatrix< float >::copy_from< double >(
  const ChunkSparseMatrix< double > &);
 
@@ -44,7 +44,7 @@ template ChunkSparseMatrix< float > &ChunkSparseMatrix< float >::copy_from< doub
  const ChunkSparseMatrix< double > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 template ChunkSparseMatrix< float > &ChunkSparseMatrix< float >::copy_from< float >(
  const ChunkSparseMatrix< float > &);
 
@@ -54,7 +54,7 @@ template ChunkSparseMatrix< float > &ChunkSparseMatrix< float >::copy_from< floa
  const ChunkSparseMatrix< float > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 template  double  ChunkSparseMatrix< double >::matrix_norm_square< double >(
  const Vector< double > &) const;
 
@@ -101,7 +101,7 @@ template  double  ChunkSparseMatrix< double >::matrix_norm_square< double >(
  const  double ) const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 template  float  ChunkSparseMatrix< double >::matrix_norm_square< float >(
  const Vector< float > &) const;
 
@@ -148,7 +148,7 @@ template  float  ChunkSparseMatrix< double >::matrix_norm_square< float >(
  const  double ) const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 template  double  ChunkSparseMatrix< float >::matrix_norm_square< double >(
  const Vector< double > &) const;
 
@@ -195,7 +195,7 @@ template  double  ChunkSparseMatrix< float >::matrix_norm_square< double >(
  const  float ) const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
+#if (SPLIT_INSTANTIATIONS_CHECK(9))
 template  float  ChunkSparseMatrix< float >::matrix_norm_square< float >(
  const Vector< float > &) const;
 
@@ -242,7 +242,7 @@ template  float  ChunkSparseMatrix< float >::matrix_norm_square< float >(
  const  float ) const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
+#if (SPLIT_INSTANTIATIONS_CHECK(10))
 template void ChunkSparseMatrix< double >::vmult( Vector < double > &, const  Vector < double > &) const;
  template void ChunkSparseMatrix< double >::Tvmult( Vector < double > &, const  Vector < double > &) const;
  template void ChunkSparseMatrix< double >::vmult_add( Vector < double > &, const  Vector < double > &)
@@ -251,7 +251,7 @@ template void ChunkSparseMatrix< double >::vmult( Vector < double > &, const  Ve
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
+#if (SPLIT_INSTANTIATIONS_CHECK(11))
 template void ChunkSparseMatrix< double >::vmult( Vector < double > &, const  BlockVector < double > &) const;
  template void ChunkSparseMatrix< double >::Tvmult( Vector < double > &, const  BlockVector < double > &) const;
  template void ChunkSparseMatrix< double >::vmult_add( Vector < double > &, const  BlockVector < double > &)
@@ -260,7 +260,7 @@ template void ChunkSparseMatrix< double >::vmult( Vector < double > &, const  Bl
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(12))
+#if (SPLIT_INSTANTIATIONS_CHECK(12))
 template void ChunkSparseMatrix< double >::vmult( BlockVector < double > &, const  Vector < double > &) const;
  template void ChunkSparseMatrix< double >::Tvmult( BlockVector < double > &, const  Vector < double > &) const;
  template void ChunkSparseMatrix< double >::vmult_add( BlockVector < double > &, const  Vector < double > &)
@@ -269,7 +269,7 @@ template void ChunkSparseMatrix< double >::vmult( BlockVector < double > &, cons
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(13))
+#if (SPLIT_INSTANTIATIONS_CHECK(13))
 template void ChunkSparseMatrix< double >::vmult( BlockVector < double > &, const  BlockVector < double > &) const;
  template void ChunkSparseMatrix< double >::Tvmult( BlockVector < double > &, const  BlockVector < double > &) const;
  template void ChunkSparseMatrix< double >::vmult_add( BlockVector < double > &, const  BlockVector < double > &)
@@ -278,7 +278,7 @@ template void ChunkSparseMatrix< double >::vmult( BlockVector < double > &, cons
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(14))
+#if (SPLIT_INSTANTIATIONS_CHECK(14))
 template void ChunkSparseMatrix< double >::vmult( Vector < double > &, const  Vector < float > &) const;
  template void ChunkSparseMatrix< double >::Tvmult( Vector < double > &, const  Vector < float > &) const;
  template void ChunkSparseMatrix< double >::vmult_add( Vector < double > &, const  Vector < float > &)
@@ -287,7 +287,7 @@ template void ChunkSparseMatrix< double >::vmult( Vector < double > &, const  Ve
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(15))
+#if (SPLIT_INSTANTIATIONS_CHECK(15))
 template void ChunkSparseMatrix< double >::vmult( Vector < double > &, const  BlockVector < float > &) const;
  template void ChunkSparseMatrix< double >::Tvmult( Vector < double > &, const  BlockVector < float > &) const;
  template void ChunkSparseMatrix< double >::vmult_add( Vector < double > &, const  BlockVector < float > &)
@@ -296,7 +296,7 @@ template void ChunkSparseMatrix< double >::vmult( Vector < double > &, const  Bl
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(16))
+#if (SPLIT_INSTANTIATIONS_CHECK(16))
 template void ChunkSparseMatrix< double >::vmult( BlockVector < double > &, const  Vector < float > &) const;
  template void ChunkSparseMatrix< double >::Tvmult( BlockVector < double > &, const  Vector < float > &) const;
  template void ChunkSparseMatrix< double >::vmult_add( BlockVector < double > &, const  Vector < float > &)
@@ -305,7 +305,7 @@ template void ChunkSparseMatrix< double >::vmult( BlockVector < double > &, cons
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(17))
+#if (SPLIT_INSTANTIATIONS_CHECK(17))
 template void ChunkSparseMatrix< double >::vmult( BlockVector < double > &, const  BlockVector < float > &) const;
  template void ChunkSparseMatrix< double >::Tvmult( BlockVector < double > &, const  BlockVector < float > &) const;
  template void ChunkSparseMatrix< double >::vmult_add( BlockVector < double > &, const  BlockVector < float > &)
@@ -314,7 +314,7 @@ template void ChunkSparseMatrix< double >::vmult( BlockVector < double > &, cons
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(18))
+#if (SPLIT_INSTANTIATIONS_CHECK(18))
 template void ChunkSparseMatrix< double >::vmult( Vector < float > &, const  Vector < double > &) const;
  template void ChunkSparseMatrix< double >::Tvmult( Vector < float > &, const  Vector < double > &) const;
  template void ChunkSparseMatrix< double >::vmult_add( Vector < float > &, const  Vector < double > &)
@@ -323,7 +323,7 @@ template void ChunkSparseMatrix< double >::vmult( Vector < float > &, const  Vec
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(19))
+#if (SPLIT_INSTANTIATIONS_CHECK(19))
 template void ChunkSparseMatrix< double >::vmult( Vector < float > &, const  BlockVector < double > &) const;
  template void ChunkSparseMatrix< double >::Tvmult( Vector < float > &, const  BlockVector < double > &) const;
  template void ChunkSparseMatrix< double >::vmult_add( Vector < float > &, const  BlockVector < double > &)
@@ -332,7 +332,7 @@ template void ChunkSparseMatrix< double >::vmult( Vector < float > &, const  Blo
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(20))
+#if (SPLIT_INSTANTIATIONS_CHECK(20))
 template void ChunkSparseMatrix< double >::vmult( BlockVector < float > &, const  Vector < double > &) const;
  template void ChunkSparseMatrix< double >::Tvmult( BlockVector < float > &, const  Vector < double > &) const;
  template void ChunkSparseMatrix< double >::vmult_add( BlockVector < float > &, const  Vector < double > &)
@@ -341,7 +341,7 @@ template void ChunkSparseMatrix< double >::vmult( BlockVector < float > &, const
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(21))
+#if (SPLIT_INSTANTIATIONS_CHECK(21))
 template void ChunkSparseMatrix< double >::vmult( BlockVector < float > &, const  BlockVector < double > &) const;
  template void ChunkSparseMatrix< double >::Tvmult( BlockVector < float > &, const  BlockVector < double > &) const;
  template void ChunkSparseMatrix< double >::vmult_add( BlockVector < float > &, const  BlockVector < double > &)
@@ -350,7 +350,7 @@ template void ChunkSparseMatrix< double >::vmult( BlockVector < float > &, const
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(22))
+#if (SPLIT_INSTANTIATIONS_CHECK(22))
 template void ChunkSparseMatrix< double >::vmult( Vector < float > &, const  Vector < float > &) const;
  template void ChunkSparseMatrix< double >::Tvmult( Vector < float > &, const  Vector < float > &) const;
  template void ChunkSparseMatrix< double >::vmult_add( Vector < float > &, const  Vector < float > &)
@@ -359,7 +359,7 @@ template void ChunkSparseMatrix< double >::vmult( Vector < float > &, const  Vec
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(23))
+#if (SPLIT_INSTANTIATIONS_CHECK(23))
 template void ChunkSparseMatrix< double >::vmult( Vector < float > &, const  BlockVector < float > &) const;
  template void ChunkSparseMatrix< double >::Tvmult( Vector < float > &, const  BlockVector < float > &) const;
  template void ChunkSparseMatrix< double >::vmult_add( Vector < float > &, const  BlockVector < float > &)
@@ -368,7 +368,7 @@ template void ChunkSparseMatrix< double >::vmult( Vector < float > &, const  Blo
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(24))
+#if (SPLIT_INSTANTIATIONS_CHECK(24))
 template void ChunkSparseMatrix< double >::vmult( BlockVector < float > &, const  Vector < float > &) const;
  template void ChunkSparseMatrix< double >::Tvmult( BlockVector < float > &, const  Vector < float > &) const;
  template void ChunkSparseMatrix< double >::vmult_add( BlockVector < float > &, const  Vector < float > &)
@@ -377,7 +377,7 @@ template void ChunkSparseMatrix< double >::vmult( BlockVector < float > &, const
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(25))
+#if (SPLIT_INSTANTIATIONS_CHECK(25))
 template void ChunkSparseMatrix< double >::vmult( BlockVector < float > &, const  BlockVector < float > &) const;
  template void ChunkSparseMatrix< double >::Tvmult( BlockVector < float > &, const  BlockVector < float > &) const;
  template void ChunkSparseMatrix< double >::vmult_add( BlockVector < float > &, const  BlockVector < float > &)
@@ -386,7 +386,7 @@ template void ChunkSparseMatrix< double >::vmult( BlockVector < float > &, const
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(26))
+#if (SPLIT_INSTANTIATIONS_CHECK(26))
 template void ChunkSparseMatrix< float >::vmult( Vector < double > &, const  Vector < double > &) const;
  template void ChunkSparseMatrix< float >::Tvmult( Vector < double > &, const  Vector < double > &) const;
  template void ChunkSparseMatrix< float >::vmult_add( Vector < double > &, const  Vector < double > &)
@@ -395,7 +395,7 @@ template void ChunkSparseMatrix< float >::vmult( Vector < double > &, const  Vec
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(27))
+#if (SPLIT_INSTANTIATIONS_CHECK(27))
 template void ChunkSparseMatrix< float >::vmult( Vector < double > &, const  BlockVector < double > &) const;
  template void ChunkSparseMatrix< float >::Tvmult( Vector < double > &, const  BlockVector < double > &) const;
  template void ChunkSparseMatrix< float >::vmult_add( Vector < double > &, const  BlockVector < double > &)
@@ -404,7 +404,7 @@ template void ChunkSparseMatrix< float >::vmult( Vector < double > &, const  Blo
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(28))
+#if (SPLIT_INSTANTIATIONS_CHECK(28))
 template void ChunkSparseMatrix< float >::vmult( BlockVector < double > &, const  Vector < double > &) const;
  template void ChunkSparseMatrix< float >::Tvmult( BlockVector < double > &, const  Vector < double > &) const;
  template void ChunkSparseMatrix< float >::vmult_add( BlockVector < double > &, const  Vector < double > &)
@@ -413,7 +413,7 @@ template void ChunkSparseMatrix< float >::vmult( BlockVector < double > &, const
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(29))
+#if (SPLIT_INSTANTIATIONS_CHECK(29))
 template void ChunkSparseMatrix< float >::vmult( BlockVector < double > &, const  BlockVector < double > &) const;
  template void ChunkSparseMatrix< float >::Tvmult( BlockVector < double > &, const  BlockVector < double > &) const;
  template void ChunkSparseMatrix< float >::vmult_add( BlockVector < double > &, const  BlockVector < double > &)
@@ -422,7 +422,7 @@ template void ChunkSparseMatrix< float >::vmult( BlockVector < double > &, const
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(30))
+#if (SPLIT_INSTANTIATIONS_CHECK(30))
 template void ChunkSparseMatrix< float >::vmult( Vector < double > &, const  Vector < float > &) const;
  template void ChunkSparseMatrix< float >::Tvmult( Vector < double > &, const  Vector < float > &) const;
  template void ChunkSparseMatrix< float >::vmult_add( Vector < double > &, const  Vector < float > &)
@@ -431,7 +431,7 @@ template void ChunkSparseMatrix< float >::vmult( Vector < double > &, const  Vec
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(31))
+#if (SPLIT_INSTANTIATIONS_CHECK(31))
 template void ChunkSparseMatrix< float >::vmult( Vector < double > &, const  BlockVector < float > &) const;
  template void ChunkSparseMatrix< float >::Tvmult( Vector < double > &, const  BlockVector < float > &) const;
  template void ChunkSparseMatrix< float >::vmult_add( Vector < double > &, const  BlockVector < float > &)
@@ -440,7 +440,7 @@ template void ChunkSparseMatrix< float >::vmult( Vector < double > &, const  Blo
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(32))
+#if (SPLIT_INSTANTIATIONS_CHECK(32))
 template void ChunkSparseMatrix< float >::vmult( BlockVector < double > &, const  Vector < float > &) const;
  template void ChunkSparseMatrix< float >::Tvmult( BlockVector < double > &, const  Vector < float > &) const;
  template void ChunkSparseMatrix< float >::vmult_add( BlockVector < double > &, const  Vector < float > &)
@@ -449,7 +449,7 @@ template void ChunkSparseMatrix< float >::vmult( BlockVector < double > &, const
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(33))
+#if (SPLIT_INSTANTIATIONS_CHECK(33))
 template void ChunkSparseMatrix< float >::vmult( BlockVector < double > &, const  BlockVector < float > &) const;
  template void ChunkSparseMatrix< float >::Tvmult( BlockVector < double > &, const  BlockVector < float > &) const;
  template void ChunkSparseMatrix< float >::vmult_add( BlockVector < double > &, const  BlockVector < float > &)
@@ -458,7 +458,7 @@ template void ChunkSparseMatrix< float >::vmult( BlockVector < double > &, const
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(34))
+#if (SPLIT_INSTANTIATIONS_CHECK(34))
 template void ChunkSparseMatrix< float >::vmult( Vector < float > &, const  Vector < double > &) const;
  template void ChunkSparseMatrix< float >::Tvmult( Vector < float > &, const  Vector < double > &) const;
  template void ChunkSparseMatrix< float >::vmult_add( Vector < float > &, const  Vector < double > &)
@@ -467,7 +467,7 @@ template void ChunkSparseMatrix< float >::vmult( Vector < float > &, const  Vect
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(35))
+#if (SPLIT_INSTANTIATIONS_CHECK(35))
 template void ChunkSparseMatrix< float >::vmult( Vector < float > &, const  BlockVector < double > &) const;
  template void ChunkSparseMatrix< float >::Tvmult( Vector < float > &, const  BlockVector < double > &) const;
  template void ChunkSparseMatrix< float >::vmult_add( Vector < float > &, const  BlockVector < double > &)
@@ -476,7 +476,7 @@ template void ChunkSparseMatrix< float >::vmult( Vector < float > &, const  Bloc
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(36))
+#if (SPLIT_INSTANTIATIONS_CHECK(36))
 template void ChunkSparseMatrix< float >::vmult( BlockVector < float > &, const  Vector < double > &) const;
  template void ChunkSparseMatrix< float >::Tvmult( BlockVector < float > &, const  Vector < double > &) const;
  template void ChunkSparseMatrix< float >::vmult_add( BlockVector < float > &, const  Vector < double > &)
@@ -485,7 +485,7 @@ template void ChunkSparseMatrix< float >::vmult( BlockVector < float > &, const 
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(37))
+#if (SPLIT_INSTANTIATIONS_CHECK(37))
 template void ChunkSparseMatrix< float >::vmult( BlockVector < float > &, const  BlockVector < double > &) const;
  template void ChunkSparseMatrix< float >::Tvmult( BlockVector < float > &, const  BlockVector < double > &) const;
  template void ChunkSparseMatrix< float >::vmult_add( BlockVector < float > &, const  BlockVector < double > &)
@@ -494,7 +494,7 @@ template void ChunkSparseMatrix< float >::vmult( BlockVector < float > &, const 
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(38))
+#if (SPLIT_INSTANTIATIONS_CHECK(38))
 template void ChunkSparseMatrix< float >::vmult( Vector < float > &, const  Vector < float > &) const;
  template void ChunkSparseMatrix< float >::Tvmult( Vector < float > &, const  Vector < float > &) const;
  template void ChunkSparseMatrix< float >::vmult_add( Vector < float > &, const  Vector < float > &)
@@ -503,7 +503,7 @@ template void ChunkSparseMatrix< float >::vmult( Vector < float > &, const  Vect
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(39))
+#if (SPLIT_INSTANTIATIONS_CHECK(39))
 template void ChunkSparseMatrix< float >::vmult( Vector < float > &, const  BlockVector < float > &) const;
  template void ChunkSparseMatrix< float >::Tvmult( Vector < float > &, const  BlockVector < float > &) const;
  template void ChunkSparseMatrix< float >::vmult_add( Vector < float > &, const  BlockVector < float > &)
@@ -512,7 +512,7 @@ template void ChunkSparseMatrix< float >::vmult( Vector < float > &, const  Bloc
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(40))
+#if (SPLIT_INSTANTIATIONS_CHECK(40))
 template void ChunkSparseMatrix< float >::vmult( BlockVector < float > &, const  Vector < float > &) const;
  template void ChunkSparseMatrix< float >::Tvmult( BlockVector < float > &, const  Vector < float > &) const;
  template void ChunkSparseMatrix< float >::vmult_add( BlockVector < float > &, const  Vector < float > &)
@@ -521,7 +521,7 @@ template void ChunkSparseMatrix< float >::vmult( BlockVector < float > &, const 
  const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(41))
+#if (SPLIT_INSTANTIATIONS_CHECK(41))
 template void ChunkSparseMatrix< float >::vmult( BlockVector < float > &, const  BlockVector < float > &) const;
  template void ChunkSparseMatrix< float >::Tvmult( BlockVector < float > &, const  BlockVector < float > &) const;
  template void ChunkSparseMatrix< float >::vmult_add( BlockVector < float > &, const  BlockVector < float > &)

@@ -23,7 +23,7 @@
 #include <deal.II/base/point.h>
 #include <deal.II/base/subscriptor.h>
 
-#include <deal.II/fe/mapping_q1.h>
+#include <deal.II/fe/mapping.h>
 
 #include <deal.II/grid/grid_tools_cache_update_flags.h>
 #include <deal.II/grid/tria.h>
@@ -169,6 +169,13 @@ namespace GridTools
     get_vertex_to_neighbor_subdomain() const;
 
     /**
+     * Return a map that, for each vertex, lists all the processes whose
+     * subdomains are adjacent to that vertex.
+     */
+    const std::map<unsigned int, std::set<types::subdomain_id>> &
+    get_vertices_with_ghost_neighbors() const;
+
+    /**
      * Return a reference to the stored triangulation.
      */
     const Triangulation<dim, spacedim> &
@@ -291,6 +298,13 @@ namespace GridTools
      * subdomain to which a vertex is connected to.
      */
     mutable std::vector<std::set<unsigned int>> vertex_to_neighbor_subdomain;
+
+    /**
+     * Store an std::map of unsigned integer containing
+     * the set of subdomains connected to each vertex.
+     */
+    mutable std::map<unsigned int, std::set<dealii::types::subdomain_id>>
+      vertices_with_ghost_neighbors;
 
     /**
      * Storage for the status of the triangulation signal.

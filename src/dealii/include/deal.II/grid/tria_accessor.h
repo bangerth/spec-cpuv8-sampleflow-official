@@ -56,6 +56,12 @@ namespace parallel
 }
 
 template <int dim, int spacedim>
+class DoFHandler;
+template <int dim, int spacedim, bool lda>
+class DoFCellAccessor;
+
+
+template <int dim, int spacedim>
 class Manifold;
 
 template <int dim, int spacedim>
@@ -3140,6 +3146,31 @@ public:
    */
 
   /**
+   * @name Converting iterators
+   */
+  /**
+   * @{
+   */
+
+  /**
+   * A function that converts a Triangulation active cell iterator to a
+   * DoFHandler active cell iterator, or a DoFHandler active cell iterator
+   * to an active cell iterator of another DoFHandler. The @p iterator must be
+   * associated with the triangulation of the @p dof_handler.
+   *
+   * @param dof_handler The DoFHandler for the output active cell iterator.
+   * @return An active cell iterator for the @p dof_handler, matching the cell
+   *         referenced by the input @p iterator. The type of the
+   *         returned object is a DoFHandler::active_cell_iterator.
+   */
+  TriaActiveIterator<DoFCellAccessor<dim, spacedim, false>>
+  as_dof_handler_iterator(const DoFHandler<dim, spacedim> &dof_handler) const;
+
+  /**
+   * @}
+   */
+
+  /**
    * @name Accessing sub-objects and neighbors
    */
   /**
@@ -3781,7 +3812,9 @@ public:
   /**
    * Return a globally unique index for a non-artificial level cell.
    *
-   * @note Similar to global_active_cell_index().
+   * @note Similar to global_active_cell_index(), with the difference
+   * that the cell-data vector has been set up with
+   * parallel::TriangulationBase::global_level_cell_index_partitioner().
    */
   types::global_cell_index
   global_level_cell_index() const;

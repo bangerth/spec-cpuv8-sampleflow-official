@@ -20,11 +20,14 @@
 
 #include <deal.II/base/config.h>
 
+#include <deal.II/base/floating_point_comparator.h>
+
 #include <deal.II/matrix_free/dof_info.h>
 #include <deal.II/matrix_free/evaluation_template_factory.h>
 #include <deal.II/matrix_free/hanging_nodes_internal.h>
 #include <deal.II/matrix_free/mapping_info.h>
 
+#include <limits>
 
 DEAL_II_NAMESPACE_OPEN
 
@@ -32,6 +35,47 @@ namespace internal
 {
   namespace MatrixFreeFunctions
   {
+    /**
+     * A struct that takes entries describing a constraint and puts them into
+     * a sorted list where duplicates are filtered out
+     */
+    template <typename Number>
+    struct ConstraintValues
+    {
+      ConstraintValues();
+
+      /**
+       * This function inserts some constrained entries to the collection of
+       * all values. It stores the (reordered) numbering of the dofs
+       * (according to the ordering that matches with the function) in
+       * new_indices, and returns the storage position the double array for
+       * access later on.
+       */
+      template <typename number2>
+      unsigned short
+      insert_entries(
+        const std::vector<std::pair<types::global_dof_index, number2>>
+          &entries);
+
+      /**
+       * Return the memory consumption of the allocated memory in this class.
+       */
+      std::size_t
+      memory_consumption() const;
+
+      std::vector<std::pair<types::global_dof_index, double>>
+                                           constraint_entries;
+      std::vector<types::global_dof_index> constraint_indices;
+
+      std::pair<std::vector<Number>, types::global_dof_index> next_constraint;
+      std::map<std::vector<Number>,
+               types::global_dof_index,
+               FloatingPointComparator<Number>>
+        constraints;
+    };
+
+
+
     /**
      * A helper class to apply constraints in matrix-free loops in
      * user code. It combines constraint related functionalties from
@@ -41,6 +85,10 @@ namespace internal
     class ConstraintInfo
     {
     public:
+      /**
+       * Version 1: indices are extracted from DoFCellAccessor and
+       * constraints are resolved with the help of AffineConstraints.
+       */
       void
       reinit(const DoFHandler<dim> &dof_handler,
              const unsigned int     n_cells,
@@ -55,18 +103,30 @@ namespace internal
           &                                                       constraints,
         const std::shared_ptr<const Utilities::MPI::Partitioner> &partitioner);
 
+      /**
+       * Version 2: no constraints, indices are user-provided.
+       */
+      void
+      reinit(const unsigned int n_cells);
+
+      void
+      read_dof_indices(
+        const unsigned int                                        cell_no,
+        const std::vector<types::global_dof_index> &              dof_indices,
+        const std::shared_ptr<const Utilities::MPI::Partitioner> &partitioner);
+
       void
       finalize();
 
       template <typename T, typename VectorType>
       void
-      read_write_operation(const T &              operation,
-                           VectorType &           global_vector,
-                           AlignedVector<Number> &local_vector,
-                           const unsigned int     first_cell,
-                           const unsigned int     n_cells,
-                           const unsigned int     n_dofs_per_cell,
-                           const bool             apply_constraints) const;
+      read_write_operation(const T &          operation,
+                           VectorType &       global_vector,
+                           Number *           local_vector,
+                           const unsigned int first_cell,
+                           const unsigned int n_cells,
+                           const unsigned int n_dofs_per_cell,
+                           const bool         apply_constraints) const;
 
       void
       apply_hanging_node_constraints(
@@ -74,6 +134,12 @@ namespace internal
         const unsigned int     n_lanes_filled,
         const bool             transpose,
         AlignedVector<Number> &evaluation_data_coarse) const;
+
+      /**
+       * Return the memory consumption of the allocated memory in this class.
+       */
+      std::size_t
+      memory_consumption() const;
 
     private:
       // for setup
@@ -100,7 +166,7 @@ namespace internal
       std::vector<typename Number::value_type> constraint_pool_data;
       std::vector<unsigned int>                constraint_pool_row_index;
 
-      std::vector<ShapeInfo<Number>>          shape_infos;
+      std::vector<ShapeInfo<typename Number::value_type>> shape_infos;
       std::vector<compressed_constraint_kind> hanging_node_constraint_masks;
       std::vector<unsigned int>               active_fe_indices;
 
@@ -111,6 +177,73 @@ namespace internal
       inline const typename Number::value_type *
       constraint_pool_end(const unsigned int row) const;
     };
+
+
+
+    // ------------------------- inline functions --------------------------
+
+    template <typename Number>
+    ConstraintValues<Number>::ConstraintValues()
+      : constraints(FloatingPointComparator<Number>(
+          1. * std::numeric_limits<double>::epsilon() * 1024.))
+    {}
+
+
+
+    template <typename Number>
+    template <typename number2>
+    unsigned short
+    ConstraintValues<Number>::insert_entries(
+      const std::vector<std::pair<types::global_dof_index, number2>> &entries)
+    {
+      next_constraint.first.resize(entries.size());
+      if (entries.size() > 0)
+        {
+          constraint_indices.resize(entries.size());
+          // Use assign so that values for nonmatching Number / number2 are
+          // converted:
+          constraint_entries.assign(entries.begin(), entries.end());
+          std::sort(constraint_entries.begin(),
+                    constraint_entries.end(),
+                    [](const std::pair<types::global_dof_index, double> &p1,
+                       const std::pair<types::global_dof_index, double> &p2) {
+                      return p1.second < p2.second;
+                    });
+          for (types::global_dof_index j = 0; j < constraint_entries.size();
+               j++)
+            {
+              // copy the indices of the constraint entries after sorting.
+              constraint_indices[j] = constraint_entries[j].first;
+
+              // one_constraint takes the weights of the constraint
+              next_constraint.first[j] = constraint_entries[j].second;
+            }
+        }
+
+      // check whether or not constraint is already in pool. the initial
+      // implementation computed a hash value based on the truncated array (to
+      // given accuracy around 1e-13) in order to easily detect different
+      // arrays and then made a fine-grained check when the hash values were
+      // equal. this was quite lengthy and now we use a std::map with a
+      // user-defined comparator to compare floating point arrays to a
+      // tolerance 1e-13.
+      types::global_dof_index insert_position = numbers::invalid_dof_index;
+      const auto position = constraints.find(next_constraint.first);
+      if (position != constraints.end())
+        insert_position = position->second;
+      else
+        {
+          next_constraint.second = constraints.size();
+          constraints.insert(next_constraint);
+          insert_position = next_constraint.second;
+        }
+
+      // we want to store the result as a short variable, so we have to make
+      // sure that the result does not exceed the limits when casting.
+      Assert(insert_position < (1 << (8 * sizeof(unsigned short))),
+             ExcInternalError());
+      return static_cast<unsigned short>(insert_position);
+    }
 
 
 
@@ -160,6 +293,17 @@ namespace internal
           lexicographic_numbering[i] = shape_infos[i].lexicographic_numbering;
         }
       active_fe_indices.resize(n_cells);
+    }
+
+
+
+    template <int dim, typename Number>
+    inline void
+    ConstraintInfo<dim, Number>::reinit(const unsigned int n_cells)
+    {
+      this->dof_indices_per_cell.resize(n_cells);
+      this->plain_dof_indices_per_cell.resize(0);
+      this->constraint_indicator_per_cell.resize(n_cells);
     }
 
 
@@ -293,6 +437,57 @@ namespace internal
 
     template <int dim, typename Number>
     inline void
+    ConstraintInfo<dim, Number>::read_dof_indices(
+      const unsigned int                          cell_no,
+      const std::vector<types::global_dof_index> &local_dof_indices_lex,
+      const std::shared_ptr<const Utilities::MPI::Partitioner> &partitioner)
+    {
+      const auto global_to_local =
+        [&](const types::global_dof_index global_index) -> unsigned int {
+        if (partitioner)
+          return partitioner->global_to_local(global_index);
+        else
+          return global_index;
+      };
+
+      std::pair<unsigned short, unsigned short> constraint_iterator(0, 0);
+
+      auto &constraint_indicator = this->constraint_indicator_per_cell[cell_no];
+      auto &dof_indices          = this->dof_indices_per_cell[cell_no];
+
+      for (const auto current_dof : local_dof_indices_lex)
+        {
+          // dof is constrained
+          if (current_dof == numbers::invalid_dof_index)
+            {
+              const std::vector<
+                std::pair<types::global_dof_index, typename Number::value_type>>
+                entries = {};
+
+              constraint_indicator.push_back(constraint_iterator);
+              constraint_indicator.back().second =
+                constraint_values.insert_entries(entries);
+
+              constraint_iterator.first = 0;
+            }
+          else
+            {
+              dof_indices.push_back(global_to_local(current_dof));
+
+              // make sure constraint_iterator.first is always within the
+              // bounds of unsigned short
+              Assert(constraint_iterator.first <
+                       (1 << (8 * sizeof(unsigned short))) - 1,
+                     ExcInternalError());
+              constraint_iterator.first++;
+            }
+        }
+    }
+
+
+
+    template <int dim, typename Number>
+    inline void
     ConstraintInfo<dim, Number>::finalize()
     {
       this->dof_indices          = {};
@@ -302,8 +497,11 @@ namespace internal
       this->row_starts = {};
       this->row_starts.emplace_back(0, 0);
 
-      this->row_starts_plain_indices = {};
-      this->row_starts_plain_indices.emplace_back(0);
+      if (plain_dof_indices_per_cell.empty() == false)
+        {
+          this->row_starts_plain_indices = {};
+          this->row_starts_plain_indices.emplace_back(0);
+        }
 
       for (unsigned int i = 0; i < dof_indices_per_cell.size(); ++i)
         {
@@ -318,12 +516,16 @@ namespace internal
           this->row_starts.emplace_back(this->dof_indices.size(),
                                         this->constraint_indicator.size());
 
-          this->plain_dof_indices.insert(this->plain_dof_indices.end(),
-                                         plain_dof_indices_per_cell[i].begin(),
-                                         plain_dof_indices_per_cell[i].end());
+          if (plain_dof_indices_per_cell.empty() == false)
+            {
+              this->plain_dof_indices.insert(
+                this->plain_dof_indices.end(),
+                plain_dof_indices_per_cell[i].begin(),
+                plain_dof_indices_per_cell[i].end());
 
-          this->row_starts_plain_indices.emplace_back(
-            this->plain_dof_indices.size());
+              this->row_starts_plain_indices.emplace_back(
+                this->plain_dof_indices.size());
+            }
         }
 
       std::vector<const std::vector<double> *> constraints(
@@ -371,13 +573,13 @@ namespace internal
     template <typename T, typename VectorType>
     inline void
     ConstraintInfo<dim, Number>::read_write_operation(
-      const T &              operation,
-      VectorType &           global_vector,
-      AlignedVector<Number> &local_vector,
-      const unsigned int     first_cell,
-      const unsigned int     n_cells,
-      const unsigned int     n_dofs_per_cell,
-      const bool             apply_constraints) const
+      const T &          operation,
+      VectorType &       global_vector,
+      Number *           local_vector,
+      const unsigned int first_cell,
+      const unsigned int n_cells,
+      const unsigned int n_dofs_per_cell,
+      const bool         apply_constraints) const
     {
       if (apply_constraints == false)
         {
@@ -526,6 +728,55 @@ namespace internal
                constraint_pool_data.data() + constraint_pool_row_index[row + 1];
     }
 
+
+
+    template <int dim, typename Number>
+    inline std::size_t
+    ConstraintInfo<dim, Number>::memory_consumption() const
+    {
+      std::size_t size = 0;
+
+      size += MemoryConsumption::memory_consumption(constraint_values);
+      size += MemoryConsumption::memory_consumption(dof_indices_per_cell);
+      size += MemoryConsumption::memory_consumption(plain_dof_indices_per_cell);
+      size +=
+        MemoryConsumption::memory_consumption(constraint_indicator_per_cell);
+
+      if (hanging_nodes)
+        size += MemoryConsumption::memory_consumption(*hanging_nodes);
+
+      size += MemoryConsumption::memory_consumption(lexicographic_numbering);
+      size += MemoryConsumption::memory_consumption(dof_indices);
+      size += MemoryConsumption::memory_consumption(constraint_indicator);
+      size += MemoryConsumption::memory_consumption(row_starts);
+      size += MemoryConsumption::memory_consumption(plain_dof_indices);
+      size += MemoryConsumption::memory_consumption(row_starts_plain_indices);
+      size += MemoryConsumption::memory_consumption(constraint_pool_data);
+      size += MemoryConsumption::memory_consumption(constraint_pool_row_index);
+      size += MemoryConsumption::memory_consumption(shape_infos);
+      size +=
+        MemoryConsumption::memory_consumption(hanging_node_constraint_masks);
+      size += MemoryConsumption::memory_consumption(active_fe_indices);
+
+      return size;
+    }
+
+
+
+    template <typename Number>
+    inline std::size_t
+    ConstraintValues<Number>::memory_consumption() const
+    {
+      std::size_t size = 0;
+
+      size += MemoryConsumption::memory_consumption(constraint_entries);
+      size += MemoryConsumption::memory_consumption(constraint_indices);
+
+      // TODO: map does not have memory_consumption()
+      // size += MemoryConsumption::memory_consumption(constraints);
+
+      return size;
+    }
 
   } // namespace MatrixFreeFunctions
 } // namespace internal

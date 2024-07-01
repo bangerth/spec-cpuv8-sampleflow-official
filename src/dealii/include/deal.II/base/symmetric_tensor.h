@@ -37,6 +37,10 @@ class SymmetricTensor;
 /**
  * Return a unit symmetric tensor of rank 2, i.e., the
  * $\text{dim}\times\text{dim}$ identity matrix $\mathbf I$.
+ * For example, if `dim==2`, then this matrix has the form
+ * @f[
+ *   I_{2\times 2} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}.
+ * @f]
  *
  * @relatesalso SymmetricTensor
  */
@@ -50,7 +54,7 @@ DEAL_II_CONSTEXPR inline DEAL_II_ALWAYS_INLINE SymmetricTensor<2, dim, Number>
  * operator representation of the linear deviator operator $\mathbb P$, also
  * known as the volumetric projection tensor, calculated as:
  * \f{align*}{
- *   \mathbb{P} &=\mathbb{I} -\frac{1}{\text{dim}} \mathbf I \otimes \mathbf I
+ *   \mathbb{P} &=\mathbb{S} -\frac{1}{\text{dim}} \mathbf I \otimes \mathbf I
  *   \\
  *   \mathcal{P}_{ijkl} &= \frac 12 \left(\delta_{ik} \delta_{jl} +
  *                                        \delta_{il} \delta_{jk} \right)
@@ -77,10 +81,10 @@ DEAL_II_CONSTEXPR inline DEAL_II_ALWAYS_INLINE SymmetricTensor<4, dim, Number>
                                                deviator_tensor();
 
 /**
- * Return the fourth-order symmetric identity tensor $\mathbb I$ which maps
+ * Return the fourth-order symmetric identity tensor $\mathbb S$ which maps
  * symmetric second-order tensors, such as  $\mathbf A$, to themselves.
  * \f[
- *   \mathbb I : \mathbf A = \mathbf A
+ *   \mathbb S : \mathbf A = \mathbf A
  * \f]
  *
  * Note that this tensor, even though it is the identity, has a somewhat funny
@@ -88,25 +92,25 @@ DEAL_II_CONSTEXPR inline DEAL_II_ALWAYS_INLINE SymmetricTensor<4, dim, Number>
  * example, for <tt>dim=2</tt>, the identity tensor has all zero entries
  * except for
  * \f[
- *   \mathcal{I}_{0000} = \mathcal{I}_{1111} = 1
+ *   \mathcal{S}_{0000} = \mathcal{S}_{1111} = 1
  * \f]
  * \f[
- *   \mathcal{I}_{0101} = \mathcal{I}_{0110} = \mathcal{I}_{1001}
- *                      = \mathcal{I}_{1010} = \frac 12.
+ *   \mathcal{S}_{0101} = \mathcal{S}_{0110} = \mathcal{S}_{1001}
+ *                      = \mathcal{S}_{1010} = \frac 12.
  * \f]
  * In index notation, we can write the general form
  * \f[
- *   \mathcal{I}_{ijkl} = \frac 12 \left( \delta_{ik} \delta_{jl} +
+ *   \mathcal{S}_{ijkl} = \frac 12 \left( \delta_{ik} \delta_{jl} +
  *                                        \delta_{il} \delta_{jk} \right).
  * \f]
  * To see why this factor of $1 / 2$ is necessary, consider computing
  * $\mathbf A= \mathbb I : \mathbf B$.
- * For the element $A_{01}$ we have $A_{01} = \mathcal{I}_{0100} B_{00} +
- * \mathcal{I}_{0111} B_{11} + \mathcal{I}_{0101} B_{01} +
- * \mathcal{I}_{0110} B_{10}$. On the other hand, we need
+ * For the element $A_{01}$ we have $A_{01} = \mathcal{S}_{0100} B_{00} +
+ * \mathcal{S}_{0111} B_{11} + \mathcal{S}_{0101} B_{01} +
+ * \mathcal{S}_{0110} B_{10}$. On the other hand, we need
  * to have $A_{01} = B_{01}$, and symmetry implies $B_{01}=B_{10}$,
- * leading to $A_{01} = (\mathcal{I}_{0101} + \mathcal{I}_{0110}) B_{01}$, or,
- * again by symmetry, $\mathcal{I}_{0101} = \mathcal{I}_{0110} = \frac 12$.
+ * leading to $A_{01} = (\mathcal{S}_{0101} + \mathcal{S}_{0110}) B_{01}$, or,
+ * again by symmetry, $\mathcal{S}_{0101} = \mathcal{S}_{0110} = \frac 12$.
  * Similar considerations hold for the three-dimensional case.
  *
  * This issue is also explained in the introduction to step-44.
@@ -782,7 +786,7 @@ public:
    *   and one should not pretend that this so. As a consequence, this function
    *   is deprecated.
    */
-  DEAL_II_DEPRECATED_EARLY
+  DEAL_II_DEPRECATED
   Number *
   begin_raw();
 
@@ -794,7 +798,7 @@ public:
    *   and one should not pretend that this so. As a consequence, this function
    *   is deprecated.
    */
-  DEAL_II_DEPRECATED_EARLY
+  DEAL_II_DEPRECATED
   const Number *
   begin_raw() const;
 
@@ -806,7 +810,7 @@ public:
    *   and one should not pretend that this so. As a consequence, this function
    *   is deprecated.
    */
-  DEAL_II_DEPRECATED_EARLY
+  DEAL_II_DEPRECATED
   Number *
   end_raw();
 
@@ -819,7 +823,7 @@ public:
    *   and one should not pretend that this so. As a consequence, this function
    *   is deprecated.
    */
-  DEAL_II_DEPRECATED_EARLY
+  DEAL_II_DEPRECATED
   const Number *
   end_raw() const;
 
@@ -1559,7 +1563,7 @@ namespace internal
         // whether we have to fear that the matrix is not regular.
         Number diagonal_sum = internal::NumberType<Number>::value(0.0);
         for (unsigned int i = 0; i < N; ++i)
-          diagonal_sum += std::fabs(tmp.data[i][i]);
+          diagonal_sum += numbers::NumberTraits<Number>::abs(tmp.data[i][i]);
         const Number typical_diagonal_element =
           diagonal_sum / static_cast<double>(N);
         (void)typical_diagonal_element;
@@ -1572,12 +1576,12 @@ namespace internal
           {
             // Pivot search: search that part of the line on and right of the
             // diagonal for the largest element.
-            Number       max = std::fabs(tmp.data[j][j]);
-            unsigned int r   = j;
+            Number max     = numbers::NumberTraits<Number>::abs(tmp.data[j][j]);
+            unsigned int r = j;
             for (unsigned int i = j + 1; i < N; ++i)
-              if (std::fabs(tmp.data[i][j]) > max)
+              if (numbers::NumberTraits<Number>::abs(tmp.data[i][j]) > max)
                 {
-                  max = std::fabs(tmp.data[i][j]);
+                  max = numbers::NumberTraits<Number>::abs(tmp.data[i][j]);
                   r   = i;
                 }
 
@@ -2339,25 +2343,25 @@ namespace internal
   compute_norm(const typename SymmetricTensorAccessors::
                  StorageType<2, dim, Number>::base_tensor_type &data)
   {
+    // Make things work with AD types
+    using std::sqrt;
     switch (dim)
       {
         case 1:
           return numbers::NumberTraits<Number>::abs(data[0]);
 
         case 2:
-          return std::sqrt(
-            numbers::NumberTraits<Number>::abs_square(data[0]) +
-            numbers::NumberTraits<Number>::abs_square(data[1]) +
-            2. * numbers::NumberTraits<Number>::abs_square(data[2]));
+          return sqrt(numbers::NumberTraits<Number>::abs_square(data[0]) +
+                      numbers::NumberTraits<Number>::abs_square(data[1]) +
+                      2. * numbers::NumberTraits<Number>::abs_square(data[2]));
 
         case 3:
-          return std::sqrt(
-            numbers::NumberTraits<Number>::abs_square(data[0]) +
-            numbers::NumberTraits<Number>::abs_square(data[1]) +
-            numbers::NumberTraits<Number>::abs_square(data[2]) +
-            2. * numbers::NumberTraits<Number>::abs_square(data[3]) +
-            2. * numbers::NumberTraits<Number>::abs_square(data[4]) +
-            2. * numbers::NumberTraits<Number>::abs_square(data[5]));
+          return sqrt(numbers::NumberTraits<Number>::abs_square(data[0]) +
+                      numbers::NumberTraits<Number>::abs_square(data[1]) +
+                      numbers::NumberTraits<Number>::abs_square(data[2]) +
+                      2. * numbers::NumberTraits<Number>::abs_square(data[3]) +
+                      2. * numbers::NumberTraits<Number>::abs_square(data[4]) +
+                      2. * numbers::NumberTraits<Number>::abs_square(data[5]));
 
         default:
           {
@@ -2371,7 +2375,7 @@ namespace internal
               return_value +=
                 2. * numbers::NumberTraits<Number>::abs_square(data[d]);
 
-            return std::sqrt(return_value);
+            return sqrt(return_value);
           }
       }
   }
@@ -2383,6 +2387,8 @@ namespace internal
   compute_norm(const typename SymmetricTensorAccessors::
                  StorageType<4, dim, Number>::base_tensor_type &data)
   {
+    // Make things work with AD types
+    using std::sqrt;
     switch (dim)
       {
         case 1:
@@ -2412,7 +2418,7 @@ namespace internal
                 return_value +=
                   4. * numbers::NumberTraits<Number>::abs_square(data[i][j]);
 
-            return std::sqrt(return_value);
+            return sqrt(return_value);
           }
       }
   }
@@ -2598,10 +2604,9 @@ namespace internal
     // this function is for tensors of a rank not already handled
     // above
     template <int dim, int rank_>
-    constexpr inline
-      typename std::enable_if<rank_ != 2, TableIndices<rank_>>::type
-      unrolled_to_component_indices(const unsigned int i,
-                                    const std::integral_constant<int, rank_> &)
+    constexpr inline std::enable_if_t<rank_ != 2, TableIndices<rank_>>
+    unrolled_to_component_indices(const unsigned int i,
+                                  const std::integral_constant<int, rank_> &)
     {
       (void)i;
       Assert(
@@ -3568,8 +3573,7 @@ operator*(const Number &factor, const SymmetricTensor<rank_, dim, Number> &t)
  * the type you would get if you multiplied an individual component of the
  * input tensor by the scalar factor.
  *
- * @relatesalso SymmetricTensor
- * @relatesalso EnableIfScalar
+ * @relates SymmetricTensor
  */
 template <int rank_, int dim, typename Number, typename OtherNumber>
 constexpr inline DEAL_II_ALWAYS_INLINE SymmetricTensor<
@@ -3598,8 +3602,7 @@ operator*(const SymmetricTensor<rank_, dim, Number> &t,
  * See the discussion with the operator with switched arguments for more
  * information about template arguments and the return type.
  *
- * @relatesalso SymmetricTensor
- * @relatesalso EnableIfScalar
+ * @relates SymmetricTensor
  */
 template <int rank_, int dim, typename Number, typename OtherNumber>
 constexpr inline DEAL_II_ALWAYS_INLINE SymmetricTensor<
@@ -3619,7 +3622,7 @@ operator*(const Number &                                  factor,
 /**
  * Division of a symmetric tensor of general rank by a scalar.
  *
- * @relatesalso SymmetricTensor
+ * @relates SymmetricTensor
  */
 template <int rank_, int dim, typename Number, typename OtherNumber>
 constexpr inline SymmetricTensor<
@@ -3642,7 +3645,7 @@ operator/(const SymmetricTensor<rank_, dim, Number> &t,
  * Multiplication of a symmetric tensor of general rank with a scalar from the
  * right.
  *
- * @relatesalso SymmetricTensor
+ * @relates SymmetricTensor
  */
 template <int rank_, int dim>
 constexpr inline DEAL_II_ALWAYS_INLINE SymmetricTensor<rank_, dim>
@@ -3659,7 +3662,7 @@ operator*(const SymmetricTensor<rank_, dim> &t, const double factor)
  * Multiplication of a symmetric tensor of general rank with a scalar from the
  * left.
  *
- * @relatesalso SymmetricTensor
+ * @relates SymmetricTensor
  */
 template <int rank_, int dim>
 constexpr inline DEAL_II_ALWAYS_INLINE SymmetricTensor<rank_, dim>
@@ -3675,7 +3678,7 @@ operator*(const double factor, const SymmetricTensor<rank_, dim> &t)
 /**
  * Division of a symmetric tensor of general rank by a scalar.
  *
- * @relatesalso SymmetricTensor
+ * @relates SymmetricTensor
  */
 template <int rank_, int dim>
 constexpr inline SymmetricTensor<rank_, dim>
@@ -3693,7 +3696,7 @@ operator/(const SymmetricTensor<rank_, dim> &t, const double factor)
  * the expression <code>A*B</code> which uses
  * <code>SymmetricTensor::operator*()</code>.
  *
- * @relatesalso SymmetricTensor
+ * @relates SymmetricTensor
  */
 template <int dim, typename Number, typename OtherNumber>
 constexpr DEAL_II_ALWAYS_INLINE typename ProductType<Number, OtherNumber>::type
@@ -3714,8 +3717,7 @@ scalar_product(const SymmetricTensor<2, dim, Number> &     t1,
  * <tt>A*B</tt> (instead of <tt>scalar_product(A,B)</tt>) provides
  * $(\mathbf A \cdot\mathbf B)_{ij}=\sum_k A_{ik}B_{kj}$.
  *
- * @relatesalso Tensor
- * @relatesalso SymmetricTensor
+ * @relates SymmetricTensor
  */
 template <int dim, typename Number, typename OtherNumber>
 constexpr inline DEAL_II_ALWAYS_INLINE
@@ -3742,8 +3744,7 @@ constexpr inline DEAL_II_ALWAYS_INLINE
  * <tt>A*B</tt> (instead of <tt>scalar_product(A,B)</tt>) provides
  * $(\mathbf A \cdot\mathbf B)_{ij}=\sum_k A_{ik}B_{kj}$.
  *
- * @relatesalso Tensor
- * @relatesalso SymmetricTensor
+ * @relates SymmetricTensor
  */
 template <int dim, typename Number, typename OtherNumber>
 constexpr DEAL_II_ALWAYS_INLINE typename ProductType<Number, OtherNumber>::type
@@ -3766,7 +3767,7 @@ scalar_product(const Tensor<2, dim, Number> &              t1,
  * magnitude faster. This function mostly exists for compatibility purposes
  * with the general Tensor class.
  *
- * @relatesalso SymmetricTensor
+ * @relates SymmetricTensor
  */
 template <typename Number, typename OtherNumber>
 constexpr inline DEAL_II_ALWAYS_INLINE void
@@ -3792,7 +3793,7 @@ double_contract(
  * magnitude faster. This function mostly exists for compatibility purposes
  * with the general Tensor class.
  *
- * @relatesalso SymmetricTensor
+ * @relates SymmetricTensor
  */
 template <typename Number, typename OtherNumber>
 constexpr inline void
@@ -3818,7 +3819,7 @@ double_contract(
  * magnitude faster. This function mostly exists for compatibility purposes
  * with the general Tensor class.
  *
- * @relatesalso SymmetricTensor
+ * @relates SymmetricTensor
  */
 template <typename Number, typename OtherNumber>
 constexpr inline void
@@ -3849,7 +3850,7 @@ double_contract(
  * magnitude faster. This function mostly exists for compatibility purposes
  * with the general Tensor class.
  *
- * @relatesalso SymmetricTensor
+ * @relates SymmetricTensor
  */
 template <typename Number, typename OtherNumber>
 constexpr inline void
@@ -3880,7 +3881,7 @@ double_contract(
  * magnitude faster. This function mostly exists for compatibility purposes
  * with the general Tensor class.
  *
- * @relatesalso SymmetricTensor
+ * @relates SymmetricTensor
  */
 template <typename Number, typename OtherNumber>
 constexpr inline void
@@ -3912,7 +3913,7 @@ double_contract(
  * magnitude faster. This function mostly exists for compatibility purposes
  * with the general Tensor class.
  *
- * @relatesalso SymmetricTensor
+ * @relates SymmetricTensor
  */
 template <typename Number, typename OtherNumber>
 constexpr inline void
@@ -3936,7 +3937,7 @@ double_contract(
  * Multiply a symmetric rank-2 tensor (i.e., a matrix) by a rank-1 tensor
  * (i.e., a vector). The result is a rank-1 tensor (i.e., a vector).
  *
- * @relatesalso SymmetricTensor
+ * @relates SymmetricTensor
  */
 template <int dim, typename Number, typename OtherNumber>
 constexpr Tensor<1, dim, typename ProductType<Number, OtherNumber>::type>
@@ -3955,7 +3956,7 @@ operator*(const SymmetricTensor<2, dim, Number> &src1,
  * Multiply a rank-1 tensor (i.e., a vector) by a symmetric rank-2 tensor
  * (i.e., a matrix). The result is a rank-1 tensor (i.e., a vector).
  *
- * @relatesalso SymmetricTensor
+ * @relates SymmetricTensor
  */
 template <int dim, typename Number, typename OtherNumber>
 constexpr Tensor<1, dim, typename ProductType<Number, OtherNumber>::type>
@@ -3985,7 +3986,7 @@ operator*(const Tensor<1, dim, Number> &              src1,
  * multiplication operator for SymmetricTensor, which does the double
  * contraction.
  *
- * @relatesalso SymmetricTensor
+ * @relates SymmetricTensor
  */
 template <int rank_1,
           int rank_2,
@@ -4021,7 +4022,7 @@ constexpr DEAL_II_ALWAYS_INLINE
  * multiplication operator for SymmetricTensor, which does the double
  * contraction.
  *
- * @relatesalso SymmetricTensor
+ * @relates SymmetricTensor
  */
 template <int rank_1,
           int rank_2,
@@ -4047,7 +4048,7 @@ constexpr DEAL_II_ALWAYS_INLINE
  * represents the symmetry in the output, for example by outputting only the
  * unique entries.
  *
- * @relatesalso SymmetricTensor
+ * @relates SymmetricTensor
  */
 template <int dim, typename Number>
 inline std::ostream &
@@ -4074,7 +4075,7 @@ operator<<(std::ostream &out, const SymmetricTensor<2, dim, Number> &t)
  * represents the symmetry in the output, for example by outputting only the
  * unique entries.
  *
- * @relatesalso SymmetricTensor
+ * @relates SymmetricTensor
  */
 template <int dim, typename Number>
 inline std::ostream &

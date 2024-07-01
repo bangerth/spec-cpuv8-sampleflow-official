@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 template class TimeStepBase_Tria< 1 >;
  namespace TimeStepBase_Tria_Flags
  {
@@ -16,7 +16,7 @@ template class TimeStepBase_Tria< 1 >;
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 template class TimeStepBase_Tria< 2 >;
  namespace TimeStepBase_Tria_Flags
  {
@@ -26,7 +26,7 @@ template class TimeStepBase_Tria< 2 >;
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 template class TimeStepBase_Tria< 3 >;
  namespace TimeStepBase_Tria_Flags
  {

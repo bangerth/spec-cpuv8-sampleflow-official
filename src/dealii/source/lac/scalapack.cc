@@ -28,6 +28,7 @@
 #    include <hdf5.h>
 #  endif
 
+#  include <limits>
 #  include <memory>
 
 DEAL_II_NAMESPACE_OPEN
@@ -2611,7 +2612,7 @@ ScaLAPACKMatrix<NumberType>::save(
 #  ifndef DEAL_II_WITH_HDF5
   (void)filename;
   (void)chunk_size;
-  AssertThrow(false, ExcMessage("HDF5 support is disabled."));
+  AssertThrow(false, ExcNeedsHDF5());
 #  else
 
   std::pair<unsigned int, unsigned int> chunks_size_ = chunk_size;
@@ -3043,7 +3044,7 @@ ScaLAPACKMatrix<NumberType>::load(const std::string &filename)
 {
 #  ifndef DEAL_II_WITH_HDF5
   (void)filename;
-  AssertThrow(false, ExcMessage("HDF5 support is disabled."));
+  AssertThrow(false, ExcNeedsHDF5());
 #  else
 #    ifdef H5_HAVE_PARALLEL
   // implementation for configurations equipped with a parallel file system

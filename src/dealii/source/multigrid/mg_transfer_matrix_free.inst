@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 template class MGTransferMatrixFree< 1 ,  double >;
  template class MGTransferBlockMatrixFreeBase<
   1 ,
@@ -15,7 +15,7 @@ template class MGTransferMatrixFree< 1 ,  double >;
  template class MGTransferBlockMatrixFree< 1 ,  double >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 template class MGTransferMatrixFree< 1 ,  float >;
  template class MGTransferBlockMatrixFreeBase<
   1 ,
@@ -24,7 +24,7 @@ template class MGTransferMatrixFree< 1 ,  float >;
  template class MGTransferBlockMatrixFree< 1 ,  float >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 template class MGTransferMatrixFree< 2 ,  double >;
  template class MGTransferBlockMatrixFreeBase<
   2 ,
@@ -33,7 +33,7 @@ template class MGTransferMatrixFree< 2 ,  double >;
  template class MGTransferBlockMatrixFree< 2 ,  double >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 template class MGTransferMatrixFree< 2 ,  float >;
  template class MGTransferBlockMatrixFreeBase<
   2 ,
@@ -42,7 +42,7 @@ template class MGTransferMatrixFree< 2 ,  float >;
  template class MGTransferBlockMatrixFree< 2 ,  float >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 template class MGTransferMatrixFree< 3 ,  double >;
  template class MGTransferBlockMatrixFreeBase<
   3 ,
@@ -51,7 +51,7 @@ template class MGTransferMatrixFree< 3 ,  double >;
  template class MGTransferBlockMatrixFree< 3 ,  double >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 template class MGTransferMatrixFree< 3 ,  float >;
  template class MGTransferBlockMatrixFreeBase<
   3 ,

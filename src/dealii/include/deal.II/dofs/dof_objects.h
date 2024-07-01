@@ -90,7 +90,7 @@ namespace internal
       types::global_dof_index &
       access_dof_index(const dealii::DoFHandler<dh_dim, spacedim> &dof_handler,
                        const unsigned int                          obj_index,
-                       const unsigned int                          fe_index,
+                       const types::fe_index                       fe_index,
                        const unsigned int                          local_index);
 
       /**
@@ -113,7 +113,7 @@ namespace internal
       fe_index_is_active(
         const dealii::DoFHandler<dh_dim, spacedim> &dof_handler,
         const types::global_dof_index               index,
-        const unsigned int                          fe_index) const;
+        const types::fe_index                       fe_index) const;
 
       /**
        * Determine an estimate for the memory consumption (in bytes) of this
@@ -160,7 +160,7 @@ namespace internal
     DoFObjects<dim>::fe_index_is_active(
       const dealii::DoFHandler<dh_dim, spacedim> &,
       const types::global_dof_index,
-      const unsigned int fe_index) const
+      const types::fe_index fe_index) const
     {
       (void)fe_index;
       Assert((fe_index ==
@@ -178,24 +178,20 @@ namespace internal
     DoFObjects<dim>::access_dof_index(
       const dealii::DoFHandler<dh_dim, spacedim> &dof_handler,
       const unsigned int                          obj_index,
-      const unsigned int                          fe_index,
+      const types::fe_index                       fe_index,
       const unsigned int                          local_index)
     {
       (void)fe_index;
-      Assert(
-        (fe_index == dealii::DoFHandler<dh_dim, spacedim>::default_fe_index),
-        ExcMessage(
-          "Only the default FE index is allowed for non-hp-DoFHandler objects"));
-      Assert(
-        local_index < dof_handler.get_fe().template n_dofs_per_object<dim>(),
-        ExcIndexRange(local_index,
-                      0,
-                      dof_handler.get_fe().template n_dofs_per_object<dim>()));
-      Assert(obj_index *
-                   dof_handler.get_fe().template n_dofs_per_object<dim>() +
-                 local_index <
-               dofs.size(),
-             ExcInternalError());
+      Assert((fe_index ==
+              dealii::DoFHandler<dh_dim, spacedim>::default_fe_index),
+             ExcMessage("Only the default FE index is allowed for DoFHandler "
+                        "objects without hp capability"));
+      AssertIndexRange(local_index,
+                       dof_handler.get_fe().template n_dofs_per_object<dim>());
+      AssertIndexRange(
+        obj_index * dof_handler.get_fe().template n_dofs_per_object<dim>() +
+          local_index,
+        dofs.size());
 
       return dofs[obj_index *
                     dof_handler.get_fe().template n_dofs_per_object<dim>() +

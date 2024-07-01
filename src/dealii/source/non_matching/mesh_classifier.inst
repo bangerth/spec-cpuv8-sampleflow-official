@@ -6,28 +6,28 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 namespace NonMatching
  {
  template class MeshClassifier< 1 >;
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 namespace NonMatching
  {
  template class MeshClassifier< 2 >;
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 namespace NonMatching
  {
  template class MeshClassifier< 3 >;
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 namespace NonMatching
  {
  template MeshClassifier< 1 >::MeshClassifier(
@@ -36,7 +36,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 namespace NonMatching
  {
  template MeshClassifier< 2 >::MeshClassifier(
@@ -45,7 +45,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 namespace NonMatching
  {
  template MeshClassifier< 3 >::MeshClassifier(
@@ -54,7 +54,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 namespace NonMatching
  {
  template MeshClassifier< 1 >::MeshClassifier(
@@ -63,7 +63,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 namespace NonMatching
  {
  template MeshClassifier< 2 >::MeshClassifier(
@@ -72,7 +72,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 namespace NonMatching
  {
  template MeshClassifier< 3 >::MeshClassifier(
@@ -81,7 +81,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
+#if (SPLIT_INSTANTIATIONS_CHECK(9))
 namespace NonMatching
  {
  template MeshClassifier< 1 >::MeshClassifier(
@@ -90,7 +90,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
+#if (SPLIT_INSTANTIATIONS_CHECK(10))
 namespace NonMatching
  {
  template MeshClassifier< 2 >::MeshClassifier(
@@ -99,7 +99,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
+#if (SPLIT_INSTANTIATIONS_CHECK(11))
 namespace NonMatching
  {
  template MeshClassifier< 3 >::MeshClassifier(
@@ -108,7 +108,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(12))
+#if (SPLIT_INSTANTIATIONS_CHECK(12))
 namespace NonMatching
  {
  template MeshClassifier< 1 >::MeshClassifier(
@@ -117,7 +117,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(13))
+#if (SPLIT_INSTANTIATIONS_CHECK(13))
 namespace NonMatching
  {
  template MeshClassifier< 2 >::MeshClassifier(
@@ -126,7 +126,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(14))
+#if (SPLIT_INSTANTIATIONS_CHECK(14))
 namespace NonMatching
  {
  template MeshClassifier< 3 >::MeshClassifier(
@@ -135,7 +135,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(15))
+#if (SPLIT_INSTANTIATIONS_CHECK(15))
 namespace NonMatching
  {
  template MeshClassifier< 1 >::MeshClassifier(
@@ -144,7 +144,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(16))
+#if (SPLIT_INSTANTIATIONS_CHECK(16))
 namespace NonMatching
  {
  template MeshClassifier< 2 >::MeshClassifier(
@@ -153,7 +153,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(17))
+#if (SPLIT_INSTANTIATIONS_CHECK(17))
 namespace NonMatching
  {
  template MeshClassifier< 3 >::MeshClassifier(
@@ -162,7 +162,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(18))
+#if (SPLIT_INSTANTIATIONS_CHECK(18))
 namespace NonMatching
  {
  template MeshClassifier< 1 >::MeshClassifier(
@@ -171,7 +171,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(19))
+#if (SPLIT_INSTANTIATIONS_CHECK(19))
 namespace NonMatching
  {
  template MeshClassifier< 2 >::MeshClassifier(
@@ -180,7 +180,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(20))
+#if (SPLIT_INSTANTIATIONS_CHECK(20))
 namespace NonMatching
  {
  template MeshClassifier< 3 >::MeshClassifier(
@@ -189,7 +189,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(21))
+#if (SPLIT_INSTANTIATIONS_CHECK(21))
 namespace NonMatching
  {
  template MeshClassifier< 1 >::MeshClassifier(
@@ -198,7 +198,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(22))
+#if (SPLIT_INSTANTIATIONS_CHECK(22))
 namespace NonMatching
  {
  template MeshClassifier< 2 >::MeshClassifier(
@@ -207,7 +207,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(23))
+#if (SPLIT_INSTANTIATIONS_CHECK(23))
 namespace NonMatching
  {
  template MeshClassifier< 3 >::MeshClassifier(
@@ -216,7 +216,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(24))
+#if (SPLIT_INSTANTIATIONS_CHECK(24))
 namespace NonMatching
  {
  template MeshClassifier< 1 >::MeshClassifier(
@@ -225,7 +225,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(25))
+#if (SPLIT_INSTANTIATIONS_CHECK(25))
 namespace NonMatching
  {
  template MeshClassifier< 2 >::MeshClassifier(
@@ -234,7 +234,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(26))
+#if (SPLIT_INSTANTIATIONS_CHECK(26))
 namespace NonMatching
  {
  template MeshClassifier< 3 >::MeshClassifier(
@@ -243,7 +243,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(27))
+#if (SPLIT_INSTANTIATIONS_CHECK(27))
 namespace NonMatching
  {
  template MeshClassifier< 1 >::MeshClassifier(
@@ -252,7 +252,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(28))
+#if (SPLIT_INSTANTIATIONS_CHECK(28))
 namespace NonMatching
  {
  template MeshClassifier< 2 >::MeshClassifier(
@@ -261,7 +261,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(29))
+#if (SPLIT_INSTANTIATIONS_CHECK(29))
 namespace NonMatching
  {
  template MeshClassifier< 3 >::MeshClassifier(
@@ -270,7 +270,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(30))
+#if (SPLIT_INSTANTIATIONS_CHECK(30))
 namespace NonMatching
  {
  template MeshClassifier< 1 >::MeshClassifier(
@@ -279,7 +279,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(31))
+#if (SPLIT_INSTANTIATIONS_CHECK(31))
 namespace NonMatching
  {
  template MeshClassifier< 2 >::MeshClassifier(
@@ -288,7 +288,7 @@ namespace NonMatching
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(32))
+#if (SPLIT_INSTANTIATIONS_CHECK(32))
 namespace NonMatching
  {
  template MeshClassifier< 3 >::MeshClassifier(

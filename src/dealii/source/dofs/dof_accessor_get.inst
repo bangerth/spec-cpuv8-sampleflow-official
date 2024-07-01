@@ -6,11 +6,11 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 template void DoFCellAccessor< 1 ,  1 ,  true >::
  get_interpolated_dof_values(const  Vector<double>  &,
  Vector< Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -18,24 +18,23 @@ template void DoFCellAccessor< 1 ,  1 ,  true >::
  DoFCellAccessor< 1 ,  1  + 1,  true >::
  get_interpolated_dof_values(const  Vector<double>  &,
  Vector< Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  Vector<double>  &, Vector< Vector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  Vector<double>  &, Vector< Vector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 template void DoFCellAccessor< 1 ,  1 ,  false >::
  get_interpolated_dof_values(const  Vector<double>  &,
  Vector< Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -43,24 +42,23 @@ template void DoFCellAccessor< 1 ,  1 ,  false >::
  DoFCellAccessor< 1 ,  1  + 1,  false >::
  get_interpolated_dof_values(const  Vector<double>  &,
  Vector< Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  Vector<double>  &, Vector< Vector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  Vector<double>  &, Vector< Vector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 template void DoFCellAccessor< 2 ,  2 ,  true >::
  get_interpolated_dof_values(const  Vector<double>  &,
  Vector< Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -68,24 +66,23 @@ template void DoFCellAccessor< 2 ,  2 ,  true >::
  DoFCellAccessor< 2 ,  2  + 1,  true >::
  get_interpolated_dof_values(const  Vector<double>  &,
  Vector< Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  Vector<double>  &, Vector< Vector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  Vector<double>  &, Vector< Vector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 template void DoFCellAccessor< 2 ,  2 ,  false >::
  get_interpolated_dof_values(const  Vector<double>  &,
  Vector< Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -93,24 +90,23 @@ template void DoFCellAccessor< 2 ,  2 ,  false >::
  DoFCellAccessor< 2 ,  2  + 1,  false >::
  get_interpolated_dof_values(const  Vector<double>  &,
  Vector< Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  Vector<double>  &, Vector< Vector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  Vector<double>  &, Vector< Vector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 template void DoFCellAccessor< 3 ,  3 ,  true >::
  get_interpolated_dof_values(const  Vector<double>  &,
  Vector< Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -118,24 +114,23 @@ template void DoFCellAccessor< 3 ,  3 ,  true >::
  DoFCellAccessor< 3 ,  3  + 1,  true >::
  get_interpolated_dof_values(const  Vector<double>  &,
  Vector< Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  Vector<double>  &, Vector< Vector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  Vector<double>  &, Vector< Vector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 template void DoFCellAccessor< 3 ,  3 ,  false >::
  get_interpolated_dof_values(const  Vector<double>  &,
  Vector< Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -143,24 +138,23 @@ template void DoFCellAccessor< 3 ,  3 ,  false >::
  DoFCellAccessor< 3 ,  3  + 1,  false >::
  get_interpolated_dof_values(const  Vector<double>  &,
  Vector< Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  Vector<double>  &, Vector< Vector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  Vector<double>  &, Vector< Vector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 template void DoFCellAccessor< 1 ,  1 ,  true >::
  get_interpolated_dof_values(const  Vector<float>  &,
  Vector< Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -168,24 +162,23 @@ template void DoFCellAccessor< 1 ,  1 ,  true >::
  DoFCellAccessor< 1 ,  1  + 1,  true >::
  get_interpolated_dof_values(const  Vector<float>  &,
  Vector< Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  Vector<float>  &, Vector< Vector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  Vector<float>  &, Vector< Vector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 template void DoFCellAccessor< 1 ,  1 ,  false >::
  get_interpolated_dof_values(const  Vector<float>  &,
  Vector< Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -193,24 +186,23 @@ template void DoFCellAccessor< 1 ,  1 ,  false >::
  DoFCellAccessor< 1 ,  1  + 1,  false >::
  get_interpolated_dof_values(const  Vector<float>  &,
  Vector< Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  Vector<float>  &, Vector< Vector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  Vector<float>  &, Vector< Vector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 template void DoFCellAccessor< 2 ,  2 ,  true >::
  get_interpolated_dof_values(const  Vector<float>  &,
  Vector< Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -218,24 +210,23 @@ template void DoFCellAccessor< 2 ,  2 ,  true >::
  DoFCellAccessor< 2 ,  2  + 1,  true >::
  get_interpolated_dof_values(const  Vector<float>  &,
  Vector< Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  Vector<float>  &, Vector< Vector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  Vector<float>  &, Vector< Vector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
+#if (SPLIT_INSTANTIATIONS_CHECK(9))
 template void DoFCellAccessor< 2 ,  2 ,  false >::
  get_interpolated_dof_values(const  Vector<float>  &,
  Vector< Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -243,24 +234,23 @@ template void DoFCellAccessor< 2 ,  2 ,  false >::
  DoFCellAccessor< 2 ,  2  + 1,  false >::
  get_interpolated_dof_values(const  Vector<float>  &,
  Vector< Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  Vector<float>  &, Vector< Vector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  Vector<float>  &, Vector< Vector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
+#if (SPLIT_INSTANTIATIONS_CHECK(10))
 template void DoFCellAccessor< 3 ,  3 ,  true >::
  get_interpolated_dof_values(const  Vector<float>  &,
  Vector< Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -268,24 +258,23 @@ template void DoFCellAccessor< 3 ,  3 ,  true >::
  DoFCellAccessor< 3 ,  3  + 1,  true >::
  get_interpolated_dof_values(const  Vector<float>  &,
  Vector< Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  Vector<float>  &, Vector< Vector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  Vector<float>  &, Vector< Vector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
+#if (SPLIT_INSTANTIATIONS_CHECK(11))
 template void DoFCellAccessor< 3 ,  3 ,  false >::
  get_interpolated_dof_values(const  Vector<float>  &,
  Vector< Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -293,24 +282,23 @@ template void DoFCellAccessor< 3 ,  3 ,  false >::
  DoFCellAccessor< 3 ,  3  + 1,  false >::
  get_interpolated_dof_values(const  Vector<float>  &,
  Vector< Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  Vector<float>  &, Vector< Vector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  Vector<float>  &, Vector< Vector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(12))
+#if (SPLIT_INSTANTIATIONS_CHECK(12))
 template void DoFCellAccessor< 1 ,  1 ,  true >::
  get_interpolated_dof_values(const  BlockVector<double>  &,
  Vector< BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -318,24 +306,23 @@ template void DoFCellAccessor< 1 ,  1 ,  true >::
  DoFCellAccessor< 1 ,  1  + 1,  true >::
  get_interpolated_dof_values(const  BlockVector<double>  &,
  Vector< BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  BlockVector<double>  &, Vector< BlockVector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  BlockVector<double>  &, Vector< BlockVector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(13))
+#if (SPLIT_INSTANTIATIONS_CHECK(13))
 template void DoFCellAccessor< 1 ,  1 ,  false >::
  get_interpolated_dof_values(const  BlockVector<double>  &,
  Vector< BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -343,24 +330,23 @@ template void DoFCellAccessor< 1 ,  1 ,  false >::
  DoFCellAccessor< 1 ,  1  + 1,  false >::
  get_interpolated_dof_values(const  BlockVector<double>  &,
  Vector< BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  BlockVector<double>  &, Vector< BlockVector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  BlockVector<double>  &, Vector< BlockVector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(14))
+#if (SPLIT_INSTANTIATIONS_CHECK(14))
 template void DoFCellAccessor< 2 ,  2 ,  true >::
  get_interpolated_dof_values(const  BlockVector<double>  &,
  Vector< BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -368,24 +354,23 @@ template void DoFCellAccessor< 2 ,  2 ,  true >::
  DoFCellAccessor< 2 ,  2  + 1,  true >::
  get_interpolated_dof_values(const  BlockVector<double>  &,
  Vector< BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  BlockVector<double>  &, Vector< BlockVector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  BlockVector<double>  &, Vector< BlockVector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(15))
+#if (SPLIT_INSTANTIATIONS_CHECK(15))
 template void DoFCellAccessor< 2 ,  2 ,  false >::
  get_interpolated_dof_values(const  BlockVector<double>  &,
  Vector< BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -393,24 +378,23 @@ template void DoFCellAccessor< 2 ,  2 ,  false >::
  DoFCellAccessor< 2 ,  2  + 1,  false >::
  get_interpolated_dof_values(const  BlockVector<double>  &,
  Vector< BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  BlockVector<double>  &, Vector< BlockVector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  BlockVector<double>  &, Vector< BlockVector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(16))
+#if (SPLIT_INSTANTIATIONS_CHECK(16))
 template void DoFCellAccessor< 3 ,  3 ,  true >::
  get_interpolated_dof_values(const  BlockVector<double>  &,
  Vector< BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -418,24 +402,23 @@ template void DoFCellAccessor< 3 ,  3 ,  true >::
  DoFCellAccessor< 3 ,  3  + 1,  true >::
  get_interpolated_dof_values(const  BlockVector<double>  &,
  Vector< BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  BlockVector<double>  &, Vector< BlockVector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  BlockVector<double>  &, Vector< BlockVector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(17))
+#if (SPLIT_INSTANTIATIONS_CHECK(17))
 template void DoFCellAccessor< 3 ,  3 ,  false >::
  get_interpolated_dof_values(const  BlockVector<double>  &,
  Vector< BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -443,24 +426,23 @@ template void DoFCellAccessor< 3 ,  3 ,  false >::
  DoFCellAccessor< 3 ,  3  + 1,  false >::
  get_interpolated_dof_values(const  BlockVector<double>  &,
  Vector< BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  BlockVector<double>  &, Vector< BlockVector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  BlockVector<double>  &, Vector< BlockVector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(18))
+#if (SPLIT_INSTANTIATIONS_CHECK(18))
 template void DoFCellAccessor< 1 ,  1 ,  true >::
  get_interpolated_dof_values(const  BlockVector<float>  &,
  Vector< BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -468,24 +450,23 @@ template void DoFCellAccessor< 1 ,  1 ,  true >::
  DoFCellAccessor< 1 ,  1  + 1,  true >::
  get_interpolated_dof_values(const  BlockVector<float>  &,
  Vector< BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  BlockVector<float>  &, Vector< BlockVector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  BlockVector<float>  &, Vector< BlockVector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(19))
+#if (SPLIT_INSTANTIATIONS_CHECK(19))
 template void DoFCellAccessor< 1 ,  1 ,  false >::
  get_interpolated_dof_values(const  BlockVector<float>  &,
  Vector< BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -493,24 +474,23 @@ template void DoFCellAccessor< 1 ,  1 ,  false >::
  DoFCellAccessor< 1 ,  1  + 1,  false >::
  get_interpolated_dof_values(const  BlockVector<float>  &,
  Vector< BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  BlockVector<float>  &, Vector< BlockVector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  BlockVector<float>  &, Vector< BlockVector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(20))
+#if (SPLIT_INSTANTIATIONS_CHECK(20))
 template void DoFCellAccessor< 2 ,  2 ,  true >::
  get_interpolated_dof_values(const  BlockVector<float>  &,
  Vector< BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -518,24 +498,23 @@ template void DoFCellAccessor< 2 ,  2 ,  true >::
  DoFCellAccessor< 2 ,  2  + 1,  true >::
  get_interpolated_dof_values(const  BlockVector<float>  &,
  Vector< BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  BlockVector<float>  &, Vector< BlockVector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  BlockVector<float>  &, Vector< BlockVector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(21))
+#if (SPLIT_INSTANTIATIONS_CHECK(21))
 template void DoFCellAccessor< 2 ,  2 ,  false >::
  get_interpolated_dof_values(const  BlockVector<float>  &,
  Vector< BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -543,24 +522,23 @@ template void DoFCellAccessor< 2 ,  2 ,  false >::
  DoFCellAccessor< 2 ,  2  + 1,  false >::
  get_interpolated_dof_values(const  BlockVector<float>  &,
  Vector< BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  BlockVector<float>  &, Vector< BlockVector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  BlockVector<float>  &, Vector< BlockVector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(22))
+#if (SPLIT_INSTANTIATIONS_CHECK(22))
 template void DoFCellAccessor< 3 ,  3 ,  true >::
  get_interpolated_dof_values(const  BlockVector<float>  &,
  Vector< BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -568,24 +546,23 @@ template void DoFCellAccessor< 3 ,  3 ,  true >::
  DoFCellAccessor< 3 ,  3  + 1,  true >::
  get_interpolated_dof_values(const  BlockVector<float>  &,
  Vector< BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  BlockVector<float>  &, Vector< BlockVector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  BlockVector<float>  &, Vector< BlockVector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(23))
+#if (SPLIT_INSTANTIATIONS_CHECK(23))
 template void DoFCellAccessor< 3 ,  3 ,  false >::
  get_interpolated_dof_values(const  BlockVector<float>  &,
  Vector< BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -593,24 +570,23 @@ template void DoFCellAccessor< 3 ,  3 ,  false >::
  DoFCellAccessor< 3 ,  3  + 1,  false >::
  get_interpolated_dof_values(const  BlockVector<float>  &,
  Vector< BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  BlockVector<float>  &, Vector< BlockVector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  BlockVector<float>  &, Vector< BlockVector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(24))
+#if (SPLIT_INSTANTIATIONS_CHECK(24))
 template void DoFCellAccessor< 1 ,  1 ,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<double>  &,
  Vector< LinearAlgebra::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -618,24 +594,23 @@ template void DoFCellAccessor< 1 ,  1 ,  true >::
  DoFCellAccessor< 1 ,  1  + 1,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<double>  &,
  Vector< LinearAlgebra::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<double>  &, Vector< LinearAlgebra::Vector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::Vector<double>  &, Vector< LinearAlgebra::Vector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(25))
+#if (SPLIT_INSTANTIATIONS_CHECK(25))
 template void DoFCellAccessor< 1 ,  1 ,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<double>  &,
  Vector< LinearAlgebra::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -643,24 +618,23 @@ template void DoFCellAccessor< 1 ,  1 ,  false >::
  DoFCellAccessor< 1 ,  1  + 1,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<double>  &,
  Vector< LinearAlgebra::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<double>  &, Vector< LinearAlgebra::Vector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::Vector<double>  &, Vector< LinearAlgebra::Vector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(26))
+#if (SPLIT_INSTANTIATIONS_CHECK(26))
 template void DoFCellAccessor< 2 ,  2 ,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<double>  &,
  Vector< LinearAlgebra::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -668,24 +642,23 @@ template void DoFCellAccessor< 2 ,  2 ,  true >::
  DoFCellAccessor< 2 ,  2  + 1,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<double>  &,
  Vector< LinearAlgebra::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<double>  &, Vector< LinearAlgebra::Vector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::Vector<double>  &, Vector< LinearAlgebra::Vector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(27))
+#if (SPLIT_INSTANTIATIONS_CHECK(27))
 template void DoFCellAccessor< 2 ,  2 ,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<double>  &,
  Vector< LinearAlgebra::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -693,24 +666,23 @@ template void DoFCellAccessor< 2 ,  2 ,  false >::
  DoFCellAccessor< 2 ,  2  + 1,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<double>  &,
  Vector< LinearAlgebra::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<double>  &, Vector< LinearAlgebra::Vector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::Vector<double>  &, Vector< LinearAlgebra::Vector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(28))
+#if (SPLIT_INSTANTIATIONS_CHECK(28))
 template void DoFCellAccessor< 3 ,  3 ,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<double>  &,
  Vector< LinearAlgebra::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -718,24 +690,23 @@ template void DoFCellAccessor< 3 ,  3 ,  true >::
  DoFCellAccessor< 3 ,  3  + 1,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<double>  &,
  Vector< LinearAlgebra::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<double>  &, Vector< LinearAlgebra::Vector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::Vector<double>  &, Vector< LinearAlgebra::Vector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(29))
+#if (SPLIT_INSTANTIATIONS_CHECK(29))
 template void DoFCellAccessor< 3 ,  3 ,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<double>  &,
  Vector< LinearAlgebra::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -743,24 +714,23 @@ template void DoFCellAccessor< 3 ,  3 ,  false >::
  DoFCellAccessor< 3 ,  3  + 1,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<double>  &,
  Vector< LinearAlgebra::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<double>  &, Vector< LinearAlgebra::Vector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::Vector<double>  &, Vector< LinearAlgebra::Vector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(30))
+#if (SPLIT_INSTANTIATIONS_CHECK(30))
 template void DoFCellAccessor< 1 ,  1 ,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<float>  &,
  Vector< LinearAlgebra::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -768,24 +738,23 @@ template void DoFCellAccessor< 1 ,  1 ,  true >::
  DoFCellAccessor< 1 ,  1  + 1,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<float>  &,
  Vector< LinearAlgebra::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<float>  &, Vector< LinearAlgebra::Vector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::Vector<float>  &, Vector< LinearAlgebra::Vector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(31))
+#if (SPLIT_INSTANTIATIONS_CHECK(31))
 template void DoFCellAccessor< 1 ,  1 ,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<float>  &,
  Vector< LinearAlgebra::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -793,24 +762,23 @@ template void DoFCellAccessor< 1 ,  1 ,  false >::
  DoFCellAccessor< 1 ,  1  + 1,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<float>  &,
  Vector< LinearAlgebra::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<float>  &, Vector< LinearAlgebra::Vector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::Vector<float>  &, Vector< LinearAlgebra::Vector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(32))
+#if (SPLIT_INSTANTIATIONS_CHECK(32))
 template void DoFCellAccessor< 2 ,  2 ,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<float>  &,
  Vector< LinearAlgebra::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -818,24 +786,23 @@ template void DoFCellAccessor< 2 ,  2 ,  true >::
  DoFCellAccessor< 2 ,  2  + 1,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<float>  &,
  Vector< LinearAlgebra::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<float>  &, Vector< LinearAlgebra::Vector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::Vector<float>  &, Vector< LinearAlgebra::Vector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(33))
+#if (SPLIT_INSTANTIATIONS_CHECK(33))
 template void DoFCellAccessor< 2 ,  2 ,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<float>  &,
  Vector< LinearAlgebra::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -843,24 +810,23 @@ template void DoFCellAccessor< 2 ,  2 ,  false >::
  DoFCellAccessor< 2 ,  2  + 1,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<float>  &,
  Vector< LinearAlgebra::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<float>  &, Vector< LinearAlgebra::Vector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::Vector<float>  &, Vector< LinearAlgebra::Vector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(34))
+#if (SPLIT_INSTANTIATIONS_CHECK(34))
 template void DoFCellAccessor< 3 ,  3 ,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<float>  &,
  Vector< LinearAlgebra::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -868,24 +834,23 @@ template void DoFCellAccessor< 3 ,  3 ,  true >::
  DoFCellAccessor< 3 ,  3  + 1,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<float>  &,
  Vector< LinearAlgebra::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<float>  &, Vector< LinearAlgebra::Vector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::Vector<float>  &, Vector< LinearAlgebra::Vector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(35))
+#if (SPLIT_INSTANTIATIONS_CHECK(35))
 template void DoFCellAccessor< 3 ,  3 ,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<float>  &,
  Vector< LinearAlgebra::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -893,24 +858,23 @@ template void DoFCellAccessor< 3 ,  3 ,  false >::
  DoFCellAccessor< 3 ,  3  + 1,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::Vector<float>  &,
  Vector< LinearAlgebra::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<float>  &, Vector< LinearAlgebra::Vector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::Vector<float>  &, Vector< LinearAlgebra::Vector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(36))
+#if (SPLIT_INSTANTIATIONS_CHECK(36))
 template void DoFCellAccessor< 1 ,  1 ,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<double>  &,
  Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -918,24 +882,23 @@ template void DoFCellAccessor< 1 ,  1 ,  true >::
  DoFCellAccessor< 1 ,  1  + 1,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<double>  &,
  Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<double>  &, Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::Vector<double>  &, Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(37))
+#if (SPLIT_INSTANTIATIONS_CHECK(37))
 template void DoFCellAccessor< 1 ,  1 ,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<double>  &,
  Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -943,24 +906,23 @@ template void DoFCellAccessor< 1 ,  1 ,  false >::
  DoFCellAccessor< 1 ,  1  + 1,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<double>  &,
  Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<double>  &, Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::Vector<double>  &, Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(38))
+#if (SPLIT_INSTANTIATIONS_CHECK(38))
 template void DoFCellAccessor< 2 ,  2 ,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<double>  &,
  Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -968,24 +930,23 @@ template void DoFCellAccessor< 2 ,  2 ,  true >::
  DoFCellAccessor< 2 ,  2  + 1,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<double>  &,
  Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<double>  &, Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::Vector<double>  &, Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(39))
+#if (SPLIT_INSTANTIATIONS_CHECK(39))
 template void DoFCellAccessor< 2 ,  2 ,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<double>  &,
  Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -993,24 +954,23 @@ template void DoFCellAccessor< 2 ,  2 ,  false >::
  DoFCellAccessor< 2 ,  2  + 1,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<double>  &,
  Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<double>  &, Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::Vector<double>  &, Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(40))
+#if (SPLIT_INSTANTIATIONS_CHECK(40))
 template void DoFCellAccessor< 3 ,  3 ,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<double>  &,
  Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -1018,24 +978,23 @@ template void DoFCellAccessor< 3 ,  3 ,  true >::
  DoFCellAccessor< 3 ,  3  + 1,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<double>  &,
  Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<double>  &, Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::Vector<double>  &, Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(41))
+#if (SPLIT_INSTANTIATIONS_CHECK(41))
 template void DoFCellAccessor< 3 ,  3 ,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<double>  &,
  Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -1043,24 +1002,23 @@ template void DoFCellAccessor< 3 ,  3 ,  false >::
  DoFCellAccessor< 3 ,  3  + 1,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<double>  &,
  Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<double>  &, Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::Vector<double>  &, Vector< LinearAlgebra::distributed::Vector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(42))
+#if (SPLIT_INSTANTIATIONS_CHECK(42))
 template void DoFCellAccessor< 1 ,  1 ,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<float>  &,
  Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -1068,24 +1026,23 @@ template void DoFCellAccessor< 1 ,  1 ,  true >::
  DoFCellAccessor< 1 ,  1  + 1,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<float>  &,
  Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<float>  &, Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::Vector<float>  &, Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(43))
+#if (SPLIT_INSTANTIATIONS_CHECK(43))
 template void DoFCellAccessor< 1 ,  1 ,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<float>  &,
  Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -1093,24 +1050,23 @@ template void DoFCellAccessor< 1 ,  1 ,  false >::
  DoFCellAccessor< 1 ,  1  + 1,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<float>  &,
  Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<float>  &, Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::Vector<float>  &, Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(44))
+#if (SPLIT_INSTANTIATIONS_CHECK(44))
 template void DoFCellAccessor< 2 ,  2 ,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<float>  &,
  Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -1118,24 +1074,23 @@ template void DoFCellAccessor< 2 ,  2 ,  true >::
  DoFCellAccessor< 2 ,  2  + 1,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<float>  &,
  Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<float>  &, Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::Vector<float>  &, Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(45))
+#if (SPLIT_INSTANTIATIONS_CHECK(45))
 template void DoFCellAccessor< 2 ,  2 ,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<float>  &,
  Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -1143,24 +1098,23 @@ template void DoFCellAccessor< 2 ,  2 ,  false >::
  DoFCellAccessor< 2 ,  2  + 1,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<float>  &,
  Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<float>  &, Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::Vector<float>  &, Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(46))
+#if (SPLIT_INSTANTIATIONS_CHECK(46))
 template void DoFCellAccessor< 3 ,  3 ,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<float>  &,
  Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -1168,24 +1122,23 @@ template void DoFCellAccessor< 3 ,  3 ,  true >::
  DoFCellAccessor< 3 ,  3  + 1,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<float>  &,
  Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<float>  &, Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::Vector<float>  &, Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(47))
+#if (SPLIT_INSTANTIATIONS_CHECK(47))
 template void DoFCellAccessor< 3 ,  3 ,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<float>  &,
  Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -1193,24 +1146,23 @@ template void DoFCellAccessor< 3 ,  3 ,  false >::
  DoFCellAccessor< 3 ,  3  + 1,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<float>  &,
  Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<float>  &, Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::Vector<float>  &, Vector< LinearAlgebra::distributed::Vector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(48))
+#if (SPLIT_INSTANTIATIONS_CHECK(48))
 template void DoFCellAccessor< 1 ,  1 ,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<double>  &,
  Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -1218,24 +1170,23 @@ template void DoFCellAccessor< 1 ,  1 ,  true >::
  DoFCellAccessor< 1 ,  1  + 1,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<double>  &,
  Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<double>  &, Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::BlockVector<double>  &, Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(49))
+#if (SPLIT_INSTANTIATIONS_CHECK(49))
 template void DoFCellAccessor< 1 ,  1 ,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<double>  &,
  Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -1243,24 +1194,23 @@ template void DoFCellAccessor< 1 ,  1 ,  false >::
  DoFCellAccessor< 1 ,  1  + 1,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<double>  &,
  Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<double>  &, Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::BlockVector<double>  &, Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(50))
+#if (SPLIT_INSTANTIATIONS_CHECK(50))
 template void DoFCellAccessor< 2 ,  2 ,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<double>  &,
  Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -1268,24 +1218,23 @@ template void DoFCellAccessor< 2 ,  2 ,  true >::
  DoFCellAccessor< 2 ,  2  + 1,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<double>  &,
  Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<double>  &, Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::BlockVector<double>  &, Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(51))
+#if (SPLIT_INSTANTIATIONS_CHECK(51))
 template void DoFCellAccessor< 2 ,  2 ,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<double>  &,
  Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -1293,24 +1242,23 @@ template void DoFCellAccessor< 2 ,  2 ,  false >::
  DoFCellAccessor< 2 ,  2  + 1,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<double>  &,
  Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<double>  &, Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::BlockVector<double>  &, Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(52))
+#if (SPLIT_INSTANTIATIONS_CHECK(52))
 template void DoFCellAccessor< 3 ,  3 ,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<double>  &,
  Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -1318,24 +1266,23 @@ template void DoFCellAccessor< 3 ,  3 ,  true >::
  DoFCellAccessor< 3 ,  3  + 1,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<double>  &,
  Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<double>  &, Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::BlockVector<double>  &, Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(53))
+#if (SPLIT_INSTANTIATIONS_CHECK(53))
 template void DoFCellAccessor< 3 ,  3 ,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<double>  &,
  Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -1343,24 +1290,23 @@ template void DoFCellAccessor< 3 ,  3 ,  false >::
  DoFCellAccessor< 3 ,  3  + 1,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<double>  &,
  Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<double>  &, Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::BlockVector<double>  &, Vector< LinearAlgebra::distributed::BlockVector<double> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(54))
+#if (SPLIT_INSTANTIATIONS_CHECK(54))
 template void DoFCellAccessor< 1 ,  1 ,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<float>  &,
  Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -1368,24 +1314,23 @@ template void DoFCellAccessor< 1 ,  1 ,  true >::
  DoFCellAccessor< 1 ,  1  + 1,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<float>  &,
  Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<float>  &, Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::BlockVector<float>  &, Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(55))
+#if (SPLIT_INSTANTIATIONS_CHECK(55))
 template void DoFCellAccessor< 1 ,  1 ,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<float>  &,
  Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  1  != 3
 
@@ -1393,24 +1338,23 @@ template void DoFCellAccessor< 1 ,  1 ,  false >::
  DoFCellAccessor< 1 ,  1  + 1,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<float>  &,
  Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  1  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<float>  &, Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::BlockVector<float>  &, Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(56))
+#if (SPLIT_INSTANTIATIONS_CHECK(56))
 template void DoFCellAccessor< 2 ,  2 ,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<float>  &,
  Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -1418,24 +1362,23 @@ template void DoFCellAccessor< 2 ,  2 ,  true >::
  DoFCellAccessor< 2 ,  2  + 1,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<float>  &,
  Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<float>  &, Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::BlockVector<float>  &, Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(57))
+#if (SPLIT_INSTANTIATIONS_CHECK(57))
 template void DoFCellAccessor< 2 ,  2 ,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<float>  &,
  Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  2  != 3
 
@@ -1443,24 +1386,23 @@ template void DoFCellAccessor< 2 ,  2 ,  false >::
  DoFCellAccessor< 2 ,  2  + 1,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<float>  &,
  Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  2  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<float>  &, Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::BlockVector<float>  &, Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(58))
+#if (SPLIT_INSTANTIATIONS_CHECK(58))
 template void DoFCellAccessor< 3 ,  3 ,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<float>  &,
  Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -1468,24 +1410,23 @@ template void DoFCellAccessor< 3 ,  3 ,  true >::
  DoFCellAccessor< 3 ,  3  + 1,  true >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<float>  &,
  Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<float>  &, Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::BlockVector<float>  &, Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(59))
+#if (SPLIT_INSTANTIATIONS_CHECK(59))
 template void DoFCellAccessor< 3 ,  3 ,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<float>  &,
  Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #if  3  != 3
 
@@ -1493,1515 +1434,14 @@ template void DoFCellAccessor< 3 ,  3 ,  false >::
  DoFCellAccessor< 3 ,  3  + 1,  false >::
  get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<float>  &,
  Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &,
- const unsigned int fe_index) const;
+ const types::fe_index) const;
 
 #endif
 
 #if  3  == 3
 
  template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<float>  &, Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(60))
-template void DoFCellAccessor< 1 ,  1 ,  true >::
- get_interpolated_dof_values(const  Vector<std::complex<double> >  &,
- Vector< Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  true >::
- get_interpolated_dof_values(const  Vector<std::complex<double> >  &,
- Vector< Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  Vector<std::complex<double> >  &, Vector< Vector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(61))
-template void DoFCellAccessor< 1 ,  1 ,  false >::
- get_interpolated_dof_values(const  Vector<std::complex<double> >  &,
- Vector< Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  false >::
- get_interpolated_dof_values(const  Vector<std::complex<double> >  &,
- Vector< Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  Vector<std::complex<double> >  &, Vector< Vector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(62))
-template void DoFCellAccessor< 2 ,  2 ,  true >::
- get_interpolated_dof_values(const  Vector<std::complex<double> >  &,
- Vector< Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  true >::
- get_interpolated_dof_values(const  Vector<std::complex<double> >  &,
- Vector< Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  Vector<std::complex<double> >  &, Vector< Vector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(63))
-template void DoFCellAccessor< 2 ,  2 ,  false >::
- get_interpolated_dof_values(const  Vector<std::complex<double> >  &,
- Vector< Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  false >::
- get_interpolated_dof_values(const  Vector<std::complex<double> >  &,
- Vector< Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  Vector<std::complex<double> >  &, Vector< Vector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(64))
-template void DoFCellAccessor< 3 ,  3 ,  true >::
- get_interpolated_dof_values(const  Vector<std::complex<double> >  &,
- Vector< Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  true >::
- get_interpolated_dof_values(const  Vector<std::complex<double> >  &,
- Vector< Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  Vector<std::complex<double> >  &, Vector< Vector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(65))
-template void DoFCellAccessor< 3 ,  3 ,  false >::
- get_interpolated_dof_values(const  Vector<std::complex<double> >  &,
- Vector< Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  false >::
- get_interpolated_dof_values(const  Vector<std::complex<double> >  &,
- Vector< Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  Vector<std::complex<double> >  &, Vector< Vector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(66))
-template void DoFCellAccessor< 1 ,  1 ,  true >::
- get_interpolated_dof_values(const  Vector<std::complex<float> >  &,
- Vector< Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  true >::
- get_interpolated_dof_values(const  Vector<std::complex<float> >  &,
- Vector< Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  Vector<std::complex<float> >  &, Vector< Vector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(67))
-template void DoFCellAccessor< 1 ,  1 ,  false >::
- get_interpolated_dof_values(const  Vector<std::complex<float> >  &,
- Vector< Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  false >::
- get_interpolated_dof_values(const  Vector<std::complex<float> >  &,
- Vector< Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  Vector<std::complex<float> >  &, Vector< Vector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(68))
-template void DoFCellAccessor< 2 ,  2 ,  true >::
- get_interpolated_dof_values(const  Vector<std::complex<float> >  &,
- Vector< Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  true >::
- get_interpolated_dof_values(const  Vector<std::complex<float> >  &,
- Vector< Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  Vector<std::complex<float> >  &, Vector< Vector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(69))
-template void DoFCellAccessor< 2 ,  2 ,  false >::
- get_interpolated_dof_values(const  Vector<std::complex<float> >  &,
- Vector< Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  false >::
- get_interpolated_dof_values(const  Vector<std::complex<float> >  &,
- Vector< Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  Vector<std::complex<float> >  &, Vector< Vector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(70))
-template void DoFCellAccessor< 3 ,  3 ,  true >::
- get_interpolated_dof_values(const  Vector<std::complex<float> >  &,
- Vector< Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  true >::
- get_interpolated_dof_values(const  Vector<std::complex<float> >  &,
- Vector< Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  Vector<std::complex<float> >  &, Vector< Vector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(71))
-template void DoFCellAccessor< 3 ,  3 ,  false >::
- get_interpolated_dof_values(const  Vector<std::complex<float> >  &,
- Vector< Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  false >::
- get_interpolated_dof_values(const  Vector<std::complex<float> >  &,
- Vector< Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  Vector<std::complex<float> >  &, Vector< Vector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(72))
-template void DoFCellAccessor< 1 ,  1 ,  true >::
- get_interpolated_dof_values(const  BlockVector<std::complex<double> >  &,
- Vector< BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  true >::
- get_interpolated_dof_values(const  BlockVector<std::complex<double> >  &,
- Vector< BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  BlockVector<std::complex<double> >  &, Vector< BlockVector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(73))
-template void DoFCellAccessor< 1 ,  1 ,  false >::
- get_interpolated_dof_values(const  BlockVector<std::complex<double> >  &,
- Vector< BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  false >::
- get_interpolated_dof_values(const  BlockVector<std::complex<double> >  &,
- Vector< BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  BlockVector<std::complex<double> >  &, Vector< BlockVector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(74))
-template void DoFCellAccessor< 2 ,  2 ,  true >::
- get_interpolated_dof_values(const  BlockVector<std::complex<double> >  &,
- Vector< BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  true >::
- get_interpolated_dof_values(const  BlockVector<std::complex<double> >  &,
- Vector< BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  BlockVector<std::complex<double> >  &, Vector< BlockVector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(75))
-template void DoFCellAccessor< 2 ,  2 ,  false >::
- get_interpolated_dof_values(const  BlockVector<std::complex<double> >  &,
- Vector< BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  false >::
- get_interpolated_dof_values(const  BlockVector<std::complex<double> >  &,
- Vector< BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  BlockVector<std::complex<double> >  &, Vector< BlockVector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(76))
-template void DoFCellAccessor< 3 ,  3 ,  true >::
- get_interpolated_dof_values(const  BlockVector<std::complex<double> >  &,
- Vector< BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  true >::
- get_interpolated_dof_values(const  BlockVector<std::complex<double> >  &,
- Vector< BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  BlockVector<std::complex<double> >  &, Vector< BlockVector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(77))
-template void DoFCellAccessor< 3 ,  3 ,  false >::
- get_interpolated_dof_values(const  BlockVector<std::complex<double> >  &,
- Vector< BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  false >::
- get_interpolated_dof_values(const  BlockVector<std::complex<double> >  &,
- Vector< BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  BlockVector<std::complex<double> >  &, Vector< BlockVector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(78))
-template void DoFCellAccessor< 1 ,  1 ,  true >::
- get_interpolated_dof_values(const  BlockVector<std::complex<float> >  &,
- Vector< BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  true >::
- get_interpolated_dof_values(const  BlockVector<std::complex<float> >  &,
- Vector< BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  BlockVector<std::complex<float> >  &, Vector< BlockVector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(79))
-template void DoFCellAccessor< 1 ,  1 ,  false >::
- get_interpolated_dof_values(const  BlockVector<std::complex<float> >  &,
- Vector< BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  false >::
- get_interpolated_dof_values(const  BlockVector<std::complex<float> >  &,
- Vector< BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  BlockVector<std::complex<float> >  &, Vector< BlockVector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(80))
-template void DoFCellAccessor< 2 ,  2 ,  true >::
- get_interpolated_dof_values(const  BlockVector<std::complex<float> >  &,
- Vector< BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  true >::
- get_interpolated_dof_values(const  BlockVector<std::complex<float> >  &,
- Vector< BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  BlockVector<std::complex<float> >  &, Vector< BlockVector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(81))
-template void DoFCellAccessor< 2 ,  2 ,  false >::
- get_interpolated_dof_values(const  BlockVector<std::complex<float> >  &,
- Vector< BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  false >::
- get_interpolated_dof_values(const  BlockVector<std::complex<float> >  &,
- Vector< BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  BlockVector<std::complex<float> >  &, Vector< BlockVector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(82))
-template void DoFCellAccessor< 3 ,  3 ,  true >::
- get_interpolated_dof_values(const  BlockVector<std::complex<float> >  &,
- Vector< BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  true >::
- get_interpolated_dof_values(const  BlockVector<std::complex<float> >  &,
- Vector< BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  BlockVector<std::complex<float> >  &, Vector< BlockVector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(83))
-template void DoFCellAccessor< 3 ,  3 ,  false >::
- get_interpolated_dof_values(const  BlockVector<std::complex<float> >  &,
- Vector< BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  false >::
- get_interpolated_dof_values(const  BlockVector<std::complex<float> >  &,
- Vector< BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  BlockVector<std::complex<float> >  &, Vector< BlockVector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(84))
-template void DoFCellAccessor< 1 ,  1 ,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<std::complex<double> >  &, Vector< LinearAlgebra::Vector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(85))
-template void DoFCellAccessor< 1 ,  1 ,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<std::complex<double> >  &, Vector< LinearAlgebra::Vector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(86))
-template void DoFCellAccessor< 2 ,  2 ,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<std::complex<double> >  &, Vector< LinearAlgebra::Vector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(87))
-template void DoFCellAccessor< 2 ,  2 ,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<std::complex<double> >  &, Vector< LinearAlgebra::Vector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(88))
-template void DoFCellAccessor< 3 ,  3 ,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<std::complex<double> >  &, Vector< LinearAlgebra::Vector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(89))
-template void DoFCellAccessor< 3 ,  3 ,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<std::complex<double> >  &, Vector< LinearAlgebra::Vector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(90))
-template void DoFCellAccessor< 1 ,  1 ,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<std::complex<float> >  &, Vector< LinearAlgebra::Vector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(91))
-template void DoFCellAccessor< 1 ,  1 ,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<std::complex<float> >  &, Vector< LinearAlgebra::Vector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(92))
-template void DoFCellAccessor< 2 ,  2 ,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<std::complex<float> >  &, Vector< LinearAlgebra::Vector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(93))
-template void DoFCellAccessor< 2 ,  2 ,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<std::complex<float> >  &, Vector< LinearAlgebra::Vector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(94))
-template void DoFCellAccessor< 3 ,  3 ,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<std::complex<float> >  &, Vector< LinearAlgebra::Vector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(95))
-template void DoFCellAccessor< 3 ,  3 ,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::Vector<std::complex<float> >  &, Vector< LinearAlgebra::Vector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(96))
-template void DoFCellAccessor< 1 ,  1 ,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &, Vector< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(97))
-template void DoFCellAccessor< 1 ,  1 ,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &, Vector< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(98))
-template void DoFCellAccessor< 2 ,  2 ,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &, Vector< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(99))
-template void DoFCellAccessor< 2 ,  2 ,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &, Vector< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(100))
-template void DoFCellAccessor< 3 ,  3 ,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &, Vector< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(101))
-template void DoFCellAccessor< 3 ,  3 ,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<std::complex<double> >  &, Vector< LinearAlgebra::distributed::Vector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(102))
-template void DoFCellAccessor< 1 ,  1 ,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &, Vector< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(103))
-template void DoFCellAccessor< 1 ,  1 ,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &, Vector< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(104))
-template void DoFCellAccessor< 2 ,  2 ,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &, Vector< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(105))
-template void DoFCellAccessor< 2 ,  2 ,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &, Vector< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(106))
-template void DoFCellAccessor< 3 ,  3 ,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &, Vector< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(107))
-template void DoFCellAccessor< 3 ,  3 ,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::Vector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::Vector<std::complex<float> >  &, Vector< LinearAlgebra::distributed::Vector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(108))
-template void DoFCellAccessor< 1 ,  1 ,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &, Vector< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(109))
-template void DoFCellAccessor< 1 ,  1 ,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &, Vector< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(110))
-template void DoFCellAccessor< 2 ,  2 ,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &, Vector< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(111))
-template void DoFCellAccessor< 2 ,  2 ,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &, Vector< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(112))
-template void DoFCellAccessor< 3 ,  3 ,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &, Vector< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(113))
-template void DoFCellAccessor< 3 ,  3 ,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<std::complex<double> >  &, Vector< LinearAlgebra::distributed::BlockVector<std::complex<double> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(114))
-template void DoFCellAccessor< 1 ,  1 ,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &, Vector< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(115))
-template void DoFCellAccessor< 1 ,  1 ,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  1  != 3
-
- template void
- DoFCellAccessor< 1 ,  1  + 1,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  1  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &, Vector< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(116))
-template void DoFCellAccessor< 2 ,  2 ,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &, Vector< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(117))
-template void DoFCellAccessor< 2 ,  2 ,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  2  != 3
-
- template void
- DoFCellAccessor< 2 ,  2  + 1,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  2  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &, Vector< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(118))
-template void DoFCellAccessor< 3 ,  3 ,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  true >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  true >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &, Vector< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
-
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(119))
-template void DoFCellAccessor< 3 ,  3 ,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#if  3  != 3
-
- template void
- DoFCellAccessor< 3 ,  3  + 1,  false >::
- get_interpolated_dof_values(const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &,
- Vector< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &,
- const unsigned int fe_index) const;
-
-#endif
-
-#if  3  == 3
-
- template void DoFCellAccessor<1, 3,  false >::get_interpolated_dof_values(
- const  LinearAlgebra::distributed::BlockVector<std::complex<float> >  &, Vector< LinearAlgebra::distributed::BlockVector<std::complex<float> > ::value_type> &, const unsigned int fe_index)
- const;
+ const  LinearAlgebra::distributed::BlockVector<float>  &, Vector< LinearAlgebra::distributed::BlockVector<float> ::value_type> &, const types::fe_index) const;
 
 #endif
  

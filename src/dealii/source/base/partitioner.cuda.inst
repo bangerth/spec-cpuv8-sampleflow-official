@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 #ifdef DEAL_II_WITH_MPI
  template void Utilities::MPI::Partitioner::
  export_to_ghosted_array_start< int , dealii::MemorySpace::CUDA>(
@@ -39,7 +39,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 #ifdef DEAL_II_WITH_MPI
  template void Utilities::MPI::Partitioner::
  export_to_ghosted_array_start< long int , dealii::MemorySpace::CUDA>(
@@ -72,7 +72,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 #ifdef DEAL_II_WITH_MPI
  template void Utilities::MPI::Partitioner::
  export_to_ghosted_array_start< unsigned int , dealii::MemorySpace::CUDA>(
@@ -105,7 +105,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 #ifdef DEAL_II_WITH_MPI
  template void Utilities::MPI::Partitioner::
  export_to_ghosted_array_start< unsigned long int , dealii::MemorySpace::CUDA>(
@@ -138,7 +138,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 #ifdef DEAL_II_WITH_MPI
  template void Utilities::MPI::Partitioner::
  export_to_ghosted_array_start< unsigned long long int , dealii::MemorySpace::CUDA>(
@@ -171,7 +171,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 #ifdef DEAL_II_WITH_MPI
  template void Utilities::MPI::Partitioner::
  export_to_ghosted_array_start< float , dealii::MemorySpace::CUDA>(
@@ -204,7 +204,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 #ifdef DEAL_II_WITH_MPI
  template void Utilities::MPI::Partitioner::
  export_to_ghosted_array_start< double , dealii::MemorySpace::CUDA>(
@@ -237,7 +237,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 #ifdef DEAL_II_WITH_MPI
  template void Utilities::MPI::Partitioner::
  export_to_ghosted_array_start< long double , dealii::MemorySpace::CUDA>(
@@ -270,7 +270,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 #ifdef DEAL_II_WITH_MPI
  template void Utilities::MPI::Partitioner::
  export_to_ghosted_array_start< std::complex<double> , dealii::MemorySpace::CUDA>(
@@ -303,7 +303,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
+#if (SPLIT_INSTANTIATIONS_CHECK(9))
 #ifdef DEAL_II_WITH_MPI
  template void Utilities::MPI::Partitioner::
  export_to_ghosted_array_start< std::complex<float> , dealii::MemorySpace::CUDA>(

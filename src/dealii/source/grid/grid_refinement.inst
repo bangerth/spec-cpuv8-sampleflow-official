@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 template void
  GridRefinement::refine< 1 ,  double ,  1 >(
  Triangulation< 1 > &,
@@ -87,7 +87,7 @@ template void
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 template void
  GridRefinement::refine< 2 ,  double ,  2 >(
  Triangulation< 2 > &,
@@ -168,7 +168,7 @@ template void
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 template void
  GridRefinement::refine< 3 ,  double ,  3 >(
  Triangulation< 3 > &,
@@ -249,7 +249,7 @@ template void
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 template void
  GridRefinement::refine< 1 ,  float ,  1 >(
  Triangulation< 1 > &,
@@ -330,7 +330,7 @@ template void
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 template void
  GridRefinement::refine< 2 ,  float ,  2 >(
  Triangulation< 2 > &,
@@ -411,7 +411,7 @@ template void
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 template void
  GridRefinement::refine< 3 ,  float ,  3 >(
  Triangulation< 3 > &,
@@ -492,7 +492,7 @@ template void
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 template std::pair<double, double>
  GridRefinement::adjust_refine_and_coarsen_number_fraction<
   1 >(const types::global_cell_index,
@@ -501,7 +501,7 @@ template std::pair<double, double>
  const double);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 template std::pair<double, double>
  GridRefinement::adjust_refine_and_coarsen_number_fraction<
   2 >(const types::global_cell_index,
@@ -510,7 +510,7 @@ template std::pair<double, double>
  const double);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 template std::pair<double, double>
  GridRefinement::adjust_refine_and_coarsen_number_fraction<
   3 >(const types::global_cell_index,

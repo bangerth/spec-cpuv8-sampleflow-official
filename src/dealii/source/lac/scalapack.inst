@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 template class ScaLAPACKMatrix< double >;
 
  template void ScaLAPACKMatrix< double >::scale_columns<Vector< double >>(
@@ -16,7 +16,7 @@ template class ScaLAPACKMatrix< double >;
  const Vector< double > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 template class ScaLAPACKMatrix< float >;
 
  template void ScaLAPACKMatrix< float >::scale_columns<Vector< float >>(
@@ -26,7 +26,7 @@ template class ScaLAPACKMatrix< float >;
  const Vector< float > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 template void ScaLAPACKMatrix< double >::scale_columns< std::vector < double >>(
  const  std::vector < double > &);
 
@@ -34,7 +34,7 @@ template void ScaLAPACKMatrix< double >::scale_columns< std::vector < double >>(
  const  std::vector < double > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 template void ScaLAPACKMatrix< float >::scale_columns< std::vector < float >>(
  const  std::vector < float > &);
 
@@ -42,7 +42,7 @@ template void ScaLAPACKMatrix< float >::scale_columns< std::vector < float >>(
  const  std::vector < float > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 template void ScaLAPACKMatrix< double >::scale_columns< ArrayView < double >>(
  const  ArrayView < double > &);
 
@@ -50,7 +50,7 @@ template void ScaLAPACKMatrix< double >::scale_columns< ArrayView < double >>(
  const  ArrayView < double > &);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 template void ScaLAPACKMatrix< float >::scale_columns< ArrayView < float >>(
  const  ArrayView < float > &);
 

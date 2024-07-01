@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 template SUNDIALS::internal::NVectorView< Vector < double >>
  SUNDIALS::internal::make_nvector_view<>( Vector < double > &
 #if !DEAL_II_SUNDIALS_VERSION_LT(6, 0, 0)
@@ -29,7 +29,7 @@ template SUNDIALS::internal::NVectorView< Vector < double >>
  template class SUNDIALS::internal::NVectorView<const  Vector < double >>;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 template SUNDIALS::internal::NVectorView< BlockVector < double >>
  SUNDIALS::internal::make_nvector_view<>( BlockVector < double > &
 #if !DEAL_II_SUNDIALS_VERSION_LT(6, 0, 0)
@@ -52,7 +52,7 @@ template SUNDIALS::internal::NVectorView< BlockVector < double >>
  template class SUNDIALS::internal::NVectorView<const  BlockVector < double >>;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 template SUNDIALS::internal::NVectorView< Vector < float >>
  SUNDIALS::internal::make_nvector_view<>( Vector < float > &
 #if !DEAL_II_SUNDIALS_VERSION_LT(6, 0, 0)
@@ -75,7 +75,7 @@ template SUNDIALS::internal::NVectorView< Vector < float >>
  template class SUNDIALS::internal::NVectorView<const  Vector < float >>;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 template SUNDIALS::internal::NVectorView< BlockVector < float >>
  SUNDIALS::internal::make_nvector_view<>( BlockVector < float > &
 #if !DEAL_II_SUNDIALS_VERSION_LT(6, 0, 0)
@@ -98,7 +98,7 @@ template SUNDIALS::internal::NVectorView< BlockVector < float >>
  template class SUNDIALS::internal::NVectorView<const  BlockVector < float >>;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 template SUNDIALS::internal::NVectorView<LinearAlgebra::distributed:: Vector < double >>
  SUNDIALS::internal::make_nvector_view<>(LinearAlgebra::distributed:: Vector < double > &
 #if !DEAL_II_SUNDIALS_VERSION_LT(6, 0, 0)
@@ -127,7 +127,7 @@ template SUNDIALS::internal::NVectorView<LinearAlgebra::distributed:: Vector < d
  const LinearAlgebra::distributed:: Vector < double >>;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 template SUNDIALS::internal::NVectorView<LinearAlgebra::distributed:: BlockVector < double >>
  SUNDIALS::internal::make_nvector_view<>(LinearAlgebra::distributed:: BlockVector < double > &
 #if !DEAL_II_SUNDIALS_VERSION_LT(6, 0, 0)
@@ -156,7 +156,7 @@ template SUNDIALS::internal::NVectorView<LinearAlgebra::distributed:: BlockVecto
  const LinearAlgebra::distributed:: BlockVector < double >>;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 template SUNDIALS::internal::NVectorView<LinearAlgebra::distributed:: Vector < float >>
  SUNDIALS::internal::make_nvector_view<>(LinearAlgebra::distributed:: Vector < float > &
 #if !DEAL_II_SUNDIALS_VERSION_LT(6, 0, 0)
@@ -185,7 +185,7 @@ template SUNDIALS::internal::NVectorView<LinearAlgebra::distributed:: Vector < f
  const LinearAlgebra::distributed:: Vector < float >>;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 template SUNDIALS::internal::NVectorView<LinearAlgebra::distributed:: BlockVector < float >>
  SUNDIALS::internal::make_nvector_view<>(LinearAlgebra::distributed:: BlockVector < float > &
 #if !DEAL_II_SUNDIALS_VERSION_LT(6, 0, 0)
@@ -215,7 +215,7 @@ template SUNDIALS::internal::NVectorView<LinearAlgebra::distributed:: BlockVecto
  
 #endif
 #ifdef DEAL_II_WITH_TRILINOS
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 template SUNDIALS::internal::NVectorView<TrilinosWrappers::MPI:: Vector >
  SUNDIALS::internal::make_nvector_view<>(TrilinosWrappers::MPI:: Vector  &
 # if !DEAL_II_SUNDIALS_VERSION_LT(6, 0, 0)
@@ -241,7 +241,7 @@ template SUNDIALS::internal::NVectorView<TrilinosWrappers::MPI:: Vector >
  const TrilinosWrappers::MPI:: Vector >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
+#if (SPLIT_INSTANTIATIONS_CHECK(9))
 template SUNDIALS::internal::NVectorView<TrilinosWrappers::MPI:: BlockVector >
  SUNDIALS::internal::make_nvector_view<>(TrilinosWrappers::MPI:: BlockVector  &
 # if !DEAL_II_SUNDIALS_VERSION_LT(6, 0, 0)
@@ -269,7 +269,7 @@ template SUNDIALS::internal::NVectorView<TrilinosWrappers::MPI:: BlockVector >
 #endif
 #endif
 #ifdef DEAL_II_WITH_PETSC
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
+#if (SPLIT_INSTANTIATIONS_CHECK(10))
 template SUNDIALS::internal::NVectorView<PETScWrappers::MPI:: Vector >
  SUNDIALS::internal::make_nvector_view<>(PETScWrappers::MPI:: Vector  &
 # if !DEAL_II_SUNDIALS_VERSION_LT(6, 0, 0)
@@ -293,7 +293,7 @@ template SUNDIALS::internal::NVectorView<PETScWrappers::MPI:: Vector >
  template class SUNDIALS::internal::NVectorView<const PETScWrappers::MPI:: Vector >;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
+#if (SPLIT_INSTANTIATIONS_CHECK(11))
 template SUNDIALS::internal::NVectorView<PETScWrappers::MPI:: BlockVector >
  SUNDIALS::internal::make_nvector_view<>(PETScWrappers::MPI:: BlockVector  &
 # if !DEAL_II_SUNDIALS_VERSION_LT(6, 0, 0)

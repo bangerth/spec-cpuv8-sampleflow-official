@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 template void MGTransferSelect<float>::build< 1 >(
  const DoFHandler< 1 > &,
  unsigned int,
@@ -74,7 +74,7 @@ template void MGTransferSelect<float>::build< 1 >(
  const MGLevelObject<Vector<double>> &) const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 template void MGTransferSelect<float>::build< 2 >(
  const DoFHandler< 2 > &,
  unsigned int,
@@ -142,7 +142,7 @@ template void MGTransferSelect<float>::build< 2 >(
  const MGLevelObject<Vector<double>> &) const;
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 template void MGTransferSelect<float>::build< 3 >(
  const DoFHandler< 3 > &,
  unsigned int,

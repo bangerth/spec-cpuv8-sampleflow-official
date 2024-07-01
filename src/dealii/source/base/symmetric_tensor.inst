@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 template class SymmetricTensor<2,  1 ,  double >;
 
  template class SymmetricTensor<4,  1 ,  double >;
@@ -20,7 +20,7 @@ template class SymmetricTensor<2,  1 ,  double >;
  const SymmetricTensorEigenvectorMethod);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 template class SymmetricTensor<2,  1 ,  float >;
 
  template class SymmetricTensor<4,  1 ,  float >;
@@ -34,7 +34,7 @@ template class SymmetricTensor<2,  1 ,  float >;
  const SymmetricTensorEigenvectorMethod);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 template class SymmetricTensor<2,  2 ,  double >;
 
  template class SymmetricTensor<4,  2 ,  double >;
@@ -48,7 +48,7 @@ template class SymmetricTensor<2,  2 ,  double >;
  const SymmetricTensorEigenvectorMethod);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 template class SymmetricTensor<2,  2 ,  float >;
 
  template class SymmetricTensor<4,  2 ,  float >;
@@ -62,7 +62,7 @@ template class SymmetricTensor<2,  2 ,  float >;
  const SymmetricTensorEigenvectorMethod);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 template class SymmetricTensor<2,  3 ,  double >;
 
  template class SymmetricTensor<4,  3 ,  double >;
@@ -76,7 +76,7 @@ template class SymmetricTensor<2,  3 ,  double >;
  const SymmetricTensorEigenvectorMethod);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 template class SymmetricTensor<2,  3 ,  float >;
 
  template class SymmetricTensor<4,  3 ,  float >;
@@ -90,48 +90,12 @@ template class SymmetricTensor<2,  3 ,  float >;
  const SymmetricTensorEigenvectorMethod);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
-template class SymmetricTensor<2,  1 ,  std::complex<double> >;
-
- template class SymmetricTensor<4,  1 ,  std::complex<double> >;
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
-template class SymmetricTensor<2,  1 ,  std::complex<float> >;
-
- template class SymmetricTensor<4,  1 ,  std::complex<float> >;
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
-template class SymmetricTensor<2,  2 ,  std::complex<double> >;
-
- template class SymmetricTensor<4,  2 ,  std::complex<double> >;
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
-template class SymmetricTensor<2,  2 ,  std::complex<float> >;
-
- template class SymmetricTensor<4,  2 ,  std::complex<float> >;
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
-template class SymmetricTensor<2,  3 ,  std::complex<double> >;
-
- template class SymmetricTensor<4,  3 ,  std::complex<double> >;
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
-template class SymmetricTensor<2,  3 ,  std::complex<float> >;
-
- template class SymmetricTensor<4,  3 ,  std::complex<float> >;
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(12))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 template SymmetricTensor<4, 3,  double > invert(
  const SymmetricTensor<4, 3,  double > &t);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(13))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 template SymmetricTensor<4, 3,  float > invert(
  const SymmetricTensor<4, 3,  float > &t);
  

@@ -14,32 +14,32 @@
 // ---------------------------------------------------------------------
 
 #ifndef dealii_trilinos_sparsity_pattern_h
-#  define dealii_trilinos_sparsity_pattern_h
+#define dealii_trilinos_sparsity_pattern_h
 
+#include <deal.II/base/config.h>
 
-#  include <deal.II/base/config.h>
+#ifdef DEAL_II_WITH_TRILINOS
 
-#  ifdef DEAL_II_WITH_TRILINOS
+#  include <deal.II/base/index_set.h>
+#  include <deal.II/base/mpi_stub.h>
+#  include <deal.II/base/subscriptor.h>
 
-#    include <deal.II/base/index_set.h>
-#    include <deal.II/base/subscriptor.h>
+#  include <deal.II/lac/exceptions.h>
+#  include <deal.II/lac/sparsity_pattern_base.h>
 
-#    include <deal.II/lac/exceptions.h>
+#  include <Epetra_FECrsGraph.h>
+#  include <Epetra_Map.h>
+#  include <Epetra_MpiComm.h>
 
-#    include <Epetra_FECrsGraph.h>
-#    include <Epetra_Map.h>
-#    include <Epetra_MpiComm.h>
-#    include <mpi.h>
-
-#    include <cmath>
-#    include <memory>
-#    include <vector>
+#  include <cmath>
+#  include <memory>
+#  include <vector>
 
 
 DEAL_II_NAMESPACE_OPEN
 
 // forward declarations
-#    ifndef DOXYGEN
+#  ifndef DOXYGEN
 class SparsityPattern;
 class DynamicSparsityPattern;
 
@@ -53,7 +53,7 @@ namespace TrilinosWrappers
     class Iterator;
   }
 } // namespace TrilinosWrappers
-#    endif
+#  endif
 
 namespace TrilinosWrappers
 {
@@ -271,7 +271,7 @@ namespace TrilinosWrappers
    * @ingroup TrilinosWrappers
    * @ingroup Sparsity
    */
-  class SparsityPattern : public Subscriptor
+  class SparsityPattern : public SparsityPatternBase
   {
   public:
     /**
@@ -287,7 +287,7 @@ namespace TrilinosWrappers
     /**
      * @name Basic constructors and initialization
      */
-    //@{
+    /** @{ */
     /**
      * Default constructor. Generates an empty (zero-size) sparsity pattern.
      */
@@ -415,12 +415,12 @@ namespace TrilinosWrappers
      */
     void
     compress();
-    //@}
+    /** @} */
 
     /**
      * @name Constructors and initialization using an IndexSet description
      */
-    //@{
+    /** @{ */
 
     /**
      * Constructor for a square sparsity pattern using an IndexSet and an MPI
@@ -648,11 +648,11 @@ namespace TrilinosWrappers
            const SparsityPatternType &nontrilinos_sparsity_pattern,
            const MPI_Comm &           communicator  = MPI_COMM_WORLD,
            const bool                 exchange_data = false);
-    //@}
+    /** @} */
     /**
      * @name Information on the sparsity pattern
      */
-    //@{
+    /** @{ */
 
     /**
      * Return the state of the sparsity pattern, i.e., whether compress()
@@ -666,18 +666,6 @@ namespace TrilinosWrappers
      */
     unsigned int
     max_entries_per_row() const;
-
-    /**
-     * Return the number of rows in this sparsity pattern.
-     */
-    size_type
-    n_rows() const;
-
-    /**
-     * Return the number of columns in this sparsity pattern.
-     */
-    size_type
-    n_cols() const;
 
     /**
      * Return the local dimension of the sparsity pattern, i.e. the number of
@@ -763,11 +751,11 @@ namespace TrilinosWrappers
     std::size_t
     memory_consumption() const;
 
-    //@}
+    /** @} */
     /**
      * @name Adding entries
      */
-    //@{
+    /** @{ */
     /**
      * Add the element (<i>i,j</i>) to the sparsity pattern.
      */
@@ -784,11 +772,19 @@ namespace TrilinosWrappers
                 ForwardIterator begin,
                 ForwardIterator end,
                 const bool      indices_are_sorted = false);
-    //@}
+
+    virtual void
+    add_row_entries(const size_type &                 row,
+                    const ArrayView<const size_type> &columns,
+                    const bool indices_are_sorted = false) override;
+
+    using SparsityPatternBase::add_entries;
+
+    /** @} */
     /**
      * @name Access of underlying Trilinos data
      */
-    //@{
+    /** @{ */
 
     /**
      * Return a const reference to the underlying Trilinos Epetra_CrsGraph
@@ -820,12 +816,12 @@ namespace TrilinosWrappers
      */
     MPI_Comm
     get_mpi_communicator() const;
-    //@}
+    /** @} */
 
     /**
      * @name Partitioners
      */
-    //@{
+    /** @{ */
 
     /**
      * Return the partitioning of the domain space of this pattern, i.e., the
@@ -843,12 +839,12 @@ namespace TrilinosWrappers
     IndexSet
     locally_owned_range_indices() const;
 
-    //@}
+    /** @} */
 
     /**
      * @name Iterators
      */
-    //@{
+    /** @{ */
 
     /**
      * Iterator starting at the first entry.
@@ -884,11 +880,11 @@ namespace TrilinosWrappers
     const_iterator
     end(const size_type r) const;
 
-    //@}
+    /** @} */
     /**
      * @name Input/Output
      */
-    //@{
+    /** @{ */
 
     /**
      * Abstract Trilinos object that helps view in ASCII other Trilinos
@@ -926,7 +922,7 @@ namespace TrilinosWrappers
     void
     print_gnuplot(std::ostream &out) const;
 
-    //@}
+    /** @} */
     /**
      * @addtogroup Exceptions
      * @{
@@ -951,15 +947,6 @@ namespace TrilinosWrappers
     /**
      * Exception
      */
-    DeclExceptionMsg(
-      ExcSourceEqualsDestination,
-      "You are attempting an operation on two sparsity patterns that "
-      "are the same object, but the operation requires that the "
-      "two objects are in fact different.");
-
-    /**
-     * Exception
-     */
     DeclException4(ExcAccessToNonLocalElement,
                    size_type,
                    size_type,
@@ -980,7 +967,7 @@ namespace TrilinosWrappers
                    << "You tried to access element (" << arg1 << '/' << arg2
                    << ')' << " of a sparse matrix, but it appears to not"
                    << " exist in the Trilinos sparsity pattern.");
-    //@}
+    /** @} */
   private:
     /**
      * Pointer to the user-supplied Epetra Trilinos mapping of the matrix
@@ -1013,7 +1000,7 @@ namespace TrilinosWrappers
   // ----------------------- inline and template functions --------------------
 
 
-#    ifndef DOXYGEN
+#  ifndef DOXYGEN
 
   namespace SparsityPatternIterators
   {
@@ -1212,13 +1199,13 @@ namespace TrilinosWrappers
   SparsityPattern::in_local_range(const size_type index) const
   {
     TrilinosWrappers::types::int_type begin, end;
-#      ifndef DEAL_II_WITH_64BIT_INDICES
+#    ifndef DEAL_II_WITH_64BIT_INDICES
     begin = graph->RowMap().MinMyGID();
     end   = graph->RowMap().MaxMyGID() + 1;
-#      else
+#    else
     begin = graph->RowMap().MinMyGID64();
     end   = graph->RowMap().MaxMyGID64() + 1;
-#      endif
+#    endif
 
     return ((index >= static_cast<size_type>(begin)) &&
             (index < static_cast<size_type>(end)));
@@ -1330,17 +1317,13 @@ namespace TrilinosWrappers
     return IndexSet(graph->RangeMap());
   }
 
-#    endif // DOXYGEN
+#  endif // DOXYGEN
 } // namespace TrilinosWrappers
 
 
 DEAL_II_NAMESPACE_CLOSE
 
 
-#  endif // DEAL_II_WITH_TRILINOS
-
-
-/*--------------------   trilinos_sparsity_pattern.h     --------------------*/
+#endif // DEAL_II_WITH_TRILINOS
 
 #endif
-/*--------------------   trilinos_sparsity_pattern.h     --------------------*/

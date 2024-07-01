@@ -22,16 +22,18 @@
 #include <deal.II/base/geometry_info.h>
 #include <deal.II/base/quadrature.h>
 
-#include <deal.II/grid/reference_cell.h>
-
 #include <deal.II/hp/q_collection.h>
 
 DEAL_II_NAMESPACE_OPEN
 
+#ifndef DOXYGEN
+class ReferenceCell;
+#endif
 
-/*!@addtogroup Quadrature */
-/*@{*/
-
+/**
+ * @addtogroup Quadrature
+ * @{
+ */
 
 /**
  * This class is a helper class to facilitate the usage of quadrature formulae
@@ -90,23 +92,9 @@ public:
    * Compute the quadrature points on the cell if the given quadrature formula
    * is used on face <tt>face_no</tt>. For further details, see the general
    * doc for this class.
-   *
-   * @note This function is deprecated since it makes an implicit assumption
-   * that the cell is a line (1D), a quad (2D), or a hex (3D). Use the other
-   * version of this function that takes the reference cell type instead.
-   */
-  DEAL_II_DEPRECATED static void
-  project_to_face(const SubQuadrature &    quadrature,
-                  const unsigned int       face_no,
-                  std::vector<Point<dim>> &q_points);
-
-  /**
-   * Compute the quadrature points on the cell if the given quadrature formula
-   * is used on face <tt>face_no</tt>. For further details, see the general
-   * doc for this class.
    */
   static void
-  project_to_face(const ReferenceCell      reference_cell,
+  project_to_face(const ReferenceCell &    reference_cell,
                   const SubQuadrature &    quadrature,
                   const unsigned int       face_no,
                   std::vector<Point<dim>> &q_points);
@@ -115,21 +103,9 @@ public:
    * Compute the cell quadrature formula corresponding to using
    * <tt>quadrature</tt> on face <tt>face_no</tt>. For further details, see
    * the general doc for this class.
-   *
-   * @note This function is deprecated since it makes an implicit assumption
-   * that the cell is a line (1D), a quad (2D), or a hex (3D). Use the other
-   * version of this function that takes the reference cell type instead.
-   */
-  DEAL_II_DEPRECATED static Quadrature<dim>
-  project_to_face(const SubQuadrature &quadrature, const unsigned int face_no);
-
-  /**
-   * Compute the cell quadrature formula corresponding to using
-   * <tt>quadrature</tt> on face <tt>face_no</tt>. For further details, see
-   * the general doc for this class.
    */
   static Quadrature<dim>
-  project_to_face(const ReferenceCell  reference_cell,
+  project_to_face(const ReferenceCell &reference_cell,
                   const SubQuadrature &quadrature,
                   const unsigned int   face_no);
 
@@ -141,54 +117,13 @@ public:
    *
    * @note Only the points are transformed. The quadrature weights are the
    * same as those of the original rule.
-   *
-   * @note This function is deprecated since it makes an implicit assumption
-   * that the cell is a line (1D), a quad (2D), or a hex (3D). Use the other
-   * version of this function that takes the reference cell type instead.
-   */
-  DEAL_II_DEPRECATED static void
-  project_to_subface(const SubQuadrature &          quadrature,
-                     const unsigned int             face_no,
-                     const unsigned int             subface_no,
-                     std::vector<Point<dim>> &      q_points,
-                     const RefinementCase<dim - 1> &ref_case =
-                       RefinementCase<dim - 1>::isotropic_refinement);
-
-  /**
-   * Compute the quadrature points on the cell if the given quadrature formula
-   * is used on face <tt>face_no</tt>, subface number <tt>subface_no</tt>
-   * corresponding to RefineCase::Type <tt>ref_case</tt>. The last argument is
-   * only used in 3D.
-   *
-   * @note Only the points are transformed. The quadrature weights are the
-   * same as those of the original rule.
    */
   static void
-  project_to_subface(const ReferenceCell            reference_cell,
+  project_to_subface(const ReferenceCell &          reference_cell,
                      const SubQuadrature &          quadrature,
                      const unsigned int             face_no,
                      const unsigned int             subface_no,
                      std::vector<Point<dim>> &      q_points,
-                     const RefinementCase<dim - 1> &ref_case =
-                       RefinementCase<dim - 1>::isotropic_refinement);
-
-  /**
-   * Compute the cell quadrature formula corresponding to using
-   * <tt>quadrature</tt> on subface <tt>subface_no</tt> of face
-   * <tt>face_no</tt> with RefinementCase<dim-1> <tt>ref_case</tt>. The last
-   * argument is only used in 3D.
-   *
-   * @note Only the points are transformed. The quadrature weights are the
-   * same as those of the original rule.
-   *
-   * @note This function is deprecated since it makes an implicit assumption
-   * that the cell is a line (1D), a quad (2D), or a hex (3D). Use the other
-   * version of this function that takes the reference cell type instead.
-   */
-  DEAL_II_DEPRECATED static Quadrature<dim>
-  project_to_subface(const SubQuadrature &          quadrature,
-                     const unsigned int             face_no,
-                     const unsigned int             subface_no,
                      const RefinementCase<dim - 1> &ref_case =
                        RefinementCase<dim - 1>::isotropic_refinement);
 
@@ -206,35 +141,12 @@ public:
    * version of this function that takes the reference cell type instead.
    */
   static Quadrature<dim>
-  project_to_subface(const ReferenceCell            reference_cell,
+  project_to_subface(const ReferenceCell &          reference_cell,
                      const SubQuadrature &          quadrature,
                      const unsigned int             face_no,
                      const unsigned int             subface_no,
                      const RefinementCase<dim - 1> &ref_case =
                        RefinementCase<dim - 1>::isotropic_refinement);
-
-  /**
-   * Take a face quadrature formula and generate a cell quadrature formula
-   * from it where the quadrature points of the given argument are projected
-   * on all faces.
-   *
-   * The weights of the new rule are replications of the original weights.
-   * Thus, the sum of the weights is not one, but the number of faces, which
-   * is the surface of the reference cell.
-   *
-   * This in particular allows us to extract a subset of points corresponding
-   * to a single face and use it as a quadrature on this face, as is done in
-   * FEFaceValues.
-   *
-   * @note In 3D, this function produces eight sets of quadrature points for
-   * each face, in order to cope possibly different orientations of the mesh.
-   *
-   * @note This function is deprecated since it makes an implicit assumption
-   * that the cell is a line (1D), a quad (2D), or a hex (3D). Use the other
-   * version of this function that takes the reference cell type instead.
-   */
-  DEAL_II_DEPRECATED static Quadrature<dim>
-  project_to_all_faces(const Quadrature<dim - 1> &quadrature);
 
   /**
    * Take a collection of face quadrature formulas and generate a cell
@@ -253,7 +165,7 @@ public:
    * each face, in order to cope possibly different orientations of the mesh.
    */
   static Quadrature<dim>
-  project_to_all_faces(const ReferenceCell             reference_cell,
+  project_to_all_faces(const ReferenceCell &           reference_cell,
                        const hp::QCollection<dim - 1> &quadrature);
 
   /**
@@ -261,7 +173,7 @@ public:
    * formula on all faces.
    */
   static Quadrature<dim>
-  project_to_all_faces(const ReferenceCell        reference_cell,
+  project_to_all_faces(const ReferenceCell &      reference_cell,
                        const Quadrature<dim - 1> &quadrature);
 
   /**
@@ -276,29 +188,9 @@ public:
    * This in particular allows us to extract a subset of points corresponding
    * to a single subface and use it as a quadrature on this face, as is done
    * in FESubfaceValues.
-   *
-   * @note This function is deprecated since it makes an implicit assumption
-   * that the cell is a line (1D), a quad (2D), or a hex (3D). Use the other
-   * version of this function that takes the reference cell type instead.
-   */
-  DEAL_II_DEPRECATED static Quadrature<dim>
-  project_to_all_subfaces(const SubQuadrature &quadrature);
-
-  /**
-   * Take a face quadrature formula and generate a cell quadrature formula
-   * from it where the quadrature points of the given argument are projected
-   * on all subfaces.
-   *
-   * Like in project_to_all_faces(), the weights of the new rule sum up to the
-   * number of faces (not subfaces), which is the surface of the reference
-   * cell.
-   *
-   * This in particular allows us to extract a subset of points corresponding
-   * to a single subface and use it as a quadrature on this face, as is done
-   * in FESubfaceValues.
    */
   static Quadrature<dim>
-  project_to_all_subfaces(const ReferenceCell  reference_cell,
+  project_to_all_subfaces(const ReferenceCell &reference_cell,
                           const SubQuadrature &quadrature);
 
   /**
@@ -310,27 +202,9 @@ public:
    * As integration using this quadrature formula now only extends over a
    * fraction of the cell, the weights of the resulting object are divided by
    * GeometryInfo<dim>::children_per_cell.
-   *
-   * @note This function is deprecated since it makes an implicit assumption
-   * that the cell is a line (1D), a quad (2D), or a hex (3D). Use the other
-   * version of this function that takes the reference cell type instead.
-   */
-  DEAL_II_DEPRECATED static Quadrature<dim>
-  project_to_child(const Quadrature<dim> &quadrature,
-                   const unsigned int     child_no);
-
-  /**
-   * Project a given quadrature formula to a child of a cell. You may want to
-   * use this function in case you want to extend an integral only over the
-   * area which a potential child would occupy. The child numbering is the
-   * same as the children would be numbered upon refinement of the cell.
-   *
-   * As integration using this quadrature formula now only extends over a
-   * fraction of the cell, the weights of the resulting object are divided by
-   * GeometryInfo<dim>::children_per_cell.
    */
   static Quadrature<dim>
-  project_to_child(const ReferenceCell    reference_cell,
+  project_to_child(const ReferenceCell &  reference_cell,
                    const Quadrature<dim> &quadrature,
                    const unsigned int     child_no);
 
@@ -342,46 +216,17 @@ public:
    *
    * The child numbering is the same as the children would be numbered upon
    * refinement of the cell.
-   *
-   * @note This function is deprecated since it makes an implicit assumption
-   * that the cell is a line (1D), a quad (2D), or a hex (3D). Use the other
-   * version of this function that takes the reference cell type instead.
-   */
-  DEAL_II_DEPRECATED static Quadrature<dim>
-  project_to_all_children(const Quadrature<dim> &quadrature);
-
-  /**
-   * Project a quadrature rule to all children of a cell. Similarly to
-   * project_to_all_subfaces(), this function replicates the formula generated
-   * by project_to_child() for all children, such that the weights sum up to
-   * one, the volume of the total cell again.
-   *
-   * The child numbering is the same as the children would be numbered upon
-   * refinement of the cell.
    */
   static Quadrature<dim>
-  project_to_all_children(const ReferenceCell    reference_cell,
+  project_to_all_children(const ReferenceCell &  reference_cell,
                           const Quadrature<dim> &quadrature);
 
   /**
    * Project the one dimensional rule <tt>quadrature</tt> to the straight line
    * connecting the points <tt>p1</tt> and <tt>p2</tt>.
-   *
-   * @note This function is deprecated since it makes an implicit assumption
-   * that the cell is a line (1D), a quad (2D), or a hex (3D). Use the other
-   * version of this function that takes the reference cell type instead.
-   */
-  DEAL_II_DEPRECATED static Quadrature<dim>
-  project_to_line(const Quadrature<1> &quadrature,
-                  const Point<dim> &   p1,
-                  const Point<dim> &   p2);
-
-  /**
-   * Project the one dimensional rule <tt>quadrature</tt> to the straight line
-   * connecting the points <tt>p1</tt> and <tt>p2</tt>.
    */
   static Quadrature<dim>
-  project_to_line(const ReferenceCell  reference_cell,
+  project_to_line(const ReferenceCell &reference_cell,
                   const Quadrature<1> &quadrature,
                   const Point<dim> &   p1,
                   const Point<dim> &   p2);
@@ -424,42 +269,21 @@ public:
      * The last argument denotes the number of quadrature points the lower-
      * dimensional face quadrature formula (the one that has been projected
      * onto the faces) has.
-     *
-     * @note This function is deprecated since it makes an implicit assumption
-     * that the cell is a line (1D), a quad (2D), or a hex (3D). Use the other
-     * version of this function that takes the reference cell type instead.
-     */
-    DEAL_II_DEPRECATED static DataSetDescriptor
-    face(const unsigned int face_no,
-         const bool         face_orientation,
-         const bool         face_flip,
-         const bool         face_rotation,
-         const unsigned int n_quadrature_points);
-
-    /**
-     * Static function to generate an offset object for a given face of a cell
-     * with the given face orientation, flip and rotation. This function of
-     * course is only allowed if <tt>dim>=2</tt>, and the face orientation,
-     * flip and rotation are ignored if the space dimension equals 2.
-     *
-     * The last argument denotes the number of quadrature points the lower-
-     * dimensional face quadrature formula (the one that has been projected
-     * onto the faces) has.
      */
     static DataSetDescriptor
-    face(const ReferenceCell reference_cell,
-         const unsigned int  face_no,
-         const bool          face_orientation,
-         const bool          face_flip,
-         const bool          face_rotation,
-         const unsigned int  n_quadrature_points);
+    face(const ReferenceCell &reference_cell,
+         const unsigned int   face_no,
+         const bool           face_orientation,
+         const bool           face_flip,
+         const bool           face_rotation,
+         const unsigned int   n_quadrature_points);
 
     /**
      * Like the above function but taking a quadrature collection, enabling
      * that each face might have different number of quadrature points.
      */
     static DataSetDescriptor
-    face(const ReferenceCell             reference_cell,
+    face(const ReferenceCell &           reference_cell,
          const unsigned int              face_no,
          const bool                      face_orientation,
          const bool                      face_flip,
@@ -477,35 +301,9 @@ public:
      * projected onto the faces) has.
      *
      * Through the last argument anisotropic refinement can be respected.
-     *
-     * @note This function is deprecated since it makes an implicit assumption
-     * that the cell is a line (1D), a quad (2D), or a hex (3D). Use the other
-     * version of this function that takes the reference cell type instead.
-     */
-    DEAL_II_DEPRECATED static DataSetDescriptor
-    subface(const unsigned int               face_no,
-            const unsigned int               subface_no,
-            const bool                       face_orientation,
-            const bool                       face_flip,
-            const bool                       face_rotation,
-            const unsigned int               n_quadrature_points,
-            const internal::SubfaceCase<dim> ref_case =
-              internal::SubfaceCase<dim>::case_isotropic);
-
-    /**
-     * Static function to generate an offset object for a given subface of a
-     * cell with the given face orientation, flip and rotation. This function
-     * of course is only allowed if <tt>dim>=2</tt>, and the face orientation,
-     * flip and rotation are ignored if the space dimension equals 2.
-     *
-     * The last but one argument denotes the number of quadrature points the
-     * lower-dimensional face quadrature formula (the one that has been
-     * projected onto the faces) has.
-     *
-     * Through the last argument anisotropic refinement can be respected.
      */
     static DataSetDescriptor
-    subface(const ReferenceCell              reference_cell,
+    subface(const ReferenceCell &            reference_cell,
             const unsigned int               face_no,
             const unsigned int               subface_no,
             const bool                       face_orientation,
@@ -537,7 +335,7 @@ public:
   };
 };
 
-/*@}*/
+/** @} */
 
 
 // -------------------  inline and template functions ----------------
@@ -577,15 +375,7 @@ inline QProjector<dim>::DataSetDescriptor::operator unsigned int() const
 
 template <int dim>
 Quadrature<dim> inline QProjector<dim>::project_to_all_faces(
-  const Quadrature<dim - 1> &quadrature)
-{
-  return project_to_all_faces(ReferenceCells::get_hypercube<dim>(), quadrature);
-}
-
-
-template <int dim>
-Quadrature<dim> inline QProjector<dim>::project_to_all_faces(
-  const ReferenceCell        reference_cell,
+  const ReferenceCell &      reference_cell,
   const Quadrature<dim - 1> &quadrature)
 {
   return project_to_all_faces(reference_cell,
@@ -600,54 +390,32 @@ Quadrature<dim> inline QProjector<dim>::project_to_all_faces(
 
 template <>
 void
-QProjector<1>::project_to_face(const Quadrature<0> &,
-                               const unsigned int,
-                               std::vector<Point<1>> &);
-template <>
-void
-QProjector<1>::project_to_face(const ReferenceCell reference_cell,
+QProjector<1>::project_to_face(const ReferenceCell &reference_cell,
                                const Quadrature<0> &,
                                const unsigned int,
                                std::vector<Point<1>> &);
 template <>
 void
-QProjector<2>::project_to_face(const Quadrature<1> &  quadrature,
-                               const unsigned int     face_no,
-                               std::vector<Point<2>> &q_points);
-template <>
-void
-QProjector<2>::project_to_face(const ReferenceCell    reference_cell,
+QProjector<2>::project_to_face(const ReferenceCell &  reference_cell,
                                const Quadrature<1> &  quadrature,
                                const unsigned int     face_no,
                                std::vector<Point<2>> &q_points);
 template <>
 void
-QProjector<3>::project_to_face(const Quadrature<2> &  quadrature,
-                               const unsigned int     face_no,
-                               std::vector<Point<3>> &q_points);
-template <>
-void
-QProjector<3>::project_to_face(const ReferenceCell    reference_cell,
+QProjector<3>::project_to_face(const ReferenceCell &  reference_cell,
                                const Quadrature<2> &  quadrature,
                                const unsigned int     face_no,
                                std::vector<Point<3>> &q_points);
 
 template <>
 Quadrature<1>
-QProjector<1>::project_to_all_faces(const ReferenceCell       reference_cell,
+QProjector<1>::project_to_all_faces(const ReferenceCell &     reference_cell,
                                     const hp::QCollection<0> &quadrature);
 
 
 template <>
 void
-QProjector<1>::project_to_subface(const Quadrature<0> &,
-                                  const unsigned int,
-                                  const unsigned int,
-                                  std::vector<Point<1>> &,
-                                  const RefinementCase<0> &);
-template <>
-void
-QProjector<1>::project_to_subface(const ReferenceCell reference_cell,
+QProjector<1>::project_to_subface(const ReferenceCell &reference_cell,
                                   const Quadrature<0> &,
                                   const unsigned int,
                                   const unsigned int,
@@ -655,14 +423,7 @@ QProjector<1>::project_to_subface(const ReferenceCell reference_cell,
                                   const RefinementCase<0> &);
 template <>
 void
-QProjector<2>::project_to_subface(const Quadrature<1> &  quadrature,
-                                  const unsigned int     face_no,
-                                  const unsigned int     subface_no,
-                                  std::vector<Point<2>> &q_points,
-                                  const RefinementCase<1> &);
-template <>
-void
-QProjector<2>::project_to_subface(const ReferenceCell    reference_cell,
+QProjector<2>::project_to_subface(const ReferenceCell &  reference_cell,
                                   const Quadrature<1> &  quadrature,
                                   const unsigned int     face_no,
                                   const unsigned int     subface_no,
@@ -670,14 +431,7 @@ QProjector<2>::project_to_subface(const ReferenceCell    reference_cell,
                                   const RefinementCase<1> &);
 template <>
 void
-QProjector<3>::project_to_subface(const Quadrature<2> &    quadrature,
-                                  const unsigned int       face_no,
-                                  const unsigned int       subface_no,
-                                  std::vector<Point<3>> &  q_points,
-                                  const RefinementCase<2> &face_ref_case);
-template <>
-void
-QProjector<3>::project_to_subface(const ReferenceCell      reference_cell,
+QProjector<3>::project_to_subface(const ReferenceCell &    reference_cell,
                                   const Quadrature<2> &    quadrature,
                                   const unsigned int       face_no,
                                   const unsigned int       subface_no,
@@ -686,10 +440,7 @@ QProjector<3>::project_to_subface(const ReferenceCell      reference_cell,
 
 template <>
 Quadrature<1>
-QProjector<1>::project_to_all_subfaces(const Quadrature<0> &quadrature);
-template <>
-Quadrature<1>
-QProjector<1>::project_to_all_subfaces(const ReferenceCell  reference_cell,
+QProjector<1>::project_to_all_subfaces(const ReferenceCell &reference_cell,
                                        const Quadrature<0> &quadrature);
 
 

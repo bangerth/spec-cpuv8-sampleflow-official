@@ -22,7 +22,6 @@
 #include <deal.II/base/index_set.h>
 #include <deal.II/base/qprojector.h>
 #include <deal.II/base/quadrature_lib.h>
-#include <deal.II/base/utilities.h>
 
 #include <deal.II/dofs/dof_accessor.h>
 #include <deal.II/dofs/dof_handler.h>
@@ -35,8 +34,6 @@
 #include <deal.II/grid/grid_generator.h>
 #include <deal.II/grid/tria.h>
 #include <deal.II/grid/tria_iterator.h>
-
-#include <deal.II/hp/dof_handler.h>
 
 #include <deal.II/lac/affine_constraints.h>
 #include <deal.II/lac/block_vector.h>
@@ -352,7 +349,7 @@ namespace FETools
   namespace internal
   {
     template <int dim, int spacedim, class InVector>
-    typename std::enable_if<is_serial_vector<InVector>::value>::type
+    std::enable_if_t<is_serial_vector<InVector>::value>
     back_interpolate(
       const DoFHandler<dim, spacedim> &                       dof1,
       const AffineConstraints<typename InVector::value_type> &constraints1,
@@ -799,5 +796,4 @@ namespace FETools
 
 DEAL_II_NAMESPACE_CLOSE
 
-/*---------------------- fe_tools_interpolate_templates.h -------------------*/
-#endif // dealii_fe_tools_interpolate_templates_H
+#endif

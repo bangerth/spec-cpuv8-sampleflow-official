@@ -16,6 +16,7 @@
 #include <deal.II/grid/cell_id.h>
 #include <deal.II/grid/tria.h>
 
+#include <limits>
 #include <sstream>
 
 DEAL_II_NAMESPACE_OPEN
@@ -158,15 +159,6 @@ CellId::to_string() const
   std::ostringstream ss;
   ss << *this;
   return ss.str();
-}
-
-
-
-template <int dim, int spacedim>
-typename Triangulation<dim, spacedim>::cell_iterator
-CellId::to_cell(const Triangulation<dim, spacedim> &tria) const
-{
-  return tria.create_cell_iterator(*this);
 }
 
 

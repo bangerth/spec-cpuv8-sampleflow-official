@@ -20,6 +20,7 @@
 
 #include <deal.II/base/mpi.h>
 #include <deal.II/base/mpi.templates.h>
+#include <deal.II/base/mpi_tags.h>
 
 DEAL_II_NAMESPACE_OPEN
 
@@ -250,7 +251,7 @@ namespace Utilities
          *   the default constructor of this class along with the run()
          *   function that takes an argument.
          */
-        DEAL_II_DEPRECATED_EARLY
+        DEAL_II_DEPRECATED
         Interface(Process<RequestType, AnswerType> &process,
                   const MPI_Comm &                  comm);
 
@@ -269,7 +270,7 @@ namespace Utilities
          *   been provided to the non-default constructor. Use the run()
          *   functions taking arguments instead.
          */
-        DEAL_II_DEPRECATED_EARLY
+        DEAL_II_DEPRECATED
         std::vector<unsigned int>
         run();
 
@@ -325,7 +326,7 @@ namespace Utilities
          * and the run() function without argument. It is a `nullptr`
          * otherwise
          */
-        DEAL_II_DEPRECATED_EARLY
+        DEAL_II_DEPRECATED
         Process<RequestType, AnswerType> *process;
 
         /**
@@ -334,7 +335,7 @@ namespace Utilities
          * This member variable is only used in the deprecated constructor
          * and the run() function without argument.
          */
-        DEAL_II_DEPRECATED_EARLY
+        DEAL_II_DEPRECATED
         MPI_Comm comm;
       };
 
@@ -373,7 +374,7 @@ namespace Utilities
          *   the default constructor of this class along with the run()
          *   function that takes an argument.
          */
-        DEAL_II_DEPRECATED_EARLY
+        DEAL_II_DEPRECATED
         NBX(Process<RequestType, AnswerType> &process, const MPI_Comm &comm);
 
         /**
@@ -525,6 +526,17 @@ namespace Utilities
        *
        * @tparam RequestType The type of the object to be sent.
        * @tparam AnswerType The type of the object to be received.
+       *
+       * @note Nothing good will generally happen if any of the function
+       *   objects passed as arguments throws an exception when called.
+       *   This is because when that happens, one MPI process will stop
+       *   participating in MPI communications, deadlocking the other
+       *   processes. As a consequence, the `create_request()`,
+       *   `answer_request()`, and `process_answer()` functions should
+       *   not throw any exceptions; if they encounter error
+       *   conditions, they should instead call `MPI_Abort()` or use
+       *   another way to reliably print an error message and then
+       *   bring the MPI universe down.
        */
       template <typename RequestType, typename AnswerType>
       std::vector<unsigned int>
@@ -561,6 +573,17 @@ namespace Utilities
        *   is to be performed.
        *
        * @tparam RequestType The type of the object to be sent.
+       *
+       * @note Nothing good will generally happen if any of the function
+       *   objects passed as arguments throws an exception when called.
+       *   This is because when that happens, one MPI process will stop
+       *   participating in MPI communications, deadlocking the other
+       *   processes. As a consequence, the `create_request()` and
+       *   `process_request()` functions should
+       *   not throw any exceptions; if they encounter error
+       *   conditions, they should instead call `MPI_Abort()` or use
+       *   another way to reliably print an error message and then
+       *   bring the MPI universe down.
        */
       template <typename RequestType>
       std::vector<unsigned int>
@@ -617,7 +640,7 @@ namespace Utilities
          *   the default constructor of this class along with the run()
          *   function that takes an argument.
          */
-        DEAL_II_DEPRECATED_EARLY
+        DEAL_II_DEPRECATED
         PEX(Process<RequestType, AnswerType> &process, const MPI_Comm &comm);
 
         /**
@@ -759,6 +782,17 @@ namespace Utilities
        *
        * @tparam RequestType The type of the object to be sent.
        * @tparam AnswerType The type of the object to be received.
+       *
+       * @note Nothing good will generally happen if any of the function
+       *   objects passed as arguments throws an exception when called.
+       *   This is because when that happens, one MPI process will stop
+       *   participating in MPI communications, deadlocking the other
+       *   processes. As a consequence, the `create_request()`,
+       *   `answer_request()`, and `process_answer()` functions should
+       *   not throw any exceptions; if they encounter error
+       *   conditions, they should instead call `MPI_Abort()` or use
+       *   another way to reliably print an error message and then
+       *   bring the MPI universe down.
        */
       template <typename RequestType, typename AnswerType>
       std::vector<unsigned int>
@@ -795,6 +829,17 @@ namespace Utilities
        *   is to be performed.
        *
        * @tparam RequestType The type of the object to be sent.
+       *
+       * @note Nothing good will generally happen if any of the function
+       *   objects passed as arguments throws an exception when called.
+       *   This is because when that happens, one MPI process will stop
+       *   participating in MPI communications, deadlocking the other
+       *   processes. As a consequence, the `create_request()` and
+       *   `process_request()` functions should
+       *   not throw any exceptions; if they encounter error
+       *   conditions, they should instead call `MPI_Abort()` or use
+       *   another way to reliably print an error message and then
+       *   bring the MPI universe down.
        */
       template <typename RequestType>
       std::vector<unsigned int>
@@ -830,7 +875,7 @@ namespace Utilities
          *   the default constructor of this class along with the run()
          *   function that takes an argument.
          */
-        DEAL_II_DEPRECATED_EARLY
+        DEAL_II_DEPRECATED
         Serial(Process<RequestType, AnswerType> &process, const MPI_Comm &comm);
 
         // Import the declarations from the base class.
@@ -876,7 +921,10 @@ namespace Utilities
        *   the caller of the consensus algorithm wants to do with the
        *   received answer.
        * @param[in] comm The MPI communicator on which the whole algorithm
-       *   is to be performed.
+       *   is to be performed. Since this function is supposed to be run
+       *   only for serial cases, the function throws an exception if
+       *   the provided communicator denotes an MPI universe with more
+       *   than one process.
        *
        * @tparam RequestType The type of the object to be sent.
        * @tparam AnswerType The type of the object to be received.
@@ -914,7 +962,10 @@ namespace Utilities
        *   rank of the process that has sent a request to us, along with
        *   the message of the request, and processes that message.
        * @param[in] comm The MPI communicator on which the whole algorithm
-       *   is to be performed.
+       *   is to be performed. Since this function is supposed to be run
+       *   only for serial cases, the function throws an exception if
+       *   the provided communicator denotes an MPI universe with more
+       *   than one process.
        *
        * @tparam RequestType The type of the object to be sent.
        */
@@ -962,7 +1013,7 @@ namespace Utilities
          *   the default constructor of this class along with the run()
          *   function that takes an argument.
          */
-        DEAL_II_DEPRECATED_EARLY
+        DEAL_II_DEPRECATED
         Selector(Process<RequestType, AnswerType> &process,
                  const MPI_Comm &                  comm);
 
@@ -1028,6 +1079,17 @@ namespace Utilities
        *
        * @tparam RequestType The type of the object to be sent.
        * @tparam AnswerType The type of the object to be received.
+       *
+       * @note Nothing good will generally happen if any of the function
+       *   objects passed as arguments throws an exception when called.
+       *   This is because when that happens, one MPI process will stop
+       *   participating in MPI communications, deadlocking the other
+       *   processes. As a consequence, the `create_request()`,
+       *   `answer_request()`, and `process_answer()` functions should
+       *   not throw any exceptions; if they encounter error
+       *   conditions, they should instead call `MPI_Abort()` or use
+       *   another way to reliably print an error message and then
+       *   bring the MPI universe down.
        */
       template <typename RequestType, typename AnswerType>
       std::vector<unsigned int>
@@ -1065,6 +1127,17 @@ namespace Utilities
        *   is to be performed.
        *
        * @tparam RequestType The type of the object to be sent.
+       *
+       * @note Nothing good will generally happen if any of the function
+       *   objects passed as arguments throws an exception when called.
+       *   This is because when that happens, one MPI process will stop
+       *   participating in MPI communications, deadlocking the other
+       *   processes. As a consequence, the `create_request()`
+       *   and `process_request()` functions should
+       *   not throw any exceptions; if they encounter error
+       *   conditions, they should instead call `MPI_Abort()` or use
+       *   another way to reliably print an error message and then
+       *   bring the MPI universe down.
        */
       template <typename RequestType>
       std::vector<unsigned int>
@@ -1083,7 +1156,7 @@ namespace Utilities
        * own implementation but can register lambda functions directly.
        */
       template <typename RequestType, typename AnswerType>
-      class DEAL_II_DEPRECATED_EARLY AnonymousProcess
+      class DEAL_II_DEPRECATED AnonymousProcess
         : public Process<RequestType, AnswerType>
       {
       public:
@@ -1474,6 +1547,85 @@ namespace Utilities
                                      my_destinations.end()) ==
                   my_destinations.end());
         }
+
+
+
+        /**
+         * Handle exceptions inside the ConsensusAlgorithm::run() functions.
+         */
+        inline void
+        handle_exception(std::exception_ptr &&exception, const MPI_Comm &comm)
+        {
+#  ifdef DEAL_II_WITH_MPI
+          // an exception within a ConsensusAlgorithm likely causes an
+          // MPI deadlock. Abort with a reasonable error message instead.
+          try
+            {
+              std::rethrow_exception(std::move(exception));
+            }
+          catch (ExceptionBase &exc)
+            {
+              // report name of the deal.II exception:
+              std::cerr
+                << std::endl
+                << std::endl
+                << "----------------------------------------------------"
+                << std::endl;
+              std::cerr
+                << "Exception '" << exc.get_exc_name() << "'"
+                << " on rank " << Utilities::MPI::this_mpi_process(comm)
+                << " on processing: " << std::endl
+                << exc.what() << std::endl
+                << "Aborting!" << std::endl
+                << "----------------------------------------------------"
+                << std::endl;
+
+              // Then bring down the whole MPI world
+              MPI_Abort(comm, 255);
+            }
+          catch (std::exception &exc)
+            {
+              std::cerr
+                << std::endl
+                << std::endl
+                << "----------------------------------------------------"
+                << std::endl;
+              std::cerr
+                << "Exception within ConsensusAlgorithm"
+                << " on rank " << Utilities::MPI::this_mpi_process(comm)
+                << " on processing: " << std::endl
+                << exc.what() << std::endl
+                << "Aborting!" << std::endl
+                << "----------------------------------------------------"
+                << std::endl;
+
+              // Then bring down the whole MPI world
+              MPI_Abort(comm, 255);
+            }
+          catch (...)
+            {
+              std::cerr
+                << std::endl
+                << std::endl
+                << "----------------------------------------------------"
+                << std::endl;
+              std::cerr
+                << "Unknown exception within ConsensusAlgorithm!" << std::endl
+                << "Aborting!" << std::endl
+                << "----------------------------------------------------"
+                << std::endl;
+
+              // Then bring down the whole MPI world
+              MPI_Abort(comm, 255);
+            }
+#  else
+          (void)comm;
+
+          // No need to be concerned about deadlocks without MPI.
+          // Defer to exception handling further up the callstack.
+          std::rethrow_exception(exception);
+#  endif
+        }
       } // namespace
 
 
@@ -1600,40 +1752,47 @@ namespace Utilities
         static CollectiveMutex      mutex;
         CollectiveMutex::ScopedLock lock(mutex, comm);
 
-        // 1) Send data to identified targets and start receiving
-        //    the answers from these very same processes.
-        start_communication(targets, create_request, comm);
+        try
+          {
+            // 1) Send data to identified targets and start receiving
+            //    the answers from these very same processes.
+            start_communication(targets, create_request, comm);
 
-        // 2) Until all posted receive operations are known to have completed,
-        //    answer requests and keep checking whether all requests of
-        //    this process have been answered.
-        //
-        //    The requests that we catch in the answer_requests() function
-        //    originate elsewhere, that is, they are not in response
-        //    to our own messages
-        //
-        //    Note also that we may not catch all incoming requests in
-        //    the following two lines: our own requests may have been
-        //    satisfied before we've dealt with all incoming requests.
-        //    That's ok: We will get around to dealing with all remaining
-        //    message later. We just want to move on to the next step
-        //    as early as possible.
-        while (all_locally_originated_receives_are_completed(process_answer,
-                                                             comm) == false)
-          maybe_answer_one_request(answer_request, comm);
+            // 2) Until all posted receive operations are known to have
+            //    completed, answer requests and keep checking whether all
+            //    requests of this process have been answered.
+            //
+            //    The requests that we catch in the answer_requests()
+            //    function originate elsewhere, that is, they are not in
+            //    response to our own messages
+            //
+            //    Note also that we may not catch all incoming requests in
+            //    the following two lines: our own requests may have been
+            //    satisfied before we've dealt with all incoming requests.
+            //    That's ok: We will get around to dealing with all
+            //    remaining message later. We just want to move on to the
+            //    next step as early as possible.
+            while (all_locally_originated_receives_are_completed(process_answer,
+                                                                 comm) == false)
+              maybe_answer_one_request(answer_request, comm);
 
-        // 3) Signal to all other processes that all requests of this process
-        //    have been answered
-        signal_finish(comm);
+            // 3) Signal to all other processes that all requests of this
+            //    process have been answered
+            signal_finish(comm);
 
-        // 4) Nevertheless, this process has to keep on answering (potential)
-        //    incoming requests until all processes have received the
-        //    answer to all requests
-        while (all_remotely_originated_receives_are_completed() == false)
-          maybe_answer_one_request(answer_request, comm);
+            // 4) Nevertheless, this process has to keep on answering
+            //    (potential) incoming requests until all processes have
+            //    received the answer to all requests
+            while (all_remotely_originated_receives_are_completed() == false)
+              maybe_answer_one_request(answer_request, comm);
 
-        // 5) process the answer to all requests
-        clean_up_and_end_communication(comm);
+            // 5) process the answer to all requests
+            clean_up_and_end_communication(comm);
+          }
+        catch (...)
+          {
+            handle_exception(std::current_exception(), comm);
+          }
 
         return std::vector<unsigned int>(requesting_processes.begin(),
                                          requesting_processes.end());
@@ -1731,9 +1890,8 @@ namespace Utilities
               return false;
             else
               {
-                // OK, so we have gotten a reply to our answer from
-                // one rank. Let us process it, after double checking
-                // that it is indeed one we were still expecting:
+                // OK, so we have gotten a reply to our request from
+                // one rank. Let us process it.
                 const auto target = status.MPI_SOURCE;
 
                 // Then query the size of the message, allocate enough memory,
@@ -1898,7 +2056,7 @@ namespace Utilities
         int        all_ranks_reached_barrier;
         const auto ierr = MPI_Test(&barrier_request,
                                    &all_ranks_reached_barrier,
-                                   MPI_STATUSES_IGNORE);
+                                   MPI_STATUS_IGNORE);
         AssertThrowMPI(ierr);
         return all_ranks_reached_barrier != 0;
 #  else
@@ -1974,21 +2132,28 @@ namespace Utilities
         static CollectiveMutex      mutex;
         CollectiveMutex::ScopedLock lock(mutex, comm);
 
-        // 1) Send requests and start receiving the answers.
-        //    In particular, determine how many requests we should expect
-        //    on the current process.
-        const unsigned int n_requests =
-          start_communication(targets, create_request, comm);
+        try
+          {
+            // 1) Send requests and start receiving the answers.
+            //    In particular, determine how many requests we should expect
+            //    on the current process.
+            const unsigned int n_requests =
+              start_communication(targets, create_request, comm);
 
-        // 2) Answer requests:
-        for (unsigned int request = 0; request < n_requests; ++request)
-          answer_one_request(request, answer_request, comm);
+            // 2) Answer requests:
+            for (unsigned int request = 0; request < n_requests; ++request)
+              answer_one_request(request, answer_request, comm);
 
-        // 3) Process answers:
-        process_incoming_answers(targets.size(), process_answer, comm);
+            // 3) Process answers:
+            process_incoming_answers(targets.size(), process_answer, comm);
 
-        // 4) Make sure all sends have successfully terminated:
-        clean_up_and_end_communication();
+            // 4) Make sure all sends have successfully terminated:
+            clean_up_and_end_communication();
+          }
+        catch (...)
+          {
+            handle_exception(std::current_exception(), comm);
+          }
 
         return std::vector<unsigned int>(requesting_processes.begin(),
                                          requesting_processes.end());

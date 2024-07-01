@@ -44,16 +44,17 @@ DEAL_II_NAMESPACE_OPEN
 template <int dim>
 FE_RaviartThomas<dim>::FE_RaviartThomas(const unsigned int deg)
   : FE_PolyTensor<dim>(
-      PolynomialsRaviartThomas<dim>(deg),
+      PolynomialsRaviartThomas<dim>(deg + 1, deg),
       FiniteElementData<dim>(get_dpo_vector(deg),
                              dim,
                              deg + 1,
                              FiniteElementData<dim>::Hdiv),
-      std::vector<bool>(PolynomialsRaviartThomas<dim>::n_polynomials(deg),
+      std::vector<bool>(PolynomialsRaviartThomas<dim>::n_polynomials(deg + 1,
+                                                                     deg),
                         true),
-      std::vector<ComponentMask>(PolynomialsRaviartThomas<dim>::n_polynomials(
-                                   deg),
-                                 std::vector<bool>(dim, true)))
+      std::vector<ComponentMask>(
+        PolynomialsRaviartThomas<dim>::n_polynomials(deg + 1, deg),
+        std::vector<bool>(dim, true)))
 {
   Assert(dim >= 2, ExcImpossibleInDim(dim));
   const unsigned int n_dofs = this->n_dofs_per_cell();
@@ -268,9 +269,11 @@ FE_RaviartThomas<dim>::initialize_quad_dof_index_permutation_and_sign_change()
   AssertDimension(this->n_unique_faces(), 1);
   const unsigned int face_no = 0;
 
-  Assert(this->adjust_quad_dof_index_for_face_orientation_table[0]
-             .n_elements() == 8 * this->n_dofs_per_quad(face_no),
-         ExcInternalError());
+  Assert(
+    this->adjust_quad_dof_index_for_face_orientation_table[0].n_elements() ==
+      this->reference_cell().n_face_orientations(face_no) *
+        this->n_dofs_per_quad(face_no),
+    ExcInternalError());
 
   // The 3D RaviartThomas space has tensor_degree*tensor_degree face dofs
   const unsigned int n = this->tensor_degree();

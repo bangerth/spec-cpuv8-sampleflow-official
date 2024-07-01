@@ -38,6 +38,8 @@
 
 #include <deal.II/non_matching/coupling.h>
 
+#include <limits>
+
 DEAL_II_NAMESPACE_OPEN
 namespace NonMatching
 {
@@ -167,17 +169,13 @@ namespace NonMatching
     }
   } // namespace internal
 
-  template <int dim0,
-            int dim1,
-            int spacedim,
-            typename Sparsity,
-            typename number>
+  template <int dim0, int dim1, int spacedim, typename number>
   void
   create_coupling_sparsity_pattern(
     const DoFHandler<dim0, spacedim> &space_dh,
     const DoFHandler<dim1, spacedim> &immersed_dh,
     const Quadrature<dim1> &          quad,
-    Sparsity &                        sparsity,
+    SparsityPatternBase &             sparsity,
     const AffineConstraints<number> & constraints,
     const ComponentMask &             space_comps,
     const ComponentMask &             immersed_comps,
@@ -201,18 +199,14 @@ namespace NonMatching
 
 
 
-  template <int dim0,
-            int dim1,
-            int spacedim,
-            typename Sparsity,
-            typename number>
+  template <int dim0, int dim1, int spacedim, typename number>
   void
   create_coupling_sparsity_pattern(
     const GridTools::Cache<dim0, spacedim> &cache,
     const DoFHandler<dim0, spacedim> &      space_dh,
     const DoFHandler<dim1, spacedim> &      immersed_dh,
     const Quadrature<dim1> &                quad,
-    Sparsity &                              sparsity,
+    SparsityPatternBase &                   sparsity,
     const AffineConstraints<number> &       constraints,
     const ComponentMask &                   space_comps,
     const ComponentMask &                   immersed_comps,
@@ -624,11 +618,7 @@ namespace NonMatching
       }
   }
 
-  template <int dim0,
-            int dim1,
-            int spacedim,
-            typename Sparsity,
-            typename Number>
+  template <int dim0, int dim1, int spacedim, typename Number>
   void
   create_coupling_sparsity_pattern(
     const double &                          epsilon,
@@ -637,7 +627,7 @@ namespace NonMatching
     const DoFHandler<dim0, spacedim> &      dh0,
     const DoFHandler<dim1, spacedim> &      dh1,
     const Quadrature<dim1> &                quad,
-    Sparsity &                              sparsity,
+    SparsityPatternBase &                   sparsity,
     const AffineConstraints<Number> &       constraints0,
     const ComponentMask &                   comps0,
     const ComponentMask &                   comps1)

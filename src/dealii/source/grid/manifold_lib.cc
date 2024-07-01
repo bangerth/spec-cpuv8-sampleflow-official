@@ -33,6 +33,7 @@ DEAL_II_DISABLE_EXTRA_DIAGNOSTICS
 DEAL_II_ENABLE_EXTRA_DIAGNOSTICS
 
 #include <cmath>
+#include <limits>
 #include <memory>
 
 DEAL_II_NAMESPACE_OPEN
@@ -1689,10 +1690,10 @@ TransfiniteInterpolationManifold<dim, spacedim>::initialize(
   //
   // In the co-dimension one case (meaning  dim < spacedim) we have to fall
   // back to a simple GridTools::affine_cell_approximation<dim>() which
-  // requires 2^dim points, instead. Thus, initialize the QIteraded
+  // requires 2^dim points, instead. Thus, initialize the QIterated
   // quadrature with no subdivisions.
   std::vector<Point<dim>> unit_points =
-    QIterated<dim>(QTrapez<1>(), (dim == spacedim ? 2 : 1)).get_points();
+    QIterated<dim>(QTrapezoid<1>(), (dim == spacedim ? 2 : 1)).get_points();
   std::vector<Point<spacedim>> real_points(unit_points.size());
 
   for (const auto &cell : triangulation.active_cell_iterators())

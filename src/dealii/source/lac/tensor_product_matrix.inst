@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 template void select_vmult<1>(
   VectorizedArray<double,1>  * dst,
  const  VectorizedArray<double,1>  * src,
@@ -28,7 +28,7 @@ template void select_vmult<1>(
  &eigenvalues);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 template void select_vmult<1>(
   VectorizedArray<float,1>  * dst,
  const  VectorizedArray<float,1>  * src,
@@ -50,7 +50,7 @@ template void select_vmult<1>(
  &eigenvalues);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 template void select_vmult<1>(
   VectorizedArray<double,2>  * dst,
  const  VectorizedArray<double,2>  * src,
@@ -72,7 +72,7 @@ template void select_vmult<1>(
  &eigenvalues);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 template void select_vmult<1>(
   VectorizedArray<float,4>  * dst,
  const  VectorizedArray<float,4>  * src,
@@ -94,7 +94,51 @@ template void select_vmult<1>(
  &eigenvalues);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
+template void select_vmult<1>(
+  VectorizedArray<double,4>  * dst,
+ const  VectorizedArray<double,4>  * src,
+ AlignedVector< VectorizedArray<double,4> > &tmp,
+ const unsigned int n_rows,
+ const std::array<const  VectorizedArray<double,4>  *,  1 >
+ &mass_matrix,
+ const std::array<const  VectorizedArray<double,4>  *,  1 >
+ &derivative_matrix);
+
+ template void select_apply_inverse<1>(
+  VectorizedArray<double,4>  * dst,
+ const  VectorizedArray<double,4>  * src,
+ AlignedVector< VectorizedArray<double,4> > &tmp,
+ const unsigned int n_rows,
+ const std::array<const  VectorizedArray<double,4>  *,  1 >
+ &eigenvectors,
+ const std::array<const  VectorizedArray<double,4>  *,  1 >
+ &eigenvalues);
+ 
+#endif
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
+template void select_vmult<1>(
+  VectorizedArray<float,8>  * dst,
+ const  VectorizedArray<float,8>  * src,
+ AlignedVector< VectorizedArray<float,8> > &tmp,
+ const unsigned int n_rows,
+ const std::array<const  VectorizedArray<float,8>  *,  1 >
+ &mass_matrix,
+ const std::array<const  VectorizedArray<float,8>  *,  1 >
+ &derivative_matrix);
+
+ template void select_apply_inverse<1>(
+  VectorizedArray<float,8>  * dst,
+ const  VectorizedArray<float,8>  * src,
+ AlignedVector< VectorizedArray<float,8> > &tmp,
+ const unsigned int n_rows,
+ const std::array<const  VectorizedArray<float,8>  *,  1 >
+ &eigenvectors,
+ const std::array<const  VectorizedArray<float,8>  *,  1 >
+ &eigenvalues);
+ 
+#endif
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 template void select_vmult<1>(
   VectorizedArray<double,1>  * dst,
  const  VectorizedArray<double,1>  * src,
@@ -116,7 +160,7 @@ template void select_vmult<1>(
  &eigenvalues);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 template void select_vmult<1>(
   VectorizedArray<float,1>  * dst,
  const  VectorizedArray<float,1>  * src,
@@ -138,7 +182,7 @@ template void select_vmult<1>(
  &eigenvalues);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 template void select_vmult<1>(
   VectorizedArray<double,2>  * dst,
  const  VectorizedArray<double,2>  * src,
@@ -160,7 +204,7 @@ template void select_vmult<1>(
  &eigenvalues);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(9))
 template void select_vmult<1>(
   VectorizedArray<float,4>  * dst,
  const  VectorizedArray<float,4>  * src,
@@ -182,7 +226,51 @@ template void select_vmult<1>(
  &eigenvalues);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(10))
+template void select_vmult<1>(
+  VectorizedArray<double,4>  * dst,
+ const  VectorizedArray<double,4>  * src,
+ AlignedVector< VectorizedArray<double,4> > &tmp,
+ const unsigned int n_rows,
+ const std::array<const  VectorizedArray<double,4>  *,  2 >
+ &mass_matrix,
+ const std::array<const  VectorizedArray<double,4>  *,  2 >
+ &derivative_matrix);
+
+ template void select_apply_inverse<1>(
+  VectorizedArray<double,4>  * dst,
+ const  VectorizedArray<double,4>  * src,
+ AlignedVector< VectorizedArray<double,4> > &tmp,
+ const unsigned int n_rows,
+ const std::array<const  VectorizedArray<double,4>  *,  2 >
+ &eigenvectors,
+ const std::array<const  VectorizedArray<double,4>  *,  2 >
+ &eigenvalues);
+ 
+#endif
+#if (SPLIT_INSTANTIATIONS_CHECK(11))
+template void select_vmult<1>(
+  VectorizedArray<float,8>  * dst,
+ const  VectorizedArray<float,8>  * src,
+ AlignedVector< VectorizedArray<float,8> > &tmp,
+ const unsigned int n_rows,
+ const std::array<const  VectorizedArray<float,8>  *,  2 >
+ &mass_matrix,
+ const std::array<const  VectorizedArray<float,8>  *,  2 >
+ &derivative_matrix);
+
+ template void select_apply_inverse<1>(
+  VectorizedArray<float,8>  * dst,
+ const  VectorizedArray<float,8>  * src,
+ AlignedVector< VectorizedArray<float,8> > &tmp,
+ const unsigned int n_rows,
+ const std::array<const  VectorizedArray<float,8>  *,  2 >
+ &eigenvectors,
+ const std::array<const  VectorizedArray<float,8>  *,  2 >
+ &eigenvalues);
+ 
+#endif
+#if (SPLIT_INSTANTIATIONS_CHECK(12))
 template void select_vmult<1>(
   VectorizedArray<double,1>  * dst,
  const  VectorizedArray<double,1>  * src,
@@ -204,7 +292,7 @@ template void select_vmult<1>(
  &eigenvalues);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
+#if (SPLIT_INSTANTIATIONS_CHECK(13))
 template void select_vmult<1>(
   VectorizedArray<float,1>  * dst,
  const  VectorizedArray<float,1>  * src,
@@ -226,7 +314,7 @@ template void select_vmult<1>(
  &eigenvalues);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
+#if (SPLIT_INSTANTIATIONS_CHECK(14))
 template void select_vmult<1>(
   VectorizedArray<double,2>  * dst,
  const  VectorizedArray<double,2>  * src,
@@ -248,7 +336,7 @@ template void select_vmult<1>(
  &eigenvalues);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
+#if (SPLIT_INSTANTIATIONS_CHECK(15))
 template void select_vmult<1>(
   VectorizedArray<float,4>  * dst,
  const  VectorizedArray<float,4>  * src,
@@ -270,7 +358,51 @@ template void select_vmult<1>(
  &eigenvalues);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(12))
+#if (SPLIT_INSTANTIATIONS_CHECK(16))
+template void select_vmult<1>(
+  VectorizedArray<double,4>  * dst,
+ const  VectorizedArray<double,4>  * src,
+ AlignedVector< VectorizedArray<double,4> > &tmp,
+ const unsigned int n_rows,
+ const std::array<const  VectorizedArray<double,4>  *,  3 >
+ &mass_matrix,
+ const std::array<const  VectorizedArray<double,4>  *,  3 >
+ &derivative_matrix);
+
+ template void select_apply_inverse<1>(
+  VectorizedArray<double,4>  * dst,
+ const  VectorizedArray<double,4>  * src,
+ AlignedVector< VectorizedArray<double,4> > &tmp,
+ const unsigned int n_rows,
+ const std::array<const  VectorizedArray<double,4>  *,  3 >
+ &eigenvectors,
+ const std::array<const  VectorizedArray<double,4>  *,  3 >
+ &eigenvalues);
+ 
+#endif
+#if (SPLIT_INSTANTIATIONS_CHECK(17))
+template void select_vmult<1>(
+  VectorizedArray<float,8>  * dst,
+ const  VectorizedArray<float,8>  * src,
+ AlignedVector< VectorizedArray<float,8> > &tmp,
+ const unsigned int n_rows,
+ const std::array<const  VectorizedArray<float,8>  *,  3 >
+ &mass_matrix,
+ const std::array<const  VectorizedArray<float,8>  *,  3 >
+ &derivative_matrix);
+
+ template void select_apply_inverse<1>(
+  VectorizedArray<float,8>  * dst,
+ const  VectorizedArray<float,8>  * src,
+ AlignedVector< VectorizedArray<float,8> > &tmp,
+ const unsigned int n_rows,
+ const std::array<const  VectorizedArray<float,8>  *,  3 >
+ &eigenvectors,
+ const std::array<const  VectorizedArray<float,8>  *,  3 >
+ &eigenvalues);
+ 
+#endif
+#if (SPLIT_INSTANTIATIONS_CHECK(18))
 template void select_vmult<1>(
   double  * dst,
  const  double  * src,
@@ -289,7 +421,7 @@ template void select_vmult<1>(
  const std::array<const  double  *,  1 > &eigenvalues);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(13))
+#if (SPLIT_INSTANTIATIONS_CHECK(19))
 template void select_vmult<1>(
   float  * dst,
  const  float  * src,
@@ -308,7 +440,7 @@ template void select_vmult<1>(
  const std::array<const  float  *,  1 > &eigenvalues);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(14))
+#if (SPLIT_INSTANTIATIONS_CHECK(20))
 template void select_vmult<1>(
   double  * dst,
  const  double  * src,
@@ -327,7 +459,7 @@ template void select_vmult<1>(
  const std::array<const  double  *,  2 > &eigenvalues);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(15))
+#if (SPLIT_INSTANTIATIONS_CHECK(21))
 template void select_vmult<1>(
   float  * dst,
  const  float  * src,
@@ -346,7 +478,7 @@ template void select_vmult<1>(
  const std::array<const  float  *,  2 > &eigenvalues);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(16))
+#if (SPLIT_INSTANTIATIONS_CHECK(22))
 template void select_vmult<1>(
   double  * dst,
  const  double  * src,
@@ -365,7 +497,7 @@ template void select_vmult<1>(
  const std::array<const  double  *,  3 > &eigenvalues);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(17))
+#if (SPLIT_INSTANTIATIONS_CHECK(23))
 template void select_vmult<1>(
   float  * dst,
  const  float  * src,

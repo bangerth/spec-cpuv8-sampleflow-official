@@ -27,6 +27,7 @@
 #include <deal.II/lac/block_indices.h>
 #include <deal.II/lac/dynamic_sparsity_pattern.h>
 #include <deal.II/lac/sparsity_pattern.h>
+#include <deal.II/lac/sparsity_pattern_base.h>
 #include <deal.II/lac/trilinos_sparsity_pattern.h>
 
 DEAL_II_NAMESPACE_OPEN
@@ -38,8 +39,9 @@ class BlockSparseMatrix;
 class BlockDynamicSparsityPattern;
 #endif
 
-/*! @addtogroup Sparsity
- *@{
+/**
+ * @addtogroup Sparsity
+ * @{
  */
 
 
@@ -75,7 +77,7 @@ class BlockDynamicSparsityPattern;
  * @ref GlossBlockLA "Block (linear algebra)"
  */
 template <typename SparsityPatternType>
-class BlockSparsityPatternBase : public Subscriptor
+class BlockSparsityPatternBase : public SparsityPatternBase
 {
 public:
   /**
@@ -117,11 +119,6 @@ public:
   BlockSparsityPatternBase(const BlockSparsityPatternBase &bsp);
 
   /**
-   * Destructor.
-   */
-  ~BlockSparsityPatternBase() override;
-
-  /**
    * Resize the matrix, by setting the number of block rows and columns. This
    * deletes all blocks and replaces them with uninitialized ones, i.e. ones
    * for which also the sizes are not yet set. You have to do that by calling
@@ -159,7 +156,6 @@ public:
    */
   SparsityPatternType &
   block(const size_type row, const size_type column);
-
 
   /**
    * Access the block with the given coordinates. Version for constant
@@ -248,19 +244,29 @@ public:
               const bool      indices_are_sorted = false);
 
   /**
+   * Add several nonzero entries to the specified matrix row. This function may
+   * only be called for non-compressed sparsity patterns and works the same way
+   * as the overload which takes iterators.
+   */
+  virtual void
+  add_row_entries(const size_type &                 row,
+                  const ArrayView<const size_type> &columns,
+                  const bool indices_are_sorted = false) override;
+
+  using SparsityPatternBase::add_entries;
+
+  /**
    * Return number of rows of this matrix, which equals the dimension of the
    * image space. It is the sum of rows of the (block-)rows of sub-matrices.
    */
-  size_type
-  n_rows() const;
+  using SparsityPatternBase::n_rows;
 
   /**
    * Return number of columns of this matrix, which equals the dimension of
    * the range space. It is the sum of columns of the (block-)columns of sub-
    * matrices.
    */
-  size_type
-  n_cols() const;
+  using SparsityPatternBase::n_cols;
 
   /**
    * Check if a value at a certain position may be non-zero.
@@ -302,7 +308,7 @@ public:
    * understands and which can be used to plot the sparsity pattern in a
    * graphical way. This is the same functionality implemented for usual
    * sparsity patterns, see
-   * SparsityPatternBase::print_gnuplot().
+   * SparsityPattern::print_gnuplot().
    */
   void
   print_gnuplot(std::ostream &out) const;
@@ -310,15 +316,31 @@ public:
   /**
    * Print the sparsity of the matrix in <tt>svg</tt> format. This is the same
    * functionality implemented for usual sparsity patterns, see
-   * SparsityPatternBase::print_svg().
+   * SparsityPattern::print_svg().
    */
   void
   print_svg(std::ostream &out) const;
 
   /**
+   * Determine an estimate for the memory consumption (in bytes) of this
+   * object.
+   */
+  std::size_t
+  memory_consumption() const;
+
+  /**
    * @addtogroup Exceptions
    * @{
    */
+
+  /**
+   * Exception
+   */
+  DeclExceptionMsg(
+    ExcNeedsCollectSizes,
+    "The number of rows and columns (returned by n_rows() and n_cols()) does "
+    "not match their directly computed values. This typically means that a "
+    "call to collect_sizes() is missing.");
 
   /**
    * Exception
@@ -340,26 +362,23 @@ public:
                  int,
                  << "The blocks [" << arg1 << ',' << arg2 << "] and [" << arg3
                  << ',' << arg4 << "] have differing column numbers.");
-  //@}
+  /** @} */
 
 protected:
   /**
    * Number of block rows.
    */
-  size_type rows;
+  size_type block_rows;
 
   /**
    * Number of block columns.
    */
-  size_type columns;
+  size_type block_columns;
 
   /**
    * Array of sparsity patterns.
    */
-  Table<2,
-        SmartPointer<SparsityPatternType,
-                     BlockSparsityPatternBase<SparsityPatternType>>>
-    sub_objects;
+  Table<2, std::unique_ptr<SparsityPatternType>> sub_objects;
 
   /**
    * Object storing and managing the transformation of row indices to indices
@@ -374,6 +393,18 @@ protected:
   BlockIndices column_indices;
 
 private:
+  /**
+   * Internal utility function for computing the number of rows.
+   */
+  size_type
+  compute_n_rows() const;
+
+  /**
+   * Internal utility function for computing the number of columns.
+   */
+  size_type
+  compute_n_cols() const;
+
   /**
    * Temporary vector for counting the elements written into the individual
    * blocks when doing a collective add or set.
@@ -450,13 +481,6 @@ public:
    */
   bool
   is_compressed() const;
-
-  /**
-   * Determine an estimate for the memory consumption (in bytes) of this
-   * object.
-   */
-  std::size_t
-  memory_consumption() const;
 
   /**
    * Copy data from an object of type BlockDynamicSparsityPattern, i.e. resize
@@ -607,7 +631,7 @@ public:
   using BlockSparsityPatternBase<DynamicSparsityPattern>::reinit;
 };
 
-/*@}*/
+/** @} */
 
 
 #ifdef DEAL_II_WITH_TRILINOS
@@ -615,8 +639,9 @@ public:
 
 namespace TrilinosWrappers
 {
-  /*! @addtogroup TrilinosWrappers
-   *@{
+  /**
+   * @addtogroup TrilinosWrappers
+   * @{
    */
 
   /**
@@ -741,7 +766,7 @@ namespace TrilinosWrappers
     using BlockSparsityPatternBase<SparsityPattern>::reinit;
   };
 
-  /*@}*/
+  /** @} */
 
 } /* namespace TrilinosWrappers */
 
@@ -756,9 +781,9 @@ inline SparsityPatternType &
 BlockSparsityPatternBase<SparsityPatternType>::block(const size_type row,
                                                      const size_type column)
 {
-  AssertIndexRange(row, rows);
-  AssertIndexRange(column, columns);
-  return *sub_objects[row][column];
+  AssertIndexRange(row, n_block_rows());
+  AssertIndexRange(column, n_block_cols());
+  return *sub_objects(row, column);
 }
 
 
@@ -769,9 +794,9 @@ BlockSparsityPatternBase<SparsityPatternType>::block(
   const size_type row,
   const size_type column) const
 {
-  AssertIndexRange(row, rows);
-  AssertIndexRange(column, columns);
-  return *sub_objects[row][column];
+  AssertIndexRange(row, n_block_rows());
+  AssertIndexRange(column, n_block_cols());
+  return *sub_objects(row, column);
 }
 
 
@@ -821,82 +846,150 @@ BlockSparsityPatternBase<SparsityPatternType>::add_entries(
   ForwardIterator end,
   const bool      indices_are_sorted)
 {
-  // Resize scratch arrays
-  if (block_column_indices.size() < this->n_block_cols())
-    {
-      block_column_indices.resize(this->n_block_cols());
-      counter_within_block.resize(this->n_block_cols());
-    }
+  // In debug mode, verify that collect_sizes() was called by redoing the
+  // calculation
+  Assert(n_rows() == compute_n_rows(), ExcNeedsCollectSizes());
+  Assert(n_cols() == compute_n_cols(), ExcNeedsCollectSizes());
 
   const size_type n_cols = static_cast<size_type>(end - begin);
 
-  // Resize sub-arrays to n_cols. This
-  // is a bit wasteful, but we resize
-  // only a few times (then the maximum
-  // row length won't increase that
-  // much any more). At least we know
-  // that all arrays are going to be of
-  // the same size, so we can check
-  // whether the size of one is large
-  // enough before actually going
-  // through all of them.
-  if (block_column_indices[0].size() < n_cols)
-    for (size_type i = 0; i < this->n_block_cols(); ++i)
-      block_column_indices[i].resize(n_cols);
-
-  // Reset the number of added elements
-  // in each block to zero.
-  for (size_type i = 0; i < this->n_block_cols(); ++i)
-    counter_within_block[i] = 0;
-
-  // Go through the column indices to
-  // find out which portions of the
-  // values should be set in which
-  // block of the matrix. We need to
-  // touch all the data, since we can't
-  // be sure that the data of one block
-  // is stored contiguously (in fact,
-  // indices will be intermixed when it
-  // comes from an element matrix).
-  for (ForwardIterator it = begin; it != end; ++it)
+  if (indices_are_sorted && n_cols > 0)
     {
-      const size_type col = *it;
+      block_column_indices[0].resize(0);
 
-      const std::pair<size_type, size_type> col_index =
-        this->column_indices.global_to_local(col);
+      const std::pair<size_type, size_type> row_index =
+        this->row_indices.global_to_local(row);
+      const auto n_blocks = column_indices.size();
 
-      const size_type local_index = counter_within_block[col_index.first]++;
+      // Assume we start with the first block: since we assemble sparsity
+      // patterns one cell at a time this should always be true
+      size_type current_block       = 0;
+      size_type current_start_index = column_indices.block_start(current_block);
+      size_type next_start_index =
+        current_block == n_blocks - 1 ?
+          numbers::invalid_dof_index :
+          column_indices.block_start(current_block + 1);
 
-      block_column_indices[col_index.first][local_index] = col_index.second;
-    }
+      for (auto it = begin; it < end; ++it)
+        {
+          // BlockIndices::global_to_local() is a bit slow so instead we just
+          // keep track of which block we are in - as the indices are sorted we
+          // know that the block number can only increase.
+          if (*it >= next_start_index)
+            {
+              // we found a column outside the present block: write the present
+              // block entries and continue to the next block
+              sub_objects[row_index.first][current_block]->add_entries(
+                row_index.second,
+                block_column_indices[0].begin(),
+                block_column_indices[0].end(),
+                true);
+              block_column_indices[0].clear();
 
+              auto block_and_col  = column_indices.global_to_local(*it);
+              current_block       = block_and_col.first;
+              current_start_index = column_indices.block_start(current_block);
+              next_start_index =
+                current_block == n_blocks - 1 ?
+                  numbers::invalid_dof_index :
+                  column_indices.block_start(current_block + 1);
+            }
+          const size_type local_index = *it - current_start_index;
+          block_column_indices[0].push_back(local_index);
+
+          // Check that calculation:
 #ifdef DEBUG
-  // If in debug mode, do a check whether
-  // the right length has been obtained.
-  size_type length = 0;
-  for (size_type i = 0; i < this->n_block_cols(); ++i)
-    length += counter_within_block[i];
-  Assert(length == n_cols, ExcInternalError());
+          {
+            auto check_block_and_col = column_indices.global_to_local(*it);
+            Assert(current_block == check_block_and_col.first,
+                   ExcInternalError());
+            Assert(local_index == check_block_and_col.second,
+                   ExcInternalError());
+          }
 #endif
-
-  // Now we found out about where the
-  // individual columns should start and
-  // where we should start reading out
-  // data. Now let's write the data into
-  // the individual blocks!
-  const std::pair<size_type, size_type> row_index =
-    this->row_indices.global_to_local(row);
-  for (size_type block_col = 0; block_col < n_block_cols(); ++block_col)
-    {
-      if (counter_within_block[block_col] == 0)
-        continue;
-      sub_objects[row_index.first][block_col]->add_entries(
+        }
+      // add whatever is left over:
+      sub_objects[row_index.first][current_block]->add_entries(
         row_index.second,
-        block_column_indices[block_col].begin(),
-        block_column_indices[block_col].begin() +
-          counter_within_block[block_col],
-        indices_are_sorted);
+        block_column_indices[0].begin(),
+        block_column_indices[0].end(),
+        true);
+
+      return;
     }
+  else
+    {
+      // Resize sub-arrays to n_cols. This
+      // is a bit wasteful, but we resize
+      // only a few times (then the maximum
+      // row length won't increase that
+      // much any more). At least we know
+      // that all arrays are going to be of
+      // the same size, so we can check
+      // whether the size of one is large
+      // enough before actually going
+      // through all of them.
+      if (block_column_indices[0].size() < n_cols)
+        for (size_type i = 0; i < this->n_block_cols(); ++i)
+          block_column_indices[i].resize(n_cols);
+
+      // Reset the number of added elements
+      // in each block to zero.
+      for (size_type i = 0; i < this->n_block_cols(); ++i)
+        counter_within_block[i] = 0;
+
+      // Go through the column indices to
+      // find out which portions of the
+      // values should be set in which
+      // block of the matrix. We need to
+      // touch all the data, since we can't
+      // be sure that the data of one block
+      // is stored contiguously (in fact,
+      // indices will be intermixed when it
+      // comes from an element matrix).
+      for (ForwardIterator it = begin; it != end; ++it)
+        {
+          const size_type col = *it;
+
+          const std::pair<size_type, size_type> col_index =
+            this->column_indices.global_to_local(col);
+
+          const size_type local_index = counter_within_block[col_index.first]++;
+
+          block_column_indices[col_index.first][local_index] = col_index.second;
+        }
+
+      // Now we found out about where the
+      // individual columns should start and
+      // where we should start reading out
+      // data. Now let's write the data into
+      // the individual blocks!
+      const std::pair<size_type, size_type> row_index =
+        this->row_indices.global_to_local(row);
+      for (size_type block_col = 0; block_col < n_block_cols(); ++block_col)
+        {
+          if (counter_within_block[block_col] == 0)
+            continue;
+          sub_objects[row_index.first][block_col]->add_entries(
+            row_index.second,
+            block_column_indices[block_col].begin(),
+            block_column_indices[block_col].begin() +
+              counter_within_block[block_col],
+            indices_are_sorted);
+        }
+    }
+}
+
+
+
+template <typename SparsityPatternType>
+void
+BlockSparsityPatternBase<SparsityPatternType>::add_row_entries(
+  const size_type &                 row,
+  const ArrayView<const size_type> &columns,
+  const bool                        indices_are_sorted)
+{
+  add_entries(row, columns.begin(), columns.end(), indices_are_sorted);
 }
 
 
@@ -929,7 +1022,7 @@ BlockSparsityPatternBase<SparsityPatternType>::row_length(
 
   unsigned int c = 0;
 
-  for (size_type b = 0; b < rows; ++b)
+  for (size_type b = 0; b < n_block_rows(); ++b)
     c += sub_objects[row_index.first][b]->row_length(row_index.second);
 
   return c;
@@ -941,7 +1034,7 @@ template <typename SparsityPatternType>
 inline typename BlockSparsityPatternBase<SparsityPatternType>::size_type
 BlockSparsityPatternBase<SparsityPatternType>::n_block_cols() const
 {
-  return columns;
+  return block_columns;
 }
 
 
@@ -950,7 +1043,7 @@ template <typename SparsityPatternType>
 inline typename BlockSparsityPatternBase<SparsityPatternType>::size_type
 BlockSparsityPatternBase<SparsityPatternType>::n_block_rows() const
 {
-  return rows;
+  return block_rows;
 }
 
 
@@ -966,7 +1059,7 @@ BlockDynamicSparsityPattern::column_number(const size_type    row,
 
   size_type c             = 0;
   size_type block_columns = 0; // sum of n_cols for all blocks to the left
-  for (unsigned int b = 0; b < columns; ++b)
+  for (unsigned int b = 0; b < this->n_block_cols(); ++b)
     {
       unsigned int rowlen =
         sub_objects[row_index.first][b]->row_length(row_index.second);
@@ -984,11 +1077,11 @@ BlockDynamicSparsityPattern::column_number(const size_type    row,
 
 
 inline void
-BlockSparsityPattern::reinit(const size_type n_block_rows,
-                             const size_type n_block_columns)
+BlockSparsityPattern::reinit(const size_type new_block_rows,
+                             const size_type new_block_columns)
 {
-  BlockSparsityPatternBase<SparsityPattern>::reinit(n_block_rows,
-                                                    n_block_columns);
+  BlockSparsityPatternBase<SparsityPattern>::reinit(new_block_rows,
+                                                    new_block_columns);
 }
 
 

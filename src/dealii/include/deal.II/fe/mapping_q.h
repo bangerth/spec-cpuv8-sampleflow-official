@@ -42,9 +42,10 @@ template <int, int>
 class MappingQCache;
 #endif
 
-/*!@addtogroup mapping */
-/*@{*/
-
+/**
+ * @addtogroup mapping
+ * @{
+ */
 
 /**
  * This class implements the functionality for polynomial mappings $Q_p$ of
@@ -122,7 +123,7 @@ public:
    * versions of deal.II, but it does not have any effect on the workings of
    * this class.
    */
-  DEAL_II_DEPRECATED_EARLY
+  DEAL_II_DEPRECATED
   MappingQ(const unsigned int polynomial_degree,
            const bool         use_mapping_q_on_all_cells);
 
@@ -251,7 +252,38 @@ public:
     const typename Triangulation<dim, spacedim>::cell_iterator &cell,
     const ArrayView<const Point<dim>> &                         unit_points,
     const UpdateFlags                                           update_flags,
-    dealii::internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
+    internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
+      &output_data) const;
+
+  /**
+   * As opposed to the fill_fe_face_values()
+   * function that relies on pre-computed information of InternalDataBase, this
+   * function chooses the flexible evaluation path on the cell and points
+   * passed in to the current function.
+   *
+   * @param[in] cell The cell where to evaluate the mapping.
+   *
+   * @param[in] face_number The face number where to evaluate the mapping.
+   *
+   * @param[in] face_quadrature The quadrature points where the
+   * transformation (Jacobians, positions) should be computed.
+   *
+   * @param[in] internal_data A reference to an object previously created
+   * that may be used to store information the mapping can compute once on the
+   * reference cell. See the documentation of the Mapping::InternalDataBase
+   * class for an extensive description of the purpose of these objects.
+   *
+   * @param[out] output_data A struct containing the evaluated quantities such
+   * as the Jacobian resulting from application of the mapping on the given
+   * cell with its underlying manifolds.
+   */
+  void
+  fill_mapping_data_for_face_quadrature(
+    const typename Triangulation<dim, spacedim>::cell_iterator &cell,
+    const unsigned int                                          face_number,
+    const Quadrature<dim - 1> &                                 face_quadrature,
+    const typename Mapping<dim, spacedim>::InternalDataBase &   internal_data,
+    internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
       &output_data) const;
 
   /**
@@ -303,130 +335,17 @@ public:
                     const unsigned int     n_original_q_points);
 
     /**
-     * Compute the values and/or derivatives of the shape functions used for
-     * the mapping.
-     *
-     * Which values, derivatives, or higher order derivatives are computed is
-     * determined by which of the member arrays have nonzero sizes. They are
-     * typically set to their appropriate sizes by the initialize() and
-     * initialize_face() functions, which indeed call this function
-     * internally. However, it is possible (and at times useful) to do the
-     * resizing by hand and then call this function directly. An example is in
-     * a Newton iteration where we update the location of a quadrature point
-     * (e.g., in MappingQ::transform_real_to_uni_cell()) and need to re-
-     * compute the mapping and its derivatives at this location, but have
-     * already sized all internal arrays correctly.
-     */
-    void
-    compute_shape_function_values(const std::vector<Point<dim>> &unit_points);
-
-    /**
-     * Shape function at quadrature point. Shape functions are in tensor
-     * product order, so vertices must be reordered to obtain transformation.
-     */
-    const double &
-    shape(const unsigned int qpoint, const unsigned int shape_nr) const;
-
-    /**
-     * Shape function at quadrature point. See above.
-     */
-    double &
-    shape(const unsigned int qpoint, const unsigned int shape_nr);
-
-    /**
-     * Gradient of shape function in quadrature point. See above.
-     */
-    const Tensor<1, dim> &
-    derivative(const unsigned int qpoint, const unsigned int shape_nr) const;
-
-    /**
-     * Gradient of shape function in quadrature point. See above.
-     */
-    Tensor<1, dim> &
-    derivative(const unsigned int qpoint, const unsigned int shape_nr);
-
-    /**
-     * Second derivative of shape function in quadrature point. See above.
-     */
-    const Tensor<2, dim> &
-    second_derivative(const unsigned int qpoint,
-                      const unsigned int shape_nr) const;
-
-    /**
-     * Second derivative of shape function in quadrature point. See above.
-     */
-    Tensor<2, dim> &
-    second_derivative(const unsigned int qpoint, const unsigned int shape_nr);
-
-    /**
-     * third derivative of shape function in quadrature point. See above.
-     */
-    const Tensor<3, dim> &
-    third_derivative(const unsigned int qpoint,
-                     const unsigned int shape_nr) const;
-
-    /**
-     * third derivative of shape function in quadrature point. See above.
-     */
-    Tensor<3, dim> &
-    third_derivative(const unsigned int qpoint, const unsigned int shape_nr);
-
-    /**
-     * fourth derivative of shape function in quadrature point. See above.
-     */
-    const Tensor<4, dim> &
-    fourth_derivative(const unsigned int qpoint,
-                      const unsigned int shape_nr) const;
-
-    /**
-     * fourth derivative of shape function in quadrature point. See above.
-     */
-    Tensor<4, dim> &
-    fourth_derivative(const unsigned int qpoint, const unsigned int shape_nr);
-
-    /**
      * Return an estimate (in bytes) for the memory consumption of this object.
      */
     virtual std::size_t
     memory_consumption() const override;
 
     /**
-     * Values of shape functions. Access by function @p shape.
-     *
-     * Computed once.
+     * Location of quadrature points of faces or subfaces in 3d with all
+     * possible orientations. Can be accessed with the correct offset provided
+     * via QProjector::DataSetDescriptor. Not needed/used for cells.
      */
-    AlignedVector<double> shape_values;
-
-    /**
-     * Values of shape function derivatives. Access by function @p derivative.
-     *
-     * Computed once.
-     */
-    AlignedVector<Tensor<1, dim>> shape_derivatives;
-
-    /**
-     * Values of shape function second derivatives. Access by function @p
-     * second_derivative.
-     *
-     * Computed once.
-     */
-    AlignedVector<Tensor<2, dim>> shape_second_derivatives;
-
-    /**
-     * Values of shape function third derivatives. Access by function @p
-     * second_derivative.
-     *
-     * Computed once.
-     */
-    AlignedVector<Tensor<3, dim>> shape_third_derivatives;
-
-    /**
-     * Values of shape function fourth derivatives. Access by function @p
-     * second_derivative.
-     *
-     * Computed once.
-     */
-    AlignedVector<Tensor<4, dim>> shape_fourth_derivatives;
+    std::vector<Point<dim>> quadrature_points;
 
     /**
      * Unit tangential vectors. Used for the computation of boundary forms and
@@ -477,12 +396,12 @@ public:
      * vectors that are as wide as possible to minimize the number of
      * arithmetic operations. However, we do not want to choose it wider than
      * necessary, e.g., we avoid something like 8-wide AVX-512 when we only
-     * compute 3 components of a 3D computation. This is because the
+     * compute 3 components of a 3d computation. This is because the
      * additional lanes would not do useful work, but a few operations on very
      * wide vectors can already lead to a lower clock frequency of processors
      * over long time spans (thousands of clock cycles). Hence, we choose
-     * 2-wide SIMD for 1D and 2D and 4-wide SIMD for 3D. Note that we do not
-     * immediately fall back to no SIMD for 1D because all architectures that
+     * 2-wide SIMD for 1D and 2d and 4-wide SIMD for 3d. Note that we do not
+     * immediately fall back to no SIMD for 1d because all architectures that
      * support SIMD also support 128-bit vectors (and none is reported to
      * reduce clock frequency for 128-bit SIMD).
      */
@@ -496,7 +415,7 @@ public:
      * we need to store the evaluations of the 1d polynomials at
      * the 1d quadrature points. That is what this variable is for.
      */
-    internal::MatrixFreeFunctions::ShapeInfo<VectorizedArrayType> shape_info;
+    internal::MatrixFreeFunctions::ShapeInfo<double> shape_info;
 
     /**
      * In case the quadrature rule given represents a tensor product
@@ -508,26 +427,6 @@ public:
      * Indicates whether the given Quadrature object is a tensor product.
      */
     bool tensor_product_quadrature;
-
-    /**
-     * Tensors of covariant transformation at each of the quadrature points.
-     * The matrix stored is the Jacobian * G^{-1}, where G = Jacobian^{t} *
-     * Jacobian, is the first fundamental form of the map; if dim=spacedim
-     * then it reduces to the transpose of the inverse of the Jacobian matrix,
-     * which itself is stored in the @p contravariant field of this structure.
-     *
-     * Computed on each cell.
-     */
-    mutable AlignedVector<DerivativeForm<1, dim, spacedim>> covariant;
-
-    /**
-     * Tensors of contravariant transformation at each of the quadrature
-     * points. The contravariant matrix is the Jacobian of the transformation,
-     * i.e. $J_{ij}=dx_i/d\hat x_j$.
-     *
-     * Computed on each cell.
-     */
-    mutable AlignedVector<DerivativeForm<1, dim, spacedim>> contravariant;
 
     /**
      * Auxiliary vectors for internal use.
@@ -551,6 +450,14 @@ public:
      * #update_volume_elements.
      */
     mutable AlignedVector<double> volume_elements;
+
+    /**
+     * Pointer to the mapping output data that holds most of the arrays,
+     * including the Jacobians representing the covariant and contravariant
+     * transformations.
+     */
+    mutable internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
+      *output_data;
   };
 
 protected:
@@ -581,7 +488,7 @@ protected:
     const CellSimilarity::Similarity                            cell_similarity,
     const Quadrature<dim> &                                     quadrature,
     const typename Mapping<dim, spacedim>::InternalDataBase &   internal_data,
-    dealii::internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
+    internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
       &output_data) const override;
 
   using Mapping<dim, spacedim>::fill_fe_face_values;
@@ -593,7 +500,7 @@ protected:
     const unsigned int                                          face_no,
     const hp::QCollection<dim - 1> &                            quadrature,
     const typename Mapping<dim, spacedim>::InternalDataBase &   internal_data,
-    dealii::internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
+    internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
       &output_data) const override;
 
   // documentation can be found in Mapping::fill_fe_subface_values()
@@ -604,7 +511,7 @@ protected:
     const unsigned int                                          subface_no,
     const Quadrature<dim - 1> &                                 quadrature,
     const typename Mapping<dim, spacedim>::InternalDataBase &   internal_data,
-    dealii::internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
+    internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
       &output_data) const override;
 
   // documentation can be found in Mapping::fill_fe_immersed_surface_values()
@@ -613,7 +520,7 @@ protected:
     const typename Triangulation<dim, spacedim>::cell_iterator &cell,
     const NonMatching::ImmersedSurfaceQuadrature<dim> &         quadrature,
     const typename Mapping<dim, spacedim>::InternalDataBase &   internal_data,
-    dealii::internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
+    internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
       &output_data) const override;
 
   /**
@@ -692,8 +599,8 @@ protected:
    * same manifold is attached to all sub-entities of a cell. This way, we can
    * avoid some of the overhead in transforming data for mappings.
    *
-   * The table has as many rows as there are vertices to the cell (2 in 1D, 4
-   * in 2D, 8 in 3D), and as many rows as there are additional support points
+   * The table has as many rows as there are vertices to the cell (2 in 1d, 4
+   * in 2d, 8 in 3d), and as many rows as there are additional support points
    * in the mapping, i.e., <code>(degree+1)^dim - 2^dim</code>.
    */
   const Table<2, double> support_point_weights_cell;
@@ -794,129 +701,12 @@ protected:
 template <int dim, int spacedim = dim>
 using MappingQGeneric = MappingQ<dim, spacedim>;
 
-/*@}*/
+/** @} */
 
 
 /*----------------------------------------------------------------------*/
 
 #ifndef DOXYGEN
-
-template <int dim, int spacedim>
-inline const double &
-MappingQ<dim, spacedim>::InternalData::shape(const unsigned int qpoint,
-                                             const unsigned int shape_nr) const
-{
-  AssertIndexRange(qpoint * n_shape_functions + shape_nr, shape_values.size());
-  return shape_values[qpoint * n_shape_functions + shape_nr];
-}
-
-
-
-template <int dim, int spacedim>
-inline double &
-MappingQ<dim, spacedim>::InternalData::shape(const unsigned int qpoint,
-                                             const unsigned int shape_nr)
-{
-  AssertIndexRange(qpoint * n_shape_functions + shape_nr, shape_values.size());
-  return shape_values[qpoint * n_shape_functions + shape_nr];
-}
-
-
-template <int dim, int spacedim>
-inline const Tensor<1, dim> &
-MappingQ<dim, spacedim>::InternalData::derivative(
-  const unsigned int qpoint,
-  const unsigned int shape_nr) const
-{
-  AssertIndexRange(qpoint * n_shape_functions + shape_nr,
-                   shape_derivatives.size());
-  return shape_derivatives[qpoint * n_shape_functions + shape_nr];
-}
-
-
-
-template <int dim, int spacedim>
-inline Tensor<1, dim> &
-MappingQ<dim, spacedim>::InternalData::derivative(const unsigned int qpoint,
-                                                  const unsigned int shape_nr)
-{
-  AssertIndexRange(qpoint * n_shape_functions + shape_nr,
-                   shape_derivatives.size());
-  return shape_derivatives[qpoint * n_shape_functions + shape_nr];
-}
-
-
-template <int dim, int spacedim>
-inline const Tensor<2, dim> &
-MappingQ<dim, spacedim>::InternalData::second_derivative(
-  const unsigned int qpoint,
-  const unsigned int shape_nr) const
-{
-  AssertIndexRange(qpoint * n_shape_functions + shape_nr,
-                   shape_second_derivatives.size());
-  return shape_second_derivatives[qpoint * n_shape_functions + shape_nr];
-}
-
-
-template <int dim, int spacedim>
-inline Tensor<2, dim> &
-MappingQ<dim, spacedim>::InternalData::second_derivative(
-  const unsigned int qpoint,
-  const unsigned int shape_nr)
-{
-  AssertIndexRange(qpoint * n_shape_functions + shape_nr,
-                   shape_second_derivatives.size());
-  return shape_second_derivatives[qpoint * n_shape_functions + shape_nr];
-}
-
-template <int dim, int spacedim>
-inline const Tensor<3, dim> &
-MappingQ<dim, spacedim>::InternalData::third_derivative(
-  const unsigned int qpoint,
-  const unsigned int shape_nr) const
-{
-  AssertIndexRange(qpoint * n_shape_functions + shape_nr,
-                   shape_third_derivatives.size());
-  return shape_third_derivatives[qpoint * n_shape_functions + shape_nr];
-}
-
-
-template <int dim, int spacedim>
-inline Tensor<3, dim> &
-MappingQ<dim, spacedim>::InternalData::third_derivative(
-  const unsigned int qpoint,
-  const unsigned int shape_nr)
-{
-  AssertIndexRange(qpoint * n_shape_functions + shape_nr,
-                   shape_third_derivatives.size());
-  return shape_third_derivatives[qpoint * n_shape_functions + shape_nr];
-}
-
-
-template <int dim, int spacedim>
-inline const Tensor<4, dim> &
-MappingQ<dim, spacedim>::InternalData::fourth_derivative(
-  const unsigned int qpoint,
-  const unsigned int shape_nr) const
-{
-  AssertIndexRange(qpoint * n_shape_functions + shape_nr,
-                   shape_fourth_derivatives.size());
-  return shape_fourth_derivatives[qpoint * n_shape_functions + shape_nr];
-}
-
-
-template <int dim, int spacedim>
-inline Tensor<4, dim> &
-MappingQ<dim, spacedim>::InternalData::fourth_derivative(
-  const unsigned int qpoint,
-  const unsigned int shape_nr)
-{
-  AssertIndexRange(qpoint * n_shape_functions + shape_nr,
-                   shape_fourth_derivatives.size());
-  return shape_fourth_derivatives[qpoint * n_shape_functions + shape_nr];
-}
-
-
 
 template <int dim, int spacedim>
 inline bool

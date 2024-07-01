@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 template class NormalProjectionManifold< 1 , 3>;
  template class DirectionalProjectionManifold< 1 , 3>;
  template class NormalToMeshProjectionManifold< 1 , 3>;
@@ -21,7 +21,7 @@ template class NormalProjectionManifold< 1 , 3>;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 template class NormalProjectionManifold< 2 , 3>;
  template class DirectionalProjectionManifold< 2 , 3>;
  template class NormalToMeshProjectionManifold< 2 , 3>;
@@ -36,7 +36,7 @@ template class NormalProjectionManifold< 2 , 3>;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 template class NormalProjectionManifold< 3 , 3>;
  template class DirectionalProjectionManifold< 3 , 3>;
  template class NormalToMeshProjectionManifold< 3 , 3>;

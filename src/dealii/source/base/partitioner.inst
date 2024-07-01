@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 #ifdef DEAL_II_WITH_MPI
  template void Utilities::MPI::Partitioner::export_to_ghosted_array_start<
   int ,
@@ -36,7 +36,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 #ifdef DEAL_II_WITH_MPI
  template void Utilities::MPI::Partitioner::export_to_ghosted_array_start<
   long int ,
@@ -66,7 +66,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 #ifdef DEAL_II_WITH_MPI
  template void Utilities::MPI::Partitioner::export_to_ghosted_array_start<
   unsigned int ,
@@ -96,7 +96,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 #ifdef DEAL_II_WITH_MPI
  template void Utilities::MPI::Partitioner::export_to_ghosted_array_start<
   unsigned long int ,
@@ -126,7 +126,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 #ifdef DEAL_II_WITH_MPI
  template void Utilities::MPI::Partitioner::export_to_ghosted_array_start<
   unsigned long long int ,
@@ -156,7 +156,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 #ifdef DEAL_II_WITH_MPI
  template void Utilities::MPI::Partitioner::export_to_ghosted_array_start<
   float ,
@@ -186,7 +186,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 #ifdef DEAL_II_WITH_MPI
  template void Utilities::MPI::Partitioner::export_to_ghosted_array_start<
   double ,
@@ -216,7 +216,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 #ifdef DEAL_II_WITH_MPI
  template void Utilities::MPI::Partitioner::export_to_ghosted_array_start<
   long double ,
@@ -242,66 +242,6 @@
  const ArrayView<const  long double , MemorySpace::Host> &,
  const ArrayView< long double , MemorySpace::Host> &,
  const ArrayView< long double , MemorySpace::Host> &,
- std::vector<MPI_Request> &) const;
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
-#ifdef DEAL_II_WITH_MPI
- template void Utilities::MPI::Partitioner::export_to_ghosted_array_start<
-  std::complex<double> ,
- MemorySpace::Host>(const unsigned int,
- const ArrayView<const  std::complex<double> , MemorySpace::Host> &,
- const ArrayView< std::complex<double> , MemorySpace::Host> &,
- const ArrayView< std::complex<double> , MemorySpace::Host> &,
- std::vector<MPI_Request> &) const;
- template void Utilities::MPI::Partitioner::export_to_ghosted_array_finish<
-  std::complex<double> ,
- MemorySpace::Host>(const ArrayView< std::complex<double> , MemorySpace::Host> &,
- std::vector<MPI_Request> &) const;
- template void Utilities::MPI::Partitioner::import_from_ghosted_array_start<
-  std::complex<double> ,
- MemorySpace::Host>(const VectorOperation::values,
- const unsigned int,
- const ArrayView< std::complex<double> , MemorySpace::Host> &,
- const ArrayView< std::complex<double> , MemorySpace::Host> &,
- std::vector<MPI_Request> &) const;
- template void Utilities::MPI::Partitioner::import_from_ghosted_array_finish<
-  std::complex<double> ,
- MemorySpace::Host>(const VectorOperation::values,
- const ArrayView<const  std::complex<double> , MemorySpace::Host> &,
- const ArrayView< std::complex<double> , MemorySpace::Host> &,
- const ArrayView< std::complex<double> , MemorySpace::Host> &,
- std::vector<MPI_Request> &) const;
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
-#ifdef DEAL_II_WITH_MPI
- template void Utilities::MPI::Partitioner::export_to_ghosted_array_start<
-  std::complex<float> ,
- MemorySpace::Host>(const unsigned int,
- const ArrayView<const  std::complex<float> , MemorySpace::Host> &,
- const ArrayView< std::complex<float> , MemorySpace::Host> &,
- const ArrayView< std::complex<float> , MemorySpace::Host> &,
- std::vector<MPI_Request> &) const;
- template void Utilities::MPI::Partitioner::export_to_ghosted_array_finish<
-  std::complex<float> ,
- MemorySpace::Host>(const ArrayView< std::complex<float> , MemorySpace::Host> &,
- std::vector<MPI_Request> &) const;
- template void Utilities::MPI::Partitioner::import_from_ghosted_array_start<
-  std::complex<float> ,
- MemorySpace::Host>(const VectorOperation::values,
- const unsigned int,
- const ArrayView< std::complex<float> , MemorySpace::Host> &,
- const ArrayView< std::complex<float> , MemorySpace::Host> &,
- std::vector<MPI_Request> &) const;
- template void Utilities::MPI::Partitioner::import_from_ghosted_array_finish<
-  std::complex<float> ,
- MemorySpace::Host>(const VectorOperation::values,
- const ArrayView<const  std::complex<float> , MemorySpace::Host> &,
- const ArrayView< std::complex<float> , MemorySpace::Host> &,
- const ArrayView< std::complex<float> , MemorySpace::Host> &,
  std::vector<MPI_Request> &) const;
 #endif
  

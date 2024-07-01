@@ -19,14 +19,15 @@
 
 #include <deal.II/base/config.h>
 
-#include <deal.II/base/mpi.h>
 
 #ifdef DEAL_II_WITH_SUNDIALS
 
 #  include <deal.II/base/conditional_ostream.h>
 #  include <deal.II/base/exceptions.h>
 #  include <deal.II/base/logstream.h>
+#  include <deal.II/base/mpi_stub.h>
 #  include <deal.II/base/parameter_handler.h>
+
 #  ifdef DEAL_II_WITH_PETSC
 #    include <deal.II/lac/petsc_block_vector.h>
 #    include <deal.II/lac/petsc_vector.h>
@@ -568,17 +569,6 @@ namespace SUNDIALS
      */
     void *
     get_arkode_memory() const;
-
-    /**
-     * A function object that was used to `reinit` the given vector. Setting
-     * this field does no longer have any effect and all auxiliary vectors are
-     * reinit-ed automatically based on the user-supplied vector in solve_ode().
-     *
-     * @deprecated This function is no longer used and can be safely removed in
-     *   user code.
-     */
-    DEAL_II_DEPRECATED
-    std::function<void(VectorType &)> reinit_vector;
 
     /**
      * A function object that users may supply and that is intended to compute

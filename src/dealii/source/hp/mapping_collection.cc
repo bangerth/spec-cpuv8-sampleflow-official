@@ -16,6 +16,8 @@
 
 #include <deal.II/base/memory_consumption.h>
 
+#include <deal.II/fe/mapping_q1.h>
+
 #include <deal.II/hp/mapping_collection.h>
 
 DEAL_II_NAMESPACE_OPEN
@@ -73,6 +75,12 @@ namespace hp
       return mapping;
     }
   } // namespace
+
+  template <int dim, int spacedim>
+  MappingCollection<dim, spacedim>
+    StaticMappingQ1<dim, spacedim>::mapping_collection =
+      MappingCollection<dim, spacedim>(get_static_mapping_q1<dim, spacedim>());
+
 } // namespace hp
 
 

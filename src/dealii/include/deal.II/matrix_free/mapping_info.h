@@ -33,7 +33,6 @@
 #include <deal.II/hp/q_collection.h>
 
 #include <deal.II/matrix_free/face_info.h>
-#include <deal.II/matrix_free/helper_functions.h>
 #include <deal.II/matrix_free/mapping_info_storage.h>
 
 #include <memory>
@@ -74,7 +73,8 @@ namespace internal
         const UpdateFlags update_flags_cells,
         const UpdateFlags update_flags_boundary_faces,
         const UpdateFlags update_flags_inner_faces,
-        const UpdateFlags update_flags_faces_by_cells);
+        const UpdateFlags update_flags_faces_by_cells,
+        const bool        piola_transform);
 
       /**
        * Update the information in the given cells and faces that is the
@@ -296,77 +296,6 @@ namespace internal
         return mapping_info.face_data[quad_no];
       }
     };
-
-
-
-    /**
-     * A class that is used to compare floating point arrays (e.g. std::vectors,
-     * Tensor<1,dim>, etc.). The idea of this class is to consider two arrays as
-     * equal if they are the same within a given tolerance. We use this
-     * comparator class within a std::map<> of the given arrays. Note that this
-     * comparison operator does not satisfy all the mathematical properties one
-     * usually wants to have (consider e.g. the numbers a=0, b=0.1, c=0.2 with
-     * tolerance 0.15; the operator gives a<c, but neither a<b? nor b<c? is
-     * satisfied). This is not a problem in the use cases for this class, but be
-     * careful when using it in other contexts.
-     */
-    template <typename Number,
-              typename VectorizedArrayType = VectorizedArray<Number>>
-    struct FPArrayComparator
-    {
-      FPArrayComparator(const Number scaling);
-
-      /**
-       * Compare two vectors of numbers (not necessarily of the same length)
-       */
-      bool
-      operator()(const std::vector<Number> &v1,
-                 const std::vector<Number> &v2) const;
-
-      /**
-       * Compare two vectorized arrays (stored as tensors to avoid alignment
-       * issues).
-       */
-      bool
-      operator()(
-        const Tensor<1, VectorizedArrayType::size(), Number> &t1,
-        const Tensor<1, VectorizedArrayType::size(), Number> &t2) const;
-
-      /**
-       * Compare two rank-1 tensors of vectorized arrays (stored as tensors to
-       * avoid alignment issues).
-       */
-      template <int dim>
-      bool
-      operator()(
-        const Tensor<1, dim, Tensor<1, VectorizedArrayType::size(), Number>>
-          &t1,
-        const Tensor<1, dim, Tensor<1, VectorizedArrayType::size(), Number>>
-          &t2) const;
-
-      /**
-       * Compare two rank-2 tensors of vectorized arrays (stored as tensors to
-       * avoid alignment issues).
-       */
-      template <int dim>
-      bool
-      operator()(
-        const Tensor<2, dim, Tensor<1, VectorizedArrayType::size(), Number>>
-          &t1,
-        const Tensor<2, dim, Tensor<1, VectorizedArrayType::size(), Number>>
-          &t2) const;
-
-      /**
-       * Compare two arrays of tensors.
-       */
-      template <int dim>
-      bool
-      operator()(const std::array<Tensor<2, dim, Number>, dim + 1> &t1,
-                 const std::array<Tensor<2, dim, Number>, dim + 1> &t2) const;
-
-      Number tolerance;
-    };
-
 
 
     /* ------------------- inline functions ----------------------------- */

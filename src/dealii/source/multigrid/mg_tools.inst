@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 namespace MGTools
  {
 
@@ -37,7 +37,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 namespace MGTools
  {
 
@@ -68,7 +68,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 namespace MGTools
  {
 
@@ -99,7 +99,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 namespace MGTools
  {
 
@@ -130,7 +130,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 namespace MGTools
  {
 
@@ -161,7 +161,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 namespace MGTools
  {
 
@@ -192,7 +192,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 namespace MGTools
  {
 
@@ -223,7 +223,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 namespace MGTools
  {
 
@@ -254,7 +254,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 namespace MGTools
  {
 
@@ -285,7 +285,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
+#if (SPLIT_INSTANTIATIONS_CHECK(9))
 namespace MGTools
  {
 
@@ -316,7 +316,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
+#if (SPLIT_INSTANTIATIONS_CHECK(10))
 namespace MGTools
  {
 
@@ -347,7 +347,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
+#if (SPLIT_INSTANTIATIONS_CHECK(11))
 namespace MGTools
  {
 
@@ -378,7 +378,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(12))
+#if (SPLIT_INSTANTIATIONS_CHECK(12))
 namespace MGTools
  {
 
@@ -409,7 +409,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(13))
+#if (SPLIT_INSTANTIATIONS_CHECK(13))
 namespace MGTools
  {
 
@@ -440,7 +440,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(14))
+#if (SPLIT_INSTANTIATIONS_CHECK(14))
 namespace MGTools
  {
 
@@ -471,7 +471,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(15))
+#if (SPLIT_INSTANTIATIONS_CHECK(15))
 namespace MGTools
  {
 
@@ -502,7 +502,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(16))
+#if (SPLIT_INSTANTIATIONS_CHECK(16))
 namespace MGTools
  {
 
@@ -533,7 +533,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(17))
+#if (SPLIT_INSTANTIATIONS_CHECK(17))
 namespace MGTools
  {
 
@@ -564,7 +564,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(18))
+#if (SPLIT_INSTANTIATIONS_CHECK(18))
 namespace MGTools
  {
 
@@ -595,7 +595,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(19))
+#if (SPLIT_INSTANTIATIONS_CHECK(19))
 namespace MGTools
  {
 
@@ -626,7 +626,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(20))
+#if (SPLIT_INSTANTIATIONS_CHECK(20))
 namespace MGTools
  {
 
@@ -657,7 +657,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(21))
+#if (SPLIT_INSTANTIATIONS_CHECK(21))
 namespace MGTools
  {
 
@@ -688,7 +688,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(22))
+#if (SPLIT_INSTANTIATIONS_CHECK(22))
 namespace MGTools
  {
 
@@ -719,7 +719,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(23))
+#if (SPLIT_INSTANTIATIONS_CHECK(23))
 namespace MGTools
  {
 
@@ -750,7 +750,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(24))
+#if (SPLIT_INSTANTIATIONS_CHECK(24))
 namespace MGTools
  {
 
@@ -781,7 +781,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(25))
+#if (SPLIT_INSTANTIATIONS_CHECK(25))
 namespace MGTools
  {
 
@@ -812,7 +812,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(26))
+#if (SPLIT_INSTANTIATIONS_CHECK(26))
 namespace MGTools
  {
 
@@ -843,7 +843,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(27))
+#if (SPLIT_INSTANTIATIONS_CHECK(27))
 namespace MGTools
  {
 
@@ -874,7 +874,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(28))
+#if (SPLIT_INSTANTIATIONS_CHECK(28))
 namespace MGTools
  {
 
@@ -905,7 +905,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(29))
+#if (SPLIT_INSTANTIATIONS_CHECK(29))
 namespace MGTools
  {
 
@@ -936,7 +936,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(30))
+#if (SPLIT_INSTANTIATIONS_CHECK(30))
 namespace MGTools
  {
 
@@ -967,7 +967,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(31))
+#if (SPLIT_INSTANTIATIONS_CHECK(31))
 namespace MGTools
  {
 
@@ -998,7 +998,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(32))
+#if (SPLIT_INSTANTIATIONS_CHECK(32))
 namespace MGTools
  {
 
@@ -1029,7 +1029,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(33))
+#if (SPLIT_INSTANTIATIONS_CHECK(33))
 namespace MGTools
  {
 
@@ -1060,7 +1060,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(34))
+#if (SPLIT_INSTANTIATIONS_CHECK(34))
 namespace MGTools
  {
 
@@ -1091,7 +1091,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(35))
+#if (SPLIT_INSTANTIATIONS_CHECK(35))
 namespace MGTools
  {
 
@@ -1122,7 +1122,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(36))
+#if (SPLIT_INSTANTIATIONS_CHECK(36))
 namespace MGTools
  {
 
@@ -1185,7 +1185,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(37))
+#if (SPLIT_INSTANTIATIONS_CHECK(37))
 namespace MGTools
  {
 
@@ -1248,7 +1248,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(38))
+#if (SPLIT_INSTANTIATIONS_CHECK(38))
 namespace MGTools
  {
 
@@ -1311,7 +1311,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(39))
+#if (SPLIT_INSTANTIATIONS_CHECK(39))
 namespace MGTools
  {
 
@@ -1374,7 +1374,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(40))
+#if (SPLIT_INSTANTIATIONS_CHECK(40))
 namespace MGTools
  {
 
@@ -1437,7 +1437,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(41))
+#if (SPLIT_INSTANTIATIONS_CHECK(41))
 namespace MGTools
  {
 
@@ -1500,7 +1500,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(42))
+#if (SPLIT_INSTANTIATIONS_CHECK(42))
 namespace MGTools
  {
 
@@ -1563,7 +1563,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(43))
+#if (SPLIT_INSTANTIATIONS_CHECK(43))
 namespace MGTools
  {
 
@@ -1626,7 +1626,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(44))
+#if (SPLIT_INSTANTIATIONS_CHECK(44))
 namespace MGTools
  {
 
@@ -1689,7 +1689,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(45))
+#if (SPLIT_INSTANTIATIONS_CHECK(45))
 namespace MGTools
  {
 
@@ -1752,7 +1752,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(46))
+#if (SPLIT_INSTANTIATIONS_CHECK(46))
 namespace MGTools
  {
 
@@ -1815,7 +1815,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(47))
+#if (SPLIT_INSTANTIATIONS_CHECK(47))
 namespace MGTools
  {
 
@@ -1878,7 +1878,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(48))
+#if (SPLIT_INSTANTIATIONS_CHECK(48))
 namespace MGTools
  {
 
@@ -1941,7 +1941,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(49))
+#if (SPLIT_INSTANTIATIONS_CHECK(49))
 namespace MGTools
  {
 
@@ -2004,7 +2004,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(50))
+#if (SPLIT_INSTANTIATIONS_CHECK(50))
 namespace MGTools
  {
 
@@ -2067,7 +2067,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(51))
+#if (SPLIT_INSTANTIATIONS_CHECK(51))
 namespace MGTools
  {
 
@@ -2130,7 +2130,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(52))
+#if (SPLIT_INSTANTIATIONS_CHECK(52))
 namespace MGTools
  {
 
@@ -2193,7 +2193,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(53))
+#if (SPLIT_INSTANTIATIONS_CHECK(53))
 namespace MGTools
  {
 
@@ -2256,7 +2256,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(54))
+#if (SPLIT_INSTANTIATIONS_CHECK(54))
 namespace MGTools
  {
 
@@ -2319,7 +2319,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(55))
+#if (SPLIT_INSTANTIATIONS_CHECK(55))
 namespace MGTools
  {
 
@@ -2382,7 +2382,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(56))
+#if (SPLIT_INSTANTIATIONS_CHECK(56))
 namespace MGTools
  {
 
@@ -2445,7 +2445,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(57))
+#if (SPLIT_INSTANTIATIONS_CHECK(57))
 namespace MGTools
  {
 
@@ -2508,7 +2508,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(58))
+#if (SPLIT_INSTANTIATIONS_CHECK(58))
 namespace MGTools
  {
 
@@ -2571,7 +2571,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(59))
+#if (SPLIT_INSTANTIATIONS_CHECK(59))
 namespace MGTools
  {
 
@@ -2634,7 +2634,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(60))
+#if (SPLIT_INSTANTIATIONS_CHECK(60))
 namespace MGTools
  {
 
@@ -2697,7 +2697,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(61))
+#if (SPLIT_INSTANTIATIONS_CHECK(61))
 namespace MGTools
  {
 
@@ -2760,7 +2760,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(62))
+#if (SPLIT_INSTANTIATIONS_CHECK(62))
 namespace MGTools
  {
 
@@ -2823,7 +2823,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(63))
+#if (SPLIT_INSTANTIATIONS_CHECK(63))
 namespace MGTools
  {
 
@@ -2886,7 +2886,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(64))
+#if (SPLIT_INSTANTIATIONS_CHECK(64))
 namespace MGTools
  {
 
@@ -2949,7 +2949,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(65))
+#if (SPLIT_INSTANTIATIONS_CHECK(65))
 namespace MGTools
  {
 
@@ -3012,7 +3012,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(66))
+#if (SPLIT_INSTANTIATIONS_CHECK(66))
 namespace MGTools
  {
 
@@ -3075,7 +3075,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(67))
+#if (SPLIT_INSTANTIATIONS_CHECK(67))
 namespace MGTools
  {
 
@@ -3138,7 +3138,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(68))
+#if (SPLIT_INSTANTIATIONS_CHECK(68))
 namespace MGTools
  {
 
@@ -3201,7 +3201,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(69))
+#if (SPLIT_INSTANTIATIONS_CHECK(69))
 namespace MGTools
  {
 
@@ -3264,7 +3264,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(70))
+#if (SPLIT_INSTANTIATIONS_CHECK(70))
 namespace MGTools
  {
 
@@ -3327,7 +3327,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(71))
+#if (SPLIT_INSTANTIATIONS_CHECK(71))
 namespace MGTools
  {
 
@@ -3390,7 +3390,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(72))
+#if (SPLIT_INSTANTIATIONS_CHECK(72))
 namespace MGTools
  {
 
@@ -3464,7 +3464,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(73))
+#if (SPLIT_INSTANTIATIONS_CHECK(73))
 namespace MGTools
  {
 
@@ -3538,7 +3538,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(74))
+#if (SPLIT_INSTANTIATIONS_CHECK(74))
 namespace MGTools
  {
 
@@ -3612,7 +3612,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(75))
+#if (SPLIT_INSTANTIATIONS_CHECK(75))
 namespace MGTools
  {
 #if  1  <=  1 
@@ -3665,7 +3665,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(76))
+#if (SPLIT_INSTANTIATIONS_CHECK(76))
 namespace MGTools
  {
 #if  1  <=  2 
@@ -3718,7 +3718,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(77))
+#if (SPLIT_INSTANTIATIONS_CHECK(77))
 namespace MGTools
  {
 #if  1  <=  3 
@@ -3771,7 +3771,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(78))
+#if (SPLIT_INSTANTIATIONS_CHECK(78))
 namespace MGTools
  {
 #if  2  <=  1 
@@ -3824,7 +3824,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(79))
+#if (SPLIT_INSTANTIATIONS_CHECK(79))
 namespace MGTools
  {
 #if  2  <=  2 
@@ -3877,7 +3877,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(80))
+#if (SPLIT_INSTANTIATIONS_CHECK(80))
 namespace MGTools
  {
 #if  2  <=  3 
@@ -3930,7 +3930,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(81))
+#if (SPLIT_INSTANTIATIONS_CHECK(81))
 namespace MGTools
  {
 #if  3  <=  1 
@@ -3983,7 +3983,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(82))
+#if (SPLIT_INSTANTIATIONS_CHECK(82))
 namespace MGTools
  {
 #if  3  <=  2 
@@ -4036,7 +4036,7 @@ namespace MGTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(83))
+#if (SPLIT_INSTANTIATIONS_CHECK(83))
 namespace MGTools
  {
 #if  3  <=  3 

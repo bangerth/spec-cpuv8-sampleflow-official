@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 namespace DerivativeApproximation
  {
  template void
@@ -112,7 +112,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 namespace DerivativeApproximation
  {
  template void
@@ -218,7 +218,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 namespace DerivativeApproximation
  {
  template void
@@ -324,7 +324,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 namespace DerivativeApproximation
  {
  template void
@@ -430,7 +430,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 namespace DerivativeApproximation
  {
  template void
@@ -536,7 +536,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 namespace DerivativeApproximation
  {
  template void
@@ -642,7 +642,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 namespace DerivativeApproximation
  {
  template void
@@ -748,7 +748,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 namespace DerivativeApproximation
  {
  template void
@@ -854,7 +854,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 namespace DerivativeApproximation
  {
  template void
@@ -960,7 +960,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
+#if (SPLIT_INSTANTIATIONS_CHECK(9))
 namespace DerivativeApproximation
  {
  template void
@@ -1066,7 +1066,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
+#if (SPLIT_INSTANTIATIONS_CHECK(10))
 namespace DerivativeApproximation
  {
  template void
@@ -1172,7 +1172,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
+#if (SPLIT_INSTANTIATIONS_CHECK(11))
 namespace DerivativeApproximation
  {
  template void
@@ -1278,7 +1278,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(12))
+#if (SPLIT_INSTANTIATIONS_CHECK(12))
 namespace DerivativeApproximation
  {
  template void
@@ -1384,7 +1384,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(13))
+#if (SPLIT_INSTANTIATIONS_CHECK(13))
 namespace DerivativeApproximation
  {
  template void
@@ -1490,7 +1490,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(14))
+#if (SPLIT_INSTANTIATIONS_CHECK(14))
 namespace DerivativeApproximation
  {
  template void
@@ -1596,7 +1596,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(15))
+#if (SPLIT_INSTANTIATIONS_CHECK(15))
 namespace DerivativeApproximation
  {
  template void
@@ -1702,7 +1702,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(16))
+#if (SPLIT_INSTANTIATIONS_CHECK(16))
 namespace DerivativeApproximation
  {
  template void
@@ -1808,7 +1808,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(17))
+#if (SPLIT_INSTANTIATIONS_CHECK(17))
 namespace DerivativeApproximation
  {
  template void
@@ -1914,7 +1914,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(18))
+#if (SPLIT_INSTANTIATIONS_CHECK(18))
 namespace DerivativeApproximation
  {
  template void
@@ -2020,7 +2020,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(19))
+#if (SPLIT_INSTANTIATIONS_CHECK(19))
 namespace DerivativeApproximation
  {
  template void
@@ -2126,7 +2126,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(20))
+#if (SPLIT_INSTANTIATIONS_CHECK(20))
 namespace DerivativeApproximation
  {
  template void
@@ -2232,7 +2232,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(21))
+#if (SPLIT_INSTANTIATIONS_CHECK(21))
 namespace DerivativeApproximation
  {
  template void
@@ -2338,7 +2338,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(22))
+#if (SPLIT_INSTANTIATIONS_CHECK(22))
 namespace DerivativeApproximation
  {
  template void
@@ -2444,7 +2444,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(23))
+#if (SPLIT_INSTANTIATIONS_CHECK(23))
 namespace DerivativeApproximation
  {
  template void
@@ -2550,7 +2550,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(24))
+#if (SPLIT_INSTANTIATIONS_CHECK(24))
 namespace DerivativeApproximation
  {
  template void
@@ -2656,7 +2656,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(25))
+#if (SPLIT_INSTANTIATIONS_CHECK(25))
 namespace DerivativeApproximation
  {
  template void
@@ -2762,7 +2762,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(26))
+#if (SPLIT_INSTANTIATIONS_CHECK(26))
 namespace DerivativeApproximation
  {
  template void
@@ -2868,7 +2868,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(27))
+#if (SPLIT_INSTANTIATIONS_CHECK(27))
 namespace DerivativeApproximation
  {
  template void
@@ -2974,7 +2974,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(28))
+#if (SPLIT_INSTANTIATIONS_CHECK(28))
 namespace DerivativeApproximation
  {
  template void
@@ -3080,7 +3080,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(29))
+#if (SPLIT_INSTANTIATIONS_CHECK(29))
 namespace DerivativeApproximation
  {
  template void
@@ -3186,7 +3186,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(30))
+#if (SPLIT_INSTANTIATIONS_CHECK(30))
 namespace DerivativeApproximation
  {
  template double
@@ -3200,7 +3200,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(31))
+#if (SPLIT_INSTANTIATIONS_CHECK(31))
 namespace DerivativeApproximation
  {
  template double
@@ -3214,7 +3214,7 @@ namespace DerivativeApproximation
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(32))
+#if (SPLIT_INSTANTIATIONS_CHECK(32))
 namespace DerivativeApproximation
  {
  template double

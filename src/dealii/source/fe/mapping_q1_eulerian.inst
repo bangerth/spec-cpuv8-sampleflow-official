@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 #if  1  <=  1 
  template class MappingQ1Eulerian< 1 ,
   Vector<double> ,
@@ -14,7 +14,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 #if  1  <=  1 
  template class MappingQ1Eulerian< 1 ,
   Vector<float> ,
@@ -22,7 +22,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 #if  1  <=  1 
  template class MappingQ1Eulerian< 1 ,
   BlockVector<double> ,
@@ -30,7 +30,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 #if  1  <=  1 
  template class MappingQ1Eulerian< 1 ,
   BlockVector<float> ,
@@ -38,7 +38,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 #if  1  <=  1 
  template class MappingQ1Eulerian< 1 ,
   LinearAlgebra::Vector<double> ,
@@ -46,7 +46,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 #if  1  <=  1 
  template class MappingQ1Eulerian< 1 ,
   LinearAlgebra::Vector<float> ,
@@ -54,7 +54,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 #if  1  <=  1 
  template class MappingQ1Eulerian< 1 ,
   LinearAlgebra::distributed::Vector<double> ,
@@ -62,7 +62,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 #if  1  <=  1 
  template class MappingQ1Eulerian< 1 ,
   LinearAlgebra::distributed::Vector<float> ,
@@ -70,7 +70,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 #if  1  <=  1 
  template class MappingQ1Eulerian< 1 ,
   LinearAlgebra::distributed::BlockVector<double> ,
@@ -78,7 +78,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
+#if (SPLIT_INSTANTIATIONS_CHECK(9))
 #if  1  <=  1 
  template class MappingQ1Eulerian< 1 ,
   LinearAlgebra::distributed::BlockVector<float> ,
@@ -86,7 +86,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
+#if (SPLIT_INSTANTIATIONS_CHECK(10))
 #if  1  <=  2 
  template class MappingQ1Eulerian< 1 ,
   Vector<double> ,
@@ -94,7 +94,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
+#if (SPLIT_INSTANTIATIONS_CHECK(11))
 #if  1  <=  2 
  template class MappingQ1Eulerian< 1 ,
   Vector<float> ,
@@ -102,7 +102,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(12))
+#if (SPLIT_INSTANTIATIONS_CHECK(12))
 #if  1  <=  2 
  template class MappingQ1Eulerian< 1 ,
   BlockVector<double> ,
@@ -110,7 +110,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(13))
+#if (SPLIT_INSTANTIATIONS_CHECK(13))
 #if  1  <=  2 
  template class MappingQ1Eulerian< 1 ,
   BlockVector<float> ,
@@ -118,7 +118,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(14))
+#if (SPLIT_INSTANTIATIONS_CHECK(14))
 #if  1  <=  2 
  template class MappingQ1Eulerian< 1 ,
   LinearAlgebra::Vector<double> ,
@@ -126,7 +126,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(15))
+#if (SPLIT_INSTANTIATIONS_CHECK(15))
 #if  1  <=  2 
  template class MappingQ1Eulerian< 1 ,
   LinearAlgebra::Vector<float> ,
@@ -134,7 +134,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(16))
+#if (SPLIT_INSTANTIATIONS_CHECK(16))
 #if  1  <=  2 
  template class MappingQ1Eulerian< 1 ,
   LinearAlgebra::distributed::Vector<double> ,
@@ -142,7 +142,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(17))
+#if (SPLIT_INSTANTIATIONS_CHECK(17))
 #if  1  <=  2 
  template class MappingQ1Eulerian< 1 ,
   LinearAlgebra::distributed::Vector<float> ,
@@ -150,7 +150,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(18))
+#if (SPLIT_INSTANTIATIONS_CHECK(18))
 #if  1  <=  2 
  template class MappingQ1Eulerian< 1 ,
   LinearAlgebra::distributed::BlockVector<double> ,
@@ -158,7 +158,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(19))
+#if (SPLIT_INSTANTIATIONS_CHECK(19))
 #if  1  <=  2 
  template class MappingQ1Eulerian< 1 ,
   LinearAlgebra::distributed::BlockVector<float> ,
@@ -166,7 +166,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(20))
+#if (SPLIT_INSTANTIATIONS_CHECK(20))
 #if  1  <=  3 
  template class MappingQ1Eulerian< 1 ,
   Vector<double> ,
@@ -174,7 +174,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(21))
+#if (SPLIT_INSTANTIATIONS_CHECK(21))
 #if  1  <=  3 
  template class MappingQ1Eulerian< 1 ,
   Vector<float> ,
@@ -182,7 +182,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(22))
+#if (SPLIT_INSTANTIATIONS_CHECK(22))
 #if  1  <=  3 
  template class MappingQ1Eulerian< 1 ,
   BlockVector<double> ,
@@ -190,7 +190,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(23))
+#if (SPLIT_INSTANTIATIONS_CHECK(23))
 #if  1  <=  3 
  template class MappingQ1Eulerian< 1 ,
   BlockVector<float> ,
@@ -198,7 +198,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(24))
+#if (SPLIT_INSTANTIATIONS_CHECK(24))
 #if  1  <=  3 
  template class MappingQ1Eulerian< 1 ,
   LinearAlgebra::Vector<double> ,
@@ -206,7 +206,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(25))
+#if (SPLIT_INSTANTIATIONS_CHECK(25))
 #if  1  <=  3 
  template class MappingQ1Eulerian< 1 ,
   LinearAlgebra::Vector<float> ,
@@ -214,7 +214,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(26))
+#if (SPLIT_INSTANTIATIONS_CHECK(26))
 #if  1  <=  3 
  template class MappingQ1Eulerian< 1 ,
   LinearAlgebra::distributed::Vector<double> ,
@@ -222,7 +222,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(27))
+#if (SPLIT_INSTANTIATIONS_CHECK(27))
 #if  1  <=  3 
  template class MappingQ1Eulerian< 1 ,
   LinearAlgebra::distributed::Vector<float> ,
@@ -230,7 +230,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(28))
+#if (SPLIT_INSTANTIATIONS_CHECK(28))
 #if  1  <=  3 
  template class MappingQ1Eulerian< 1 ,
   LinearAlgebra::distributed::BlockVector<double> ,
@@ -238,7 +238,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(29))
+#if (SPLIT_INSTANTIATIONS_CHECK(29))
 #if  1  <=  3 
  template class MappingQ1Eulerian< 1 ,
   LinearAlgebra::distributed::BlockVector<float> ,
@@ -246,7 +246,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(30))
+#if (SPLIT_INSTANTIATIONS_CHECK(30))
 #if  2  <=  1 
  template class MappingQ1Eulerian< 2 ,
   Vector<double> ,
@@ -254,7 +254,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(31))
+#if (SPLIT_INSTANTIATIONS_CHECK(31))
 #if  2  <=  1 
  template class MappingQ1Eulerian< 2 ,
   Vector<float> ,
@@ -262,7 +262,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(32))
+#if (SPLIT_INSTANTIATIONS_CHECK(32))
 #if  2  <=  1 
  template class MappingQ1Eulerian< 2 ,
   BlockVector<double> ,
@@ -270,7 +270,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(33))
+#if (SPLIT_INSTANTIATIONS_CHECK(33))
 #if  2  <=  1 
  template class MappingQ1Eulerian< 2 ,
   BlockVector<float> ,
@@ -278,7 +278,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(34))
+#if (SPLIT_INSTANTIATIONS_CHECK(34))
 #if  2  <=  1 
  template class MappingQ1Eulerian< 2 ,
   LinearAlgebra::Vector<double> ,
@@ -286,7 +286,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(35))
+#if (SPLIT_INSTANTIATIONS_CHECK(35))
 #if  2  <=  1 
  template class MappingQ1Eulerian< 2 ,
   LinearAlgebra::Vector<float> ,
@@ -294,7 +294,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(36))
+#if (SPLIT_INSTANTIATIONS_CHECK(36))
 #if  2  <=  1 
  template class MappingQ1Eulerian< 2 ,
   LinearAlgebra::distributed::Vector<double> ,
@@ -302,7 +302,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(37))
+#if (SPLIT_INSTANTIATIONS_CHECK(37))
 #if  2  <=  1 
  template class MappingQ1Eulerian< 2 ,
   LinearAlgebra::distributed::Vector<float> ,
@@ -310,7 +310,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(38))
+#if (SPLIT_INSTANTIATIONS_CHECK(38))
 #if  2  <=  1 
  template class MappingQ1Eulerian< 2 ,
   LinearAlgebra::distributed::BlockVector<double> ,
@@ -318,7 +318,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(39))
+#if (SPLIT_INSTANTIATIONS_CHECK(39))
 #if  2  <=  1 
  template class MappingQ1Eulerian< 2 ,
   LinearAlgebra::distributed::BlockVector<float> ,
@@ -326,7 +326,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(40))
+#if (SPLIT_INSTANTIATIONS_CHECK(40))
 #if  2  <=  2 
  template class MappingQ1Eulerian< 2 ,
   Vector<double> ,
@@ -334,7 +334,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(41))
+#if (SPLIT_INSTANTIATIONS_CHECK(41))
 #if  2  <=  2 
  template class MappingQ1Eulerian< 2 ,
   Vector<float> ,
@@ -342,7 +342,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(42))
+#if (SPLIT_INSTANTIATIONS_CHECK(42))
 #if  2  <=  2 
  template class MappingQ1Eulerian< 2 ,
   BlockVector<double> ,
@@ -350,7 +350,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(43))
+#if (SPLIT_INSTANTIATIONS_CHECK(43))
 #if  2  <=  2 
  template class MappingQ1Eulerian< 2 ,
   BlockVector<float> ,
@@ -358,7 +358,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(44))
+#if (SPLIT_INSTANTIATIONS_CHECK(44))
 #if  2  <=  2 
  template class MappingQ1Eulerian< 2 ,
   LinearAlgebra::Vector<double> ,
@@ -366,7 +366,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(45))
+#if (SPLIT_INSTANTIATIONS_CHECK(45))
 #if  2  <=  2 
  template class MappingQ1Eulerian< 2 ,
   LinearAlgebra::Vector<float> ,
@@ -374,7 +374,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(46))
+#if (SPLIT_INSTANTIATIONS_CHECK(46))
 #if  2  <=  2 
  template class MappingQ1Eulerian< 2 ,
   LinearAlgebra::distributed::Vector<double> ,
@@ -382,7 +382,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(47))
+#if (SPLIT_INSTANTIATIONS_CHECK(47))
 #if  2  <=  2 
  template class MappingQ1Eulerian< 2 ,
   LinearAlgebra::distributed::Vector<float> ,
@@ -390,7 +390,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(48))
+#if (SPLIT_INSTANTIATIONS_CHECK(48))
 #if  2  <=  2 
  template class MappingQ1Eulerian< 2 ,
   LinearAlgebra::distributed::BlockVector<double> ,
@@ -398,7 +398,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(49))
+#if (SPLIT_INSTANTIATIONS_CHECK(49))
 #if  2  <=  2 
  template class MappingQ1Eulerian< 2 ,
   LinearAlgebra::distributed::BlockVector<float> ,
@@ -406,7 +406,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(50))
+#if (SPLIT_INSTANTIATIONS_CHECK(50))
 #if  2  <=  3 
  template class MappingQ1Eulerian< 2 ,
   Vector<double> ,
@@ -414,7 +414,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(51))
+#if (SPLIT_INSTANTIATIONS_CHECK(51))
 #if  2  <=  3 
  template class MappingQ1Eulerian< 2 ,
   Vector<float> ,
@@ -422,7 +422,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(52))
+#if (SPLIT_INSTANTIATIONS_CHECK(52))
 #if  2  <=  3 
  template class MappingQ1Eulerian< 2 ,
   BlockVector<double> ,
@@ -430,7 +430,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(53))
+#if (SPLIT_INSTANTIATIONS_CHECK(53))
 #if  2  <=  3 
  template class MappingQ1Eulerian< 2 ,
   BlockVector<float> ,
@@ -438,7 +438,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(54))
+#if (SPLIT_INSTANTIATIONS_CHECK(54))
 #if  2  <=  3 
  template class MappingQ1Eulerian< 2 ,
   LinearAlgebra::Vector<double> ,
@@ -446,7 +446,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(55))
+#if (SPLIT_INSTANTIATIONS_CHECK(55))
 #if  2  <=  3 
  template class MappingQ1Eulerian< 2 ,
   LinearAlgebra::Vector<float> ,
@@ -454,7 +454,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(56))
+#if (SPLIT_INSTANTIATIONS_CHECK(56))
 #if  2  <=  3 
  template class MappingQ1Eulerian< 2 ,
   LinearAlgebra::distributed::Vector<double> ,
@@ -462,7 +462,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(57))
+#if (SPLIT_INSTANTIATIONS_CHECK(57))
 #if  2  <=  3 
  template class MappingQ1Eulerian< 2 ,
   LinearAlgebra::distributed::Vector<float> ,
@@ -470,7 +470,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(58))
+#if (SPLIT_INSTANTIATIONS_CHECK(58))
 #if  2  <=  3 
  template class MappingQ1Eulerian< 2 ,
   LinearAlgebra::distributed::BlockVector<double> ,
@@ -478,7 +478,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(59))
+#if (SPLIT_INSTANTIATIONS_CHECK(59))
 #if  2  <=  3 
  template class MappingQ1Eulerian< 2 ,
   LinearAlgebra::distributed::BlockVector<float> ,
@@ -486,7 +486,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(60))
+#if (SPLIT_INSTANTIATIONS_CHECK(60))
 #if  3  <=  1 
  template class MappingQ1Eulerian< 3 ,
   Vector<double> ,
@@ -494,7 +494,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(61))
+#if (SPLIT_INSTANTIATIONS_CHECK(61))
 #if  3  <=  1 
  template class MappingQ1Eulerian< 3 ,
   Vector<float> ,
@@ -502,7 +502,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(62))
+#if (SPLIT_INSTANTIATIONS_CHECK(62))
 #if  3  <=  1 
  template class MappingQ1Eulerian< 3 ,
   BlockVector<double> ,
@@ -510,7 +510,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(63))
+#if (SPLIT_INSTANTIATIONS_CHECK(63))
 #if  3  <=  1 
  template class MappingQ1Eulerian< 3 ,
   BlockVector<float> ,
@@ -518,7 +518,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(64))
+#if (SPLIT_INSTANTIATIONS_CHECK(64))
 #if  3  <=  1 
  template class MappingQ1Eulerian< 3 ,
   LinearAlgebra::Vector<double> ,
@@ -526,7 +526,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(65))
+#if (SPLIT_INSTANTIATIONS_CHECK(65))
 #if  3  <=  1 
  template class MappingQ1Eulerian< 3 ,
   LinearAlgebra::Vector<float> ,
@@ -534,7 +534,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(66))
+#if (SPLIT_INSTANTIATIONS_CHECK(66))
 #if  3  <=  1 
  template class MappingQ1Eulerian< 3 ,
   LinearAlgebra::distributed::Vector<double> ,
@@ -542,7 +542,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(67))
+#if (SPLIT_INSTANTIATIONS_CHECK(67))
 #if  3  <=  1 
  template class MappingQ1Eulerian< 3 ,
   LinearAlgebra::distributed::Vector<float> ,
@@ -550,7 +550,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(68))
+#if (SPLIT_INSTANTIATIONS_CHECK(68))
 #if  3  <=  1 
  template class MappingQ1Eulerian< 3 ,
   LinearAlgebra::distributed::BlockVector<double> ,
@@ -558,7 +558,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(69))
+#if (SPLIT_INSTANTIATIONS_CHECK(69))
 #if  3  <=  1 
  template class MappingQ1Eulerian< 3 ,
   LinearAlgebra::distributed::BlockVector<float> ,
@@ -566,7 +566,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(70))
+#if (SPLIT_INSTANTIATIONS_CHECK(70))
 #if  3  <=  2 
  template class MappingQ1Eulerian< 3 ,
   Vector<double> ,
@@ -574,7 +574,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(71))
+#if (SPLIT_INSTANTIATIONS_CHECK(71))
 #if  3  <=  2 
  template class MappingQ1Eulerian< 3 ,
   Vector<float> ,
@@ -582,7 +582,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(72))
+#if (SPLIT_INSTANTIATIONS_CHECK(72))
 #if  3  <=  2 
  template class MappingQ1Eulerian< 3 ,
   BlockVector<double> ,
@@ -590,7 +590,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(73))
+#if (SPLIT_INSTANTIATIONS_CHECK(73))
 #if  3  <=  2 
  template class MappingQ1Eulerian< 3 ,
   BlockVector<float> ,
@@ -598,7 +598,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(74))
+#if (SPLIT_INSTANTIATIONS_CHECK(74))
 #if  3  <=  2 
  template class MappingQ1Eulerian< 3 ,
   LinearAlgebra::Vector<double> ,
@@ -606,7 +606,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(75))
+#if (SPLIT_INSTANTIATIONS_CHECK(75))
 #if  3  <=  2 
  template class MappingQ1Eulerian< 3 ,
   LinearAlgebra::Vector<float> ,
@@ -614,7 +614,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(76))
+#if (SPLIT_INSTANTIATIONS_CHECK(76))
 #if  3  <=  2 
  template class MappingQ1Eulerian< 3 ,
   LinearAlgebra::distributed::Vector<double> ,
@@ -622,7 +622,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(77))
+#if (SPLIT_INSTANTIATIONS_CHECK(77))
 #if  3  <=  2 
  template class MappingQ1Eulerian< 3 ,
   LinearAlgebra::distributed::Vector<float> ,
@@ -630,7 +630,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(78))
+#if (SPLIT_INSTANTIATIONS_CHECK(78))
 #if  3  <=  2 
  template class MappingQ1Eulerian< 3 ,
   LinearAlgebra::distributed::BlockVector<double> ,
@@ -638,7 +638,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(79))
+#if (SPLIT_INSTANTIATIONS_CHECK(79))
 #if  3  <=  2 
  template class MappingQ1Eulerian< 3 ,
   LinearAlgebra::distributed::BlockVector<float> ,
@@ -646,7 +646,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(80))
+#if (SPLIT_INSTANTIATIONS_CHECK(80))
 #if  3  <=  3 
  template class MappingQ1Eulerian< 3 ,
   Vector<double> ,
@@ -654,7 +654,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(81))
+#if (SPLIT_INSTANTIATIONS_CHECK(81))
 #if  3  <=  3 
  template class MappingQ1Eulerian< 3 ,
   Vector<float> ,
@@ -662,7 +662,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(82))
+#if (SPLIT_INSTANTIATIONS_CHECK(82))
 #if  3  <=  3 
  template class MappingQ1Eulerian< 3 ,
   BlockVector<double> ,
@@ -670,7 +670,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(83))
+#if (SPLIT_INSTANTIATIONS_CHECK(83))
 #if  3  <=  3 
  template class MappingQ1Eulerian< 3 ,
   BlockVector<float> ,
@@ -678,7 +678,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(84))
+#if (SPLIT_INSTANTIATIONS_CHECK(84))
 #if  3  <=  3 
  template class MappingQ1Eulerian< 3 ,
   LinearAlgebra::Vector<double> ,
@@ -686,7 +686,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(85))
+#if (SPLIT_INSTANTIATIONS_CHECK(85))
 #if  3  <=  3 
  template class MappingQ1Eulerian< 3 ,
   LinearAlgebra::Vector<float> ,
@@ -694,7 +694,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(86))
+#if (SPLIT_INSTANTIATIONS_CHECK(86))
 #if  3  <=  3 
  template class MappingQ1Eulerian< 3 ,
   LinearAlgebra::distributed::Vector<double> ,
@@ -702,7 +702,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(87))
+#if (SPLIT_INSTANTIATIONS_CHECK(87))
 #if  3  <=  3 
  template class MappingQ1Eulerian< 3 ,
   LinearAlgebra::distributed::Vector<float> ,
@@ -710,7 +710,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(88))
+#if (SPLIT_INSTANTIATIONS_CHECK(88))
 #if  3  <=  3 
  template class MappingQ1Eulerian< 3 ,
   LinearAlgebra::distributed::BlockVector<double> ,
@@ -718,7 +718,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(89))
+#if (SPLIT_INSTANTIATIONS_CHECK(89))
 #if  3  <=  3 
  template class MappingQ1Eulerian< 3 ,
   LinearAlgebra::distributed::BlockVector<float> ,

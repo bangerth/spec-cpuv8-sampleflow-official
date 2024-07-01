@@ -31,6 +31,7 @@
 #include <boost/serialization/utility.hpp>
 
 #include <iostream>
+#include <limits>
 #include <numeric>
 #include <set>
 #include <vector>
@@ -71,10 +72,15 @@ DEAL_II_NAMESPACE_OPEN
 namespace Utilities
 {
   IndexSet
-  create_evenly_distributed_partitioning(const unsigned int my_partition_id,
-                                         const unsigned int n_partitions,
-                                         const IndexSet::size_type total_size)
+  create_evenly_distributed_partitioning(
+    const unsigned int            my_partition_id,
+    const unsigned int            n_partitions,
+    const types::global_dof_index total_size)
   {
+    static_assert(
+      std::is_same<types::global_dof_index, IndexSet::size_type>::value,
+      "IndexSet::size_type must match types::global_dof_index for "
+      "using this function");
     const unsigned int remain = total_size % n_partitions;
 
     const IndexSet::size_type min_size = total_size / n_partitions;
@@ -214,9 +220,14 @@ namespace Utilities
 
 
     std::vector<IndexSet>
-    create_ascending_partitioning(const MPI_Comm &          comm,
-                                  const IndexSet::size_type locally_owned_size)
+    create_ascending_partitioning(
+      const MPI_Comm &              comm,
+      const types::global_dof_index locally_owned_size)
     {
+      static_assert(
+        std::is_same<types::global_dof_index, IndexSet::size_type>::value,
+        "IndexSet::size_type must match types::global_dof_index for "
+        "using this function");
       const unsigned int                     n_proc = n_mpi_processes(comm);
       const std::vector<IndexSet::size_type> sizes =
         all_gather(comm, locally_owned_size);
@@ -238,8 +249,9 @@ namespace Utilities
 
 
     IndexSet
-    create_evenly_distributed_partitioning(const MPI_Comm &          comm,
-                                           const IndexSet::size_type total_size)
+    create_evenly_distributed_partitioning(
+      const MPI_Comm &              comm,
+      const types::global_dof_index total_size)
     {
       const unsigned int this_proc = this_mpi_process(comm);
       const unsigned int n_proc    = n_mpi_processes(comm);
@@ -663,15 +675,17 @@ namespace Utilities
 
 
     std::vector<IndexSet>
-    create_ascending_partitioning(const MPI_Comm & /*comm*/,
-                                  const IndexSet::size_type locally_owned_size)
+    create_ascending_partitioning(
+      const MPI_Comm & /*comm*/,
+      const types::global_dof_index locally_owned_size)
     {
       return std::vector<IndexSet>(1, complete_index_set(locally_owned_size));
     }
 
     IndexSet
-    create_evenly_distributed_partitioning(const MPI_Comm & /*comm*/,
-                                           const IndexSet::size_type total_size)
+    create_evenly_distributed_partitioning(
+      const MPI_Comm & /*comm*/,
+      const types::global_dof_index total_size)
     {
       return complete_index_set(total_size);
     }
@@ -1064,6 +1078,46 @@ namespace Utilities
 
 
 
+    namespace internal
+    {
+      namespace CollectiveMutexImplementation
+      {
+        /**
+         * Abort, should there be an exception being processed (see the error
+         * message).
+         */
+        void
+        check_exception()
+        {
+#ifdef DEAL_II_WITH_MPI
+#  if __cpp_lib_uncaught_exceptions >= 201411
+          // std::uncaught_exception() is deprecated in c++17
+          if (std::uncaught_exceptions() != 0)
+#  else
+          if (std::uncaught_exception() == true)
+#  endif
+            {
+              std::cerr
+                << "---------------------------------------------------------\n"
+                << "An exception was thrown inside a section of the program\n"
+                << "guarded by a CollectiveMutex.\n"
+                << "Because a CollectiveMutex guards critical communication\n"
+                << "handling the exception would likely\n"
+                << "deadlock because only the current process is aware of the\n"
+                << "exception. To prevent this deadlock, the program will be\n"
+                << "aborted.\n"
+                << "---------------------------------------------------------"
+                << std::endl;
+
+              MPI_Abort(MPI_COMM_WORLD, 1);
+            }
+#endif
+        }
+      } // namespace CollectiveMutexImplementation
+    }   // namespace internal
+
+
+
     CollectiveMutex::CollectiveMutex()
       : locked(false)
       , request(MPI_REQUEST_NULL)
@@ -1075,6 +1129,10 @@ namespace Utilities
 
     CollectiveMutex::~CollectiveMutex()
     {
+      // First check if this destructor is called during exception handling
+      // if so, abort.
+      internal::CollectiveMutexImplementation::check_exception();
+
       Assert(
         !locked,
         ExcMessage(
@@ -1123,6 +1181,10 @@ namespace Utilities
     CollectiveMutex::unlock(const MPI_Comm &comm)
     {
       (void)comm;
+
+      // First check if this function is called during exception handling
+      // if so, abort. This can happen if a ScopedLock is destroyed.
+      internal::CollectiveMutexImplementation::check_exception();
 
       Assert(
         locked,

@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 #if  1  <=  1 
  namespace VectorTools
  {
@@ -67,7 +67,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 #if  1  <=  1 
  namespace VectorTools
  {
@@ -128,129 +128,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
-#if  1  <=  1 
- namespace VectorTools
- {
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  1 > &,
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  1 > &,
- const DoFHandler< 1 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  1 >
- &,
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  1 >
- &,
- const DoFHandler< 1 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
-#if  1  <=  1 
- namespace VectorTools
- {
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  1 > &,
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  1 > &,
- const DoFHandler< 1 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  1 >
- &,
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  1 >
- &,
- const DoFHandler< 1 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 #if  1  <=  2 
  namespace VectorTools
  {
@@ -311,7 +189,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 #if  1  <=  2 
  namespace VectorTools
  {
@@ -372,129 +250,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
-#if  1  <=  2 
- namespace VectorTools
- {
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  2 > &,
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  2 > &,
- const DoFHandler< 1 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  2 >
- &,
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  2 >
- &,
- const DoFHandler< 1 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
-#if  1  <=  2 
- namespace VectorTools
- {
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  2 > &,
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  2 > &,
- const DoFHandler< 1 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  2 >
- &,
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  2 >
- &,
- const DoFHandler< 1 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 #if  1  <=  3 
  namespace VectorTools
  {
@@ -555,7 +311,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 #if  1  <=  3 
  namespace VectorTools
  {
@@ -616,129 +372,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
-#if  1  <=  3 
- namespace VectorTools
- {
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  3 > &,
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  3 > &,
- const DoFHandler< 1 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  3 >
- &,
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  3 >
- &,
- const DoFHandler< 1 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
-#if  1  <=  3 
- namespace VectorTools
- {
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  3 > &,
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  3 > &,
- const DoFHandler< 1 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  3 >
- &,
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  3 >
- &,
- const DoFHandler< 1 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(12))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 #if  2  <=  1 
  namespace VectorTools
  {
@@ -799,7 +433,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(13))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 #if  2  <=  1 
  namespace VectorTools
  {
@@ -860,129 +494,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(14))
-#if  2  <=  1 
- namespace VectorTools
- {
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  1 > &,
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  1 > &,
- const DoFHandler< 2 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  1 >
- &,
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  1 >
- &,
- const DoFHandler< 2 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(15))
-#if  2  <=  1 
- namespace VectorTools
- {
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  1 > &,
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  1 > &,
- const DoFHandler< 2 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  1 >
- &,
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  1 >
- &,
- const DoFHandler< 2 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(16))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 #if  2  <=  2 
  namespace VectorTools
  {
@@ -1043,7 +555,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(17))
+#if (SPLIT_INSTANTIATIONS_CHECK(9))
 #if  2  <=  2 
  namespace VectorTools
  {
@@ -1104,129 +616,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(18))
-#if  2  <=  2 
- namespace VectorTools
- {
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  2 > &,
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  2 > &,
- const DoFHandler< 2 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  2 >
- &,
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  2 >
- &,
- const DoFHandler< 2 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(19))
-#if  2  <=  2 
- namespace VectorTools
- {
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  2 > &,
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  2 > &,
- const DoFHandler< 2 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  2 >
- &,
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  2 >
- &,
- const DoFHandler< 2 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(20))
+#if (SPLIT_INSTANTIATIONS_CHECK(10))
 #if  2  <=  3 
  namespace VectorTools
  {
@@ -1287,7 +677,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(21))
+#if (SPLIT_INSTANTIATIONS_CHECK(11))
 #if  2  <=  3 
  namespace VectorTools
  {
@@ -1348,129 +738,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(22))
-#if  2  <=  3 
- namespace VectorTools
- {
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  3 > &,
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  3 > &,
- const DoFHandler< 2 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  3 >
- &,
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  3 >
- &,
- const DoFHandler< 2 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(23))
-#if  2  <=  3 
- namespace VectorTools
- {
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  3 > &,
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  3 > &,
- const DoFHandler< 2 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  3 >
- &,
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  3 >
- &,
- const DoFHandler< 2 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(24))
+#if (SPLIT_INSTANTIATIONS_CHECK(12))
 #if  3  <=  1 
  namespace VectorTools
  {
@@ -1531,7 +799,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(25))
+#if (SPLIT_INSTANTIATIONS_CHECK(13))
 #if  3  <=  1 
  namespace VectorTools
  {
@@ -1592,129 +860,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(26))
-#if  3  <=  1 
- namespace VectorTools
- {
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  1 > &,
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  1 > &,
- const DoFHandler< 3 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  1 >
- &,
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  1 >
- &,
- const DoFHandler< 3 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(27))
-#if  3  <=  1 
- namespace VectorTools
- {
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  1 > &,
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  1 > &,
- const DoFHandler< 3 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  1 >
- &,
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  1 >
- &,
- const DoFHandler< 3 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(28))
+#if (SPLIT_INSTANTIATIONS_CHECK(14))
 #if  3  <=  2 
  namespace VectorTools
  {
@@ -1775,7 +921,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(29))
+#if (SPLIT_INSTANTIATIONS_CHECK(15))
 #if  3  <=  2 
  namespace VectorTools
  {
@@ -1836,129 +982,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(30))
-#if  3  <=  2 
- namespace VectorTools
- {
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  2 > &,
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  2 > &,
- const DoFHandler< 3 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  2 >
- &,
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  2 >
- &,
- const DoFHandler< 3 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(31))
-#if  3  <=  2 
- namespace VectorTools
- {
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  2 > &,
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  2 > &,
- const DoFHandler< 3 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  2 >
- &,
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  2 >
- &,
- const DoFHandler< 3 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(32))
+#if (SPLIT_INSTANTIATIONS_CHECK(16))
 #if  3  <=  3 
  namespace VectorTools
  {
@@ -2019,7 +1043,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(33))
+#if (SPLIT_INSTANTIATIONS_CHECK(17))
 #if  3  <=  3 
  namespace VectorTools
  {
@@ -2080,129 +1104,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(34))
-#if  3  <=  3 
- namespace VectorTools
- {
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  3 > &,
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  3 > &,
- const DoFHandler< 3 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  3 >
- &,
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  3 >
- &,
- const DoFHandler< 3 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<double> > &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- const ComponentMask &);
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(35))
-#if  3  <=  3 
- namespace VectorTools
- {
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  3 > &,
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  3 > &,
- const DoFHandler< 3 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  3 >
- &,
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  3 >
- &,
- const DoFHandler< 3 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<float> > &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- const ComponentMask &);
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(36))
+#if (SPLIT_INSTANTIATIONS_CHECK(18))
 #if  1  <=  1 
  namespace VectorTools
  {
@@ -2265,7 +1167,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(37))
+#if (SPLIT_INSTANTIATIONS_CHECK(19))
 #if  1  <=  1 
  namespace VectorTools
  {
@@ -2328,133 +1230,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(38))
-#if  1  <=  1 
- namespace VectorTools
- {
-
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  1 > &,
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  1 > &,
- const DoFHandler< 1 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  1 >
- &,
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  1 >
- &,
- const DoFHandler< 1 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(39))
-#if  1  <=  1 
- namespace VectorTools
- {
-
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  1 > &,
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  1 > &,
- const DoFHandler< 1 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  1 >
- &,
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  1 >
- &,
- const DoFHandler< 1 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(40))
+#if (SPLIT_INSTANTIATIONS_CHECK(20))
 #if  1  <=  2 
  namespace VectorTools
  {
@@ -2517,7 +1293,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(41))
+#if (SPLIT_INSTANTIATIONS_CHECK(21))
 #if  1  <=  2 
  namespace VectorTools
  {
@@ -2580,133 +1356,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(42))
-#if  1  <=  2 
- namespace VectorTools
- {
-
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  2 > &,
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  2 > &,
- const DoFHandler< 1 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  2 >
- &,
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  2 >
- &,
- const DoFHandler< 1 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(43))
-#if  1  <=  2 
- namespace VectorTools
- {
-
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  2 > &,
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  2 > &,
- const DoFHandler< 1 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  2 >
- &,
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  2 >
- &,
- const DoFHandler< 1 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(44))
+#if (SPLIT_INSTANTIATIONS_CHECK(22))
 #if  1  <=  3 
  namespace VectorTools
  {
@@ -2769,7 +1419,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(45))
+#if (SPLIT_INSTANTIATIONS_CHECK(23))
 #if  1  <=  3 
  namespace VectorTools
  {
@@ -2832,133 +1482,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(46))
-#if  1  <=  3 
- namespace VectorTools
- {
-
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  3 > &,
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  3 > &,
- const DoFHandler< 1 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  3 >
- &,
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  3 >
- &,
- const DoFHandler< 1 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(47))
-#if  1  <=  3 
- namespace VectorTools
- {
-
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  3 > &,
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 1 ,  3 > &,
- const DoFHandler< 1 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  3 >
- &,
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 1 ,  3 >
- &,
- const DoFHandler< 1 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(48))
+#if (SPLIT_INSTANTIATIONS_CHECK(24))
 #if  2  <=  1 
  namespace VectorTools
  {
@@ -3021,7 +1545,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(49))
+#if (SPLIT_INSTANTIATIONS_CHECK(25))
 #if  2  <=  1 
  namespace VectorTools
  {
@@ -3084,133 +1608,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(50))
-#if  2  <=  1 
- namespace VectorTools
- {
-
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  1 > &,
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  1 > &,
- const DoFHandler< 2 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  1 >
- &,
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  1 >
- &,
- const DoFHandler< 2 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(51))
-#if  2  <=  1 
- namespace VectorTools
- {
-
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  1 > &,
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  1 > &,
- const DoFHandler< 2 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  1 >
- &,
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  1 >
- &,
- const DoFHandler< 2 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(52))
+#if (SPLIT_INSTANTIATIONS_CHECK(26))
 #if  2  <=  2 
  namespace VectorTools
  {
@@ -3273,7 +1671,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(53))
+#if (SPLIT_INSTANTIATIONS_CHECK(27))
 #if  2  <=  2 
  namespace VectorTools
  {
@@ -3336,133 +1734,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(54))
-#if  2  <=  2 
- namespace VectorTools
- {
-
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  2 > &,
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  2 > &,
- const DoFHandler< 2 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  2 >
- &,
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  2 >
- &,
- const DoFHandler< 2 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(55))
-#if  2  <=  2 
- namespace VectorTools
- {
-
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  2 > &,
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  2 > &,
- const DoFHandler< 2 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  2 >
- &,
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  2 >
- &,
- const DoFHandler< 2 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(56))
+#if (SPLIT_INSTANTIATIONS_CHECK(28))
 #if  2  <=  3 
  namespace VectorTools
  {
@@ -3525,7 +1797,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(57))
+#if (SPLIT_INSTANTIATIONS_CHECK(29))
 #if  2  <=  3 
  namespace VectorTools
  {
@@ -3588,133 +1860,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(58))
-#if  2  <=  3 
- namespace VectorTools
- {
-
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  3 > &,
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  3 > &,
- const DoFHandler< 2 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  3 >
- &,
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  3 >
- &,
- const DoFHandler< 2 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(59))
-#if  2  <=  3 
- namespace VectorTools
- {
-
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  3 > &,
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 2 ,  3 > &,
- const DoFHandler< 2 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  3 >
- &,
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 2 ,  3 >
- &,
- const DoFHandler< 2 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(60))
+#if (SPLIT_INSTANTIATIONS_CHECK(30))
 #if  3  <=  1 
  namespace VectorTools
  {
@@ -3777,7 +1923,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(61))
+#if (SPLIT_INSTANTIATIONS_CHECK(31))
 #if  3  <=  1 
  namespace VectorTools
  {
@@ -3840,133 +1986,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(62))
-#if  3  <=  1 
- namespace VectorTools
- {
-
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  1 > &,
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  1 > &,
- const DoFHandler< 3 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  1 >
- &,
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  1 >
- &,
- const DoFHandler< 3 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(63))
-#if  3  <=  1 
- namespace VectorTools
- {
-
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  1 > &,
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  1 > &,
- const DoFHandler< 3 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  1 >
- &,
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  1 >
- &,
- const DoFHandler< 3 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  1 > &,
- const types::boundary_id,
- const Function< 1 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(64))
+#if (SPLIT_INSTANTIATIONS_CHECK(32))
 #if  3  <=  2 
  namespace VectorTools
  {
@@ -4029,7 +2049,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(65))
+#if (SPLIT_INSTANTIATIONS_CHECK(33))
 #if  3  <=  2 
  namespace VectorTools
  {
@@ -4092,133 +2112,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(66))
-#if  3  <=  2 
- namespace VectorTools
- {
-
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  2 > &,
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  2 > &,
- const DoFHandler< 3 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  2 >
- &,
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  2 >
- &,
- const DoFHandler< 3 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(67))
-#if  3  <=  2 
- namespace VectorTools
- {
-
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  2 > &,
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  2 > &,
- const DoFHandler< 3 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  2 >
- &,
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  2 >
- &,
- const DoFHandler< 3 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  2 > &,
- const types::boundary_id,
- const Function< 2 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(68))
+#if (SPLIT_INSTANTIATIONS_CHECK(34))
 #if  3  <=  3 
  namespace VectorTools
  {
@@ -4281,7 +2175,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(69))
+#if (SPLIT_INSTANTIATIONS_CHECK(35))
 #if  3  <=  3 
  namespace VectorTools
  {
@@ -4344,133 +2238,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(70))
-#if  3  <=  3 
- namespace VectorTools
- {
-
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  3 > &,
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  3 > &,
- const DoFHandler< 3 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  3 >
- &,
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  3 >
- &,
- const DoFHandler< 3 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<double> > &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- AffineConstraints< std::complex<double> > &,
- const ComponentMask &);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(71))
-#if  3  <=  3 
- namespace VectorTools
- {
-
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  3 > &,
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const Mapping< 3 ,  3 > &,
- const DoFHandler< 3 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  3 >
- &,
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const hp::MappingCollection< 3 ,  3 >
- &,
- const DoFHandler< 3 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  3 > &,
- const types::boundary_id,
- const Function< 3 ,  std::complex<float> > &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- template void
- interpolate_boundary_values(
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- AffineConstraints< std::complex<float> > &,
- const ComponentMask &);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(72))
+#if (SPLIT_INSTANTIATIONS_CHECK(36))
 #if  1  <=  1 
  namespace VectorTools
  {
@@ -4518,7 +2286,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(73))
+#if (SPLIT_INSTANTIATIONS_CHECK(37))
 #if  1  <=  1 
  namespace VectorTools
  {
@@ -4566,103 +2334,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(74))
-#if  1  <=  1 
- namespace VectorTools
- {
-
- template void
- project_boundary_values< 1 >(
- const Mapping< 1 ,  1 > &,
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- const Quadrature< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 >(
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- const Quadrature< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 >(
- const hp::MappingCollection< 1 ,  1 >
- &,
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- const hp::QCollection< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 ,  1 >(
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- const hp::QCollection< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(75))
-#if  1  <=  1 
- namespace VectorTools
- {
-
- template void
- project_boundary_values< 1 >(
- const Mapping< 1 ,  1 > &,
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- const Quadrature< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 >(
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- const Quadrature< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 >(
- const hp::MappingCollection< 1 ,  1 >
- &,
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- const hp::QCollection< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 ,  1 >(
- const DoFHandler< 1 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- const hp::QCollection< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(76))
+#if (SPLIT_INSTANTIATIONS_CHECK(38))
 #if  1  <=  2 
  namespace VectorTools
  {
@@ -4710,7 +2382,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(77))
+#if (SPLIT_INSTANTIATIONS_CHECK(39))
 #if  1  <=  2 
  namespace VectorTools
  {
@@ -4758,103 +2430,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(78))
-#if  1  <=  2 
- namespace VectorTools
- {
-
- template void
- project_boundary_values< 1 >(
- const Mapping< 1 ,  2 > &,
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- const Quadrature< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 >(
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- const Quadrature< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 >(
- const hp::MappingCollection< 1 ,  2 >
- &,
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- const hp::QCollection< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 ,  2 >(
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- const hp::QCollection< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(79))
-#if  1  <=  2 
- namespace VectorTools
- {
-
- template void
- project_boundary_values< 1 >(
- const Mapping< 1 ,  2 > &,
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- const Quadrature< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 >(
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- const Quadrature< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 >(
- const hp::MappingCollection< 1 ,  2 >
- &,
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- const hp::QCollection< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 ,  2 >(
- const DoFHandler< 1 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- const hp::QCollection< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(80))
+#if (SPLIT_INSTANTIATIONS_CHECK(40))
 #if  1  <=  3 
  namespace VectorTools
  {
@@ -4902,7 +2478,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(81))
+#if (SPLIT_INSTANTIATIONS_CHECK(41))
 #if  1  <=  3 
  namespace VectorTools
  {
@@ -4950,103 +2526,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(82))
-#if  1  <=  3 
- namespace VectorTools
- {
-
- template void
- project_boundary_values< 1 >(
- const Mapping< 1 ,  3 > &,
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- const Quadrature< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 >(
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- const Quadrature< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 >(
- const hp::MappingCollection< 1 ,  3 >
- &,
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- const hp::QCollection< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 ,  3 >(
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- const hp::QCollection< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(83))
-#if  1  <=  3 
- namespace VectorTools
- {
-
- template void
- project_boundary_values< 1 >(
- const Mapping< 1 ,  3 > &,
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- const Quadrature< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 >(
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- const Quadrature< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 >(
- const hp::MappingCollection< 1 ,  3 >
- &,
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- const hp::QCollection< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 ,  3 >(
- const DoFHandler< 1 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- const hp::QCollection< 1  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(84))
+#if (SPLIT_INSTANTIATIONS_CHECK(42))
 #if  2  <=  1 
  namespace VectorTools
  {
@@ -5094,7 +2574,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(85))
+#if (SPLIT_INSTANTIATIONS_CHECK(43))
 #if  2  <=  1 
  namespace VectorTools
  {
@@ -5142,103 +2622,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(86))
-#if  2  <=  1 
- namespace VectorTools
- {
-
- template void
- project_boundary_values< 2 >(
- const Mapping< 2 ,  1 > &,
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- const Quadrature< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 >(
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- const Quadrature< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 >(
- const hp::MappingCollection< 2 ,  1 >
- &,
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- const hp::QCollection< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 ,  1 >(
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- const hp::QCollection< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(87))
-#if  2  <=  1 
- namespace VectorTools
- {
-
- template void
- project_boundary_values< 2 >(
- const Mapping< 2 ,  1 > &,
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- const Quadrature< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 >(
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- const Quadrature< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 >(
- const hp::MappingCollection< 2 ,  1 >
- &,
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- const hp::QCollection< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 ,  1 >(
- const DoFHandler< 2 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- const hp::QCollection< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(88))
+#if (SPLIT_INSTANTIATIONS_CHECK(44))
 #if  2  <=  2 
  namespace VectorTools
  {
@@ -5286,7 +2670,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(89))
+#if (SPLIT_INSTANTIATIONS_CHECK(45))
 #if  2  <=  2 
  namespace VectorTools
  {
@@ -5334,103 +2718,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(90))
-#if  2  <=  2 
- namespace VectorTools
- {
-
- template void
- project_boundary_values< 2 >(
- const Mapping< 2 ,  2 > &,
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- const Quadrature< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 >(
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- const Quadrature< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 >(
- const hp::MappingCollection< 2 ,  2 >
- &,
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- const hp::QCollection< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 ,  2 >(
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- const hp::QCollection< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(91))
-#if  2  <=  2 
- namespace VectorTools
- {
-
- template void
- project_boundary_values< 2 >(
- const Mapping< 2 ,  2 > &,
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- const Quadrature< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 >(
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- const Quadrature< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 >(
- const hp::MappingCollection< 2 ,  2 >
- &,
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- const hp::QCollection< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 ,  2 >(
- const DoFHandler< 2 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- const hp::QCollection< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(92))
+#if (SPLIT_INSTANTIATIONS_CHECK(46))
 #if  2  <=  3 
  namespace VectorTools
  {
@@ -5478,7 +2766,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(93))
+#if (SPLIT_INSTANTIATIONS_CHECK(47))
 #if  2  <=  3 
  namespace VectorTools
  {
@@ -5526,103 +2814,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(94))
-#if  2  <=  3 
- namespace VectorTools
- {
-
- template void
- project_boundary_values< 2 >(
- const Mapping< 2 ,  3 > &,
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- const Quadrature< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 >(
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- const Quadrature< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 >(
- const hp::MappingCollection< 2 ,  3 >
- &,
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- const hp::QCollection< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 ,  3 >(
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- const hp::QCollection< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(95))
-#if  2  <=  3 
- namespace VectorTools
- {
-
- template void
- project_boundary_values< 2 >(
- const Mapping< 2 ,  3 > &,
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- const Quadrature< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 >(
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- const Quadrature< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 >(
- const hp::MappingCollection< 2 ,  3 >
- &,
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- const hp::QCollection< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 ,  3 >(
- const DoFHandler< 2 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- const hp::QCollection< 2  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(96))
+#if (SPLIT_INSTANTIATIONS_CHECK(48))
 #if  3  <=  1 
  namespace VectorTools
  {
@@ -5670,7 +2862,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(97))
+#if (SPLIT_INSTANTIATIONS_CHECK(49))
 #if  3  <=  1 
  namespace VectorTools
  {
@@ -5718,103 +2910,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(98))
-#if  3  <=  1 
- namespace VectorTools
- {
-
- template void
- project_boundary_values< 3 >(
- const Mapping< 3 ,  1 > &,
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- const Quadrature< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 >(
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- const Quadrature< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 >(
- const hp::MappingCollection< 3 ,  1 >
- &,
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- const hp::QCollection< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 ,  1 >(
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- const hp::QCollection< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(99))
-#if  3  <=  1 
- namespace VectorTools
- {
-
- template void
- project_boundary_values< 3 >(
- const Mapping< 3 ,  1 > &,
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- const Quadrature< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 >(
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- const Quadrature< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 >(
- const hp::MappingCollection< 3 ,  1 >
- &,
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- const hp::QCollection< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 ,  1 >(
- const DoFHandler< 3 ,  1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- const hp::QCollection< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(100))
+#if (SPLIT_INSTANTIATIONS_CHECK(50))
 #if  3  <=  2 
  namespace VectorTools
  {
@@ -5862,7 +2958,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(101))
+#if (SPLIT_INSTANTIATIONS_CHECK(51))
 #if  3  <=  2 
  namespace VectorTools
  {
@@ -5910,103 +3006,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(102))
-#if  3  <=  2 
- namespace VectorTools
- {
-
- template void
- project_boundary_values< 3 >(
- const Mapping< 3 ,  2 > &,
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- const Quadrature< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 >(
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- const Quadrature< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 >(
- const hp::MappingCollection< 3 ,  2 >
- &,
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- const hp::QCollection< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 ,  2 >(
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- const hp::QCollection< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(103))
-#if  3  <=  2 
- namespace VectorTools
- {
-
- template void
- project_boundary_values< 3 >(
- const Mapping< 3 ,  2 > &,
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- const Quadrature< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 >(
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- const Quadrature< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 >(
- const hp::MappingCollection< 3 ,  2 >
- &,
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- const hp::QCollection< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 ,  2 >(
- const DoFHandler< 3 ,  2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- const hp::QCollection< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(104))
+#if (SPLIT_INSTANTIATIONS_CHECK(52))
 #if  3  <=  3 
  namespace VectorTools
  {
@@ -6054,7 +3054,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(105))
+#if (SPLIT_INSTANTIATIONS_CHECK(53))
 #if  3  <=  3 
  namespace VectorTools
  {
@@ -6102,103 +3102,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(106))
-#if  3  <=  3 
- namespace VectorTools
- {
-
- template void
- project_boundary_values< 3 >(
- const Mapping< 3 ,  3 > &,
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- const Quadrature< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 >(
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- const Quadrature< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 >(
- const hp::MappingCollection< 3 ,  3 >
- &,
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- const hp::QCollection< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 ,  3 >(
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- const hp::QCollection< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<double> > &,
- std::vector<unsigned int>);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(107))
-#if  3  <=  3 
- namespace VectorTools
- {
-
- template void
- project_boundary_values< 3 >(
- const Mapping< 3 ,  3 > &,
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- const Quadrature< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 >(
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- const Quadrature< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 >(
- const hp::MappingCollection< 3 ,  3 >
- &,
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- const hp::QCollection< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 ,  3 >(
- const DoFHandler< 3 ,  3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- const hp::QCollection< 3  - 1> &,
- std::map<types::global_dof_index,  std::complex<float> > &,
- std::vector<unsigned int>);
-
- }
-#endif
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(108))
+#if (SPLIT_INSTANTIATIONS_CHECK(54))
 namespace VectorTools
  {
 #if  1  ==  1 
@@ -6226,7 +3130,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(109))
+#if (SPLIT_INSTANTIATIONS_CHECK(55))
 namespace VectorTools
  {
 #if  1  ==  1 
@@ -6254,63 +3158,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(110))
-namespace VectorTools
- {
-#if  1  ==  1 
-
-
- template void
- project_boundary_values< 1 >(
- const Mapping< 1 > &,
- const DoFHandler< 1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- const Quadrature< 1  - 1> &,
- AffineConstraints< std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 >(
- const DoFHandler< 1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- const Quadrature< 1  - 1> &,
- AffineConstraints< std::complex<double> > &,
- std::vector<unsigned int>);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(111))
-namespace VectorTools
- {
-#if  1  ==  1 
-
-
- template void
- project_boundary_values< 1 >(
- const Mapping< 1 > &,
- const DoFHandler< 1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- const Quadrature< 1  - 1> &,
- AffineConstraints< std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 >(
- const DoFHandler< 1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- const Quadrature< 1  - 1> &,
- AffineConstraints< std::complex<float> > &,
- std::vector<unsigned int>);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(112))
+#if (SPLIT_INSTANTIATIONS_CHECK(56))
 namespace VectorTools
  {
 #if  1  ==  2 
@@ -6338,7 +3186,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(113))
+#if (SPLIT_INSTANTIATIONS_CHECK(57))
 namespace VectorTools
  {
 #if  1  ==  2 
@@ -6366,63 +3214,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(114))
-namespace VectorTools
- {
-#if  1  ==  2 
-
-
- template void
- project_boundary_values< 1 >(
- const Mapping< 1 > &,
- const DoFHandler< 1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- const Quadrature< 1  - 1> &,
- AffineConstraints< std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 >(
- const DoFHandler< 1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- const Quadrature< 1  - 1> &,
- AffineConstraints< std::complex<double> > &,
- std::vector<unsigned int>);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(115))
-namespace VectorTools
- {
-#if  1  ==  2 
-
-
- template void
- project_boundary_values< 1 >(
- const Mapping< 1 > &,
- const DoFHandler< 1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- const Quadrature< 1  - 1> &,
- AffineConstraints< std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 >(
- const DoFHandler< 1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- const Quadrature< 1  - 1> &,
- AffineConstraints< std::complex<float> > &,
- std::vector<unsigned int>);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(116))
+#if (SPLIT_INSTANTIATIONS_CHECK(58))
 namespace VectorTools
  {
 #if  1  ==  3 
@@ -6450,7 +3242,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(117))
+#if (SPLIT_INSTANTIATIONS_CHECK(59))
 namespace VectorTools
  {
 #if  1  ==  3 
@@ -6478,63 +3270,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(118))
-namespace VectorTools
- {
-#if  1  ==  3 
-
-
- template void
- project_boundary_values< 1 >(
- const Mapping< 1 > &,
- const DoFHandler< 1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- const Quadrature< 1  - 1> &,
- AffineConstraints< std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 >(
- const DoFHandler< 1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<double> > *> &,
- const Quadrature< 1  - 1> &,
- AffineConstraints< std::complex<double> > &,
- std::vector<unsigned int>);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(119))
-namespace VectorTools
- {
-#if  1  ==  3 
-
-
- template void
- project_boundary_values< 1 >(
- const Mapping< 1 > &,
- const DoFHandler< 1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- const Quadrature< 1  - 1> &,
- AffineConstraints< std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 1 >(
- const DoFHandler< 1 > &,
- const std::map<types::boundary_id,
- const Function< 1 ,  std::complex<float> > *> &,
- const Quadrature< 1  - 1> &,
- AffineConstraints< std::complex<float> > &,
- std::vector<unsigned int>);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(120))
+#if (SPLIT_INSTANTIATIONS_CHECK(60))
 namespace VectorTools
  {
 #if  2  ==  1 
@@ -6562,7 +3298,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(121))
+#if (SPLIT_INSTANTIATIONS_CHECK(61))
 namespace VectorTools
  {
 #if  2  ==  1 
@@ -6590,63 +3326,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(122))
-namespace VectorTools
- {
-#if  2  ==  1 
-
-
- template void
- project_boundary_values< 2 >(
- const Mapping< 2 > &,
- const DoFHandler< 2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- const Quadrature< 2  - 1> &,
- AffineConstraints< std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 >(
- const DoFHandler< 2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- const Quadrature< 2  - 1> &,
- AffineConstraints< std::complex<double> > &,
- std::vector<unsigned int>);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(123))
-namespace VectorTools
- {
-#if  2  ==  1 
-
-
- template void
- project_boundary_values< 2 >(
- const Mapping< 2 > &,
- const DoFHandler< 2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- const Quadrature< 2  - 1> &,
- AffineConstraints< std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 >(
- const DoFHandler< 2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- const Quadrature< 2  - 1> &,
- AffineConstraints< std::complex<float> > &,
- std::vector<unsigned int>);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(124))
+#if (SPLIT_INSTANTIATIONS_CHECK(62))
 namespace VectorTools
  {
 #if  2  ==  2 
@@ -6674,7 +3354,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(125))
+#if (SPLIT_INSTANTIATIONS_CHECK(63))
 namespace VectorTools
  {
 #if  2  ==  2 
@@ -6702,63 +3382,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(126))
-namespace VectorTools
- {
-#if  2  ==  2 
-
-
- template void
- project_boundary_values< 2 >(
- const Mapping< 2 > &,
- const DoFHandler< 2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- const Quadrature< 2  - 1> &,
- AffineConstraints< std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 >(
- const DoFHandler< 2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- const Quadrature< 2  - 1> &,
- AffineConstraints< std::complex<double> > &,
- std::vector<unsigned int>);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(127))
-namespace VectorTools
- {
-#if  2  ==  2 
-
-
- template void
- project_boundary_values< 2 >(
- const Mapping< 2 > &,
- const DoFHandler< 2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- const Quadrature< 2  - 1> &,
- AffineConstraints< std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 >(
- const DoFHandler< 2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- const Quadrature< 2  - 1> &,
- AffineConstraints< std::complex<float> > &,
- std::vector<unsigned int>);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(128))
+#if (SPLIT_INSTANTIATIONS_CHECK(64))
 namespace VectorTools
  {
 #if  2  ==  3 
@@ -6786,7 +3410,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(129))
+#if (SPLIT_INSTANTIATIONS_CHECK(65))
 namespace VectorTools
  {
 #if  2  ==  3 
@@ -6814,63 +3438,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(130))
-namespace VectorTools
- {
-#if  2  ==  3 
-
-
- template void
- project_boundary_values< 2 >(
- const Mapping< 2 > &,
- const DoFHandler< 2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- const Quadrature< 2  - 1> &,
- AffineConstraints< std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 >(
- const DoFHandler< 2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<double> > *> &,
- const Quadrature< 2  - 1> &,
- AffineConstraints< std::complex<double> > &,
- std::vector<unsigned int>);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(131))
-namespace VectorTools
- {
-#if  2  ==  3 
-
-
- template void
- project_boundary_values< 2 >(
- const Mapping< 2 > &,
- const DoFHandler< 2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- const Quadrature< 2  - 1> &,
- AffineConstraints< std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 2 >(
- const DoFHandler< 2 > &,
- const std::map<types::boundary_id,
- const Function< 2 ,  std::complex<float> > *> &,
- const Quadrature< 2  - 1> &,
- AffineConstraints< std::complex<float> > &,
- std::vector<unsigned int>);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(132))
+#if (SPLIT_INSTANTIATIONS_CHECK(66))
 namespace VectorTools
  {
 #if  3  ==  1 
@@ -6898,7 +3466,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(133))
+#if (SPLIT_INSTANTIATIONS_CHECK(67))
 namespace VectorTools
  {
 #if  3  ==  1 
@@ -6926,63 +3494,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(134))
-namespace VectorTools
- {
-#if  3  ==  1 
-
-
- template void
- project_boundary_values< 3 >(
- const Mapping< 3 > &,
- const DoFHandler< 3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- const Quadrature< 3  - 1> &,
- AffineConstraints< std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 >(
- const DoFHandler< 3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- const Quadrature< 3  - 1> &,
- AffineConstraints< std::complex<double> > &,
- std::vector<unsigned int>);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(135))
-namespace VectorTools
- {
-#if  3  ==  1 
-
-
- template void
- project_boundary_values< 3 >(
- const Mapping< 3 > &,
- const DoFHandler< 3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- const Quadrature< 3  - 1> &,
- AffineConstraints< std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 >(
- const DoFHandler< 3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- const Quadrature< 3  - 1> &,
- AffineConstraints< std::complex<float> > &,
- std::vector<unsigned int>);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(136))
+#if (SPLIT_INSTANTIATIONS_CHECK(68))
 namespace VectorTools
  {
 #if  3  ==  2 
@@ -7010,7 +3522,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(137))
+#if (SPLIT_INSTANTIATIONS_CHECK(69))
 namespace VectorTools
  {
 #if  3  ==  2 
@@ -7038,63 +3550,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(138))
-namespace VectorTools
- {
-#if  3  ==  2 
-
-
- template void
- project_boundary_values< 3 >(
- const Mapping< 3 > &,
- const DoFHandler< 3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- const Quadrature< 3  - 1> &,
- AffineConstraints< std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 >(
- const DoFHandler< 3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- const Quadrature< 3  - 1> &,
- AffineConstraints< std::complex<double> > &,
- std::vector<unsigned int>);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(139))
-namespace VectorTools
- {
-#if  3  ==  2 
-
-
- template void
- project_boundary_values< 3 >(
- const Mapping< 3 > &,
- const DoFHandler< 3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- const Quadrature< 3  - 1> &,
- AffineConstraints< std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 >(
- const DoFHandler< 3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- const Quadrature< 3  - 1> &,
- AffineConstraints< std::complex<float> > &,
- std::vector<unsigned int>);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(140))
+#if (SPLIT_INSTANTIATIONS_CHECK(70))
 namespace VectorTools
  {
 #if  3  ==  3 
@@ -7122,7 +3578,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(141))
+#if (SPLIT_INSTANTIATIONS_CHECK(71))
 namespace VectorTools
  {
 #if  3  ==  3 
@@ -7150,63 +3606,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(142))
-namespace VectorTools
- {
-#if  3  ==  3 
-
-
- template void
- project_boundary_values< 3 >(
- const Mapping< 3 > &,
- const DoFHandler< 3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- const Quadrature< 3  - 1> &,
- AffineConstraints< std::complex<double> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 >(
- const DoFHandler< 3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<double> > *> &,
- const Quadrature< 3  - 1> &,
- AffineConstraints< std::complex<double> > &,
- std::vector<unsigned int>);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(143))
-namespace VectorTools
- {
-#if  3  ==  3 
-
-
- template void
- project_boundary_values< 3 >(
- const Mapping< 3 > &,
- const DoFHandler< 3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- const Quadrature< 3  - 1> &,
- AffineConstraints< std::complex<float> > &,
- std::vector<unsigned int>);
-
- template void
- project_boundary_values< 3 >(
- const DoFHandler< 3 > &,
- const std::map<types::boundary_id,
- const Function< 3 ,  std::complex<float> > *> &,
- const Quadrature< 3  - 1> &,
- AffineConstraints< std::complex<float> > &,
- std::vector<unsigned int>);
-#endif
- }
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(144))
+#if (SPLIT_INSTANTIATIONS_CHECK(72))
 namespace VectorTools
  {
 #if  1  ==  1 
@@ -7253,7 +3653,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(145))
+#if (SPLIT_INSTANTIATIONS_CHECK(73))
 namespace VectorTools
  {
 #if  1  ==  2 
@@ -7300,7 +3700,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(146))
+#if (SPLIT_INSTANTIATIONS_CHECK(74))
 namespace VectorTools
  {
 #if  1  ==  3 
@@ -7347,7 +3747,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(147))
+#if (SPLIT_INSTANTIATIONS_CHECK(75))
 namespace VectorTools
  {
 #if  2  ==  1 
@@ -7394,7 +3794,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(148))
+#if (SPLIT_INSTANTIATIONS_CHECK(76))
 namespace VectorTools
  {
 #if  2  ==  2 
@@ -7441,7 +3841,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(149))
+#if (SPLIT_INSTANTIATIONS_CHECK(77))
 namespace VectorTools
  {
 #if  2  ==  3 
@@ -7488,7 +3888,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(150))
+#if (SPLIT_INSTANTIATIONS_CHECK(78))
 namespace VectorTools
  {
 #if  3  ==  1 
@@ -7535,7 +3935,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(151))
+#if (SPLIT_INSTANTIATIONS_CHECK(79))
 namespace VectorTools
  {
 #if  3  ==  2 
@@ -7582,7 +3982,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(152))
+#if (SPLIT_INSTANTIATIONS_CHECK(80))
 namespace VectorTools
  {
 #if  3  ==  3 
@@ -7629,7 +4029,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(153))
+#if (SPLIT_INSTANTIATIONS_CHECK(81))
 namespace VectorTools
  {
 #if  1  ==  1 
@@ -7658,7 +4058,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(154))
+#if (SPLIT_INSTANTIATIONS_CHECK(82))
 namespace VectorTools
  {
 #if  1  ==  1 
@@ -7687,7 +4087,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(155))
+#if (SPLIT_INSTANTIATIONS_CHECK(83))
 namespace VectorTools
  {
 #if  1  ==  1 
@@ -7716,7 +4116,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(156))
+#if (SPLIT_INSTANTIATIONS_CHECK(84))
 namespace VectorTools
  {
 #if  1  ==  1 
@@ -7745,7 +4145,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(157))
+#if (SPLIT_INSTANTIATIONS_CHECK(85))
 namespace VectorTools
  {
 #if  1  ==  2 
@@ -7774,7 +4174,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(158))
+#if (SPLIT_INSTANTIATIONS_CHECK(86))
 namespace VectorTools
  {
 #if  1  ==  2 
@@ -7803,7 +4203,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(159))
+#if (SPLIT_INSTANTIATIONS_CHECK(87))
 namespace VectorTools
  {
 #if  1  ==  2 
@@ -7832,7 +4232,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(160))
+#if (SPLIT_INSTANTIATIONS_CHECK(88))
 namespace VectorTools
  {
 #if  1  ==  2 
@@ -7861,7 +4261,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(161))
+#if (SPLIT_INSTANTIATIONS_CHECK(89))
 namespace VectorTools
  {
 #if  1  ==  3 
@@ -7890,7 +4290,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(162))
+#if (SPLIT_INSTANTIATIONS_CHECK(90))
 namespace VectorTools
  {
 #if  1  ==  3 
@@ -7919,7 +4319,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(163))
+#if (SPLIT_INSTANTIATIONS_CHECK(91))
 namespace VectorTools
  {
 #if  1  ==  3 
@@ -7948,7 +4348,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(164))
+#if (SPLIT_INSTANTIATIONS_CHECK(92))
 namespace VectorTools
  {
 #if  1  ==  3 
@@ -7977,7 +4377,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(165))
+#if (SPLIT_INSTANTIATIONS_CHECK(93))
 namespace VectorTools
  {
 #if  2  ==  1 
@@ -8006,7 +4406,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(166))
+#if (SPLIT_INSTANTIATIONS_CHECK(94))
 namespace VectorTools
  {
 #if  2  ==  1 
@@ -8035,7 +4435,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(167))
+#if (SPLIT_INSTANTIATIONS_CHECK(95))
 namespace VectorTools
  {
 #if  2  ==  1 
@@ -8064,7 +4464,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(168))
+#if (SPLIT_INSTANTIATIONS_CHECK(96))
 namespace VectorTools
  {
 #if  2  ==  1 
@@ -8093,7 +4493,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(169))
+#if (SPLIT_INSTANTIATIONS_CHECK(97))
 namespace VectorTools
  {
 #if  2  ==  2 
@@ -8122,7 +4522,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(170))
+#if (SPLIT_INSTANTIATIONS_CHECK(98))
 namespace VectorTools
  {
 #if  2  ==  2 
@@ -8151,7 +4551,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(171))
+#if (SPLIT_INSTANTIATIONS_CHECK(99))
 namespace VectorTools
  {
 #if  2  ==  2 
@@ -8180,7 +4580,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(172))
+#if (SPLIT_INSTANTIATIONS_CHECK(100))
 namespace VectorTools
  {
 #if  2  ==  2 
@@ -8209,7 +4609,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(173))
+#if (SPLIT_INSTANTIATIONS_CHECK(101))
 namespace VectorTools
  {
 #if  2  ==  3 
@@ -8238,7 +4638,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(174))
+#if (SPLIT_INSTANTIATIONS_CHECK(102))
 namespace VectorTools
  {
 #if  2  ==  3 
@@ -8267,7 +4667,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(175))
+#if (SPLIT_INSTANTIATIONS_CHECK(103))
 namespace VectorTools
  {
 #if  2  ==  3 
@@ -8296,7 +4696,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(176))
+#if (SPLIT_INSTANTIATIONS_CHECK(104))
 namespace VectorTools
  {
 #if  2  ==  3 
@@ -8325,7 +4725,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(177))
+#if (SPLIT_INSTANTIATIONS_CHECK(105))
 namespace VectorTools
  {
 #if  3  ==  1 
@@ -8354,7 +4754,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(178))
+#if (SPLIT_INSTANTIATIONS_CHECK(106))
 namespace VectorTools
  {
 #if  3  ==  1 
@@ -8383,7 +4783,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(179))
+#if (SPLIT_INSTANTIATIONS_CHECK(107))
 namespace VectorTools
  {
 #if  3  ==  1 
@@ -8412,7 +4812,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(180))
+#if (SPLIT_INSTANTIATIONS_CHECK(108))
 namespace VectorTools
  {
 #if  3  ==  1 
@@ -8441,7 +4841,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(181))
+#if (SPLIT_INSTANTIATIONS_CHECK(109))
 namespace VectorTools
  {
 #if  3  ==  2 
@@ -8470,7 +4870,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(182))
+#if (SPLIT_INSTANTIATIONS_CHECK(110))
 namespace VectorTools
  {
 #if  3  ==  2 
@@ -8499,7 +4899,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(183))
+#if (SPLIT_INSTANTIATIONS_CHECK(111))
 namespace VectorTools
  {
 #if  3  ==  2 
@@ -8528,7 +4928,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(184))
+#if (SPLIT_INSTANTIATIONS_CHECK(112))
 namespace VectorTools
  {
 #if  3  ==  2 
@@ -8557,7 +4957,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(185))
+#if (SPLIT_INSTANTIATIONS_CHECK(113))
 namespace VectorTools
  {
 #if  3  ==  3 
@@ -8586,7 +4986,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(186))
+#if (SPLIT_INSTANTIATIONS_CHECK(114))
 namespace VectorTools
  {
 #if  3  ==  3 
@@ -8615,7 +5015,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(187))
+#if (SPLIT_INSTANTIATIONS_CHECK(115))
 namespace VectorTools
  {
 #if  3  ==  3 
@@ -8644,7 +5044,7 @@ namespace VectorTools
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(188))
+#if (SPLIT_INSTANTIATIONS_CHECK(116))
 namespace VectorTools
  {
 #if  3  ==  3 

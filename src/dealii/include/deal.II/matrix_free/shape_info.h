@@ -82,34 +82,40 @@ namespace internal
       tensor_symmetric = 2,
 
       /**
+       * For function spaces that are not equivalent to a polynom of degree p,
+       * which the assumption of collocation is.
+       */
+      tensor_symmetric_no_collocation = 3,
+
+      /**
        * Tensor product shape functions without further particular properties
        */
-      tensor_general = 3,
+      tensor_general = 4,
 
       /**
        * Polynomials of complete degree rather than tensor degree which can be
        * described by a truncated tensor product
        */
-      truncated_tensor = 4,
+      truncated_tensor = 5,
 
       /**
        * Tensor product shape functions that are symmetric about the midpoint
        * of the unit interval 0.5 that additionally add a constant shape
        * function according to FE_Q_DG0.
        */
-      tensor_symmetric_plus_dg0 = 5,
+      tensor_symmetric_plus_dg0 = 6,
 
       /**
        * Special case of the FE_RaviartThomasNodal element with anisotropic
        * tensor product shape functions, i.e degree (k + 1) in normal direction,
        * and k in tangential direction.
        */
-      tensor_raviart_thomas = 6,
+      tensor_raviart_thomas = 7,
 
       /**
        * Shape functions without a tensor product properties.
        */
-      tensor_none = 7
+      tensor_none = 8
 
 
     };
@@ -241,8 +247,8 @@ namespace internal
 
       /**
        * Collects all data of 1D shape values evaluated at the point 0 and 1
-       * (the vertices) in one data structure. Sorting is first the values,
-       * then gradients, then second derivatives.
+       * (the vertices) in one data structure. The sorting of data is to
+       * start with the values, then gradients, then second derivatives.
        */
       std::array<AlignedVector<Number>, 2> shape_data_on_face;
 
@@ -252,9 +258,8 @@ namespace internal
        * point 0 and 1 (the vertices) in one data structure.
        *
        * This data structure can be used to interpolate from the cell to the
-       * face quadrature points.
-       *
-       * @note In contrast to shape_data_on_face, only the vales are evaluated.
+       * face quadrature points. The sorting of data is to start with the
+       * values, then gradients, then second derivatives.
        */
       std::array<AlignedVector<Number>, 2> quadrature_data_on_face;
 

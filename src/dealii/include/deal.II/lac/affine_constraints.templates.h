@@ -3684,10 +3684,10 @@ namespace internal
 
     // similar function as the one above for setting matrix diagonals, but now
     // doing that for sparsity patterns when setting them up using
-    // add_entries_local_to_global. In case we keep constrained entries, add all
-    // the rows and columns related to the constrained dof, otherwise just add
-    // the diagonal
-    template <typename number, typename SparsityPatternType>
+    // add_entries_local_to_global(). In case we keep constrained entries, add
+    // all the rows and columns related to the constrained dof, otherwise just
+    // add the diagonal
+    template <typename number>
     inline void
     set_sparsity_diagonals(
       const internal::AffineConstraints::GlobalRowsFromLocal<number>
@@ -3695,13 +3695,18 @@ namespace internal
       const std::vector<size_type> &local_dof_indices,
       const Table<2, bool> &        dof_mask,
       const bool                    keep_constrained_entries,
-      SparsityPatternType &         sparsity_pattern)
+      ScratchData<number> &         scratch_data,
+      SparsityPatternBase &         sparsity_pattern)
     {
       // if we got constraints, need to add the diagonal element and, if the
       // user requested so, also the rest of the entries in rows and columns
       // that have been left out above
       if (global_rows.n_constraints() > 0)
         {
+          std::vector<std::pair<size_type, size_type>> &cell_entries =
+            scratch_data.new_entries;
+          cell_entries.resize(0);
+          cell_entries.reserve(local_dof_indices.size());
           for (size_type i = 0; i < global_rows.n_constraints(); ++i)
             {
               const size_type local_row  = global_rows.constraint_origin(i);
@@ -3711,15 +3716,18 @@ namespace internal
                   for (size_type j = 0; j < local_dof_indices.size(); ++j)
                     {
                       if (dof_mask(local_row, j) == true)
-                        sparsity_pattern.add(global_row, local_dof_indices[j]);
+                        cell_entries.emplace_back(global_row,
+                                                  local_dof_indices[j]);
                       if (dof_mask(j, local_row) == true)
-                        sparsity_pattern.add(local_dof_indices[j], global_row);
+                        cell_entries.emplace_back(local_dof_indices[j],
+                                                  global_row);
                     }
                 }
               else
                 // don't keep constrained entries - just add the diagonal.
-                sparsity_pattern.add(global_row, global_row);
+                cell_entries.emplace_back(global_row, global_row);
             }
+          sparsity_pattern.add_entries(make_array_view(cell_entries));
         }
     }
 
@@ -4275,14 +4283,12 @@ AffineConstraints<number>::distribute_local_to_global(
 
 
 template <typename number>
-template <typename SparsityPatternType>
 void
 AffineConstraints<number>::add_entries_local_to_global(
   const std::vector<size_type> &local_dof_indices,
-  SparsityPatternType &         sparsity_pattern,
+  SparsityPatternBase &         sparsity_pattern,
   const bool                    keep_constrained_entries,
-  const Table<2, bool> &        dof_mask,
-  const std::integral_constant<bool, false>) const
+  const Table<2, bool> &        dof_mask) const
 {
   Assert(sparsity_pattern.n_rows() == sparsity_pattern.n_cols(),
          ExcNotQuadratic());
@@ -4310,28 +4316,34 @@ AffineConstraints<number>::add_entries_local_to_global(
       // now add the indices we collected above to the sparsity pattern. Very
       // easy here - just add the same array to all the rows...
       for (size_type i = 0; i < n_actual_dofs; ++i)
-        sparsity_pattern.add_entries(actual_dof_indices[i],
-                                     actual_dof_indices.begin(),
-                                     actual_dof_indices.end(),
-                                     true);
+        sparsity_pattern.add_row_entries(actual_dof_indices[i],
+                                         make_array_view(actual_dof_indices),
+                                         true);
 
       // need to add the whole row and column structure in case we keep
-      // constrained entries. Unfortunately, we can't use the nice matrix
-      // structure we use elsewhere, so manually add those indices one by one.
+      // constrained entries.
+      std::vector<std::pair<size_type, size_type>> &cell_entries =
+        scratch_data->new_entries;
+      cell_entries.resize(0);
+      cell_entries.reserve(n_local_dofs);
       for (size_type i = 0; i < n_local_dofs; ++i)
         if (is_constrained(local_dof_indices[i]))
           {
             if (keep_constrained_entries == true)
               for (size_type j = 0; j < n_local_dofs; ++j)
                 {
-                  sparsity_pattern.add(local_dof_indices[i],
-                                       local_dof_indices[j]);
-                  sparsity_pattern.add(local_dof_indices[j],
-                                       local_dof_indices[i]);
+                  cell_entries.emplace_back(local_dof_indices[i],
+                                            local_dof_indices[j]);
+                  cell_entries.emplace_back(local_dof_indices[j],
+                                            local_dof_indices[i]);
                 }
             else
-              sparsity_pattern.add(local_dof_indices[i], local_dof_indices[i]);
+              {
+                cell_entries.emplace_back(local_dof_indices[i],
+                                          local_dof_indices[i]);
+              }
           }
+      sparsity_pattern.add_entries(make_array_view(cell_entries));
 
       return;
     }
@@ -4360,30 +4372,39 @@ AffineConstraints<number>::add_entries_local_to_global(
       // finally, write all the information that accumulated under the given
       // process into the global matrix row and into the vector
       if (col_ptr != cols.begin())
-        sparsity_pattern.add_entries(row, cols.begin(), col_ptr, true);
+        sparsity_pattern.add_row_entries(row,
+                                         make_array_view(cols.begin(), col_ptr),
+                                         true);
     }
   internal::AffineConstraints::set_sparsity_diagonals(global_rows,
                                                       local_dof_indices,
                                                       dof_mask,
                                                       keep_constrained_entries,
+                                                      *scratch_data,
                                                       sparsity_pattern);
 }
 
 
 
 template <typename number>
-template <typename SparsityPatternType>
 void
 AffineConstraints<number>::add_entries_local_to_global(
   const std::vector<size_type> &   row_indices,
   const AffineConstraints<number> &col_constraints,
   const std::vector<size_type> &   col_indices,
-  SparsityPatternType &            sparsity_pattern,
+  SparsityPatternBase &            sparsity_pattern,
   const bool                       keep_constrained_entries,
   const Table<2, bool> &           dof_mask) const
 {
   const size_type n_local_rows = row_indices.size();
   const size_type n_local_cols = col_indices.size();
+
+  typename internal::AffineConstraints::ScratchDataAccessor<number>
+    scratch_data(this->scratch_data);
+  std::vector<std::pair<size_type, size_type>> &cell_entries =
+    scratch_data->new_entries;
+  cell_entries.resize(0);
+  cell_entries.reserve(row_indices.size() * col_indices.size());
 
   // if constrained entries should be kept, need to add rows and columns of
   // those to the sparsity pattern
@@ -4392,11 +4413,12 @@ AffineConstraints<number>::add_entries_local_to_global(
       for (const size_type row_index : row_indices)
         if (is_constrained(row_index))
           for (const size_type col_index : col_indices)
-            sparsity_pattern.add(row_index, col_index);
+            cell_entries.emplace_back(row_index, col_index);
       for (const size_type col_index : col_indices)
         if (col_constraints.is_constrained(col_index))
           for (const size_type row_index : row_indices)
-            sparsity_pattern.add(row_index, col_index);
+            cell_entries.emplace_back(row_index, col_index);
+      sparsity_pattern.add_entries(make_array_view(cell_entries));
     }
 
   // if the dof mask is not active, all we have to do is to add some indices
@@ -4407,19 +4429,26 @@ AffineConstraints<number>::add_entries_local_to_global(
     dof_mask.n_rows() == n_local_rows && dof_mask.n_cols() == n_local_cols;
   if (dof_mask_is_active == false)
     {
-      std::vector<size_type> actual_row_indices(n_local_rows);
-      std::vector<size_type> actual_col_indices(n_local_cols);
-      make_sorted_row_list(row_indices, actual_row_indices);
-      col_constraints.make_sorted_row_list(col_indices, actual_col_indices);
-      const size_type n_actual_rows = actual_row_indices.size();
+      std::vector<size_type> &rows = scratch_data->rows;
+      std::vector<size_type> &cols = scratch_data->columns;
+      rows.resize(n_local_rows);
+      cols.resize(n_local_cols);
+      // TODO these fills may not be necessary: previously we assumed all zeros
+      // which seems incorrect. At least this way things will crash
+      std::fill(rows.begin(),
+                rows.end(),
+                std::numeric_limits<size_type>::max());
+      std::fill(cols.begin(),
+                cols.end(),
+                std::numeric_limits<size_type>::max());
+      make_sorted_row_list(row_indices, rows);
+      col_constraints.make_sorted_row_list(col_indices, cols);
+      const size_type n_actual_rows = rows.size();
 
       // now add the indices we collected above to the sparsity pattern. Very
       // easy here - just add the same array to all the rows...
       for (size_type i = 0; i < n_actual_rows; ++i)
-        sparsity_pattern.add_entries(actual_row_indices[i],
-                                     actual_col_indices.begin(),
-                                     actual_col_indices.end(),
-                                     true);
+        sparsity_pattern.add_row_entries(rows[i], make_array_view(cols), true);
       return;
     }
 
@@ -4430,12 +4459,11 @@ AffineConstraints<number>::add_entries_local_to_global(
 
 
 template <typename number>
-template <typename SparsityPatternType>
 void
 AffineConstraints<number>::add_entries_local_to_global(
   const std::vector<size_type> &row_indices,
   const std::vector<size_type> &col_indices,
-  SparsityPatternType &         sparsity_pattern,
+  SparsityPatternBase &         sparsity_pattern,
   const bool                    keep_constrained_entries,
   const Table<2, bool> &        dof_mask) const
 {
@@ -4446,140 +4474,6 @@ AffineConstraints<number>::add_entries_local_to_global(
                               sparsity_pattern,
                               keep_constrained_entries,
                               dof_mask);
-}
-
-
-
-template <typename number>
-template <typename SparsityPatternType>
-void
-AffineConstraints<number>::add_entries_local_to_global(
-  const std::vector<size_type> &local_dof_indices,
-  SparsityPatternType &         sparsity_pattern,
-  const bool                    keep_constrained_entries,
-  const Table<2, bool> &        dof_mask,
-  const std::integral_constant<bool, true>) const
-{
-  // just as the other add_entries_local_to_global function, but now
-  // specialized for block matrices.
-  Assert(sparsity_pattern.n_rows() == sparsity_pattern.n_cols(),
-         ExcNotQuadratic());
-  Assert(sparsity_pattern.n_block_rows() == sparsity_pattern.n_block_cols(),
-         ExcNotQuadratic());
-
-  const size_type n_local_dofs = local_dof_indices.size();
-  const size_type num_blocks   = sparsity_pattern.n_block_rows();
-
-  typename internal::AffineConstraints::ScratchDataAccessor<number>
-    scratch_data(this->scratch_data);
-
-  const bool dof_mask_is_active = (dof_mask.n_rows() == n_local_dofs);
-  if (dof_mask_is_active == true)
-    {
-      AssertDimension(dof_mask.n_cols(), n_local_dofs);
-    }
-  else
-    {
-      std::vector<size_type> &actual_dof_indices = scratch_data->columns;
-      actual_dof_indices.resize(n_local_dofs);
-      make_sorted_row_list(local_dof_indices, actual_dof_indices);
-      const size_type n_actual_dofs = actual_dof_indices.size();
-      (void)n_actual_dofs;
-
-      // additional construct that also takes care of block indices.
-      std::vector<size_type> &block_starts = scratch_data->block_starts;
-      block_starts.resize(num_blocks + 1);
-      internal::AffineConstraints::make_block_starts(sparsity_pattern,
-                                                     actual_dof_indices,
-                                                     block_starts);
-
-      for (size_type block = 0; block < num_blocks; ++block)
-        {
-          const size_type next_block = block_starts[block + 1];
-          for (size_type i = block_starts[block]; i < next_block; ++i)
-            {
-              Assert(i < n_actual_dofs, ExcInternalError());
-              const size_type row = actual_dof_indices[i];
-              Assert(row < sparsity_pattern.block(block, 0).n_rows(),
-                     ExcInternalError());
-              std::vector<size_type>::iterator index_it =
-                actual_dof_indices.begin();
-              for (size_type block_col = 0; block_col < num_blocks; ++block_col)
-                {
-                  const size_type next_block_col = block_starts[block_col + 1];
-                  sparsity_pattern.block(block, block_col)
-                    .add_entries(row,
-                                 index_it,
-                                 actual_dof_indices.begin() + next_block_col,
-                                 true);
-                  index_it = actual_dof_indices.begin() + next_block_col;
-                }
-            }
-        }
-
-      for (size_type i = 0; i < n_local_dofs; ++i)
-        if (is_constrained(local_dof_indices[i]))
-          {
-            if (keep_constrained_entries == true)
-              for (size_type j = 0; j < n_local_dofs; ++j)
-                {
-                  sparsity_pattern.add(local_dof_indices[i],
-                                       local_dof_indices[j]);
-                  sparsity_pattern.add(local_dof_indices[j],
-                                       local_dof_indices[i]);
-                }
-            else
-              sparsity_pattern.add(local_dof_indices[i], local_dof_indices[i]);
-          }
-
-      return;
-    }
-
-  // difficult case with dof_mask, similar to the distribute_local_to_global
-  // function for block matrices
-  internal::AffineConstraints::GlobalRowsFromLocal<number> &global_rows =
-    scratch_data->global_rows;
-  global_rows.reinit(n_local_dofs);
-  make_sorted_row_list(local_dof_indices, global_rows);
-  const size_type n_actual_dofs = global_rows.size();
-
-  // additional construct that also takes care of block indices.
-  std::vector<size_type> &block_starts = scratch_data->block_starts;
-  block_starts.resize(num_blocks + 1);
-  internal::AffineConstraints::make_block_starts(sparsity_pattern,
-                                                 global_rows,
-                                                 block_starts);
-
-  std::vector<size_type> &cols = scratch_data->columns;
-  cols.resize(n_actual_dofs);
-
-  // the basic difference to the non-block variant from now onwards is that we
-  // go through the blocks of the matrix separately.
-  for (size_type block = 0; block < num_blocks; ++block)
-    {
-      const size_type next_block = block_starts[block + 1];
-      for (size_type i = block_starts[block]; i < next_block; ++i)
-        {
-          const size_type row = global_rows.global_row(i);
-          for (size_type block_col = 0; block_col < num_blocks; ++block_col)
-            {
-              const size_type begin_block = block_starts[block_col],
-                              end_block   = block_starts[block_col + 1];
-              std::vector<size_type>::iterator col_ptr = cols.begin();
-              internal::AffineConstraints::resolve_matrix_row(
-                global_rows, i, begin_block, end_block, dof_mask, col_ptr);
-
-              sparsity_pattern.block(block, block_col)
-                .add_entries(row, cols.begin(), col_ptr, true);
-            }
-        }
-    }
-
-  internal::AffineConstraints::set_sparsity_diagonals(global_rows,
-                                                      local_dof_indices,
-                                                      dof_mask,
-                                                      keep_constrained_entries,
-                                                      sparsity_pattern);
 }
 
 DEAL_II_NAMESPACE_CLOSE

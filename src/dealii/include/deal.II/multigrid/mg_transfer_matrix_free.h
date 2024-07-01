@@ -35,8 +35,10 @@
 DEAL_II_NAMESPACE_OPEN
 
 
-/*!@addtogroup mg */
-/*@{*/
+/**
+ * @addtogroup mg
+ * @{
+ */
 
 /**
  * Implementation of the MGTransferBase interface for which the transfer
@@ -179,12 +181,12 @@ public:
    *
    * The use of this function is demonstrated in step-66.
    */
-  template <typename Number2, int spacedim>
+  template <typename BlockVectorType2, int spacedim>
   void
   interpolate_to_mg(
     const DoFHandler<dim, spacedim> &                          dof_handler,
     MGLevelObject<LinearAlgebra::distributed::Vector<Number>> &dst,
-    const LinearAlgebra::distributed::Vector<Number2> &        src) const;
+    const BlockVectorType2 &                                   src) const;
 
   /**
    * Finite element does not provide prolongation matrices.
@@ -385,42 +387,42 @@ public:
    * This function will initialize @p dst accordingly if needed as required by
    * the Multigrid class.
    */
-  template <typename Number2, int spacedim>
+  template <typename BlockVectorType2, int spacedim>
   void
   copy_to_mg(
     const DoFHandler<dim, spacedim> &                               dof_handler,
     MGLevelObject<LinearAlgebra::distributed::BlockVector<Number>> &dst,
-    const LinearAlgebra::distributed::BlockVector<Number2> &        src) const;
+    const BlockVectorType2 &                                        src) const;
 
   /**
    * Same as above for the case that each block has its own DoFHandler.
    */
-  template <typename Number2, int spacedim>
+  template <typename BlockVectorType2, int spacedim>
   void
   copy_to_mg(
     const std::vector<const DoFHandler<dim, spacedim> *> &          dof_handler,
     MGLevelObject<LinearAlgebra::distributed::BlockVector<Number>> &dst,
-    const LinearAlgebra::distributed::BlockVector<Number2> &        src) const;
+    const BlockVectorType2 &                                        src) const;
 
   /**
    * Transfer from multi-level block-vector to normal vector.
    */
-  template <typename Number2, int spacedim>
+  template <typename BlockVectorType2, int spacedim>
   void
   copy_from_mg(
-    const DoFHandler<dim, spacedim> &                 dof_handler,
-    LinearAlgebra::distributed::BlockVector<Number2> &dst,
+    const DoFHandler<dim, spacedim> &dof_handler,
+    BlockVectorType2 &               dst,
     const MGLevelObject<LinearAlgebra::distributed::BlockVector<Number>> &src)
     const;
 
   /**
    * Same as above for the case that each block has its own DoFHandler.
    */
-  template <typename Number2, int spacedim>
+  template <typename BlockVectorType2, int spacedim>
   void
   copy_from_mg(
     const std::vector<const DoFHandler<dim, spacedim> *> &dof_handler,
-    LinearAlgebra::distributed::BlockVector<Number2> &    dst,
+    BlockVectorType2 &                                    dst,
     const MGLevelObject<LinearAlgebra::distributed::BlockVector<Number>> &src)
     const;
 
@@ -539,7 +541,7 @@ private:
 };
 
 
-/*@}*/
+/** @} */
 
 
 //------------------------ templated functions -------------------------
@@ -547,12 +549,12 @@ private:
 
 
 template <int dim, typename Number>
-template <typename Number2, int spacedim>
+template <typename BlockVectorType2, int spacedim>
 void
 MGTransferMatrixFree<dim, Number>::interpolate_to_mg(
   const DoFHandler<dim, spacedim> &                          dof_handler,
   MGLevelObject<LinearAlgebra::distributed::Vector<Number>> &dst,
-  const LinearAlgebra::distributed::Vector<Number2> &        src) const
+  const BlockVectorType2 &                                   src) const
 {
   const unsigned int min_level = dst.min_level();
   const unsigned int max_level = dst.max_level();
@@ -640,12 +642,12 @@ MGTransferMatrixFree<dim, Number>::interpolate_to_mg(
 
 
 template <int dim, typename Number, typename TransferType>
-template <typename Number2, int spacedim>
+template <typename BlockVectorType2, int spacedim>
 void
 MGTransferBlockMatrixFreeBase<dim, Number, TransferType>::copy_to_mg(
   const DoFHandler<dim, spacedim> &                               dof_handler,
   MGLevelObject<LinearAlgebra::distributed::BlockVector<Number>> &dst,
-  const LinearAlgebra::distributed::BlockVector<Number2> &        src) const
+  const BlockVectorType2 &                                        src) const
 {
   Assert(same_for_all,
          ExcMessage(
@@ -661,12 +663,12 @@ MGTransferBlockMatrixFreeBase<dim, Number, TransferType>::copy_to_mg(
 
 
 template <int dim, typename Number, typename TransferType>
-template <typename Number2, int spacedim>
+template <typename BlockVectorType2, int spacedim>
 void
 MGTransferBlockMatrixFreeBase<dim, Number, TransferType>::copy_to_mg(
   const std::vector<const DoFHandler<dim, spacedim> *> &          dof_handler,
   MGLevelObject<LinearAlgebra::distributed::BlockVector<Number>> &dst,
-  const LinearAlgebra::distributed::BlockVector<Number2> &        src) const
+  const BlockVectorType2 &                                        src) const
 {
   const unsigned int n_blocks = src.n_blocks();
   AssertDimension(dof_handler.size(), n_blocks);
@@ -700,11 +702,11 @@ MGTransferBlockMatrixFreeBase<dim, Number, TransferType>::copy_to_mg(
 }
 
 template <int dim, typename Number, typename TransferType>
-template <typename Number2, int spacedim>
+template <typename BlockVectorType2, int spacedim>
 void
 MGTransferBlockMatrixFreeBase<dim, Number, TransferType>::copy_from_mg(
-  const DoFHandler<dim, spacedim> &                 dof_handler,
-  LinearAlgebra::distributed::BlockVector<Number2> &dst,
+  const DoFHandler<dim, spacedim> &dof_handler,
+  BlockVectorType2 &               dst,
   const MGLevelObject<LinearAlgebra::distributed::BlockVector<Number>> &src)
   const
 {
@@ -720,11 +722,11 @@ MGTransferBlockMatrixFreeBase<dim, Number, TransferType>::copy_from_mg(
 }
 
 template <int dim, typename Number, typename TransferType>
-template <typename Number2, int spacedim>
+template <typename BlockVectorType2, int spacedim>
 void
 MGTransferBlockMatrixFreeBase<dim, Number, TransferType>::copy_from_mg(
   const std::vector<const DoFHandler<dim, spacedim> *> &dof_handler,
-  LinearAlgebra::distributed::BlockVector<Number2> &    dst,
+  BlockVectorType2 &                                    dst,
   const MGLevelObject<LinearAlgebra::distributed::BlockVector<Number>> &src)
   const
 {

@@ -34,13 +34,12 @@
 #include <deal.II/grid/tria.h>
 #include <deal.II/grid/tria_iterator.h>
 
-DEAL_II_DISABLE_EXTRA_DIAGNOSTICS
 #include <boost/container/small_vector.hpp>
-DEAL_II_ENABLE_EXTRA_DIAGNOSTICS
 
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <limits>
 #include <memory>
 #include <numeric>
 
@@ -55,6 +54,7 @@ MappingQ<dim, spacedim>::InternalData::InternalData(
   , n_shape_functions(Utilities::fixed_power<dim>(polynomial_degree + 1))
   , line_support_points(QGaussLobatto<1>(polynomial_degree + 1))
   , tensor_product_quadrature(false)
+  , output_data(nullptr)
 {}
 
 
@@ -65,10 +65,7 @@ MappingQ<dim, spacedim>::InternalData::memory_consumption() const
 {
   return (
     Mapping<dim, spacedim>::InternalDataBase::memory_consumption() +
-    MemoryConsumption::memory_consumption(shape_values) +
-    MemoryConsumption::memory_consumption(shape_derivatives) +
-    MemoryConsumption::memory_consumption(covariant) +
-    MemoryConsumption::memory_consumption(contravariant) +
+    MemoryConsumption::memory_consumption(quadrature_points) +
     MemoryConsumption::memory_consumption(unit_tangentials) +
     MemoryConsumption::memory_consumption(aux) +
     MemoryConsumption::memory_consumption(mapping_support_points) +
@@ -84,32 +81,19 @@ template <int dim, int spacedim>
 void
 MappingQ<dim, spacedim>::InternalData::initialize(
   const UpdateFlags      update_flags,
-  const Quadrature<dim> &q,
+  const Quadrature<dim> &quadrature,
   const unsigned int     n_original_q_points)
 {
   // store the flags in the internal data object so we can access them
   // in fill_fe_*_values()
   this->update_each = update_flags;
 
-  const unsigned int n_q_points = q.size();
-
-  const bool needs_higher_order_terms =
-    this->update_each &
-    (update_jacobian_pushed_forward_grads | update_jacobian_2nd_derivatives |
-     update_jacobian_pushed_forward_2nd_derivatives |
-     update_jacobian_3rd_derivatives |
-     update_jacobian_pushed_forward_3rd_derivatives);
-
-  if (this->update_each & update_covariant_transformation)
-    covariant.resize(n_original_q_points);
-
-  if (this->update_each & update_contravariant_transformation)
-    contravariant.resize(n_original_q_points);
+  const unsigned int n_q_points = quadrature.size();
 
   if (this->update_each & update_volume_elements)
     volume_elements.resize(n_original_q_points);
 
-  tensor_product_quadrature = q.is_tensor_product();
+  tensor_product_quadrature = quadrature.is_tensor_product();
 
   // use of MatrixFree only for higher order elements and with more than one
   // point where tensor products do not make sense
@@ -122,8 +106,8 @@ MappingQ<dim, spacedim>::InternalData::initialize(
       // in all directions
       if (tensor_product_quadrature)
         {
-          const std::array<Quadrature<1>, dim> quad_array =
-            q.get_tensor_basis();
+          const std::array<Quadrature<1>, dim> &quad_array =
+            quadrature.get_tensor_basis();
           for (unsigned int i = 1; i < dim && tensor_product_quadrature; ++i)
             {
               if (quad_array[i - 1].size() != quad_array[i].size())
@@ -155,56 +139,19 @@ MappingQ<dim, spacedim>::InternalData::initialize(
 
           if (tensor_product_quadrature)
             {
-              // use a 1D FE_DGQ and adjust the hierarchic -> lexicographic
+              // use a 1d FE_DGQ and adjust the hierarchic -> lexicographic
               // numbering manually (building an FE_Q<dim> is relatively
               // expensive due to constraints)
               const FE_DGQ<1> fe(polynomial_degree);
-              shape_info.reinit(q.get_tensor_basis()[0], fe);
+              shape_info.reinit(quadrature.get_tensor_basis()[0], fe);
               shape_info.lexicographic_numbering =
                 FETools::lexicographic_to_hierarchic_numbering<dim>(
                   polynomial_degree);
-              shape_info.n_q_points = q.size();
+              shape_info.n_q_points = n_q_points;
               shape_info.dofs_per_component_on_cell =
                 Utilities::pow(polynomial_degree + 1, dim);
             }
         }
-    }
-
-  // Only fill the big arrays on demand in case we cannot use the tensor
-  // product quadrature code path
-  if (dim == 1 || !tensor_product_quadrature || needs_higher_order_terms)
-    {
-      // see if we need the (transformation) shape function values
-      // and/or gradients and resize the necessary arrays
-      if (this->update_each & update_quadrature_points)
-        shape_values.resize(n_shape_functions * n_q_points);
-
-      if (this->update_each &
-          (update_covariant_transformation |
-           update_contravariant_transformation | update_JxW_values |
-           update_boundary_forms | update_normal_vectors | update_jacobians |
-           update_jacobian_grads | update_inverse_jacobians |
-           update_jacobian_pushed_forward_grads |
-           update_jacobian_2nd_derivatives |
-           update_jacobian_pushed_forward_2nd_derivatives |
-           update_jacobian_3rd_derivatives |
-           update_jacobian_pushed_forward_3rd_derivatives))
-        shape_derivatives.resize(n_shape_functions * n_q_points);
-
-      if (this->update_each &
-          (update_jacobian_grads | update_jacobian_pushed_forward_grads))
-        shape_second_derivatives.resize(n_shape_functions * n_q_points);
-
-      if (this->update_each & (update_jacobian_2nd_derivatives |
-                               update_jacobian_pushed_forward_2nd_derivatives))
-        shape_third_derivatives.resize(n_shape_functions * n_q_points);
-
-      if (this->update_each & (update_jacobian_3rd_derivatives |
-                               update_jacobian_pushed_forward_3rd_derivatives))
-        shape_fourth_derivatives.resize(n_shape_functions * n_q_points);
-
-      // now also fill the various fields with their correct values
-      compute_shape_function_values(q.get_points());
     }
 }
 
@@ -214,16 +161,18 @@ template <int dim, int spacedim>
 void
 MappingQ<dim, spacedim>::InternalData::initialize_face(
   const UpdateFlags      update_flags,
-  const Quadrature<dim> &q,
+  const Quadrature<dim> &quadrature,
   const unsigned int     n_original_q_points)
 {
-  initialize(update_flags, q, n_original_q_points);
+  initialize(update_flags, quadrature, n_original_q_points);
+
+  quadrature_points = quadrature.get_points();
 
   if (dim > 1 && tensor_product_quadrature)
     {
       constexpr unsigned int facedim = dim - 1;
       const FE_DGQ<1>        fe(polynomial_degree);
-      shape_info.reinit(q.get_tensor_basis()[0], fe);
+      shape_info.reinit(quadrature.get_tensor_basis()[0], fe);
       shape_info.lexicographic_numbering =
         FETools::lexicographic_to_hierarchic_numbering<facedim>(
           polynomial_degree);
@@ -235,11 +184,12 @@ MappingQ<dim, spacedim>::InternalData::initialize_face(
   if (dim > 1)
     {
       if (this->update_each &
-          (update_boundary_forms | update_normal_vectors | update_jacobians |
-           update_JxW_values | update_inverse_jacobians))
+          (update_boundary_forms | update_normal_vectors | update_JxW_values))
         {
-          aux.resize(dim - 1,
-                     AlignedVector<Tensor<1, spacedim>>(n_original_q_points));
+          aux.resize(dim - 1);
+          aux[0].resize(n_original_q_points);
+          if (dim > 2)
+            aux[1].resize(n_original_q_points);
 
           // Compute tangentials to the unit cell.
           for (const unsigned int i : GeometryInfo<dim>::face_indices())
@@ -262,98 +212,6 @@ MappingQ<dim, spacedim>::InternalData::initialize_face(
             }
         }
     }
-}
-
-
-
-template <int dim, int spacedim>
-void
-MappingQ<dim, spacedim>::InternalData::compute_shape_function_values(
-  const std::vector<Point<dim>> &unit_points)
-{
-  const unsigned int n_points = unit_points.size();
-
-  // Construct the tensor product polynomials used as shape functions for
-  // the Qp mapping of cells at the boundary.
-  const TensorProductPolynomials<dim> tensor_pols(
-    Polynomials::generate_complete_Lagrange_basis(
-      line_support_points.get_points()));
-  Assert(n_shape_functions == tensor_pols.n(), ExcInternalError());
-
-  // then also construct the mapping from lexicographic to the Qp shape
-  // function numbering
-  const std::vector<unsigned int> renumber =
-    FETools::hierarchic_to_lexicographic_numbering<dim>(polynomial_degree);
-
-  std::vector<double>         values;
-  std::vector<Tensor<1, dim>> grads;
-  if (shape_values.size() != 0)
-    {
-      Assert(shape_values.size() == n_shape_functions * n_points,
-             ExcInternalError());
-      values.resize(n_shape_functions);
-    }
-  if (shape_derivatives.size() != 0)
-    {
-      Assert(shape_derivatives.size() == n_shape_functions * n_points,
-             ExcInternalError());
-      grads.resize(n_shape_functions);
-    }
-
-  std::vector<Tensor<2, dim>> grad2;
-  if (shape_second_derivatives.size() != 0)
-    {
-      Assert(shape_second_derivatives.size() == n_shape_functions * n_points,
-             ExcInternalError());
-      grad2.resize(n_shape_functions);
-    }
-
-  std::vector<Tensor<3, dim>> grad3;
-  if (shape_third_derivatives.size() != 0)
-    {
-      Assert(shape_third_derivatives.size() == n_shape_functions * n_points,
-             ExcInternalError());
-      grad3.resize(n_shape_functions);
-    }
-
-  std::vector<Tensor<4, dim>> grad4;
-  if (shape_fourth_derivatives.size() != 0)
-    {
-      Assert(shape_fourth_derivatives.size() == n_shape_functions * n_points,
-             ExcInternalError());
-      grad4.resize(n_shape_functions);
-    }
-
-
-  if (shape_values.size() != 0 || shape_derivatives.size() != 0 ||
-      shape_second_derivatives.size() != 0 ||
-      shape_third_derivatives.size() != 0 ||
-      shape_fourth_derivatives.size() != 0)
-    for (unsigned int point = 0; point < n_points; ++point)
-      {
-        tensor_pols.evaluate(
-          unit_points[point], values, grads, grad2, grad3, grad4);
-
-        if (shape_values.size() != 0)
-          for (unsigned int i = 0; i < n_shape_functions; ++i)
-            shape(point, i) = values[renumber[i]];
-
-        if (shape_derivatives.size() != 0)
-          for (unsigned int i = 0; i < n_shape_functions; ++i)
-            derivative(point, i) = grads[renumber[i]];
-
-        if (shape_second_derivatives.size() != 0)
-          for (unsigned int i = 0; i < n_shape_functions; ++i)
-            second_derivative(point, i) = grad2[renumber[i]];
-
-        if (shape_third_derivatives.size() != 0)
-          for (unsigned int i = 0; i < n_shape_functions; ++i)
-            third_derivative(point, i) = grad3[renumber[i]];
-
-        if (shape_fourth_derivatives.size() != 0)
-          for (unsigned int i = 0; i < n_shape_functions; ++i)
-            fourth_derivative(point, i) = grad4[renumber[i]];
-      }
 }
 
 
@@ -389,30 +247,8 @@ MappingQ<dim, spacedim>::MappingQ(const unsigned int p)
 
 template <int dim, int spacedim>
 MappingQ<dim, spacedim>::MappingQ(const unsigned int p, const bool)
-  : polynomial_degree(p)
-  , line_support_points(
-      QGaussLobatto<1>(this->polynomial_degree + 1).get_points())
-  , polynomials_1d(
-      Polynomials::generate_complete_Lagrange_basis(line_support_points))
-  , renumber_lexicographic_to_hierarchic(
-      FETools::lexicographic_to_hierarchic_numbering<dim>(p))
-  , unit_cell_support_points(
-      internal::MappingQImplementation::unit_support_points<dim>(
-        line_support_points,
-        renumber_lexicographic_to_hierarchic))
-  , support_point_weights_perimeter_to_interior(
-      internal::MappingQImplementation::
-        compute_support_point_weights_perimeter_to_interior(
-          this->polynomial_degree,
-          dim))
-  , support_point_weights_cell(
-      internal::MappingQImplementation::compute_support_point_weights_cell<dim>(
-        this->polynomial_degree))
-{
-  Assert(p >= 1,
-         ExcMessage("It only makes sense to create polynomial mappings "
-                    "with a polynomial degree greater or equal to one."));
-}
+  : MappingQ<dim, spacedim>(p)
+{}
 
 
 
@@ -576,10 +412,12 @@ MappingQ<1, 2>::transform_real_to_unit_cell_internal(
   // dispatch to the various specializations for spacedim=dim,
   // spacedim=dim+1, etc
   return internal::MappingQImplementation::
-    do_transform_real_to_unit_cell_internal_codim1<1>(cell,
-                                                      p,
-                                                      initial_p_unit,
-                                                      *mdata);
+    do_transform_real_to_unit_cell_internal_codim1<1>(
+      p,
+      initial_p_unit,
+      mdata->mapping_support_points,
+      polynomials_1d,
+      renumber_lexicographic_to_hierarchic);
 }
 
 
@@ -607,11 +445,15 @@ MappingQ<2, 3>::transform_real_to_unit_cell_internal(
   // dispatch to the various specializations for spacedim=dim,
   // spacedim=dim+1, etc
   return internal::MappingQImplementation::
-    do_transform_real_to_unit_cell_internal_codim1<2>(cell,
-                                                      p,
-                                                      initial_p_unit,
-                                                      *mdata);
+    do_transform_real_to_unit_cell_internal_codim1<2>(
+      p,
+      initial_p_unit,
+      mdata->mapping_support_points,
+      polynomials_1d,
+      renumber_lexicographic_to_hierarchic);
 }
+
+
 
 template <>
 Point<1>
@@ -638,16 +480,16 @@ MappingQ<dim, spacedim>::transform_real_to_unit_cell(
       ((dim == 1) || ((dim == 2) && (dim == spacedim))))
     {
       // The dimension-dependent algorithms are much faster (about 25-45x in
-      // 2D) but fail most of the time when the given point (p) is not in the
+      // 2d) but fail most of the time when the given point (p) is not in the
       // cell. The dimension-independent Newton algorithm given below is
       // slower, but more robust (though it still sometimes fails). Therefore
       // this function implements the following strategy based on the
       // p's dimension:
       //
-      // * In 1D this mapping is linear, so the mapping is always invertible
+      // * In 1d this mapping is linear, so the mapping is always invertible
       //   (and the exact formula is known) as long as the cell has non-zero
       //   length.
-      // * In 2D the exact (quadratic) formula is called first. If either the
+      // * In 2d the exact (quadratic) formula is called first. If either the
       //   exact formula does not succeed (negative discriminant in the
       //   quadratic formula) or succeeds but finds a solution outside of the
       //   unit cell, then the Newton solver is called. The rationale for the
@@ -656,7 +498,7 @@ MappingQ<dim, spacedim>::transform_real_to_unit_cell(
       //   Newton solver (if it converges) will only return one answer.
       //   Otherwise the exact formula successfully found a point in the unit
       //   cell and that value is returned.
-      // * In 3D there is no (known to the authors) exact formula, so the Newton
+      // * In 3d there is no (known to the authors) exact formula, so the Newton
       //   algorithm is used.
       const auto vertices_ = this->get_vertices(cell);
 
@@ -854,9 +696,9 @@ MappingQ<dim, spacedim>::requires_update_flags(const UpdateFlags in) const
       if (out & (update_JxW_values | update_normal_vectors))
         out |= update_boundary_forms;
 
-      if (out & (update_covariant_transformation | update_JxW_values |
-                 update_jacobians | update_jacobian_grads |
-                 update_boundary_forms | update_normal_vectors))
+      if (out &
+          (update_covariant_transformation | update_jacobian_grads |
+           update_jacobians | update_boundary_forms | update_normal_vectors))
         out |= update_contravariant_transformation;
 
       if (out &
@@ -954,6 +796,7 @@ MappingQ<dim, spacedim>::fill_fe_values(
   Assert(dynamic_cast<const InternalData *>(&internal_data) != nullptr,
          ExcInternalError());
   const InternalData &data = static_cast<const InternalData &>(internal_data);
+  data.output_data         = &output_data;
 
   const unsigned int n_q_points = quadrature.size();
 
@@ -975,7 +818,9 @@ MappingQ<dim, spacedim>::fill_fe_values(
   // value is computed with just cell vertices and does not take into account
   // cell curvature.
   const CellSimilarity::Similarity computed_cell_similarity =
-    (polynomial_degree == 1 ? cell_similarity : CellSimilarity::none);
+    (polynomial_degree == 1 && this->preserves_vertex_locations() ?
+       cell_similarity :
+       CellSimilarity::none);
 
   if (dim > 1 && data.tensor_product_quadrature)
     {
@@ -984,61 +829,75 @@ MappingQ<dim, spacedim>::fill_fe_values(
           computed_cell_similarity,
           data,
           output_data.quadrature_points,
+          output_data.jacobians,
+          output_data.inverse_jacobians,
           output_data.jacobian_grads);
     }
   else
     {
-      internal::MappingQImplementation::maybe_compute_q_points<dim, spacedim>(
-        QProjector<dim>::DataSetDescriptor::cell(),
-        data,
-        output_data.quadrature_points);
-
-      internal::MappingQImplementation::maybe_update_Jacobians<dim, spacedim>(
+      internal::MappingQImplementation::maybe_update_q_points_Jacobians_generic(
         computed_cell_similarity,
-        QProjector<dim>::DataSetDescriptor::cell(),
-        data);
+        data,
+        make_array_view(quadrature.get_points()),
+        polynomials_1d,
+        renumber_lexicographic_to_hierarchic,
+        output_data.quadrature_points,
+        output_data.jacobians,
+        output_data.inverse_jacobians);
 
       internal::MappingQImplementation::maybe_update_jacobian_grads<dim,
                                                                     spacedim>(
         computed_cell_similarity,
-        QProjector<dim>::DataSetDescriptor::cell(),
         data,
+        make_array_view(quadrature.get_points()),
+        polynomials_1d,
+        renumber_lexicographic_to_hierarchic,
         output_data.jacobian_grads);
     }
 
   internal::MappingQImplementation::maybe_update_jacobian_pushed_forward_grads<
     dim,
     spacedim>(computed_cell_similarity,
-              QProjector<dim>::DataSetDescriptor::cell(),
               data,
+              make_array_view(quadrature.get_points()),
+              polynomials_1d,
+              renumber_lexicographic_to_hierarchic,
               output_data.jacobian_pushed_forward_grads);
 
   internal::MappingQImplementation::maybe_update_jacobian_2nd_derivatives<
     dim,
     spacedim>(computed_cell_similarity,
-              QProjector<dim>::DataSetDescriptor::cell(),
               data,
+              make_array_view(quadrature.get_points()),
+              polynomials_1d,
+              renumber_lexicographic_to_hierarchic,
               output_data.jacobian_2nd_derivatives);
 
   internal::MappingQImplementation::
     maybe_update_jacobian_pushed_forward_2nd_derivatives<dim, spacedim>(
       computed_cell_similarity,
-      QProjector<dim>::DataSetDescriptor::cell(),
       data,
+      make_array_view(quadrature.get_points()),
+      polynomials_1d,
+      renumber_lexicographic_to_hierarchic,
       output_data.jacobian_pushed_forward_2nd_derivatives);
 
   internal::MappingQImplementation::maybe_update_jacobian_3rd_derivatives<
     dim,
     spacedim>(computed_cell_similarity,
-              QProjector<dim>::DataSetDescriptor::cell(),
               data,
+              make_array_view(quadrature.get_points()),
+              polynomials_1d,
+              renumber_lexicographic_to_hierarchic,
               output_data.jacobian_3rd_derivatives);
 
   internal::MappingQImplementation::
     maybe_update_jacobian_pushed_forward_3rd_derivatives<dim, spacedim>(
       computed_cell_similarity,
-      QProjector<dim>::DataSetDescriptor::cell(),
       data,
+      make_array_view(quadrature.get_points()),
+      polynomials_1d,
+      renumber_lexicographic_to_hierarchic,
       output_data.jacobian_pushed_forward_3rd_derivatives);
 
   const UpdateFlags          update_flags = data.update_each;
@@ -1062,12 +921,12 @@ MappingQ<dim, spacedim>::fill_fe_values(
           {
             if (dim == spacedim)
               {
-                const double det = data.contravariant[point].determinant();
+                const double det = data.volume_elements[point];
 
                 // check for distorted cells.
 
-                // TODO: this allows for anisotropies of up to 1e6 in 3D and
-                // 1e12 in 2D. might want to find a finer
+                // TODO: this allows for anisotropies of up to 1e6 in 3d and
+                // 1e12 in 2d. might want to find a finer
                 // (dimension-independent) criterion
                 Assert(det >
                          1e-12 * Utilities::fixed_power<dim>(
@@ -1085,7 +944,7 @@ MappingQ<dim, spacedim>::fill_fe_values(
                 Tensor<1, spacedim> DX_t[dim];
                 for (unsigned int i = 0; i < spacedim; ++i)
                   for (unsigned int j = 0; j < dim; ++j)
-                    DX_t[j][i] = data.contravariant[point][i][j];
+                    DX_t[j][i] = output_data.jacobians[point][i][j];
 
                 Tensor<2, dim> G; // First fundamental form
                 for (unsigned int i = 0; i < dim; ++i)
@@ -1134,27 +993,6 @@ MappingQ<dim, spacedim>::fill_fe_values(
           }
     }
 
-
-
-  // copy values from InternalData to vector given by reference
-  if (update_flags & update_jacobians)
-    {
-      AssertDimension(output_data.jacobians.size(), n_q_points);
-      if (computed_cell_similarity != CellSimilarity::translation)
-        for (unsigned int point = 0; point < n_q_points; ++point)
-          output_data.jacobians[point] = data.contravariant[point];
-    }
-
-  // copy values from InternalData to vector given by reference
-  if (update_flags & update_inverse_jacobians)
-    {
-      AssertDimension(output_data.inverse_jacobians.size(), n_q_points);
-      if (computed_cell_similarity != CellSimilarity::translation)
-        for (unsigned int point = 0; point < n_q_points; ++point)
-          output_data.inverse_jacobians[point] =
-            data.covariant[point].transpose();
-    }
-
   return computed_cell_similarity;
 }
 
@@ -1176,11 +1014,12 @@ MappingQ<dim, spacedim>::fill_fe_face_values(
   Assert((dynamic_cast<const InternalData *>(&internal_data) != nullptr),
          ExcInternalError());
   const InternalData &data = static_cast<const InternalData &>(internal_data);
+  data.output_data         = &output_data;
 
   // if necessary, recompute the support points of the transformation of this
   // cell (note that we need to first check the triangulation pointer, since
-  // otherwise the second test might trigger an exception if the triangulations
-  // are not the same)
+  // otherwise the second test might trigger an exception if the
+  // triangulations are not the same)
   if ((data.mapping_support_points.size() == 0) ||
       (&cell->get_triangulation() !=
        &data.cell_of_current_support_points->get_triangulation()) ||
@@ -1204,6 +1043,8 @@ MappingQ<dim, spacedim>::fill_fe_face_values(
       quadrature[0].size()),
     quadrature[0],
     data,
+    polynomials_1d,
+    renumber_lexicographic_to_hierarchic,
     output_data);
 }
 
@@ -1224,11 +1065,12 @@ MappingQ<dim, spacedim>::fill_fe_subface_values(
   Assert((dynamic_cast<const InternalData *>(&internal_data) != nullptr),
          ExcInternalError());
   const InternalData &data = static_cast<const InternalData &>(internal_data);
+  data.output_data         = &output_data;
 
   // if necessary, recompute the support points of the transformation of this
   // cell (note that we need to first check the triangulation pointer, since
-  // otherwise the second test might trigger an exception if the triangulations
-  // are not the same)
+  // otherwise the second test might trigger an exception if the
+  // triangulations are not the same)
   if ((data.mapping_support_points.size() == 0) ||
       (&cell->get_triangulation() !=
        &data.cell_of_current_support_points->get_triangulation()) ||
@@ -1254,6 +1096,8 @@ MappingQ<dim, spacedim>::fill_fe_subface_values(
       cell->subface_case(face_no)),
     quadrature,
     data,
+    polynomials_1d,
+    renumber_lexicographic_to_hierarchic,
     output_data);
 }
 
@@ -1265,7 +1109,7 @@ MappingQ<dim, spacedim>::fill_fe_immersed_surface_values(
   const typename Triangulation<dim, spacedim>::cell_iterator &cell,
   const NonMatching::ImmersedSurfaceQuadrature<dim> &         quadrature,
   const typename Mapping<dim, spacedim>::InternalDataBase &   internal_data,
-  dealii::internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
+  internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
     &output_data) const
 {
   Assert(dim == spacedim, ExcNotImplemented());
@@ -1274,59 +1118,74 @@ MappingQ<dim, spacedim>::fill_fe_immersed_surface_values(
   Assert(dynamic_cast<const InternalData *>(&internal_data) != nullptr,
          ExcInternalError());
   const InternalData &data = static_cast<const InternalData &>(internal_data);
+  data.output_data         = &output_data;
 
   const unsigned int n_q_points = quadrature.size();
 
   data.mapping_support_points = this->compute_mapping_support_points(cell);
   data.cell_of_current_support_points = cell;
 
-  internal::MappingQImplementation::maybe_compute_q_points<dim, spacedim>(
-    QProjector<dim>::DataSetDescriptor::cell(),
+  internal::MappingQImplementation::maybe_update_q_points_Jacobians_generic(
+    CellSimilarity::none,
     data,
-    output_data.quadrature_points);
-
-  internal::MappingQImplementation::maybe_update_Jacobians<dim, spacedim>(
-    CellSimilarity::none, QProjector<dim>::DataSetDescriptor::cell(), data);
+    make_array_view(quadrature.get_points()),
+    polynomials_1d,
+    renumber_lexicographic_to_hierarchic,
+    output_data.quadrature_points,
+    output_data.jacobians,
+    output_data.inverse_jacobians);
 
   internal::MappingQImplementation::maybe_update_jacobian_grads<dim, spacedim>(
     CellSimilarity::none,
-    QProjector<dim>::DataSetDescriptor::cell(),
     data,
+    make_array_view(quadrature.get_points()),
+    polynomials_1d,
+    renumber_lexicographic_to_hierarchic,
     output_data.jacobian_grads);
 
   internal::MappingQImplementation::maybe_update_jacobian_pushed_forward_grads<
     dim,
     spacedim>(CellSimilarity::none,
-              QProjector<dim>::DataSetDescriptor::cell(),
               data,
+              make_array_view(quadrature.get_points()),
+              polynomials_1d,
+              renumber_lexicographic_to_hierarchic,
               output_data.jacobian_pushed_forward_grads);
 
   internal::MappingQImplementation::maybe_update_jacobian_2nd_derivatives<
     dim,
     spacedim>(CellSimilarity::none,
-              QProjector<dim>::DataSetDescriptor::cell(),
               data,
+              make_array_view(quadrature.get_points()),
+              polynomials_1d,
+              renumber_lexicographic_to_hierarchic,
               output_data.jacobian_2nd_derivatives);
 
   internal::MappingQImplementation::
     maybe_update_jacobian_pushed_forward_2nd_derivatives<dim, spacedim>(
       CellSimilarity::none,
-      QProjector<dim>::DataSetDescriptor::cell(),
       data,
+      make_array_view(quadrature.get_points()),
+      polynomials_1d,
+      renumber_lexicographic_to_hierarchic,
       output_data.jacobian_pushed_forward_2nd_derivatives);
 
   internal::MappingQImplementation::maybe_update_jacobian_3rd_derivatives<
     dim,
     spacedim>(CellSimilarity::none,
-              QProjector<dim>::DataSetDescriptor::cell(),
               data,
+              make_array_view(quadrature.get_points()),
+              polynomials_1d,
+              renumber_lexicographic_to_hierarchic,
               output_data.jacobian_3rd_derivatives);
 
   internal::MappingQImplementation::
     maybe_update_jacobian_pushed_forward_3rd_derivatives<dim, spacedim>(
       CellSimilarity::none,
-      QProjector<dim>::DataSetDescriptor::cell(),
       data,
+      make_array_view(quadrature.get_points()),
+      polynomials_1d,
+      renumber_lexicographic_to_hierarchic,
       output_data.jacobian_pushed_forward_3rd_derivatives);
 
   const UpdateFlags          update_flags = data.update_each;
@@ -1344,12 +1203,12 @@ MappingQ<dim, spacedim>::fill_fe_immersed_surface_values(
 
       for (unsigned int point = 0; point < n_q_points; ++point)
         {
-          const double det = data.contravariant[point].determinant();
+          const double det = data.volume_elements[point];
 
           // check for distorted cells.
 
-          // TODO: this allows for anisotropies of up to 1e6 in 3D and
-          // 1e12 in 2D. might want to find a finer
+          // TODO: this allows for anisotropies of up to 1e6 in 3d and
+          // 1e12 in 2d. might want to find a finer
           // (dimension-independent) criterion
           Assert(det > 1e-12 * Utilities::fixed_power<dim>(
                                  cell->diameter() / std::sqrt(double(dim))),
@@ -1359,8 +1218,8 @@ MappingQ<dim, spacedim>::fill_fe_immersed_surface_values(
           // The normals are n = J^{-T} * \hat{n} before normalizing.
           Tensor<1, spacedim> normal;
           for (unsigned int d = 0; d < spacedim; d++)
-            normal[d] =
-              data.covariant[point][d] * quadrature.normal_vector(point);
+            normal[d] = output_data.inverse_jacobians[point].transpose()[d] *
+                        quadrature.normal_vector(point);
 
           output_data.JxW_values[point] = weights[point] * det * normal.norm();
 
@@ -1370,23 +1229,6 @@ MappingQ<dim, spacedim>::fill_fe_immersed_surface_values(
               output_data.normal_vectors[point] = normal;
             }
         }
-    }
-
-  // copy values from InternalData to vector given by reference
-  if ((update_flags & update_jacobians) != 0u)
-    {
-      AssertDimension(output_data.jacobians.size(), n_q_points);
-      for (unsigned int point = 0; point < n_q_points; ++point)
-        output_data.jacobians[point] = data.contravariant[point];
-    }
-
-  // copy values from InternalData to vector given by reference
-  if ((update_flags & update_inverse_jacobians) != 0u)
-    {
-      AssertDimension(output_data.inverse_jacobians.size(), n_q_points);
-      for (unsigned int point = 0; point < n_q_points; ++point)
-        output_data.inverse_jacobians[point] =
-          data.covariant[point].transpose();
     }
 }
 
@@ -1398,7 +1240,7 @@ MappingQ<dim, spacedim>::fill_mapping_data_for_generic_points(
   const typename Triangulation<dim, spacedim>::cell_iterator &cell,
   const ArrayView<const Point<dim>> &                         unit_points,
   const UpdateFlags                                           update_flags,
-  dealii::internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
+  internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
     &output_data) const
 {
   if (update_flags == update_default)
@@ -1410,85 +1252,60 @@ MappingQ<dim, spacedim>::fill_mapping_data_for_generic_points(
          ExcNotImplemented());
 
   output_data.initialize(unit_points.size(), update_flags);
-  const std::vector<Point<spacedim>> support_points =
-    this->compute_mapping_support_points(cell);
 
-  const unsigned int n_points = unit_points.size();
-  const unsigned int n_lanes  = VectorizedArray<double>::size();
+  auto internal_data =
+    this->get_data(update_flags,
+                   Quadrature<dim>(std::vector<Point<dim>>(unit_points.begin(),
+                                                           unit_points.end())));
+  const InternalData &data = static_cast<const InternalData &>(*internal_data);
+  data.output_data         = &output_data;
+  data.mapping_support_points = this->compute_mapping_support_points(cell);
 
-  // Use the more heavy VectorizedArray code path if there is more than
-  // one point left to compute
-  for (unsigned int i = 0; i < n_points; i += n_lanes)
-    if (n_points - i > 1)
-      {
-        Point<dim, VectorizedArray<double>> p_vec;
-        for (unsigned int j = 0; j < n_lanes; ++j)
-          if (i + j < n_points)
-            for (unsigned int d = 0; d < dim; ++d)
-              p_vec[d][j] = unit_points[i + j][d];
-          else
-            for (unsigned int d = 0; d < dim; ++d)
-              p_vec[d][j] = unit_points[i][d];
+  internal::MappingQImplementation::maybe_update_q_points_Jacobians_generic(
+    CellSimilarity::none,
+    data,
+    unit_points,
+    polynomials_1d,
+    renumber_lexicographic_to_hierarchic,
+    output_data.quadrature_points,
+    output_data.jacobians,
+    output_data.inverse_jacobians);
+}
 
-        const auto result =
-          internal::evaluate_tensor_product_value_and_gradient(
-            polynomials_1d,
-            support_points,
-            p_vec,
-            polynomial_degree == 1,
-            renumber_lexicographic_to_hierarchic);
 
-        if (update_flags & update_quadrature_points)
-          for (unsigned int j = 0; j < n_lanes && i + j < n_points; ++j)
-            for (unsigned int d = 0; d < spacedim; ++d)
-              output_data.quadrature_points[i + j][d] = result.first[d][j];
 
-        if (update_flags & update_jacobians)
-          for (unsigned int j = 0; j < n_lanes && i + j < n_points; ++j)
-            for (unsigned int d = 0; d < spacedim; ++d)
-              for (unsigned int e = 0; e < dim; ++e)
-                output_data.jacobians[i + j][d][e] = result.second[e][d][j];
+template <int dim, int spacedim>
+void
+MappingQ<dim, spacedim>::fill_mapping_data_for_face_quadrature(
+  const typename Triangulation<dim, spacedim>::cell_iterator &cell,
+  const unsigned int                                          face_no,
+  const Quadrature<dim - 1> &                                 face_quadrature,
+  const typename Mapping<dim, spacedim>::InternalDataBase &   internal_data,
+  internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
+    &output_data) const
+{
+  if (face_quadrature.get_points().empty())
+    return;
 
-        if (update_flags & update_inverse_jacobians)
-          {
-            DerivativeForm<1, spacedim, dim, VectorizedArray<double>> jac(
-              result.second);
-            const DerivativeForm<1, spacedim, dim, VectorizedArray<double>>
-              inv_jac = jac.covariant_form();
-            for (unsigned int j = 0; j < n_lanes && i + j < n_points; ++j)
-              for (unsigned int d = 0; d < dim; ++d)
-                for (unsigned int e = 0; e < spacedim; ++e)
-                  output_data.inverse_jacobians[i + j][d][e] = inv_jac[d][e][j];
-          }
-      }
-    else
-      {
-        const auto result =
-          internal::evaluate_tensor_product_value_and_gradient(
-            polynomials_1d,
-            support_points,
-            unit_points[i],
-            polynomial_degree == 1,
-            renumber_lexicographic_to_hierarchic);
+  // ensure that the following static_cast is really correct:
+  Assert(dynamic_cast<const InternalData *>(&internal_data) != nullptr,
+         ExcInternalError());
+  const InternalData &data = static_cast<const InternalData &>(internal_data);
 
-        if (update_flags & update_quadrature_points)
-          output_data.quadrature_points[i] = result.first;
+  data.mapping_support_points = this->compute_mapping_support_points(cell);
+  data.output_data            = &output_data;
 
-        if (update_flags & update_jacobians)
-          {
-            DerivativeForm<1, spacedim, dim> jac = result.second;
-            output_data.jacobians[i]             = jac.transpose();
-          }
-
-        if (update_flags & update_inverse_jacobians)
-          {
-            DerivativeForm<1, spacedim, dim> jac(result.second);
-            DerivativeForm<1, spacedim, dim> inv_jac = jac.covariant_form();
-            for (unsigned int d = 0; d < dim; ++d)
-              for (unsigned int e = 0; e < spacedim; ++e)
-                output_data.inverse_jacobians[i][d][e] = inv_jac[d][e];
-          }
-      }
+  internal::MappingQImplementation::do_fill_fe_face_values(
+    *this,
+    cell,
+    face_no,
+    numbers::invalid_unsigned_int,
+    QProjector<dim>::DataSetDescriptor::cell(),
+    face_quadrature,
+    data,
+    polynomials_1d,
+    renumber_lexicographic_to_hierarchic,
+    output_data);
 }
 
 
@@ -1568,13 +1385,14 @@ MappingQ<dim, spacedim>::transform(
   AssertDimension(input.size(), output.size());
   Assert(dynamic_cast<const InternalData *>(&mapping_data) != nullptr,
          ExcInternalError());
-  const InternalData &data = static_cast<const InternalData &>(mapping_data);
+  const internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
+    &data = *static_cast<const InternalData &>(mapping_data).output_data;
 
   switch (mapping_kind)
     {
       case mapping_covariant_gradient:
         {
-          Assert(data.update_each & update_contravariant_transformation,
+          Assert(!data.inverse_jacobians.empty(),
                  typename FEValuesBase<dim>::ExcAccessToUninitializedField(
                    "update_covariant_transformation"));
 
@@ -1582,18 +1400,20 @@ MappingQ<dim, spacedim>::transform(
             for (unsigned int i = 0; i < spacedim; ++i)
               for (unsigned int j = 0; j < spacedim; ++j)
                 {
-                  double tmp[dim];
+                  double                                 tmp[dim];
+                  const DerivativeForm<1, dim, spacedim> covariant =
+                    data.inverse_jacobians[q].transpose();
                   for (unsigned int K = 0; K < dim; ++K)
                     {
-                      tmp[K] = data.covariant[q][j][0] * input[q][i][0][K];
+                      tmp[K] = covariant[j][0] * input[q][i][0][K];
                       for (unsigned int J = 1; J < dim; ++J)
-                        tmp[K] += data.covariant[q][j][J] * input[q][i][J][K];
+                        tmp[K] += covariant[j][J] * input[q][i][J][K];
                     }
                   for (unsigned int k = 0; k < spacedim; ++k)
                     {
-                      output[q][i][j][k] = data.covariant[q][k][0] * tmp[0];
+                      output[q][i][j][k] = covariant[k][0] * tmp[0];
                       for (unsigned int K = 1; K < dim; ++K)
-                        output[q][i][j][k] += data.covariant[q][k][K] * tmp[K];
+                        output[q][i][j][k] += covariant[k][K] * tmp[K];
                     }
                 }
           return;
@@ -1679,10 +1499,10 @@ MappingQ<dim, spacedim>::add_line_support_points(
                cell->get_manifold() :
                line->get_manifold());
 
+          const auto reference_cell = ReferenceCells::get_hypercube<dim>();
           const std::array<Point<spacedim>, 2> vertices{
-            {cell->vertex(GeometryInfo<dim>::line_to_cell_vertices(line_no, 0)),
-             cell->vertex(
-               GeometryInfo<dim>::line_to_cell_vertices(line_no, 1))}};
+            {cell->vertex(reference_cell.line_to_cell_vertices(line_no, 0)),
+             cell->vertex(reference_cell.line_to_cell_vertices(line_no, 1))}};
 
           const std::size_t n_rows =
             support_point_weights_perimeter_to_interior[0].size(0);

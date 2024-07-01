@@ -26,8 +26,7 @@
 #include <deal.II/base/vectorization.h>
 
 #include <deal.II/fe/fe_values.h>
-#include <deal.II/fe/mapping_cartesian.h>
-#include <deal.II/fe/mapping_q.h>
+#include <deal.II/fe/mapping.h>
 
 #include <deal.II/matrix_free/evaluation_flags.h>
 #include <deal.II/matrix_free/shape_info.h>
@@ -948,14 +947,10 @@ FEPointEvaluation<n_components, dim, spacedim, Number>::evaluate(
                                           j,
                                           unit_gradients[i + j]);
                   gradients[i + j] =
-                    static_cast<typename internal::FEPointEvaluation::
-                                  EvaluatorTypeTraits<dim,
-                                                      n_components,
-                                                      double>::gradient_type>(
-                      apply_transformation(mapping_info->get_mapping_data()
-                                             .inverse_jacobians[i + j]
-                                             .transpose(),
-                                           unit_gradients[i + j]));
+                    apply_transformation(mapping_info->get_mapping_data()
+                                           .inverse_jacobians[i + j]
+                                           .transpose(),
+                                         unit_gradients[i + j]);
                 }
             }
         }
@@ -1091,23 +1086,24 @@ FEPointEvaluation<n_components, dim, spacedim, Number>::integrate(
           if (integration_flags & EvaluationFlags::gradients)
             for (unsigned int j = 0; j < n_lanes && i + j < n_points; ++j)
               {
-                gradients[i + j] =
-                  static_cast<typename internal::FEPointEvaluation::
-                                EvaluatorTypeTraits<dim, n_components, double>::
-                                  gradient_type>(apply_transformation(
-                    mapping_info->get_mapping_data().inverse_jacobians[i + j],
-                    gradients[i + j]));
+                gradients[i + j] = apply_transformation(
+                  mapping_info->get_mapping_data().inverse_jacobians[i + j],
+                  gradients[i + j]);
                 internal::FEPointEvaluation::
                   EvaluatorTypeTraits<dim, n_components, Number>::get_gradient(
                     gradient, j, gradients[i + j]);
               }
 
           // compute
-          internal::integrate_add_tensor_product_value_and_gradient(
-            poly,
+          dealii::ndarray<VectorizedArray<Number>, 100, 2, dim> shapes;
+          internal::compute_values_of_array(shapes.data(),
+                                            poly,
+                                            vectorized_points);
+          internal::integrate_add_tensor_product_value_and_gradient_shapes(
+            shapes.data(),
+            poly.size(),
             value,
             gradient,
-            vectorized_points,
             solution_renumbered_vectorized);
         }
 

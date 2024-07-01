@@ -33,6 +33,7 @@
 #include <algorithm>
 #include <fstream>
 #include <iostream>
+#include <limits>
 #include <numeric>
 
 
@@ -585,7 +586,7 @@ namespace
 
   public:
     /**
-     * Callback exectuted before point function. Last argument is always
+     * Callback executed before point function. Last argument is always
      * nullptr.
      *
      * @return `int` interpreted as a C "bool". Zero means "stop the recursion".
@@ -2021,7 +2022,7 @@ namespace parallel
           std::ofstream f(fname.c_str());
           f << "version nproc n_attached_fixed_size_objs n_attached_variable_size_objs n_coarse_cells"
             << std::endl
-            << 4 << " "
+            << 5 << " "
             << Utilities::MPI::n_mpi_processes(this->mpi_communicator) << " "
             << this->cell_attached_data.pack_callbacks_fixed.size() << " "
             << this->cell_attached_data.pack_callbacks_variable.size() << " "
@@ -2096,7 +2097,7 @@ namespace parallel
           attached_count_variable >> n_coarse_cells;
       }
 
-      AssertThrow(version == 4,
+      AssertThrow(version == 5,
                   ExcMessage("Incompatible version found in .info file."));
       Assert(this->n_cells(0) == n_coarse_cells,
              ExcMessage("Number of coarse cells differ!"));
@@ -2738,19 +2739,17 @@ namespace parallel
     bool
     Triangulation<dim, spacedim>::prepare_coarsening_and_refinement()
     {
-      std::vector<bool> flags_before[2];
-      this->save_coarsen_flags(flags_before[0]);
-      this->save_refine_flags(flags_before[1]);
-
       bool         mesh_changed = false;
       unsigned int loop_counter = 0;
+      unsigned int n_changes    = 0;
       do
         {
-          this->dealii::Triangulation<dim, spacedim>::
-            prepare_coarsening_and_refinement();
+          n_changes += this->dealii::Triangulation<dim, spacedim>::
+                         prepare_coarsening_and_refinement();
           this->update_periodic_face_map();
           // enforce 2:1 mesh balance over periodic boundaries
           mesh_changed = enforce_mesh_balance_over_periodic_boundaries(*this);
+          n_changes += mesh_changed;
 
           // We can't be sure that we won't run into a situation where we can
           // not reconcile mesh smoothing and balancing of periodic faces. As
@@ -2766,13 +2765,8 @@ namespace parallel
         }
       while (mesh_changed);
 
-      // check if any of the refinement flags were changed during this
-      // function and return that value
-      std::vector<bool> flags_after[2];
-      this->save_coarsen_flags(flags_after[0]);
-      this->save_refine_flags(flags_after[1]);
-      return ((flags_before[0] != flags_after[0]) ||
-              (flags_before[1] != flags_after[1]));
+      // report if we observed changes in any of the sub-functions
+      return n_changes > 0;
     }
 
 

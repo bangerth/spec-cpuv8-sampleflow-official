@@ -626,8 +626,8 @@ namespace StandardExceptions
 {
   /**
    * @addtogroup Exceptions
+   * @{
    */
-  //@{
 
   /**
    * Exception denoting a division by zero.
@@ -1069,6 +1069,16 @@ namespace StandardExceptions
                    "information.");
 
   /**
+   * Exception indicating that one of the cells in the input to
+   * Triangulation::create_triangulation() or a related function cannot be used.
+   */
+  DeclException1(ExcGridHasInvalidCell,
+                 int,
+                 << "Something went wrong when making cell " << arg1
+                 << ". Read the docs and the source code "
+                 << "for more information.");
+
+  /**
    * Some of our numerical classes allow for setting all entries to zero using
    * the assignment operator <tt>=</tt>.
    *
@@ -1095,6 +1105,15 @@ namespace StandardExceptions
     "You are attempting to use functionality that is only available "
     "if deal.II was configured to use LAPACK, but cmake did not "
     "find a valid LAPACK library.");
+
+  /**
+   * This function requires support for the HDF5 library.
+   */
+  DeclExceptionMsg(
+    ExcNeedsHDF5,
+    "You are attempting to use functionality that requires that deal.II is configured "
+    "with HDF5 support. However, when you called 'cmake', HDF5 support "
+    "was not detected.");
 
   /**
    * This function requires support for the MPI library.
@@ -1139,7 +1158,7 @@ namespace StandardExceptions
                  std::string,
                  << "There was an error in a cuSPARSE function: " << arg1);
 #endif
-  //@}
+  /** @} */
 
   /**
    * This function requires support for the Exodus II library.
@@ -1149,6 +1168,15 @@ namespace StandardExceptions
     "You are attempting to use functionality that is only available if deal.II "
     "was configured to use Trilinos' SEACAS library (which provides ExodusII), "
     "but cmake did not find a valid SEACAS library.");
+
+  /**
+   * This function requires support for the CGAL library.
+   */
+  DeclExceptionMsg(
+    ExcNeedsCGAL,
+    "You are attempting to use functionality that is only available "
+    "if deal.II was configured to use CGAL, but cmake did not "
+    "find a valid CGAL library.");
 
 #ifdef DEAL_II_WITH_MPI
   /**

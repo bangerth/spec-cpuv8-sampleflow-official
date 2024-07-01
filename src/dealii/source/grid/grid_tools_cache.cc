@@ -14,7 +14,7 @@
 // ---------------------------------------------------------------------
 
 #include <deal.II/base/bounding_box.h>
-#include <deal.II/base/mpi.h>
+#include <deal.II/base/mpi_stub.h>
 
 #include <deal.II/grid/filtered_iterator.h>
 #include <deal.II/grid/grid_tools.h>
@@ -216,6 +216,21 @@ namespace GridTools
         update_flags = update_flags & ~update_vertex_to_neighbor_subdomain;
       }
     return vertex_to_neighbor_subdomain;
+  }
+
+  template <int dim, int spacedim>
+  const std::map<unsigned int, std::set<types::subdomain_id>> &
+  Cache<dim, spacedim>::get_vertices_with_ghost_neighbors() const
+  {
+    if (update_flags & update_vertex_with_ghost_neighbors)
+      {
+        vertices_with_ghost_neighbors =
+          GridTools::compute_vertices_with_ghost_neighbors(*tria);
+
+        update_flags = update_flags & ~update_vertex_with_ghost_neighbors;
+      }
+
+    return vertices_with_ghost_neighbors;
   }
 
 #include "grid_tools_cache.inst"

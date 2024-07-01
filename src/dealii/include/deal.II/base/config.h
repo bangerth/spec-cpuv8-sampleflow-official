@@ -36,26 +36,23 @@
 
 /* #undef DEAL_II_WITH_64BIT_INDICES */
 /* #undef DEAL_II_WITH_ADOLC */
-#define DEAL_II_WITH_ARPACK
+/* #undef DEAL_II_WITH_ARPACK */
 /* #undef DEAL_II_WITH_ARBORX */
 /* #undef DEAL_II_WITH_ASSIMP */
-#define DEAL_II_FEATURE_BOOST_BUNDLED_CONFIGURED
 /* #undef DEAL_II_WITH_CGAL */
-#define DEAL_II_WITH_COMPLEX_VALUES
+/* #undef DEAL_II_WITH_COMPLEX_VALUES */
 /* #undef DEAL_II_WITH_CUDA */
 /* #undef DEAL_II_WITH_GINKGO */
-#define DEAL_II_WITH_GMSH
+/* #undef DEAL_II_WITH_GMSH */
 /* #undef DEAL_II_WITH_GSL */
 /* #undef DEAL_II_WITH_HDF5 */
-#define DEAL_II_WITH_KOKKOS
-#define DEAL_II_FEATURE_KOKKOS_BUNDLED_CONFIGURED
-/* #define DEAL_II_WITH_LAPACK */
+/* #undef DEAL_II_WITH_KOKKOS */
+/* #undef DEAL_II_WITH_LAPACK */
 /* #undef LAPACK_WITH_64BIT_BLAS_INDICES */
 /* #undef DEAL_II_LAPACK_WITH_MKL */
 /* #undef DEAL_II_WITH_METIS */
 /* #undef DEAL_II_WITH_MPI */
-/* #define DEAL_II_WITH_MUPARSER */
-/* #define DEAL_II_FEATURE_MUPARSER_BUNDLED_CONFIGURED */
+/* #undef DEAL_II_WITH_MUPARSER */
 /* #undef DEAL_II_WITH_OPENCASCADE */
 /* #undef DEAL_II_WITH_P4EST */
 /* #undef DEAL_II_WITH_PETSC */
@@ -64,13 +61,10 @@
 /* #undef DEAL_II_WITH_SUNDIALS */
 /* #undef DEAL_II_WITH_SYMENGINE */
 /* #undef DEAL_II_WITH_TASKFLOW */
-/* #undef DEAL_II_FEATURE_TASKFLOW_BUNDLED_CONFIGURED */
 /* #define DEAL_II_WITH_TBB */
-/* #define DEAL_II_FEATURE_TBB_BUNDLED_CONFIGURED */
 /* #undef DEAL_II_WITH_TRILINOS */
-/* #define DEAL_II_WITH_UMFPACK */
-/* #define DEAL_II_FEATURE_UMFPACK_BUNDLED_CONFIGURED */
-/* #define DEAL_II_WITH_ZLIB */
+/* #undef DEAL_II_WITH_UMFPACK */
+/* #undef DEAL_II_WITH_ZLIB */
 
 #ifdef DEAL_II_WITH_TBB
 /**
@@ -106,8 +100,17 @@
 /* #undef DEAL_II_HAVE_LIBSTDCXX_DEMANGLER */
 /* #undef __PRETTY_FUNCTION__ */
 #define DEAL_II_ALWAYS_INLINE
-#define DEAL_II_RESTRICT __restrict
-/* #define DEAL_II_COMPILER_HAS_DIAGNOSTIC_PRAGMA */
+#define DEAL_II_RESTRICT
+/* #define DEAL_II_RESTRICT __restrict */
+/* #undef DEAL_II_COMPILER_HAS_DIAGNOSTIC_PRAGMA */
+
+/*
+ * A variable to tell if the compiler used in the current compilation process
+ * understands CUDA code.
+ */
+#if defined(DEAL_II_WITH_CUDA) && defined(__CUDACC__)
+#  define DEAL_II_COMPILER_CUDA_AWARE
+#endif
 
 /***********************************************************************
  * CPU features:
@@ -137,7 +140,8 @@
 #define DEAL_II_COMPILER_VECTORIZATION_LEVEL 0
 #endif
 
-#define DEAL_II_OPENMP_SIMD_PRAGMA _Pragma("omp simd")
+#define DEAL_II_OPENMP_SIMD_PRAGMA
+/* #define DEAL_II_OPENMP_SIMD_PRAGMA _Pragma("omp simd") */
 
 
 /***********************************************************************
@@ -152,9 +156,7 @@
 
 #define DEAL_II_HAVE_FP_EXCEPTIONS
 /* #undef DEAL_II_HAVE_COMPLEX_OPERATOR_OVERLOADS */
-#if !defined(SPEC_NO_CXX17_SPECIAL_MATH_FUNCTIONS)
 #define DEAL_II_HAVE_CXX17_BESSEL_FUNCTIONS
-#endif
 /* #undef DEAL_II_CXX14_CONSTEXPR_BUG */
 
 /**
@@ -173,7 +175,7 @@
 // guard to allow user to override DEAL_II_DEPRECATED_EARLY
 #define DEAL_II_DEPRECATED_EARLY  
 #endif
-#define DEAL_II_FALLTHROUGH [[fallthrough]]
+#define DEAL_II_FALLTHROUGH  
 #define DEAL_II_CONSTEXPR constexpr
 
 // defined for backwards compatibility with older deal.II versions
@@ -190,10 +192,10 @@
  * For documentation see cmake/checks/check_02_system_features.cmake
  */
 
-/* #define DEAL_II_HAVE_SYS_RESOURCE_H */
-/* #define DEAL_II_HAVE_UNISTD_H */
-/* #define DEAL_II_HAVE_GETHOSTNAME */
-/* #define DEAL_II_HAVE_GETPID */
+/* #undef DEAL_II_HAVE_SYS_RESOURCE_H */
+/* #undef DEAL_II_HAVE_UNISTD_H */
+/* #undef DEAL_II_HAVE_GETHOSTNAME */
+/* #undef DEAL_II_HAVE_GETPID */
 /* #undef DEAL_II_HAVE_JN */
 
 /* #undef DEAL_II_MSVC */
@@ -224,7 +226,6 @@
 /* #undef DEAL_II_PETSC_WITH_COMPLEX */
 /* #undef DEAL_II_PETSC_WITH_HYPRE */
 /* #undef DEAL_II_PETSC_WITH_MUMPS */
-/* #undef DEAL_II_PETSC_WITH_KOKKOS */
 
 /* cmake/modules/FindSUNDIALS.cmake */
 /* #undef DEAL_II_SUNDIALS_WITH_IDAS */
@@ -243,7 +244,6 @@
 /* #undef DEAL_II_TRILINOS_WITH_BELOS */
 /* #undef DEAL_II_TRILINOS_WITH_EPETRAEXT */
 /* #undef DEAL_II_TRILINOS_WITH_MUELU */
-/* #undef DEAL_II_TRILINOS_WITH_NOX */
 /* #undef DEAL_II_TRILINOS_WITH_ROL */
 /* #undef DEAL_II_TRILINOS_WITH_SACADO */
 /* #undef DEAL_II_TRILINOS_WITH_SEACAS */
@@ -269,9 +269,9 @@
  */
 
 /**
- * Returns true if the used deal.II version is greater or equal than the
- * version specified by the three arguments. The internal implementation
- * assumes that the number of minor and subminor versions is not larger
+ * Returns true if the used deal.II version is greater or equal than the 
+ * version specified by the three arguments. The internal implementation 
+ * assumes that the number of minor and subminor versions is not larger 
  * than 100.
  */
 #define DEAL_II_VERSION_GTE(major,minor,subminor) \
@@ -299,7 +299,7 @@
  * Gmsh:
  */
 #ifdef DEAL_II_WITH_GMSH
-#  define DEAL_II_GMSH_EXECUTABLE_PATH "/home/fac/g/bangerth/bin/bin/gmsh"
+#  define DEAL_II_GMSH_EXECUTABLE_PATH ""
 #endif
 
 /**
@@ -450,10 +450,7 @@
 #  define DEAL_II_MPI_VERSION_GTE(major,minor) false
 #endif
 
-/* #undef DEAL_II_MPI_WITH_DEVICE_SUPPORT */
-#ifdef DEAL_II_MPI_WITH_DEVICE_SUPPORT
 /* #undef DEAL_II_MPI_WITH_CUDA_SUPPORT */
-#endif
 
 /***********************************************************************
  * Two macro names that we put at the top and bottom of all deal.II files
@@ -486,7 +483,6 @@ _Pragma("GCC diagnostic ignored \"-Wdeprecated-copy\"")                 \
 _Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"")         \
 _Pragma("GCC diagnostic ignored \"-Wdeprecated-volatile\"")             \
 _Pragma("GCC diagnostic ignored \"-Wexpansion-to-defined\"")            \
-_Pragma("GCC diagnostic ignored \"-Wfloat-conversion\"")                \
 _Pragma("GCC diagnostic ignored \"-Wignored-attributes\"")              \
 _Pragma("GCC diagnostic ignored \"-Wignored-qualifiers\"")              \
 _Pragma("GCC diagnostic ignored \"-Wimplicit-fallthrough\"")            \
@@ -495,7 +491,6 @@ _Pragma("GCC diagnostic ignored \"-Wint-in-bool-context\"")             \
 _Pragma("GCC diagnostic ignored \"-Wmisleading-indentation\"")          \
 _Pragma("GCC diagnostic ignored \"-Wmissing-field-initializers\"")      \
 _Pragma("GCC diagnostic ignored \"-Wnested-anon-types\"")               \
-_Pragma("GCC diagnostic ignored \"-Wnon-template-friend\"")             \
 _Pragma("GCC diagnostic ignored \"-Wnon-virtual-dtor\"")                \
 _Pragma("GCC diagnostic ignored \"-Wnonnull\"")                         \
 _Pragma("GCC diagnostic ignored \"-Woverflow\"")                        \
@@ -549,20 +544,6 @@ _Pragma("GCC diagnostic pop")
   #define DEAL_II_DO_PRAGMA(x) _Pragma(#x)
   #define DEAL_II_WARNING(desc) DEAL_II_DO_PRAGMA(message(#desc))
 #endif
-
-/***********************************************************************
- * Some places in deal.II require or benefit from using "if constexpr".
- * However, this feature is only available in C++17 and above.
- * The macro defined here can be used so that
- * "if DEAL_II_CONSTEXPR_IN_CONDITIONAL (...)" expands to "if constexpr(...)"
- * when C++17 is supported and to "if (...)" otherwise.
- */
-#ifdef DEAL_II_HAVE_CXX17
-  #define DEAL_II_CONSTEXPR_IN_CONDITIONAL constexpr
-#else
-  #define DEAL_II_CONSTEXPR_IN_CONDITIONAL
-#endif
-
 
 /***********************************************************************
  * Final inclusions:

@@ -18,6 +18,7 @@
 #ifdef DEAL_II_WITH_TRILINOS
 
 #  include <deal.II/base/mpi.h>
+#  include <deal.II/base/trilinos_utilities.h>
 
 #  include <deal.II/lac/read_write_vector.h>
 #  include <deal.II/lac/trilinos_index_access.h>
@@ -402,6 +403,19 @@ namespace TrilinosWrappers
 
       Assert(has_ghosts || n_elements_global == size(), ExcInternalError());
 #  endif
+    }
+
+
+
+    void
+    Vector::reinit(
+      const std::shared_ptr<const Utilities::MPI::Partitioner> &partitioner,
+      const bool                                                vector_writable)
+    {
+      this->reinit(partitioner->locally_owned_range(),
+                   partitioner->ghost_indices(),
+                   partitioner->get_mpi_communicator(),
+                   vector_writable);
     }
 
 

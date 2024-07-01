@@ -23,7 +23,6 @@
 #include <deal.II/base/multithread_info.h>
 #include <deal.II/base/smartpointer.h>
 
-#include <map>
 #include <vector>
 
 DEAL_II_NAMESPACE_OPEN
@@ -43,8 +42,9 @@ template <typename number>
 class SparseBlockVanka;
 #endif
 
-/*! @addtogroup Preconditioners
- *@{
+/**
+ * @addtogroup Preconditioners
+ * @{
  */
 
 /**
@@ -151,18 +151,6 @@ public:
   SparseVanka();
 
   /**
-   * Constructor which also takes two deprecated inputs.
-   *
-   * @deprecated The use of the last two parameters is deprecated. They are
-   * currently ignored.
-   */
-  DEAL_II_DEPRECATED
-  SparseVanka(const SparseMatrix<number> &M,
-              const std::vector<bool> &   selected,
-              const bool                  conserve_memory,
-              const unsigned int n_threads = MultithreadInfo::n_threads());
-
-  /**
    * Constructor. Gets the matrix for preconditioning and a bit vector with
    * entries @p true for all rows to be updated. A reference to this vector
    * will be stored, so it must persist longer than the Vanka object. The same
@@ -191,17 +179,6 @@ public:
      * Constructor. For the parameters' description, see below.
      */
     explicit AdditionalData(const std::vector<bool> &selected);
-
-    /**
-     * Constructor. For the parameters' description, see below.
-     *
-     * @deprecated The use of this constructor is deprecated - the second and
-     * third parameters are ignored.
-     */
-    DEAL_II_DEPRECATED
-    AdditionalData(const std::vector<bool> &selected,
-                   const bool               conserve_memory,
-                   const unsigned int n_threads = MultithreadInfo::n_threads());
 
     /**
      * Indices of those degrees of freedom that we shall work on.
@@ -522,20 +499,6 @@ public:
 
   /**
    * Constructor. Pass all arguments except for @p n_blocks to the base class.
-   *
-   * @deprecated This constructor is deprecated. The values passed to the last
-   * two arguments are ignored.
-   */
-  DEAL_II_DEPRECATED
-  SparseBlockVanka(const SparseMatrix<number> &M,
-                   const std::vector<bool> &   selected,
-                   const unsigned int          n_blocks,
-                   const BlockingStrategy      blocking_strategy,
-                   const bool                  conserve_memory,
-                   const unsigned int n_threads = MultithreadInfo::n_threads());
-
-  /**
-   * Constructor. Pass all arguments except for @p n_blocks to the base class.
    */
   SparseBlockVanka(const SparseMatrix<number> &M,
                    const std::vector<bool> &   selected,
@@ -581,7 +544,7 @@ private:
                     const BlockingStrategy      blocking_strategy);
 };
 
-/*@}*/
+/** @} */
 /* ---------------------------------- Inline functions ------------------- */
 
 #ifndef DOXYGEN

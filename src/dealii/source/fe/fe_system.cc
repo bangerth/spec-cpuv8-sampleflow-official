@@ -15,6 +15,7 @@
 
 #include <deal.II/base/memory_consumption.h>
 #include <deal.II/base/quadrature.h>
+#include <deal.II/base/thread_management.h>
 
 #include <deal.II/dofs/dof_accessor.h>
 
@@ -26,6 +27,7 @@
 #include <deal.II/grid/tria.h>
 #include <deal.II/grid/tria_iterator.h>
 
+#include <limits>
 #include <memory>
 #include <sstream>
 
@@ -1534,20 +1536,18 @@ template <int dim, int spacedim>
 void
 FESystem<dim, spacedim>::build_interface_constraints()
 {
-  // TODO: the implementation makes the assumption that all faces have the
-  // same number of dofs
-  if (this->n_unique_faces() != 1)
-    return;
-
-  const unsigned int face_no = 0;
-
   // check whether all base elements implement their interface constraint
-  // matrices. if this is not the case, then leave the interface costraints of
+  // matrices. if this is not the case, then leave the interface constraints of
   // this composed element empty as well; however, the rest of the element is
   // usable
   for (unsigned int base = 0; base < this->n_base_elements(); ++base)
     if (base_element(base).constraints_are_implemented() == false)
       return;
+
+  // TODO: the implementation makes the assumption that all faces have the
+  // same number of dofs
+  AssertDimension(this->n_unique_faces(), 1);
+  const unsigned int face_no = 0;
 
   this->interface_constraints.TableBase<2, double>::reinit(
     this->interface_constraints_size());
@@ -2008,10 +2008,19 @@ FESystem<dim, spacedim>::initialize(
       for (unsigned int face_no = 0; face_no < this->n_unique_faces();
            ++face_no)
         {
+          // This logic isn't valid for higher-order wedges because the first
+          // two faces are triangles, so no table will be set up for
+          // quadrilateral faces
+          Assert(this->n_dofs_per_quad(face_no) == 0 ||
+                   this->reference_cell() != ReferenceCells::Wedge,
+                 ExcNotImplemented());
+
           // the array into which we want to write should have the correct size
           // already.
           Assert(this->adjust_quad_dof_index_for_face_orientation_table[face_no]
-                     .n_elements() == 8 * this->n_dofs_per_quad(face_no),
+                     .n_elements() ==
+                   this->reference_cell().n_face_orientations(face_no) *
+                     this->n_dofs_per_quad(face_no),
                  ExcInternalError());
 
           // to obtain the shifts for this composed element, copy the shift
@@ -2025,7 +2034,10 @@ FESystem<dim, spacedim>::initialize(
               for (unsigned int c = 0; c < this->element_multiplicity(b); ++c)
                 {
                   for (unsigned int i = 0; i < temp.size(0); ++i)
-                    for (unsigned int j = 0; j < 8; ++j)
+                    for (unsigned int j = 0;
+                         j <
+                         this->reference_cell().n_face_orientations(face_no);
+                         ++j)
                       this->adjust_quad_dof_index_for_face_orientation_table
                         [face_no](index + i, j) = temp(i, j);
                   index += temp.size(0);

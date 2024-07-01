@@ -158,10 +158,7 @@ FiniteElement<dim, spacedim>::FiniteElement(
         {
           adjust_quad_dof_index_for_face_orientation_table[f] =
             Table<2, int>(this->n_dofs_per_quad(f),
-                          this->reference_cell().face_reference_cell(f) ==
-                              ReferenceCells::Quadrilateral ?
-                            8 :
-                            6);
+                          this->reference_cell().n_face_orientations(f));
           adjust_quad_dof_index_for_face_orientation_table[f].fill(0);
         }
     }
@@ -840,14 +837,15 @@ bool
 FiniteElement<dim, spacedim>::constraints_are_implemented(
   const internal::SubfaceCase<dim> &subface_case) const
 {
-  // TODO: the implementation makes the assumption that all faces have the
-  // same number of dofs
-  AssertDimension(this->n_unique_faces(), 1);
-  const unsigned int face_no = 0;
-
   if (subface_case == internal::SubfaceCase<dim>::case_isotropic)
-    return (this->n_dofs_per_face(face_no) == 0) ||
-           (interface_constraints.m() != 0);
+    {
+      unsigned int n_dofs_on_faces = 0;
+
+      for (const auto face_no : this->reference_cell().face_indices())
+        n_dofs_on_faces += this->n_dofs_per_face(face_no);
+
+      return (n_dofs_on_faces == 0) || (interface_constraints.m() != 0);
+    }
   else
     return false;
 }

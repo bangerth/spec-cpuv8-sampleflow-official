@@ -6,70 +6,70 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 #if  1  <=  1 
  template class FESeries::Fourier< 1 ,
   1 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 #if  1  <=  2 
  template class FESeries::Fourier< 1 ,
   2 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 #if  1  <=  3 
  template class FESeries::Fourier< 1 ,
   3 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 #if  2  <=  1 
  template class FESeries::Fourier< 2 ,
   1 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 #if  2  <=  2 
  template class FESeries::Fourier< 2 ,
   2 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 #if  2  <=  3 
  template class FESeries::Fourier< 2 ,
   3 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 #if  3  <=  1 
  template class FESeries::Fourier< 3 ,
   1 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 #if  3  <=  2 
  template class FESeries::Fourier< 3 ,
   2 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 #if  3  <=  3 
  template class FESeries::Fourier< 3 ,
   3 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
+#if (SPLIT_INSTANTIATIONS_CHECK(9))
 #if  1  <=  1 
  template void
  FESeries::Fourier< 1 ,  1 >::calculate(
@@ -81,7 +81,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
+#if (SPLIT_INSTANTIATIONS_CHECK(10))
 #if  1  <=  1 
  template void
  FESeries::Fourier< 1 ,  1 >::calculate(
@@ -93,7 +93,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
+#if (SPLIT_INSTANTIATIONS_CHECK(11))
 #if  1  <=  2 
  template void
  FESeries::Fourier< 1 ,  2 >::calculate(
@@ -105,7 +105,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(12))
+#if (SPLIT_INSTANTIATIONS_CHECK(12))
 #if  1  <=  2 
  template void
  FESeries::Fourier< 1 ,  2 >::calculate(
@@ -117,7 +117,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(13))
+#if (SPLIT_INSTANTIATIONS_CHECK(13))
 #if  1  <=  3 
  template void
  FESeries::Fourier< 1 ,  3 >::calculate(
@@ -129,7 +129,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(14))
+#if (SPLIT_INSTANTIATIONS_CHECK(14))
 #if  1  <=  3 
  template void
  FESeries::Fourier< 1 ,  3 >::calculate(
@@ -141,7 +141,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(15))
+#if (SPLIT_INSTANTIATIONS_CHECK(15))
 #if  2  <=  1 
  template void
  FESeries::Fourier< 2 ,  1 >::calculate(
@@ -153,7 +153,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(16))
+#if (SPLIT_INSTANTIATIONS_CHECK(16))
 #if  2  <=  1 
  template void
  FESeries::Fourier< 2 ,  1 >::calculate(
@@ -165,7 +165,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(17))
+#if (SPLIT_INSTANTIATIONS_CHECK(17))
 #if  2  <=  2 
  template void
  FESeries::Fourier< 2 ,  2 >::calculate(
@@ -177,7 +177,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(18))
+#if (SPLIT_INSTANTIATIONS_CHECK(18))
 #if  2  <=  2 
  template void
  FESeries::Fourier< 2 ,  2 >::calculate(
@@ -189,7 +189,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(19))
+#if (SPLIT_INSTANTIATIONS_CHECK(19))
 #if  2  <=  3 
  template void
  FESeries::Fourier< 2 ,  3 >::calculate(
@@ -201,7 +201,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(20))
+#if (SPLIT_INSTANTIATIONS_CHECK(20))
 #if  2  <=  3 
  template void
  FESeries::Fourier< 2 ,  3 >::calculate(
@@ -213,7 +213,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(21))
+#if (SPLIT_INSTANTIATIONS_CHECK(21))
 #if  3  <=  1 
  template void
  FESeries::Fourier< 3 ,  1 >::calculate(
@@ -225,7 +225,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(22))
+#if (SPLIT_INSTANTIATIONS_CHECK(22))
 #if  3  <=  1 
  template void
  FESeries::Fourier< 3 ,  1 >::calculate(
@@ -237,7 +237,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(23))
+#if (SPLIT_INSTANTIATIONS_CHECK(23))
 #if  3  <=  2 
  template void
  FESeries::Fourier< 3 ,  2 >::calculate(
@@ -249,7 +249,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(24))
+#if (SPLIT_INSTANTIATIONS_CHECK(24))
 #if  3  <=  2 
  template void
  FESeries::Fourier< 3 ,  2 >::calculate(
@@ -261,7 +261,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(25))
+#if (SPLIT_INSTANTIATIONS_CHECK(25))
 #if  3  <=  3 
  template void
  FESeries::Fourier< 3 ,  3 >::calculate(
@@ -273,7 +273,7 @@
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(26))
+#if (SPLIT_INSTANTIATIONS_CHECK(26))
 #if  3  <=  3 
  template void
  FESeries::Fourier< 3 ,  3 >::calculate(

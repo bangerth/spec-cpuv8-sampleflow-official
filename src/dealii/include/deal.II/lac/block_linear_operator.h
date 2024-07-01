@@ -564,7 +564,7 @@ namespace internal
 /**
  * @name Creation of a BlockLinearOperator
  */
-//@{
+/** @{ */
 
 /**
  * @relatesalso BlockLinearOperator
@@ -827,15 +827,14 @@ block_diagonal_operator(
 
 
 
-//@}
+/** @} */
 /**
  * @name Manipulation of a BlockLinearOperator
  */
-//@{
+/** @{ */
 
 /**
  * @relatesalso LinearOperator
- * @relatesalso BlockLinearOperator
  *
  * This function implements forward substitution to invert a lower block
  * triangular matrix. As arguments, it takes a BlockLinearOperator @p
@@ -952,7 +951,6 @@ block_forward_substitution(
 
 
 /**
- * @relatesalso LinearOperator
  * @relatesalso BlockLinearOperator
  *
  * This function implements back substitution to invert an upper block
@@ -1068,7 +1066,7 @@ block_back_substitution(
   return return_op;
 }
 
-//@}
+/** @} */
 
 DEAL_II_NAMESPACE_CLOSE
 

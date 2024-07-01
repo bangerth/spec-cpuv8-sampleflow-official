@@ -14,18 +14,19 @@
 // ---------------------------------------------------------------------
 
 #ifndef dealii_petsc_precondition_h
-#  define dealii_petsc_precondition_h
+#define dealii_petsc_precondition_h
 
 
-#  include <deal.II/base/config.h>
+#include <deal.II/base/config.h>
 
-#  include <deal.II/base/subscriptor.h>
+#include <deal.II/base/point.h>
+#include <deal.II/base/subscriptor.h>
 
-#  ifdef DEAL_II_WITH_PETSC
+#ifdef DEAL_II_WITH_PETSC
 
-#    include <deal.II/lac/exceptions.h>
+#  include <deal.II/lac/exceptions.h>
 
-#    include <petscpc.h>
+#  include <petscpc.h>
 
 DEAL_II_NAMESPACE_OPEN
 
@@ -34,11 +35,11 @@ DEAL_II_NAMESPACE_OPEN
 namespace PETScWrappers
 {
   // forward declarations
-#    ifndef DOXYGEN
+#  ifndef DOXYGEN
   class MatrixBase;
   class VectorBase;
   class SolverBase;
-#    endif
+#  endif
 
   /**
    * Base class for preconditioner classes using the PETSc functionality. The
@@ -61,6 +62,14 @@ namespace PETScWrappers
     /**
      * Constructor.
      */
+    explicit PreconditionBase(const MPI_Comm &mpi_communicator);
+
+    /**
+     * Constructor. This constructor is deprecated.
+     *
+     * @deprecated
+     */
+    DEAL_II_DEPRECATED
     PreconditionBase();
 
     /**
@@ -94,9 +103,20 @@ namespace PETScWrappers
     const PC &
     get_pc() const;
 
+    /**
+     * Return the MPI communicator object used by this preconditioner.
+     */
+    MPI_Comm
+    get_mpi_communicator() const;
+
   protected:
     /**
-     * the PETSc preconditioner object
+     * The communicator to be used for this preconditioner.
+     */
+    MPI_Comm mpi_communicator;
+
+    /**
+     * The PETSc preconditioner object
      */
     PC pc;
 
@@ -151,7 +171,6 @@ namespace PETScWrappers
      * object.
      */
     PreconditionJacobi() = default;
-
 
     /**
      * Constructor. Take the matrix which is used to form the preconditioner,
@@ -958,6 +977,120 @@ namespace PETScWrappers
   };
 
   /**
+   * A class that implements the interface to use the BDDC preconditioner from
+   * PETSc (<a
+   * href="https://petsc.org/release/docs/manualpages/PC/PCBDDC.html">PCBDDC</a>),
+   * which is a two-level, substructuring, non-overlapping domain decomposition
+   * preconditioner. Details of the implementation can be found in "S Zampini,
+   * SISC (2016)". It mainly consists of two elements:
+   *
+   * <ul>
+   *   <li> Local solvers: Solvers for each subdomain. These are performed concurrently by each processor
+   *   <li> A coarse solver: Continuity between each subdomain is imposed in a small number of DoFs, referred to as <em>primal DoFs</em>. This solver solves such problem.
+   * </ul>
+   *
+   * The size of the primal space is determined through the @p AdditionalData parameters. A thorough study of the performance of this solver in the context of cardiac mechanics, together with further details on this interface, is available in @cite Barnafi2022.
+   *
+   * @ingroup PETScWrappers
+   */
+  template <int dim>
+  class PreconditionBDDC : public PreconditionBase
+  {
+  public:
+    /**
+     * Standardized data struct to pipe additional flags to the
+     * preconditioner.
+     */
+    struct AdditionalData
+    {
+      /**
+       * Constructor. Note that BDDC offers a lot more options to set
+       * than what is exposed here.
+       */
+      AdditionalData(const bool                    use_vertices = true,
+                     const bool                    use_edges    = false,
+                     const bool                    use_faces    = false,
+                     const bool                    symmetric    = false,
+                     const std::vector<Point<dim>> coords       = {});
+
+      /**
+       * This flag sets the use of degrees of freedom in the vertices of the
+       * subdomains as primal variables for the creation of the coarse space.
+       */
+      bool use_vertices;
+
+      /**
+       * This flag sets the use of degrees of freedom in the edges of the
+       * subdomain as primal variables for the creation of the coarse space.
+       * Continuity is actually imposed at the edge average.
+       */
+      bool use_edges;
+
+      /**
+       * This flag sets the use of degrees of freedom in the faces of the
+       * subdomain as primal variables for the creation of the coarse space.
+       * Continuity is actually imposed at the face average.
+       */
+      bool use_faces;
+
+      /**
+       * Set whether the matrix is symmetric or not.
+       */
+      bool symmetric;
+
+      /**
+       * Set the location of each DoF. This helps in improving the definition of
+       * the vertices for unstructured meshes.
+       */
+      std::vector<Point<dim>> coords;
+    };
+
+    /**
+     * Empty Constructor. You need to call initialize() before using this
+     * object.
+     */
+    PreconditionBDDC() = default;
+
+    /**
+     * Constructor. Take the matrix which is used to form the preconditioner,
+     * and additional flags if there are any.
+     */
+    PreconditionBDDC(const MatrixBase &    matrix,
+                     const AdditionalData &additional_data = AdditionalData());
+
+    /**
+     * Same as above but without setting a matrix to form the preconditioner.
+     * Intended to be used with SLEPc objects.
+     */
+    PreconditionBDDC(const MPI_Comm        communicator,
+                     const AdditionalData &additional_data = AdditionalData());
+
+    /**
+     * Initialize the preconditioner object and calculate all data that is
+     * necessary for applying it in a solver. This function is automatically
+     * called when calling the constructor with the same arguments and is only
+     * used if you create the preconditioner without arguments.
+     */
+    void
+    initialize(const MatrixBase &    matrix,
+               const AdditionalData &additional_data = AdditionalData());
+
+  protected:
+    /**
+     * Store a copy of the flags for this particular preconditioner.
+     */
+    AdditionalData additional_data;
+
+    /**
+     * Initialize the preconditioner object without knowing a particular
+     * matrix. This function sets up appropriate parameters to the underlying
+     * PETSc object after it has been created.
+     */
+    void
+    initialize();
+  };
+
+  /**
    * Alias for backwards-compatibility.
    * @deprecated Use PETScWrappers::PreconditionBase instead.
    */
@@ -965,11 +1098,9 @@ namespace PETScWrappers
 } // namespace PETScWrappers
 
 
-
 DEAL_II_NAMESPACE_CLOSE
 
 
-#  endif // DEAL_II_WITH_PETSC
+#endif // DEAL_II_WITH_PETSC
 
 #endif
-/*--------------------------- petsc_precondition.h --------------------------*/

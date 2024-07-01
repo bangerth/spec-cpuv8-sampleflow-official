@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 template void MatrixTools::local_apply_boundary_values(
  const std::map<types::global_dof_index,  double > &boundary_values,
  const std::vector<types::global_dof_index> & local_dof_indices,
@@ -29,7 +29,7 @@ template void MatrixTools::local_apply_boundary_values(
  const bool eliminate_columns);
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 template void MatrixTools::local_apply_boundary_values(
  const std::map<types::global_dof_index,  float > &boundary_values,
  const std::vector<types::global_dof_index> & local_dof_indices,
@@ -49,52 +49,6 @@ template void MatrixTools::local_apply_boundary_values(
  BlockSparseMatrix< float > & matrix,
  BlockVector< float > & solution,
  BlockVector< float > & right_hand_side,
- const bool eliminate_columns);
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
-template void MatrixTools::local_apply_boundary_values(
- const std::map<types::global_dof_index,  std::complex<double> > &boundary_values,
- const std::vector<types::global_dof_index> & local_dof_indices,
- FullMatrix< std::complex<double> > & local_matrix,
- Vector< std::complex<double> > & local_rhs,
- const bool eliminate_columns);
-
- template void MatrixTools::apply_boundary_values(
- const std::map<types::global_dof_index,  std::complex<double> > &boundary_values,
- SparseMatrix< std::complex<double> > & matrix,
- Vector< std::complex<double> > & solution,
- Vector< std::complex<double> > & right_hand_side,
- const bool eliminate_columns);
-
- template void MatrixTools::apply_boundary_values(
- const std::map<types::global_dof_index,  std::complex<double> > &boundary_values,
- BlockSparseMatrix< std::complex<double> > & matrix,
- BlockVector< std::complex<double> > & solution,
- BlockVector< std::complex<double> > & right_hand_side,
- const bool eliminate_columns);
- 
-#endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
-template void MatrixTools::local_apply_boundary_values(
- const std::map<types::global_dof_index,  std::complex<float> > &boundary_values,
- const std::vector<types::global_dof_index> & local_dof_indices,
- FullMatrix< std::complex<float> > & local_matrix,
- Vector< std::complex<float> > & local_rhs,
- const bool eliminate_columns);
-
- template void MatrixTools::apply_boundary_values(
- const std::map<types::global_dof_index,  std::complex<float> > &boundary_values,
- SparseMatrix< std::complex<float> > & matrix,
- Vector< std::complex<float> > & solution,
- Vector< std::complex<float> > & right_hand_side,
- const bool eliminate_columns);
-
- template void MatrixTools::apply_boundary_values(
- const std::map<types::global_dof_index,  std::complex<float> > &boundary_values,
- BlockSparseMatrix< std::complex<float> > & matrix,
- BlockVector< std::complex<float> > & solution,
- BlockVector< std::complex<float> > & right_hand_side,
  const bool eliminate_columns);
  
 #endif

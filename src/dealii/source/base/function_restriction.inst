@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 template class Functions::PointRestriction< 1 >;
 
  template Point< 1 > internal::create_higher_dim_point(
@@ -17,7 +17,7 @@ template class Functions::PointRestriction< 1 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 template class Functions::PointRestriction< 2 >;
 
  template Point< 2 > internal::create_higher_dim_point(
@@ -28,7 +28,7 @@ template class Functions::PointRestriction< 2 >;
 #endif
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 template class Functions::PointRestriction< 3 >;
 
  template Point< 3 > internal::create_higher_dim_point(

@@ -22,8 +22,6 @@
 #include <deal.II/grid/tria_iterator.h>
 #include <deal.II/grid/tria_iterator.templates.h>
 
-#include <deal.II/hp/dof_handler.h>
-
 #include <deal.II/lac/block_vector.h>
 #include <deal.II/lac/la_parallel_block_vector.h>
 #include <deal.II/lac/la_parallel_vector.h>
@@ -37,6 +35,7 @@
 #include <deal.II/lac/trilinos_vector.h>
 #include <deal.II/lac/vector.h>
 
+#include <limits>
 #include <vector>
 
 DEAL_II_NAMESPACE_OPEN
@@ -104,18 +103,18 @@ namespace internal
   constexpr bool has_set_ghost_state =
     is_supported_operation<set_ghost_state_t, T>;
 
-  template <typename VectorType,
-            typename std::enable_if<has_set_ghost_state<VectorType>,
-                                    VectorType>::type * = nullptr>
+  template <
+    typename VectorType,
+    std::enable_if_t<has_set_ghost_state<VectorType>, VectorType> * = nullptr>
   void
   set_ghost_state(VectorType &vector, const bool ghosted)
   {
     vector.set_ghost_state(ghosted);
   }
 
-  template <typename VectorType,
-            typename std::enable_if<!has_set_ghost_state<VectorType>,
-                                    VectorType>::type * = nullptr>
+  template <
+    typename VectorType,
+    std::enable_if_t<!has_set_ghost_state<VectorType>, VectorType> * = nullptr>
   void
   set_ghost_state(VectorType &, const bool)
   {
@@ -181,14 +180,14 @@ namespace internal
     const DoFCellAccessor<dim, spacedim, lda> &      cell,
     const Vector<number> &                           local_values,
     OutputVector &                                   values,
-    const unsigned int                               fe_index_,
+    const types::fe_index                            fe_index_,
     const std::function<void(const DoFCellAccessor<dim, spacedim, lda> &cell,
                              const Vector<number> &local_values,
                              OutputVector &        values)> &processor)
   {
-    const unsigned int fe_index =
+    const types::fe_index fe_index =
       (cell.get_dof_handler().has_hp_capabilities() == false &&
-       fe_index_ == DoFHandler<dim, spacedim>::invalid_fe_index) ?
+       fe_index_ == numbers::invalid_fe_index) ?
         DoFHandler<dim, spacedim>::default_fe_index :
         fe_index_;
 
@@ -199,7 +198,7 @@ namespace internal
             // active cells, you either don't specify an fe_index,
             // or that you specify the correct one
             (fe_index == cell.active_fe_index()) ||
-            (fe_index == DoFHandler<dim, spacedim>::invalid_fe_index))
+            (fe_index == numbers::invalid_fe_index))
           // simply set the values on this cell
           processor(cell, local_values, values);
         else
@@ -230,7 +229,7 @@ namespace internal
       // otherwise distribute them to the children
       {
         Assert((cell.get_dof_handler().has_hp_capabilities() == false) ||
-                 (fe_index != DoFHandler<dim, spacedim>::invalid_fe_index),
+                 (fe_index != numbers::invalid_fe_index),
                ExcMessage(
                  "You cannot call this function on non-active cells "
                  "of DoFHandler objects unless you provide an explicit "
@@ -273,7 +272,7 @@ void
 DoFCellAccessor<dim, spacedim, lda>::set_dof_values_by_interpolation(
   const Vector<number> &local_values,
   OutputVector &        values,
-  const unsigned int    fe_index_,
+  const types::fe_index fe_index_,
   const bool            perform_check) const
 {
   internal::process_by_interpolation<dim, spacedim, lda, OutputVector, number>(
@@ -296,7 +295,7 @@ DoFCellAccessor<dim, spacedim, lda>::
   distribute_local_to_global_by_interpolation(
     const Vector<number> &local_values,
     OutputVector &        values,
-    const unsigned int    fe_index_) const
+    const types::fe_index fe_index_) const
 {
   internal::process_by_interpolation<dim, spacedim, lda, OutputVector, number>(
     *this,

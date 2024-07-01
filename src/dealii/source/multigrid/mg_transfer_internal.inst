@@ -6,7 +6,7 @@
   #define SPLIT_INSTANTIATIONS_CHECK(C) (1)
 #endif
 
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(0))
+#if (SPLIT_INSTANTIATIONS_CHECK(0))
 namespace internal
  {
  namespace MGTransfer
@@ -30,7 +30,7 @@ namespace internal
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(1))
+#if (SPLIT_INSTANTIATIONS_CHECK(1))
 namespace internal
  {
  namespace MGTransfer
@@ -54,7 +54,7 @@ namespace internal
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(2))
+#if (SPLIT_INSTANTIATIONS_CHECK(2))
 namespace internal
  {
  namespace MGTransfer
@@ -78,7 +78,7 @@ namespace internal
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(3))
+#if (SPLIT_INSTANTIATIONS_CHECK(3))
 namespace internal
  {
  namespace MGTransfer
@@ -102,7 +102,7 @@ namespace internal
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(4))
+#if (SPLIT_INSTANTIATIONS_CHECK(4))
 namespace internal
  {
  namespace MGTransfer
@@ -126,7 +126,7 @@ namespace internal
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(5))
+#if (SPLIT_INSTANTIATIONS_CHECK(5))
 namespace internal
  {
  namespace MGTransfer
@@ -150,7 +150,7 @@ namespace internal
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(6))
+#if (SPLIT_INSTANTIATIONS_CHECK(6))
 namespace internal
  {
  namespace MGTransfer
@@ -174,7 +174,7 @@ namespace internal
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(7))
+#if (SPLIT_INSTANTIATIONS_CHECK(7))
 namespace internal
  {
  namespace MGTransfer
@@ -198,7 +198,7 @@ namespace internal
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(8))
+#if (SPLIT_INSTANTIATIONS_CHECK(8))
 namespace internal
  {
  namespace MGTransfer
@@ -222,7 +222,7 @@ namespace internal
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(9))
+#if (SPLIT_INSTANTIATIONS_CHECK(9))
 namespace internal
  {
  namespace MGTransfer
@@ -236,7 +236,7 @@ namespace internal
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(10))
+#if (SPLIT_INSTANTIATIONS_CHECK(10))
 namespace internal
  {
  namespace MGTransfer
@@ -250,7 +250,7 @@ namespace internal
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(11))
+#if (SPLIT_INSTANTIATIONS_CHECK(11))
 namespace internal
  {
  namespace MGTransfer
@@ -264,7 +264,7 @@ namespace internal
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(12))
+#if (SPLIT_INSTANTIATIONS_CHECK(12))
 namespace internal
  {
  namespace MGTransfer
@@ -275,7 +275,7 @@ namespace internal
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(13))
+#if (SPLIT_INSTANTIATIONS_CHECK(13))
 namespace internal
  {
  namespace MGTransfer
@@ -286,7 +286,7 @@ namespace internal
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(14))
+#if (SPLIT_INSTANTIATIONS_CHECK(14))
 namespace internal
  {
  namespace MGTransfer
@@ -310,7 +310,7 @@ namespace internal
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(15))
+#if (SPLIT_INSTANTIATIONS_CHECK(15))
 namespace internal
  {
  namespace MGTransfer
@@ -334,7 +334,7 @@ namespace internal
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(16))
+#if (SPLIT_INSTANTIATIONS_CHECK(16))
 namespace internal
  {
  namespace MGTransfer
@@ -358,7 +358,7 @@ namespace internal
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(17))
+#if (SPLIT_INSTANTIATIONS_CHECK(17))
 namespace internal
  {
  namespace MGTransfer
@@ -382,7 +382,7 @@ namespace internal
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(18))
+#if (SPLIT_INSTANTIATIONS_CHECK(18))
 namespace internal
  {
  namespace MGTransfer
@@ -406,7 +406,7 @@ namespace internal
  }
  
 #endif
-#if 1 && (SPLIT_INSTANTIATIONS_CHECK(19))
+#if (SPLIT_INSTANTIATIONS_CHECK(19))
 namespace internal
  {
  namespace MGTransfer

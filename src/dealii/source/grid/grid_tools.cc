@@ -13,6 +13,7 @@
 //
 // ---------------------------------------------------------------------
 
+#include <deal.II/base/floating_point_comparator.h>
 #include <deal.II/base/mpi.h>
 #include <deal.II/base/mpi.templates.h>
 #include <deal.II/base/mpi_consensus_algorithms.h>
@@ -32,7 +33,6 @@
 #include <deal.II/fe/fe_q.h>
 #include <deal.II/fe/fe_values.h>
 #include <deal.II/fe/mapping_q.h>
-#include <deal.II/fe/mapping_q1.h>
 
 #include <deal.II/grid/filtered_iterator.h>
 #include <deal.II/grid/grid_reordering.h>
@@ -67,6 +67,7 @@ DEAL_II_ENABLE_EXTRA_DIAGNOSTICS
 #include <array>
 #include <cmath>
 #include <iostream>
+#include <limits>
 #include <list>
 #include <numeric>
 #include <set>
@@ -744,6 +745,9 @@ namespace GridTools
                              std::vector<unsigned int> &   considered_vertices,
                              const double                  tol)
   {
+    if (tol == 0.0)
+      return; // nothing to do per definition
+
     AssertIndexRange(2, vertices.size());
     std::vector<unsigned int> new_vertex_numbers(vertices.size());
     std::iota(new_vertex_numbers.begin(), new_vertex_numbers.end(), 0);
@@ -864,14 +868,45 @@ namespace GridTools
 
 
 
+  template <int dim>
+  void
+  delete_duplicated_vertices(std::vector<Point<dim>> &vertices,
+                             const double             tol)
+  {
+    if (vertices.size() == 0)
+      return;
+
+    // 1) map point to local vertex index
+    std::map<Point<dim>, unsigned int, FloatingPointComparator<double>>
+      map_point_to_local_vertex_index{FloatingPointComparator<double>(tol)};
+
+    // 2) initialize map with existing points uniquely
+    for (unsigned int i = 0; i < vertices.size(); ++i)
+      map_point_to_local_vertex_index[vertices[i]] = i;
+
+    // no duplicate points are found
+    if (map_point_to_local_vertex_index.size() == vertices.size())
+      return;
+
+    // 3) remove duplicate entries from vertices
+    vertices.resize(map_point_to_local_vertex_index.size());
+    {
+      unsigned int j = 0;
+      for (const auto &p : map_point_to_local_vertex_index)
+        vertices[j++] = p.first;
+    }
+  }
+
+
+
   template <int dim, int spacedim>
   std::size_t
   invert_cells_with_negative_measure(
     const std::vector<Point<spacedim>> &all_vertices,
     std::vector<CellData<dim>> &        cells)
   {
-    // This function is presently only implemented for hypercube and simplex
-    // volumetric (codimension 0) elements.
+    // This function is presently only implemented for volumetric (codimension
+    // 0) elements.
 
     if (dim == 1)
       return 0;
@@ -879,18 +914,20 @@ namespace GridTools
       Assert(false, ExcNotImplemented());
 
     std::size_t n_negative_cells = 0;
+    std::size_t cell_no          = 0;
     for (auto &cell : cells)
       {
         const ArrayView<const unsigned int> vertices(cell.vertices);
-        if (GridTools::cell_measure(all_vertices, vertices) < 0)
+        // Some pathologically twisted cells can have exactly zero measure but
+        // we can still fix them
+        if (GridTools::cell_measure(all_vertices, vertices) <= 0)
           {
-            const unsigned int n_vertices = vertices.size();
+            ++n_negative_cells;
+            const auto reference_cell =
+              ReferenceCell::n_vertices_to_type(dim, vertices.size());
 
-            if (ReferenceCell::n_vertices_to_type(dim, n_vertices)
-                  .is_hyper_cube())
+            if (reference_cell.is_hyper_cube())
               {
-                ++n_negative_cells;
-
                 if (dim == 2)
                   {
                     // flip the cell across the y = x line in 2D
@@ -905,16 +942,26 @@ namespace GridTools
                     std::swap(cell.vertices[5], cell.vertices[7]);
                   }
               }
-
-            else if (ReferenceCell::n_vertices_to_type(dim, n_vertices)
-                       .is_simplex())
+            else if (reference_cell.is_simplex())
               {
-                ++n_negative_cells;
                 // By basic rules for computing determinants we can just swap
                 // two vertices to fix a negative volume. Arbitrarily pick the
                 // last two.
-                std::swap(cell.vertices[n_vertices - 2],
-                          cell.vertices[n_vertices - 1]);
+                std::swap(cell.vertices[cell.vertices.size() - 2],
+                          cell.vertices[cell.vertices.size() - 1]);
+              }
+            else if (reference_cell == ReferenceCells::Wedge)
+              {
+                // swap the two triangular faces
+                std::swap(cell.vertices[0], cell.vertices[3]);
+                std::swap(cell.vertices[1], cell.vertices[4]);
+                std::swap(cell.vertices[2], cell.vertices[5]);
+              }
+            else if (reference_cell == ReferenceCells::Pyramid)
+              {
+                // Try swapping two vertices in the base - perhaps things were
+                // read in the UCD (counter-clockwise) order instead of lexical
+                std::swap(cell.vertices[2], cell.vertices[3]);
               }
             else
               {
@@ -924,8 +971,9 @@ namespace GridTools
             // If not, then the grid is seriously broken and
             // we just give up.
             AssertThrow(GridTools::cell_measure(all_vertices, vertices) > 0,
-                        ExcInternalError());
+                        ExcGridHasInvalidCell(cell_no));
           }
+        ++cell_no;
       }
     return n_negative_cells;
   }
@@ -2152,8 +2200,15 @@ namespace GridTools
 
     QGauss<dim> quadrature(4);
 
+    Assert(triangulation.all_reference_cells_are_hyper_cube(),
+           ExcNotImplemented());
+    const auto reference_cell = ReferenceCells::get_hypercube<dim>();
     MatrixCreator::create_laplace_matrix(
-      StaticMappingQ1<dim>::mapping, dof_handler, quadrature, S, coefficient);
+      reference_cell.template get_default_linear_mapping<dim, dim>(),
+      dof_handler,
+      quadrature,
+      S,
+      coefficient);
 
     // set up the boundary values for the laplace problem
     std::array<AffineConstraints<double>, dim>                  constraints;
@@ -2850,15 +2905,51 @@ namespace GridTools
     bool found_cell  = false;
     bool approx_cell = false;
 
-    unsigned int        closest_vertex_index = 0;
+    unsigned int closest_vertex_index = 0;
+    // ensure closest vertex index is a marked one, otherwise cell (with vertex
+    // 0) might be found even though it is not marked. This is only relevant if
+    // searching with rtree, using find_closest_vertex already can manage not
+    // finding points
+    if (marked_vertices.size() && !used_vertices_rtree.empty())
+      {
+        const auto itr =
+          std::find(marked_vertices.begin(), marked_vertices.end(), true);
+        Assert(itr != marked_vertices.end(),
+               dealii::ExcMessage("No vertex has been marked!"));
+        closest_vertex_index = std::distance(marked_vertices.begin(), itr);
+      }
+
     Tensor<1, spacedim> vertex_to_point;
     auto                current_cell = cell_hint;
+
+    // check whether cell has at least one marked vertex
+    const auto cell_marked = [&mesh, &marked_vertices](const auto &cell) {
+      if (marked_vertices.size() == 0)
+        return true;
+
+      if (cell != mesh.active_cell_iterators().end())
+        for (unsigned int i = 0; i < cell->n_vertices(); ++i)
+          if (marked_vertices[cell->vertex_index(i)])
+            return true;
+
+      return false;
+    };
+
+    // check whether any cell in collection is marked
+    const auto any_cell_marked = [&cell_marked](const auto &cells) {
+      return std::any_of(cells.begin(),
+                         cells.end(),
+                         [&cell_marked](const auto &cell) {
+                           return cell_marked(cell);
+                         });
+    };
 
     while (found_cell == false)
       {
         // First look at the vertices of the cell cell_hint. If it's an
         // invalid cell, then query for the closest global vertex
-        if (current_cell.state() == IteratorState::valid)
+        if (current_cell.state() == IteratorState::valid &&
+            cell_marked(cell_hint))
           {
             const auto cell_vertices = mapping.get_vertices(current_cell);
             const unsigned int closest_vertex =
@@ -2888,9 +2979,14 @@ namespace GridTools
                     boost::geometry::index::satisfies(marked),
                   std::back_inserter(res));
 
-                // We should have one and only one result
-                AssertDimension(res.size(), 1);
-                closest_vertex_index = res[0].second;
+                // Searching for a point which is located outside the
+                // triangulation results in res.size() = 0
+                Assert(res.size() < 2,
+                       dealii::ExcMessage("There can not be multiple results"));
+
+                if (res.size() > 0)
+                  if (any_cell_marked(vertex_to_cells[res[0].second]))
+                    closest_vertex_index = res[0].second;
               }
             else
               {
@@ -2899,6 +2995,14 @@ namespace GridTools
               }
             vertex_to_point = p - mesh.get_vertices()[closest_vertex_index];
           }
+
+#ifdef DEBUG
+        {
+          // Double-check if found index is at marked cell
+          Assert(any_cell_marked(vertex_to_cells[closest_vertex_index]),
+                 dealii::ExcMessage("Found non-marked vertex"));
+        }
+#endif
 
         const double vertex_point_norm = vertex_to_point.norm();
         if (vertex_point_norm > 0)
@@ -3410,31 +3514,26 @@ namespace GridTools
              std::vector<std::tuple<types::global_vertex_index,
                                     types::global_vertex_index,
                                     std::string>>>
-                         vertices_to_send;
-    active_cell_iterator cell = triangulation.begin_active(),
-                         endc = triangulation.end();
+                                   vertices_to_send;
     std::set<active_cell_iterator> missing_vert_cells;
     std::set<unsigned int>         used_vertex_index;
-    for (; cell != endc; ++cell)
+    for (const auto &cell : triangulation.active_cell_iterators())
       {
         if (cell->is_locally_owned())
           {
             for (const unsigned int i : cell->vertex_indices())
               {
                 types::subdomain_id lowest_subdomain_id = cell->subdomain_id();
-                typename std::set<active_cell_iterator>::iterator
-                  adjacent_cell = vertex_to_cell[cell->vertex_index(i)].begin(),
-                  end_adj_cell  = vertex_to_cell[cell->vertex_index(i)].end();
-                for (; adjacent_cell != end_adj_cell; ++adjacent_cell)
-                  lowest_subdomain_id =
-                    std::min(lowest_subdomain_id,
-                             (*adjacent_cell)->subdomain_id());
+                for (const auto &adjacent_cell :
+                     vertex_to_cell[cell->vertex_index(i)])
+                  lowest_subdomain_id = std::min(lowest_subdomain_id,
+                                                 adjacent_cell->subdomain_id());
 
-                // See if I "own" this vertex
+                // See if this process "owns" this vertex
                 if (lowest_subdomain_id == cell->subdomain_id())
                   {
-                    // Check that the vertex we are working on a vertex that has
-                    // not be dealt with yet
+                    // Check that the vertex we are working on is a vertex that
+                    // has not been dealt with yet
                     if (used_vertex_index.find(cell->vertex_index(i)) ==
                         used_vertex_index.end())
                       {
@@ -3444,20 +3543,19 @@ namespace GridTools
 
                         // Store the information that will be sent to the
                         // adjacent cells on other subdomains
-                        adjacent_cell =
-                          vertex_to_cell[cell->vertex_index(i)].begin();
-                        for (; adjacent_cell != end_adj_cell; ++adjacent_cell)
-                          if ((*adjacent_cell)->subdomain_id() !=
+                        for (const auto &adjacent_cell :
+                             vertex_to_cell[cell->vertex_index(i)])
+                          if (adjacent_cell->subdomain_id() !=
                               cell->subdomain_id())
                             {
                               std::pair<types::subdomain_id,
                                         types::global_vertex_index>
-                                tmp((*adjacent_cell)->subdomain_id(),
+                                tmp(adjacent_cell->subdomain_id(),
                                     cell->vertex_index(i));
                               if (vertices_added.find(tmp) ==
                                   vertices_added.end())
                                 {
-                                  vertices_to_send[(*adjacent_cell)
+                                  vertices_to_send[adjacent_cell
                                                      ->subdomain_id()]
                                     .emplace_back(i,
                                                   cell->vertex_index(i),
@@ -3531,11 +3629,8 @@ namespace GridTools
                           triangulation.get_communicator());
     AssertThrowMPI(ierr);
 
-    std::map<unsigned int, types::global_vertex_index>::iterator
-      global_index_it  = local_to_global_vertex_index.begin(),
-      global_index_end = local_to_global_vertex_index.end();
-    for (; global_index_it != global_index_end; ++global_index_it)
-      global_index_it->second += shift;
+    for (auto &global_index_it : local_to_global_vertex_index)
+      global_index_it.second += shift;
 
 
     const int mpi_tag = Utilities::MPI::internal::Tags::
@@ -6027,13 +6122,22 @@ namespace GridTools
                 for (const auto &cell_and_reference_position :
                      cells_and_reference_positions)
                   {
+                    const auto cell = cell_and_reference_position.first;
+                    auto       reference_position =
+                      cell_and_reference_position.second;
+
+                    // TODO: we need to implement
+                    // ReferenceCell::project_to_unit_cell()
+                    if (cell->reference_cell().is_hyper_cube())
+                      reference_position =
+                        GeometryInfo<dim>::project_to_unit_cell(
+                          reference_position);
+
                     send_components.emplace_back(
-                      std::pair<int, int>(
-                        cell_and_reference_position.first->level(),
-                        cell_and_reference_position.first->index()),
+                      std::pair<int, int>(cell->level(), cell->index()),
                       other_rank,
                       index_and_point.first,
-                      cell_and_reference_position.second,
+                      reference_position,
                       index_and_point.second,
                       numbers::invalid_unsigned_int);
                   }
@@ -6400,7 +6504,7 @@ namespace GridTools
     std::map<unsigned int, std::vector<unsigned int>> &coinciding_vertex_groups,
     std::map<unsigned int, unsigned int> &vertex_to_coinciding_vertex_group)
   {
-    // 1) determine for each vertex a vertex it concides with and
+    // 1) determine for each vertex a vertex it coincides with and
     //    put it into a map
     {
       static const int lookup_table_2d[2][2] =
@@ -6575,137 +6679,6 @@ namespace GridTools
 
 
 
-  template <int dim, typename VectorType>
-  MarchingCubeAlgorithm<dim, VectorType>::MarchingCubeAlgorithm(
-    const Mapping<dim, dim> &      mapping,
-    const FiniteElement<dim, dim> &fe,
-    const unsigned int             n_subdivisions,
-    const double                   tolerance)
-    : n_subdivisions(n_subdivisions)
-    , tolerance(tolerance)
-    , fe_values(mapping,
-                fe,
-                create_quadrature_rule(n_subdivisions),
-                update_values | update_quadrature_points)
-  {}
-
-
-
-  template <int dim, typename VectorType>
-  Quadrature<dim>
-  MarchingCubeAlgorithm<dim, VectorType>::create_quadrature_rule(
-    const unsigned int n_subdivisions)
-  {
-    std::vector<Point<dim>> quadrature_points;
-
-    if (dim == 2)
-      {
-        for (unsigned int j = 0; j <= n_subdivisions; ++j)
-          for (unsigned int i = 0; i <= n_subdivisions; ++i)
-            quadrature_points.emplace_back(1.0 / n_subdivisions * i,
-                                           1.0 / n_subdivisions * j);
-      }
-    else
-      {
-        for (unsigned int k = 0; k <= n_subdivisions; ++k)
-          for (unsigned int j = 0; j <= n_subdivisions; ++j)
-            for (unsigned int i = 0; i <= n_subdivisions; ++i)
-              quadrature_points.emplace_back(1.0 / n_subdivisions * i,
-                                             1.0 / n_subdivisions * j,
-                                             1.0 / n_subdivisions * k);
-      }
-
-
-    return {quadrature_points};
-  }
-
-
-
-  template <int dim, typename VectorType>
-  void
-  MarchingCubeAlgorithm<dim, VectorType>::process(
-    const DoFHandler<dim> &         background_dof_handler,
-    const VectorType &              ls_vector,
-    const double                    iso_level,
-    std::vector<Point<dim>> &       vertices,
-    std::vector<CellData<dim - 1>> &cells) const
-  {
-    for (const auto &cell : background_dof_handler.active_cell_iterators() |
-                              IteratorFilters::LocallyOwnedCell())
-      process_cell(cell, ls_vector, iso_level, vertices, cells);
-  }
-
-
-
-  template <int dim, typename VectorType>
-  void
-  MarchingCubeAlgorithm<dim, VectorType>::process_cell(
-    const typename DoFHandler<dim>::active_cell_iterator &cell,
-    const VectorType &                                    ls_vector,
-    const double                                          iso_level,
-    std::vector<Point<dim>> &                             vertices,
-    std::vector<CellData<dim - 1>> &                      cells) const
-  {
-    std::vector<value_type> ls_values;
-
-    fe_values.reinit(cell);
-    ls_values.resize(fe_values.n_quadrature_points);
-    fe_values.get_function_values(ls_vector, ls_values);
-    process_cell(
-      ls_values, fe_values.get_quadrature_points(), iso_level, vertices, cells);
-  }
-
-
-
-  template <int dim, typename VectorType>
-  void
-  MarchingCubeAlgorithm<dim, VectorType>::process_cell(
-    std::vector<value_type> &       ls_values,
-    const std::vector<Point<dim>> & points,
-    const double                    iso_level,
-    std::vector<Point<dim>> &       vertices,
-    std::vector<CellData<dim - 1>> &cells) const
-  {
-    const unsigned p = n_subdivisions + 1;
-
-    if (dim == 2)
-      {
-        for (unsigned int j = 0; j < n_subdivisions; ++j)
-          for (unsigned int i = 0; i < n_subdivisions; ++i)
-            {
-              std::vector<unsigned int> mask{p * (j + 0) + (i + 0),
-                                             p * (j + 0) + (i + 1),
-                                             p * (j + 1) + (i + 1),
-                                             p * (j + 1) + (i + 0)};
-
-              process_sub_cell(
-                ls_values, points, mask, iso_level, vertices, cells);
-            }
-      }
-    else if (dim == 3)
-      {
-        for (unsigned int k = 0; k < n_subdivisions; ++k)
-          for (unsigned int j = 0; j < n_subdivisions; ++j)
-            for (unsigned int i = 0; i < n_subdivisions; ++i)
-              {
-                std::vector<unsigned int> mask{
-                  p * p * (k + 0) + p * (j + 0) + (i + 0),
-                  p * p * (k + 0) + p * (j + 0) + (i + 1),
-                  p * p * (k + 0) + p * (j + 1) + (i + 1),
-                  p * p * (k + 0) + p * (j + 1) + (i + 0),
-                  p * p * (k + 1) + p * (j + 0) + (i + 0),
-                  p * p * (k + 1) + p * (j + 0) + (i + 1),
-                  p * p * (k + 1) + p * (j + 1) + (i + 1),
-                  p * p * (k + 1) + p * (j + 1) + (i + 0)};
-
-                process_sub_cell(
-                  ls_values, points, mask, iso_level, vertices, cells);
-              }
-      }
-  }
-
-
-
   namespace internal
   {
     template <int          dim,
@@ -6719,14 +6692,15 @@ namespace GridTools
     process_sub_cell(
       const std::array<unsigned int, n_configurations> &     cut_line_table,
       const ndarray<unsigned int, n_configurations, n_cols> &new_line_table,
-      const ndarray<unsigned int, n_lines, 2> &line_to_vertex_table,
-      const std::vector<value_type> &          ls_values,
-      const std::vector<Point<dim>> &          points,
-      const std::vector<unsigned int> &        mask,
-      const double                             iso_level,
-      const double                             tolerance,
-      std::vector<Point<dim>> &                vertices,
-      std::vector<CellData<dim - 1>> &         cells)
+      const ndarray<unsigned int, n_lines, 2> &      line_to_vertex_table,
+      const std::vector<value_type> &                ls_values,
+      const std::vector<Point<dim>> &                points,
+      const std::vector<unsigned int> &              mask,
+      const double                                   iso_level,
+      const double                                   tolerance,
+      std::vector<Point<dim>> &                      vertices,
+      std::vector<CellData<dim == 1 ? 1 : dim - 1>> &cells,
+      const bool                                     write_back_cell_data)
     {
       // inspired by https://graphics.stanford.edu/~mdfisher/MarchingCubes.html
 
@@ -6786,16 +6760,19 @@ namespace GridTools
         vertices.push_back(vertex_list_reduced[i]);
 
       // write back cells
-      for (unsigned int i = 0; new_line_table[configuration][i] != X;
-           i += n_sub_vertices)
+      if (write_back_cell_data && dim > 1)
         {
-          cells.resize(cells.size() + 1);
-          cells.back().vertices.resize(n_sub_vertices);
+          for (unsigned int i = 0; new_line_table[configuration][i] != X;
+               i += n_sub_vertices)
+            {
+              cells.resize(cells.size() + 1);
+              cells.back().vertices.resize(n_sub_vertices);
 
-          for (unsigned int v = 0; v < n_sub_vertices; ++v)
-            cells.back().vertices[v] =
-              local_remap[new_line_table[configuration][i + v]] +
-              n_vertices_old;
+              for (unsigned int v = 0; v < n_sub_vertices; ++v)
+                cells.back().vertices[v] =
+                  local_remap[new_line_table[configuration][i + v]] +
+                  n_vertices_old;
+            }
         }
     }
   } // namespace internal
@@ -6803,14 +6780,248 @@ namespace GridTools
 
 
   template <int dim, typename VectorType>
+  MarchingCubeAlgorithm<dim, VectorType>::MarchingCubeAlgorithm(
+    const Mapping<dim, dim> &      mapping,
+    const FiniteElement<dim, dim> &fe,
+    const unsigned int             n_subdivisions,
+    const double                   tolerance)
+    : n_subdivisions(n_subdivisions)
+    , tolerance(tolerance)
+    , fe_values(mapping,
+                fe,
+                create_quadrature_rule(n_subdivisions),
+                update_values | update_quadrature_points)
+  {}
+
+
+
+  template <int dim, typename VectorType>
+  Quadrature<dim>
+  MarchingCubeAlgorithm<dim, VectorType>::create_quadrature_rule(
+    const unsigned int n_subdivisions)
+  {
+    std::vector<Point<dim>> quadrature_points;
+
+    if (dim == 1)
+      {
+        for (unsigned int i = 0; i <= n_subdivisions; ++i)
+          quadrature_points.emplace_back(1.0 / n_subdivisions * i);
+      }
+    else if (dim == 2)
+      {
+        for (unsigned int j = 0; j <= n_subdivisions; ++j)
+          for (unsigned int i = 0; i <= n_subdivisions; ++i)
+            quadrature_points.emplace_back(1.0 / n_subdivisions * i,
+                                           1.0 / n_subdivisions * j);
+      }
+    else
+      {
+        for (unsigned int k = 0; k <= n_subdivisions; ++k)
+          for (unsigned int j = 0; j <= n_subdivisions; ++j)
+            for (unsigned int i = 0; i <= n_subdivisions; ++i)
+              quadrature_points.emplace_back(1.0 / n_subdivisions * i,
+                                             1.0 / n_subdivisions * j,
+                                             1.0 / n_subdivisions * k);
+      }
+
+
+    return {quadrature_points};
+  }
+
+
+
+  template <int dim, typename VectorType>
+  void
+  MarchingCubeAlgorithm<dim, VectorType>::process(
+    const DoFHandler<dim> &                        background_dof_handler,
+    const VectorType &                             ls_vector,
+    const double                                   iso_level,
+    std::vector<Point<dim>> &                      vertices,
+    std::vector<CellData<dim == 1 ? 1 : dim - 1>> &cells) const
+  {
+    AssertThrow(
+      dim > 1,
+      ExcMessage(
+        "Not implemented for dim==1. Use the alternative process()-function "
+        "not returning a vector of CellData objects."));
+
+    for (const auto &cell : background_dof_handler.active_cell_iterators() |
+                              IteratorFilters::LocallyOwnedCell())
+      process_cell(cell, ls_vector, iso_level, vertices, cells);
+  }
+
+  template <int dim, typename VectorType>
+  void
+  MarchingCubeAlgorithm<dim, VectorType>::process(
+    const DoFHandler<dim> &  background_dof_handler,
+    const VectorType &       ls_vector,
+    const double             iso_level,
+    std::vector<Point<dim>> &vertices) const
+  {
+    for (const auto &cell : background_dof_handler.active_cell_iterators() |
+                              IteratorFilters::LocallyOwnedCell())
+      process_cell(cell, ls_vector, iso_level, vertices);
+
+    delete_duplicated_vertices(vertices, 1e-10 /*tol*/);
+  }
+
+
+  template <int dim, typename VectorType>
+  void
+  MarchingCubeAlgorithm<dim, VectorType>::process_cell(
+    const typename DoFHandler<dim>::active_cell_iterator &cell,
+    const VectorType &                                    ls_vector,
+    const double                                          iso_level,
+    std::vector<Point<dim>> &                             vertices,
+    std::vector<CellData<dim == 1 ? 1 : dim - 1>> &       cells) const
+  {
+    AssertThrow(
+      dim > 1,
+      ExcMessage(
+        "Not implemented for dim==1. Use the alternative process_cell()-function "
+        "not returning a vector of CellData objects."));
+
+    std::vector<value_type> ls_values;
+
+    fe_values.reinit(cell);
+    ls_values.resize(fe_values.n_quadrature_points);
+    fe_values.get_function_values(ls_vector, ls_values);
+    process_cell(
+      ls_values, fe_values.get_quadrature_points(), iso_level, vertices, cells);
+  }
+
+  template <int dim, typename VectorType>
+  void
+  MarchingCubeAlgorithm<dim, VectorType>::process_cell(
+    const typename DoFHandler<dim>::active_cell_iterator &cell,
+    const VectorType &                                    ls_vector,
+    const double                                          iso_level,
+    std::vector<Point<dim>> &                             vertices) const
+  {
+    // This vector is just a placeholder to reuse the process_cell function.
+    std::vector<CellData<dim == 1 ? 1 : dim - 1>> dummy_cells;
+
+    std::vector<value_type> ls_values;
+
+    fe_values.reinit(cell);
+    ls_values.resize(fe_values.n_quadrature_points);
+    fe_values.get_function_values(ls_vector, ls_values);
+
+    process_cell(ls_values,
+                 fe_values.get_quadrature_points(),
+                 iso_level,
+                 vertices,
+                 dummy_cells,
+                 false /*don't write back cell data*/);
+  }
+
+
+  template <int dim, typename VectorType>
+  void
+  MarchingCubeAlgorithm<dim, VectorType>::process_cell(
+    std::vector<value_type> &                      ls_values,
+    const std::vector<Point<dim>> &                points,
+    const double                                   iso_level,
+    std::vector<Point<dim>> &                      vertices,
+    std::vector<CellData<dim == 1 ? 1 : dim - 1>> &cells,
+    const bool                                     write_back_cell_data) const
+  {
+    const unsigned p = n_subdivisions + 1;
+
+    if (dim == 1)
+      {
+        for (unsigned int i = 0; i < n_subdivisions; ++i)
+          {
+            std::vector<unsigned int> mask{i + 0, i + 1};
+
+            // check if a corner node is cut
+            if (std::abs(iso_level - ls_values[mask[0]]) < tolerance)
+              vertices.emplace_back(points[mask[0]]);
+            else if (std::abs(iso_level - ls_values[mask[1]]) < tolerance)
+              {
+                if (i + 1 == n_subdivisions)
+                  vertices.emplace_back(points[mask[1]]);
+              }
+            // check for a saddle point, if iso_level values of the two
+            // corner nodes are identical
+            else if ((std::abs(ls_values[mask[0]] - ls_values[mask[1]]) <
+                      tolerance) &&
+                     (ls_values[mask[0]] >= iso_level))
+              vertices.emplace_back(0.5 * (points[mask[0]] + points[mask[1]]));
+            // check if the edge is cut
+            else if (((ls_values[mask[0]] > iso_level) &&
+                      (ls_values[mask[1]] < iso_level)) ||
+                     ((ls_values[mask[0]] < iso_level) &&
+                      (ls_values[mask[1]] > iso_level)))
+              {
+                // determine the interpolation weight (0<mu<1)
+                const double mu = (iso_level - ls_values[mask[0]]) /
+                                  (ls_values[mask[1]] - ls_values[mask[0]]);
+
+                // interpolate
+                vertices.emplace_back(points[mask[0]] +
+                                      mu * (points[mask[1]] - points[mask[0]]));
+              }
+          }
+      }
+    else if (dim == 2)
+      {
+        for (unsigned int j = 0; j < n_subdivisions; ++j)
+          for (unsigned int i = 0; i < n_subdivisions; ++i)
+            {
+              std::vector<unsigned int> mask{p * (j + 0) + (i + 0),
+                                             p * (j + 0) + (i + 1),
+                                             p * (j + 1) + (i + 1),
+                                             p * (j + 1) + (i + 0)};
+
+              process_sub_cell(ls_values,
+                               points,
+                               mask,
+                               iso_level,
+                               vertices,
+                               cells,
+                               write_back_cell_data);
+            }
+      }
+    else if (dim == 3)
+      {
+        for (unsigned int k = 0; k < n_subdivisions; ++k)
+          for (unsigned int j = 0; j < n_subdivisions; ++j)
+            for (unsigned int i = 0; i < n_subdivisions; ++i)
+              {
+                std::vector<unsigned int> mask{
+                  p * p * (k + 0) + p * (j + 0) + (i + 0),
+                  p * p * (k + 0) + p * (j + 0) + (i + 1),
+                  p * p * (k + 0) + p * (j + 1) + (i + 1),
+                  p * p * (k + 0) + p * (j + 1) + (i + 0),
+                  p * p * (k + 1) + p * (j + 0) + (i + 0),
+                  p * p * (k + 1) + p * (j + 0) + (i + 1),
+                  p * p * (k + 1) + p * (j + 1) + (i + 1),
+                  p * p * (k + 1) + p * (j + 1) + (i + 0)};
+
+                process_sub_cell(ls_values,
+                                 points,
+                                 mask,
+                                 iso_level,
+                                 vertices,
+                                 cells,
+                                 write_back_cell_data);
+              }
+      }
+  }
+
+
+
+  template <int dim, typename VectorType>
   void
   MarchingCubeAlgorithm<dim, VectorType>::process_sub_cell(
-    const std::vector<value_type> & ls_values,
-    const std::vector<Point<2>> &   points,
-    const std::vector<unsigned int> mask,
-    const double                    iso_level,
-    std::vector<Point<2>> &         vertices,
-    std::vector<CellData<1>> &      cells) const
+    const std::vector<value_type> &  ls_values,
+    const std::vector<Point<2>> &    points,
+    const std::vector<unsigned int> &mask,
+    const double                     iso_level,
+    std::vector<Point<2>> &          vertices,
+    std::vector<CellData<1>> &       cells,
+    const bool                       write_back_cell_data) const
   {
     // set up dimension-dependent sizes and tables
     constexpr unsigned int n_vertices       = 4;
@@ -6819,7 +7030,7 @@ namespace GridTools
     constexpr unsigned int n_configurations = Utilities::pow(2, n_vertices);
     constexpr unsigned int X                = static_cast<unsigned int>(-1);
 
-    // table that indicates if an edge is cut (it the i-th bit is set the i-th
+    // table that indicates if an edge is cut (if the i-th bit is set the i-th
     // line is cut)
     constexpr std::array<unsigned int, n_configurations> cut_line_table = {
       {0b0000,
@@ -6878,7 +7089,8 @@ namespace GridTools
                                   iso_level,
                                   tolerance,
                                   vertices,
-                                  cells);
+                                  cells,
+                                  write_back_cell_data);
   }
 
 
@@ -6886,12 +7098,13 @@ namespace GridTools
   template <int dim, typename VectorType>
   void
   MarchingCubeAlgorithm<dim, VectorType>::process_sub_cell(
-    const std::vector<value_type> & ls_values,
-    const std::vector<Point<3>> &   points,
-    const std::vector<unsigned int> mask,
-    const double                    iso_level,
-    std::vector<Point<3>> &         vertices,
-    std::vector<CellData<2>> &      cells) const
+    const std::vector<value_type> &  ls_values,
+    const std::vector<Point<3>> &    points,
+    const std::vector<unsigned int> &mask,
+    const double                     iso_level,
+    std::vector<Point<3>> &          vertices,
+    std::vector<CellData<2>> &       cells,
+    const bool                       write_back_cell_data) const
   {
     // set up dimension-dependent sizes and tables
     constexpr unsigned int n_vertices       = 8;
@@ -6901,7 +7114,7 @@ namespace GridTools
     constexpr unsigned int X                = static_cast<unsigned int>(-1);
 
     // clang-format off
-    // table that indicates if an edge is cut (it the i-th bit is set the i-th
+    // table that indicates if an edge is cut (if the i-th bit is set the i-th
     // line is cut)
     constexpr std::array<unsigned int, n_configurations> cut_line_table = {{
       0x0,   0x109, 0x203, 0x30a, 0x406, 0x50f, 0x605, 0x70c, 0x80c, 0x905,
@@ -7222,7 +7435,8 @@ namespace GridTools
                                    iso_level,
                                    tolerance,
                                    vertices,
-                                   cells);
+                                   cells,
+                                   write_back_cell_data);
   }
 
 } /* namespace GridTools */

@@ -20,7 +20,7 @@
 #include <deal.II/base/config.h>
 
 #include <deal.II/base/mg_level_object.h>
-#include <deal.II/base/thread_management.h>
+#include <deal.II/base/mutex.h>
 
 #include <deal.II/dofs/dof_handler.h>
 
@@ -36,58 +36,10 @@
 DEAL_II_NAMESPACE_OPEN
 
 
-/*!@addtogroup mapping */
-/*@{*/
-
 /**
- * @deprecated Use MappingFEField<dim, spacedim, VectorType> instead.
+ * @addtogroup mapping
+ * @{
  */
-template <int dim,
-          int spacedim            = dim,
-          typename VectorType     = Vector<double>,
-          typename DoFHandlerType = void>
-class MappingFEField;
-
-#ifndef DOXYGEN
-// prevent doxygen from complaining about potential recursive class relations
-template <int dim, int spacedim, typename VectorType, typename DoFHandlerType>
-class MappingFEField : public MappingFEField<dim, spacedim, VectorType, void>
-{
-public:
-  DEAL_II_DEPRECATED
-  MappingFEField(const DoFHandlerType &euler_dof_handler,
-                 const VectorType &    euler_vector,
-                 const ComponentMask & mask = ComponentMask())
-    : MappingFEField<dim, spacedim, VectorType, void>(euler_dof_handler,
-                                                      euler_vector,
-                                                      mask)
-  {}
-
-  DEAL_II_DEPRECATED
-  MappingFEField(const DoFHandlerType &         euler_dof_handler,
-                 const std::vector<VectorType> &euler_vector,
-                 const ComponentMask &          mask = ComponentMask())
-    : MappingFEField<dim, spacedim, VectorType, void>(euler_dof_handler,
-                                                      euler_vector,
-                                                      mask)
-  {}
-
-  DEAL_II_DEPRECATED
-  MappingFEField(const DoFHandlerType &           euler_dof_handler,
-                 const MGLevelObject<VectorType> &euler_vector,
-                 const ComponentMask &            mask = ComponentMask())
-    : MappingFEField<dim, spacedim, VectorType, void>(euler_dof_handler,
-                                                      euler_vector,
-                                                      mask)
-  {}
-
-  DEAL_II_DEPRECATED
-  MappingFEField(
-    const MappingFEField<dim, spacedim, VectorType, DoFHandlerType> &mapping)
-    : MappingFEField<dim, spacedim, VectorType, void>(mapping)
-  {}
-};
-#endif // DOXYGEN
 
 /**
  * The MappingFEField is a generalization of the MappingQEulerian class, for
@@ -124,9 +76,8 @@ public:
  *    MappingFEField<dim,spacedim> map(dhq, eulerq, mask);
  * @endcode
  */
-template <int dim, int spacedim, typename VectorType>
-class MappingFEField<dim, spacedim, VectorType, void>
-  : public Mapping<dim, spacedim>
+template <int dim, int spacedim = dim, typename VectorType = Vector<double>>
+class MappingFEField : public Mapping<dim, spacedim>
 {
 public:
   /**
@@ -192,8 +143,7 @@ public:
   /**
    * Copy constructor.
    */
-  MappingFEField(
-    const MappingFEField<dim, spacedim, VectorType, void> &mapping);
+  MappingFEField(const MappingFEField<dim, spacedim, VectorType> &mapping);
 
   /**
    * Return a pointer to a copy of the present object. The caller of this copy
@@ -584,6 +534,14 @@ protected:
     internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
       &output_data) const override;
 
+  virtual void
+  fill_fe_immersed_surface_values(
+    const typename Triangulation<dim, spacedim>::cell_iterator &cell,
+    const NonMatching::ImmersedSurfaceQuadrature<dim> &         quadrature,
+    const typename Mapping<dim, spacedim>::InternalDataBase &   internal_data,
+    dealii::internal::FEValuesImplementation::MappingRelatedData<dim, spacedim>
+      &output_data) const override;
+
   /**
    * @}
    */
@@ -603,15 +561,15 @@ protected:
   /**
    * Reference to the vector of shifts.
    */
-  std::vector<SmartPointer<const VectorType,
-                           MappingFEField<dim, spacedim, VectorType, void>>>
+  std::vector<
+    SmartPointer<const VectorType, MappingFEField<dim, spacedim, VectorType>>>
     euler_vector;
 
   /**
    * Pointer to the DoFHandler to which the mapping vector is associated.
    */
   SmartPointer<const DoFHandler<dim, spacedim>,
-               MappingFEField<dim, spacedim, VectorType, void>>
+               MappingFEField<dim, spacedim, VectorType>>
     euler_dof_handler;
 
 private:
@@ -661,7 +619,7 @@ private:
   void
   update_internal_dofs(
     const typename Triangulation<dim, spacedim>::cell_iterator &cell,
-    const typename MappingFEField<dim, spacedim, VectorType, void>::InternalData
+    const typename MappingFEField<dim, spacedim, VectorType>::InternalData
       &data) const;
 
   /**
@@ -670,8 +628,8 @@ private:
   virtual void
   compute_shapes_virtual(
     const std::vector<Point<dim>> &unit_points,
-    typename MappingFEField<dim, spacedim, VectorType, void>::InternalData
-      &data) const;
+    typename MappingFEField<dim, spacedim, VectorType>::InternalData &data)
+    const;
 
   /*
    * Which components to use for the mapping.
@@ -698,7 +656,7 @@ private:
   /**
    * A variable to guard access to the fe_values variable.
    */
-  mutable std::mutex fe_values_mutex;
+  mutable Threads::Mutex fe_values_mutex;
 
   void
   compute_data(const UpdateFlags      update_flags,
@@ -714,11 +672,11 @@ private:
 
 
   // Declare other MappingFEField classes friends.
-  template <int, int, class, class>
+  template <int, int, class>
   friend class MappingFEField;
 };
 
-/*@}*/
+/** @} */
 
 /* -------------- declaration of explicit specializations ------------- */
 

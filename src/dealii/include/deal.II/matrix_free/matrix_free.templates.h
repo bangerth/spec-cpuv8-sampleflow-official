@@ -22,10 +22,10 @@
 #include <deal.II/base/memory_consumption.h>
 #include <deal.II/base/mpi.h>
 #include <deal.II/base/mpi_consensus_algorithms.h>
+#include <deal.II/base/multithread_info.h>
 #include <deal.II/base/polynomials_piecewise.h>
 #include <deal.II/base/quadrature_lib.h>
 #include <deal.II/base/tensor_product_polynomials.h>
-#include <deal.II/base/utilities.h>
 
 #include <deal.II/distributed/tria.h>
 
@@ -40,6 +40,7 @@
 
 #include <deal.II/lac/dynamic_sparsity_pattern.h>
 
+#include <deal.II/matrix_free/constraint_info.h>
 #include <deal.II/matrix_free/face_info.h>
 #include <deal.II/matrix_free/face_setup_internal.h>
 #include <deal.II/matrix_free/hanging_nodes_internal.h>
@@ -229,18 +230,18 @@ MatrixFree<dim, Number, VectorizedArrayType>::get_dof_handler(
 
 
 template <int dim, typename Number, typename VectorizedArrayType>
-template <typename DoFHandlerType>
-const DoFHandlerType &
-MatrixFree<dim, Number, VectorizedArrayType>::get_dof_handler(
+const AffineConstraints<Number> &
+MatrixFree<dim, Number, VectorizedArrayType>::get_affine_constraints(
   const unsigned int dof_handler_index) const
 {
   AssertIndexRange(dof_handler_index, n_components());
 
-  auto dh =
-    dynamic_cast<const DoFHandlerType *>(&*dof_handlers[dof_handler_index]);
-  Assert(dh != nullptr, ExcNotInitialized());
+  AssertThrow(affine_constraints[dof_handler_index] != nullptr,
+              ExcMessage(
+                "AffineConstraints are only accessible if its Number type "
+                "matches with Number type of MatrixFree!"));
 
-  return *dh;
+  return *(affine_constraints[dof_handler_index]);
 }
 
 
@@ -288,6 +289,19 @@ MatrixFree<dim, Number, VectorizedArrayType>::get_cell_level_and_index(
 
 
 template <int dim, typename Number, typename VectorizedArrayType>
+unsigned int
+MatrixFree<dim, Number, VectorizedArrayType>::get_matrix_free_cell_index(
+  const typename Triangulation<dim>::cell_iterator &cell) const
+{
+  return mf_cell_indices[(this->get_mg_level() ==
+                          numbers::invalid_unsigned_int) ?
+                           cell->active_cell_index() :
+                           cell->index()];
+}
+
+
+
+template <int dim, typename Number, typename VectorizedArrayType>
 std::pair<typename DoFHandler<dim>::cell_iterator, unsigned int>
 MatrixFree<dim, Number, VectorizedArrayType>::get_face_iterator(
   const unsigned int face_batch_index,
@@ -325,30 +339,6 @@ MatrixFree<dim, Number, VectorizedArrayType>::get_face_iterator(
 
 
 template <int dim, typename Number, typename VectorizedArrayType>
-typename DoFHandler<dim>::active_cell_iterator
-MatrixFree<dim, Number, VectorizedArrayType>::get_hp_cell_iterator(
-  const unsigned int cell_batch_index,
-  const unsigned int lane_index,
-  const unsigned int dof_handler_index) const
-{
-  AssertIndexRange(dof_handler_index, dof_handlers.size());
-  AssertIndexRange(cell_batch_index, task_info.cell_partition_data.back());
-  AssertIndexRange(lane_index,
-                   n_active_entries_per_cell_batch(cell_batch_index));
-
-  std::pair<unsigned int, unsigned int> index =
-    cell_level_index[cell_batch_index * VectorizedArrayType::size() +
-                     lane_index];
-  return typename DoFHandler<dim>::cell_iterator(
-    &dof_handlers[dof_handler_index]->get_triangulation(),
-    index.first,
-    index.second,
-    &*dof_handlers[dof_handler_index]);
-}
-
-
-
-template <int dim, typename Number, typename VectorizedArrayType>
 void
 MatrixFree<dim, Number, VectorizedArrayType>::copy_from(
   const MatrixFree<dim, Number, VectorizedArrayType> &v)
@@ -368,6 +358,29 @@ MatrixFree<dim, Number, VectorizedArrayType>::copy_from(
   mapping_is_initialized     = v.mapping_is_initialized;
   mg_level                   = v.mg_level;
 }
+
+
+
+namespace internal
+{
+  template <typename Number, typename Number2>
+  void
+  store_affine_constraints(
+    const dealii::AffineConstraints<Number2> *,
+    SmartPointer<const dealii::AffineConstraints<Number>> &stored_constraints)
+  {
+    stored_constraints = nullptr;
+  }
+
+  template <typename Number>
+  void
+  store_affine_constraints(
+    const dealii::AffineConstraints<Number> *              affine_constraints,
+    SmartPointer<const dealii::AffineConstraints<Number>> &stored_constraints)
+  {
+    stored_constraints = affine_constraints;
+  }
+} // namespace internal
 
 
 
@@ -414,6 +427,11 @@ MatrixFree<dim, Number, VectorizedArrayType>::internal_reinit(
               shape_info(c, nq, fe_no, q_no)
                 .reinit(quad[nq][q_no], dof_handler[no]->get_fe(fe_no), b);
   }
+
+  // Store pointers to AffineConstraints objects if Number type matches
+  affine_constraints.resize(constraints.size());
+  for (unsigned int no = 0; no < constraints.size(); ++no)
+    internal::store_affine_constraints(constraints[no], affine_constraints[no]);
 
   if (additional_data.initialize_indices == true)
     {
@@ -809,6 +827,23 @@ MatrixFree<dim, Number, VectorizedArrayType>::internal_reinit(
             }
         }
 
+      // Will the piola transform be used? If so we need to update
+      // the jacobian gradients in case of update_gradients on general cells.
+      bool piola_transform = false;
+      for (unsigned int no = 0, c = 0; no < dof_handler.size(); ++no)
+        for (unsigned int b = 0;
+             b < dof_handler[no]->get_fe(0).n_base_elements();
+             ++b, ++c)
+          for (unsigned int fe_no = 0;
+               fe_no < dof_handler[no]->get_fe_collection().size();
+               ++fe_no)
+            for (unsigned int nq = 0; nq < quad.size(); ++nq)
+              for (unsigned int q_no = 0; q_no < quad[nq].size(); ++q_no)
+                if (shape_info(c, nq, fe_no, q_no).element_type ==
+                    internal::MatrixFreeFunctions::ElementType::
+                      tensor_raviart_thomas)
+                  piola_transform = true;
+
       mapping_info.initialize(
         dof_handler[0]->get_triangulation(),
         cell_level_index,
@@ -821,10 +856,36 @@ MatrixFree<dim, Number, VectorizedArrayType>::internal_reinit(
         additional_data.mapping_update_flags,
         additional_data.mapping_update_flags_boundary_faces,
         additional_data.mapping_update_flags_inner_faces,
-        additional_data.mapping_update_flags_faces_by_cells);
+        additional_data.mapping_update_flags_faces_by_cells,
+        piola_transform);
 
       mapping_is_initialized = true;
     }
+
+  // set up map: deal.II index -> MatrixFree index
+  {
+    const auto &tria     = dof_handler[0]->get_triangulation();
+    const auto  mg_level = this->get_mg_level();
+
+    mf_cell_indices.resize((mg_level == numbers::invalid_unsigned_int) ?
+                             tria.n_active_cells() :
+                             (mg_level < tria.n_levels() ?
+                                tria.n_raw_cells(mg_level) :
+                                0),
+                           numbers::invalid_unsigned_int);
+
+    for (unsigned int cell = 0;
+         cell < n_cell_batches() + n_ghost_cell_batches();
+         ++cell)
+      for (unsigned int v = 0; v < n_active_entries_per_cell_batch(cell); ++v)
+        {
+          const auto tria_cell = get_cell_iterator(cell, v);
+          mf_cell_indices[(mg_level == numbers::invalid_unsigned_int) ?
+                            tria_cell->active_cell_index() :
+                            tria_cell->index()] =
+            cell * VectorizedArrayType::size() + v;
+        }
+  }
 }
 
 
@@ -1112,8 +1173,7 @@ namespace internal
 
     if (use_fast_hanging_node_algorithm)
       {
-        const auto &reference_cells =
-          dof_handler[0]->get_triangulation().get_reference_cells();
+        const auto &reference_cells = tria.get_reference_cells();
         use_fast_hanging_node_algorithm =
           std::all_of(reference_cells.begin(),
                       reference_cells.end(),
@@ -1243,13 +1303,10 @@ namespace internal
 
         // cache the constrained indices for use in matrix-vector products and
         // the like
-        const types::global_dof_index
-          start_index = dof_info[no].vector_partitioner->local_range().first,
-          end_index   = dof_info[no].vector_partitioner->local_range().second;
-        for (types::global_dof_index i = start_index; i < end_index; ++i)
-          if (constraint[no]->is_constrained(i) == true)
+        for (const auto &line : constraint[no]->get_lines())
+          if (dof_info[no].vector_partitioner->in_local_range(line.index))
             dof_info[no].constrained_dofs.push_back(
-              static_cast<unsigned int>(i - start_index));
+              dof_info[no].vector_partitioner->global_to_local(line.index));
       }
 
     // extract all the global indices associated with the computation, and form
@@ -1291,32 +1348,40 @@ namespace internal
 
         for (unsigned int no = 0; no < n_dof_handlers; ++no)
           {
+            const DoFHandler<dim> &dofh = *dof_handler[no];
+            bool                   cell_has_hanging_node_constraints = false;
+
             // read indices from active cells
             if (mg_level == numbers::invalid_unsigned_int)
               {
-                const DoFHandler<dim> *dofh = &*dof_handler[no];
                 typename DoFHandler<dim>::active_cell_iterator cell_it(
                   &tria,
                   cell_level_index[counter].first,
                   cell_level_index[counter].second,
-                  dofh);
+                  &dofh);
                 const unsigned int fe_index =
-                  dofh->get_fe_collection().size() > 1 ?
+                  dofh.get_fe_collection().size() > 1 ?
                     cell_it->active_fe_index() :
                     0;
-                if (dofh->get_fe_collection().size() > 1)
+                const unsigned int dofs_per_cell =
+                  dof_info[no].dofs_per_cell[fe_index];
+                if (dofh.get_fe_collection().size() > 1)
                   dof_info[no].cell_active_fe_index[counter] = fe_index;
-                local_dof_indices_resolved.resize(
-                  dof_info[no].dofs_per_cell[fe_index]);
+                else if (cell_categorization_enabled)
+                  {
+                    AssertIndexRange(cell_it->active_cell_index(),
+                                     cell_vectorization_category.size());
+                    dof_info[no].cell_active_fe_index[counter] =
+                      cell_vectorization_category[cell_it->active_cell_index()];
+                  }
+
+                local_dof_indices_resolved.resize(dofs_per_cell);
                 cell_it->get_dof_indices(local_dof_indices_resolved);
 
-                local_dof_indices.resize(local_dof_indices_resolved.size());
-                for (unsigned int i = 0; i < local_dof_indices_resolved.size();
-                     ++i)
+                local_dof_indices.resize(dofs_per_cell);
+                for (unsigned int i = 0; i < dofs_per_cell; ++i)
                   local_dof_indices[i] =
                     local_dof_indices_resolved[lexicographic[no][fe_index][i]];
-
-                bool cell_has_hanging_node_constraints = false;
 
                 if (dim > 1 && use_fast_hanging_node_algorithm)
                   {
@@ -1330,53 +1395,21 @@ namespace internal
                         cell_it,
                         local_dof_indices_resolved);
                   }
-
-                dof_info[no].read_dof_indices(
-                  cell_has_hanging_node_constraints ?
-                    local_dof_indices_resolved :
-                    local_dof_indices,
-                  local_dof_indices,
-                  cell_has_hanging_node_constraints,
-                  *constraint[no],
-                  counter,
-                  constraint_values,
-                  cell_at_subdomain_boundary);
-                if (dofh->get_fe_collection().size() == 1 &&
-                    cell_categorization_enabled)
-                  {
-                    AssertIndexRange(cell_it->active_cell_index(),
-                                     cell_vectorization_category.size());
-                    dof_info[no].cell_active_fe_index[counter] =
-                      cell_vectorization_category[cell_it->active_cell_index()];
-                  }
               }
             // we are requested to use a multigrid level
             else
               {
-                const DoFHandler<dim> *dofh = dof_handler[no];
                 AssertIndexRange(mg_level, tria.n_levels());
                 typename DoFHandler<dim>::cell_iterator cell_it(
                   &tria,
                   cell_level_index[counter].first,
                   cell_level_index[counter].second,
-                  dofh);
-                local_dof_indices_resolved.resize(
-                  dof_info[no].dofs_per_cell[0]);
+                  &dofh);
+                const unsigned int dofs_per_cell =
+                  dof_info[no].dofs_per_cell[0];
+                local_dof_indices_resolved.resize(dofs_per_cell);
                 cell_it->get_mg_dof_indices(local_dof_indices_resolved);
 
-                local_dof_indices.resize(local_dof_indices_resolved.size());
-                for (unsigned int i = 0; i < local_dof_indices_resolved.size();
-                     ++i)
-                  local_dof_indices[i] =
-                    local_dof_indices_resolved[lexicographic[no][0][i]];
-
-                dof_info[no].read_dof_indices(local_dof_indices,
-                                              local_dof_indices,
-                                              false,
-                                              *constraint[no],
-                                              counter,
-                                              constraint_values,
-                                              cell_at_subdomain_boundary);
                 if (cell_categorization_enabled)
                   {
                     AssertIndexRange(cell_it->index(),
@@ -1385,7 +1418,22 @@ namespace internal
                       cell_vectorization_category[cell_level_index[counter]
                                                     .second];
                   }
+
+                local_dof_indices.resize(dofs_per_cell);
+                for (unsigned int i = 0; i < dofs_per_cell; ++i)
+                  local_dof_indices[i] =
+                    local_dof_indices_resolved[lexicographic[no][0][i]];
               }
+
+            dof_info[no].read_dof_indices(cell_has_hanging_node_constraints ?
+                                            local_dof_indices_resolved :
+                                            local_dof_indices,
+                                          local_dof_indices,
+                                          cell_has_hanging_node_constraints,
+                                          *constraint[no],
+                                          counter,
+                                          constraint_values,
+                                          cell_at_subdomain_boundary);
           }
 
         // if we found dofs on some FE component that belong to other
@@ -1482,25 +1530,42 @@ namespace internal
         std::vector<unsigned int> parent_relation(
           task_info.n_active_cells + task_info.n_ghost_cells,
           numbers::invalid_unsigned_int);
-        std::map<std::pair<int, int>, std::vector<unsigned int>> cell_parents;
+
+        constexpr unsigned int max_children_per_cell =
+          GeometryInfo<dim>::max_children_per_cell;
+        const unsigned int n_levels =
+          mg_level == numbers::invalid_unsigned_int ? tria.n_levels() - 1 :
+                                                      mg_level;
+        std::vector<std::vector<
+          std::pair<unsigned int,
+                    std::array<unsigned int, max_children_per_cell>>>>
+          cell_parents(n_levels);
+
+        // Set up data structures, making sure that the current process has
+        // cells on that level in the case of MG
+        for (unsigned int level = 0; level < n_levels; ++level)
+          if (tria.n_levels() > level)
+            cell_parents[level].resize(tria.n_raw_cells(level));
+
         for (unsigned int c = 0; c < cell_level_index_end_local; ++c)
           if (cell_level_index[c].first > 0)
             {
               typename Triangulation<dim>::cell_iterator cell(
                 &tria, cell_level_index[c].first, cell_level_index[c].second);
               Assert(cell->level() > 0, ExcInternalError());
-              cell_parents[std::make_pair(cell->parent()->level(),
-                                          cell->parent()->index())]
-                .push_back(c);
+              const auto parent = cell->parent();
+              auto &     entry = cell_parents[parent->level()][parent->index()];
+              entry.second[entry.first++] = c;
             }
         unsigned int position = 0;
-        for (const auto &it : cell_parents)
-          if (it.second.size() == GeometryInfo<dim>::max_children_per_cell)
-            {
-              for (auto i : it.second)
-                parent_relation[i] = position;
-              ++position;
-            }
+        for (const auto &cells_on_level : cell_parents)
+          for (const auto &it : cells_on_level)
+            if (it.first == GeometryInfo<dim>::max_children_per_cell)
+              {
+                for (auto i : it.second)
+                  parent_relation[i] = position;
+                ++position;
+              }
         task_info.create_blocks_serial(subdomain_boundary_cells,
                                        max_dofs_per_cell,
                                        hp_functionality_enabled,
@@ -1889,10 +1954,13 @@ MatrixFree<dim, Number, VectorizedArrayType>::initialize_indices(
 
       std::vector<bool> hard_vectorization_boundary(
         task_info.face_partition_data.size(), false);
-      if (task_info.scheme == internal::MatrixFreeFunctions::TaskInfo::none &&
-          task_info.partition_row_index[2] <
-            task_info.face_partition_data.size())
-        hard_vectorization_boundary[task_info.partition_row_index[2]] = true;
+      if (task_info.scheme == internal::MatrixFreeFunctions::TaskInfo::none)
+        {
+          if (task_info.partition_row_index[2] <
+              task_info.face_partition_data.size())
+            hard_vectorization_boundary[task_info.partition_row_index[2]] =
+              true;
+        }
       else
         std::fill(hard_vectorization_boundary.begin(),
                   hard_vectorization_boundary.end(),
