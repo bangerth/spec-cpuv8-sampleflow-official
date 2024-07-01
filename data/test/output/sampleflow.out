@@ -1,4 +1,13 @@
 Running with 3 chains, computing 300 samples per chain.
+Sample number 100
+Sample number 200
+Sample number 300
+Sample number 400
+Sample number 500
+Sample number 600
+Sample number 700
+Sample number 800
+Sample number 900
 Mean value of the 4-parameter downscaling:
     0.836776 1.13711 1.18733 1.35706 
 Comparison mean value of the downscaled 64-parameter mean:
