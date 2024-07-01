@@ -67,6 +67,7 @@ namespace SampleFlow
     
     std::mutex queue_mutex;
     std::deque<std::pair<unsigned int,std::shared_ptr<std::function<void ()>>>> task_queue;
+    unsigned int currently_executing_tasks;
 
     std::mutex wake_up_mutex;
     std::condition_variable wake_up_signal;
@@ -78,7 +79,8 @@ namespace SampleFlow
   inline
   ThreadPool::ThreadPool ()
   :
-  stop_signal (false)
+  stop_signal (false),
+  currently_executing_tasks (0)
   {
     if(const char* env_p = std::getenv("OMP_NUM_THREADS"))
       concurrency = std::min<unsigned int> (std::atoi(env_p),
@@ -165,13 +167,14 @@ namespace SampleFlow
       {
         // Wait for all currently enqueued tasks to finish. Do this by
         // repeatedly getting the lock and checking the size of the
-        // queue. If it is zero, return. If it is nonzero, tell the OS to
-        // do something else instead.
+        // queue. If it is zero, return. If it is nonzero, or if it is
+        // zero but one of the tasks is still executing, tell the OS
+        // to do something else instead.
         while (true)
           {
             {
               std::lock_guard<std::mutex> lock(queue_mutex);
-              if (task_queue.empty())
+              if (task_queue.empty() && (currently_executing_tasks == 0))
                 return;
             }
 
@@ -203,6 +206,8 @@ namespace SampleFlow
               this_task = task_queue.front().first;
               task = std::move(*task_queue.front().second);
               task_queue.pop_front();
+
+              ++currently_executing_tasks;
             }
 
           // Give back the lock here:
@@ -210,10 +215,14 @@ namespace SampleFlow
         
 
         
-        // If there was work, execute it
+        // If there was work, execute it. Once done, decrement the
+        // counter for the currently running tasks.
         if (task)
           {
             task();
+
+            std::lock_guard<std::mutex> lock(queue_mutex);
+            --currently_executing_tasks;
           }
         else
           {
