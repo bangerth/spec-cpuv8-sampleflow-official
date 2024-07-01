@@ -22,6 +22,7 @@
 #include <deal.II/grid/tria.h>
 #include <deal.II/dofs/dof_handler.h>
 #include <deal.II/grid/grid_generator.h>
+#include <deal.II/grid/grid_refinement.h>
 #include <deal.II/grid/tria_accessor.h>
 #include <deal.II/grid/tria_iterator.h>
 #include <deal.II/dofs/dof_accessor.h>
@@ -33,6 +34,7 @@
 #include <deal.II/base/parameter_handler.h>
 #include <deal.II/numerics/vector_tools.h>
 #include <deal.II/numerics/matrix_tools.h>
+#include <deal.II/numerics/fe_field_function.h>
 #include <deal.II/lac/vector.h>
 #include <deal.II/lac/full_matrix.h>
 #include <deal.II/lac/sparse_matrix.h>
@@ -42,6 +44,8 @@
 #include <deal.II/lac/sparse_ilu.h>
 
 #include <deal.II/numerics/data_out.h>
+#include <deal.II/numerics/solution_transfer.h>
+#include <deal.II/numerics/error_estimator.h>
 
 #include <fstream>
 #include <iostream>
@@ -208,7 +212,7 @@ namespace Filters
   SampleType downscaler (const SampleType &vector_64)
   {
     constexpr unsigned int fine_to_coarse_map[4][16]
-      = 
+      =
       {{  0,1,2,3,
           8,9,10,11,
           16,17,18,19,
@@ -232,7 +236,7 @@ namespace Filters
       for (unsigned int j=0; j<16; ++j)
         vector_4[i] += vector_64[fine_to_coarse_map[i][j]];
     vector_4 /= 16;
-    
+
     return vector_4;
   };
 }
@@ -276,6 +280,9 @@ namespace ForwardSimulator
                   const unsigned int fe_degree);
     virtual Vector<double>
     evaluate(const Vector<double> &coefficients) const override;
+
+    std::string create_vtk_output (const Vector<double> &sample) const;
+    void interpolate_to_finer_mesh(const Vector<double> &sample);
 
   private:
     void make_grid(const unsigned int global_refinements);
@@ -480,9 +487,28 @@ namespace ForwardSimulator
   {
     SparseILU<double> ilu;
     ilu.initialize(system_matrix);
-    SolverControl control(100, 1e-10*system_rhs.l2_norm());
+    SolverControl control(100, 1e-6*system_rhs.l2_norm());
     SolverCG<> solver(control);
-    solver.solve(system_matrix, solution, system_rhs, ilu);
+    try
+      {
+        solver.solve(system_matrix, solution, system_rhs, ilu);
+      }
+    catch (const std::exception &)
+      {
+        try
+          {
+            PreconditionSSOR<> ssor;
+            ssor.initialize(system_matrix);
+            SolverControl control(solution.size(), 1e-6*system_rhs.l2_norm());
+            SolverCG<> solver(control);
+            solver.solve(system_matrix, solution, system_rhs, ssor);
+          }
+        catch (std::exception &exc)
+        {
+          std::cout << exc.what() << std::endl;
+          std::abort();
+        }
+      }
   }
 
 
@@ -510,7 +536,7 @@ namespace ForwardSimulator
 
     Vector<double>            solution(dof_handler.n_dofs());
     Vector<double>            system_rhs(dof_handler.n_dofs());
-    
+
     assemble_system(coefficients,
                     system_matrix, solution, system_rhs);
     solve(system_matrix, solution, system_rhs);
@@ -521,6 +547,127 @@ namespace ForwardSimulator
            ExcInternalError());
 
     return measurements;
+  }
+
+
+
+  template <int dim>
+  std::string
+  PoissonSolver<dim>::create_vtk_output(const Vector<double> &coefficients) const
+  {
+    SparseMatrix<double>      system_matrix(sparsity_pattern);
+
+    Vector<double>            solution(dof_handler.n_dofs());
+    Vector<double>            system_rhs(dof_handler.n_dofs());
+
+    assemble_system(coefficients,
+                    system_matrix, solution, system_rhs);
+    solve(system_matrix, solution, system_rhs);
+
+
+    std::ostringstream out;
+    DataOut<dim> data_out;
+    data_out.attach_dof_handler (dof_handler);
+    data_out.add_data_vector (solution, "solution");
+    data_out.build_patches();
+    data_out.write_vtk (out);
+
+    return out.str();
+  }
+
+
+  template <int dim>
+  void
+  PoissonSolver<dim>::interpolate_to_finer_mesh(const Vector<double> &coefficients)
+  {
+    Vector<double>            solution(dof_handler.n_dofs());
+    {
+      SparseMatrix<double>      system_matrix(sparsity_pattern);
+      Vector<double>            system_rhs(dof_handler.n_dofs());
+
+      assemble_system(coefficients,
+                      system_matrix, solution, system_rhs);
+      solve(system_matrix, solution, system_rhs);
+    }
+    
+    // Create a 3d mesh, then use a cubic element on it:
+    Triangulation<3> triangulation_3d;
+    GridGenerator::hyper_cube(triangulation_3d, 0, 1);
+    triangulation_3d.refine_global (3);
+
+    FE_Q<3> fe_3d(3);
+    DoFHandler<3> dof_handler_3d(triangulation_3d);
+    dof_handler_3d.distribute_dofs(fe_3d);
+
+    // Now interpolate the 2d solution onto the 3d mesh
+    Vector<double> solution_3d (dof_handler_3d.n_dofs());
+    Functions::FEFieldFunction<2> solution_2d_as_a_function(dof_handler, solution);
+    ScalarFunctionFromFunctionObject<3> expand_2d_to_3d
+      ([&] (const Point<3> &p)
+       {
+         return solution_2d_as_a_function.value(Point<2>(p[0], p[1]));
+       }
+      );
+    VectorTools::interpolate (dof_handler_3d,
+                              expand_2d_to_3d,
+                              solution_3d);
+
+    // Take the solution and interpolate it to a finer mesh several
+    // times. Then create VTK output again on that fine mesh (which
+    // usually we would write to disk, but here discard).
+    //
+    // The mesh refinement code is basically copied 1:1 from step-26
+    for (unsigned int refinement_step=0; refinement_step<4; ++refinement_step)
+      {
+        Vector<float> estimated_error_per_cell(triangulation_3d.n_active_cells());
+
+        KellyErrorEstimator<3>::estimate(
+          dof_handler_3d,
+          QGauss<3 - 1>(fe.degree + 1),
+          std::map<types::boundary_id, const Function<3> *>(),
+          solution_3d,
+          estimated_error_per_cell);
+
+        GridRefinement::refine_and_coarsen_fixed_fraction(triangulation_3d,
+                                                          estimated_error_per_cell,
+                                                          0.9,
+                                                          0.1);
+        SolutionTransfer<3> solution_trans(dof_handler_3d);
+
+        Vector<double> previous_solution;
+        previous_solution = solution_3d;
+        triangulation_3d.prepare_coarsening_and_refinement();
+        solution_trans.prepare_for_coarsening_and_refinement(previous_solution);
+
+        triangulation_3d.execute_coarsening_and_refinement();
+        for (const auto &cell : triangulation_3d.active_cell_iterators())
+          {
+            const unsigned int i = std::floor(cell->center()[0] * 8);
+            const unsigned int j = std::floor(cell->center()[1] * 8);
+
+            const unsigned int index = i + 8 * j;
+
+            cell->set_user_index(index);
+          }
+
+        dof_handler_3d.distribute_dofs(fe_3d);
+
+        solution_3d.reinit (dof_handler_3d.n_dofs());
+        solution_trans.interpolate(previous_solution, solution_3d);
+
+        AffineConstraints<double> constraints;
+        DoFTools::make_hanging_node_constraints (dof_handler_3d, constraints);
+        constraints.close();
+        constraints.distribute (solution_3d);
+      }
+
+    // Put the solution on this fine mesh through DataOut again:
+    std::ostringstream out;
+    DataOut<3> data_out;
+    data_out.attach_dof_handler (dof_handler_3d);
+    data_out.add_data_vector (solution_3d, "solution");
+    data_out.build_patches();
+    data_out.write_vtk (out);
   }
 } // namespace ForwardSimulator
 
@@ -710,6 +857,36 @@ namespace ProposalGenerator
 } // namespace ProposalGenerator
 
 
+namespace Postprocessing
+{
+  // Set up a post-processing step that simulates what we would really
+  // do with samples if this wasn't a benchmark. We will connect it to
+  // the every_1000th filter to make sure we get (at least marginally)
+  // statistically independent samples, and for each of these, we will
+  // then run the simulation on a substantially finer grid, and create
+  // what would usually be graphical output (except of course we don't
+  // write it to disk).
+  void postprocess_to_finer_solution(const SampleType &sample,
+                                     const SampleFlow::AuxiliaryData &)
+  {
+    // First set up a solver on a finer mesh and compute the forward
+    // solution:
+    ForwardSimulator::PoissonSolver<2> fine_solver(/* global_refinements = */ 5,
+                                                   /* fe_degree = */ 2);
+    const Vector<double> forward_solution = fine_solver.evaluate(sample);
+
+    // Then put that forward solution into a string that represents
+    // what we would write into a file. This being a benchmark, we
+    // discard the string:
+    fine_solver.create_vtk_output (sample);
+
+    // Finally, interpolate the solution so computed to an even finer
+    // mesh and compute some statistics on that:
+    fine_solver.interpolate_to_finer_mesh (sample);
+  };
+}
+
+
 
 
 
@@ -736,8 +913,7 @@ namespace ProposalGenerator
 //  /* Compute the "correct" solution vector: */
 //  const Vector<double> exact_solution =
 //    ForwardSimulator::PoissonSolver<2>(/* global_refinements = */ 8,
-//                                       /* fe_degree = */ 3,
-//                                       /* prefix = */ "exact")
+//                                       /* fe_degree = */ 3)
 //      .evaluate(exact_coefficients);
 // @endcode
 int main(int argc, char **argv)
@@ -753,19 +929,19 @@ int main(int argc, char **argv)
 
   unsigned int n_chains = 3;
   unsigned int n_samples_per_chain = 10000;
-  
+
   ParameterHandler prm;
   prm.add_parameter ("Number of samples per chain", n_samples_per_chain, "",
                      Patterns::Integer ());
   prm.add_parameter ("Number of chains", n_chains, "",
                      Patterns::Integer (3,100));
   prm.parse_input (argv[1]);
-  
+
   std::cout << "Running with " << n_chains << " chains, computing "
             << n_samples_per_chain << " samples per chain."
             << std::endl;
-  
-  
+
+
 
   // This benchmark does not use deal.II's TBB-based threading
   // capabilities to parallelize deal.II-internal functionality. (It
@@ -885,10 +1061,10 @@ int main(int argc, char **argv)
   // (namely, the pass through filter). This is no longer the case for
   // this version of the code, but we'll keep the structure.
   SampleFlow::Producers::DifferentialEvaluationMetropolisHastings<SampleType> sampler;
-  
+
   SampleFlow::Filters::PassThrough<SampleType> pass_through;
   pass_through.connect_to_producer (sampler);
-  
+
   // Consumer for counting how many samples we have processed
   SampleFlow::Consumers::CountSamples<SampleType> sample_count;
   sample_count.connect_to_producer (pass_through);
@@ -900,7 +1076,7 @@ int main(int argc, char **argv)
   // Consumer for computing the covariance matrix
   SampleFlow::Consumers::CovarianceMatrix<SampleType> cov_matrix;
   cov_matrix.connect_to_producer (pass_through);
-  
+
   // Consumer for computing the MAP point
   SampleFlow::Consumers::MaximumProbabilitySample<SampleType> MAP_point;
   MAP_point.connect_to_producer (pass_through);
@@ -932,12 +1108,13 @@ int main(int argc, char **argv)
   // of lag of 20,000
   SampleFlow::Filters::TakeEveryNth<SampleType> every_100th(100);
   every_100th.connect_to_producer (pass_through);
-    
+
   SampleFlow::Consumers::AutoCovarianceMatrix<SampleType> autocovariance(200);
   autocovariance.connect_to_producer (every_100th);
 
   SampleFlow::Consumers::AutoCovarianceTrace<SampleType> autocovariance_trace(200);
   autocovariance_trace.connect_to_producer (every_100th);
+
 
   // Set up filters that separate out two pairs of components
   Filters::ComponentPairSplitter<SampleType> pair_splitter_45_46(45,46);
@@ -1031,34 +1208,52 @@ int main(int argc, char **argv)
           const SampleType current_mean = mean_value.get();
           std::valarray<double> mean(current_mean.begin(),
                                      current_mean.size());
-          
+
           const std::valarray<double> diff = (mean - known_mean_value) / known_mean_value;
           double norm_sqr = 0;
           for (const auto p : diff)
             norm_sqr += p*p;
-          
+
           running_mean_error_output << norm_sqr << '\n';
 
           static unsigned int counter = 0;
           if (counter % 50 == 0)
             running_mean_error_output << std::flush;
           ++counter;
-    };  
+    };
   SampleFlow::Filters::TakeEveryNth<SampleType> every_1000th(1000);
   every_1000th.connect_to_producer (pass_through);
+
   SampleFlow::Consumers::Action<SampleType> running_mean_error (compute_running_mean_error);
   running_mean_error.connect_to_producer (every_1000th);
 
-  
+  // Set up a post-processing step that simulates what we really do
+  // with samples. We will connect it to a sub-sampling filter to
+  // make sure we get (at least marginally) statistically independent
+  // samples, and for each of these, we will then run the simulation
+  // on a substantially finer grid, and create what would usually be
+  // graphical output (except of course we don't write it to disk).
+  //
+  // We do this at most 100 times per run, but at least every
+  // thousand samples (to make sure the smaller runs catch it).
+  const unsigned int postprocess_subsampler_frequency = std::max((n_samples_per_chain * n_chains)/100,
+                                                                 1000U);
+  SampleFlow::Filters::TakeEveryNth<SampleType> postprocess_subsampler(postprocess_subsampler_frequency);
+  postprocess_subsampler.connect_to_producer (pass_through);
+  SampleFlow::Consumers::Action<SampleType>
+    postprocess_finer_solution (&Postprocessing::postprocess_to_finer_solution);
+  postprocess_finer_solution.connect_to_producer (postprocess_subsampler);
+
+
   auto print_periodic_output
     = [&](SampleType, SampleFlow::AuxiliaryData)
     {
-          static unsigned int nth_sample = 1000;
+          static unsigned int nth_sample = 100;
           std::cout << "Sample number " << nth_sample << std::endl;
-          nth_sample += 1000;
+          nth_sample += 100;
     };
   SampleFlow::Consumers::Action<SampleType> periodic_output (print_periodic_output);
-  periodic_output.connect_to_producer (every_1000th);
+  periodic_output.connect_to_producer (every_100th);
 
 
   // Downscale the 64-dimensional vector to one that has only 4
@@ -1067,10 +1262,10 @@ int main(int argc, char **argv)
   // the four quadrants of the domain.
   SampleFlow::Filters::Conversion<SampleType,SampleType> downscaling (&Filters::downscaler);
   downscaling.connect_to_producer (sampler);
-  
+
   SampleFlow::Consumers::MeanValue<SampleType> mean_value_4;
   mean_value_4.connect_to_producer (downscaling);
-  
+
   // Finally, create the samples:
   std::mt19937 random_number_generator(random_seed);
   sampler.sample(std::vector<SampleType>(n_chains, starting_coefficients),
@@ -1118,6 +1313,6 @@ int main(int argc, char **argv)
   for (const auto v : Filters::downscaler(mean_value.get()))
     std::cout << v << ' ';
   std::cout << std::endl;
-  
+
   std::cout << "Number of samples = " << sample_count.get() << std::endl;
 }
