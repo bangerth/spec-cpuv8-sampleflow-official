@@ -254,12 +254,12 @@ namespace SampleFlow
        * A queue of std::future objects that correspond to tasks that
        * process samples.
        */
-      std::list<std::shared_future<void>> background_tasks;
+      std::list<std::future<void>> background_tasks;
 
 
       /**
        * Ensure that the queue of background tasks does not grow beyond
-       * bounds by going through the queue and deleting all shared_future
+       * bounds by going through the queue and deleting all future
        * objects that have already completed.
        */
       void trim_background_queue();
@@ -305,7 +305,7 @@ namespace SampleFlow
     // same reason as we describe in the thread_pool.h file.
     switch (ParallelMode::synchronous) // static_cast<ParallelMode>(parallel_mode.load())
       {
-        // If we want to process samples synchronously, then
+        // If we want to process samples synchronously,
         // then the lambda function simply calls the 'consume()'
         // function that derived classes need to implement. This means that
         // the caller will have to wait until the `consume` function
@@ -368,10 +368,10 @@ namespace SampleFlow
               if (connections_to_producers.size() == 0)
                 return;
 
-              // Next emplace the shared future object into the queue, in order
+              // Next emplace the future object into the queue, in order
               // to allow other threads to wait for the termination of
               // the current job
-              background_tasks.emplace_back (worker.get_future().share());
+              background_tasks.emplace_back (worker.get_future());
             }
 
             // At this point, we have created a task and put its corresponding
@@ -383,7 +383,7 @@ namespace SampleFlow
             worker();
 
             // Finally, ensure that the queue does not grow beyond bound by
-            // removing shared_futures that have already been satisfied
+            // removing futures that have already been satisfied
             trim_background_queue();
           };
 
@@ -430,15 +430,15 @@ namespace SampleFlow
               // in flush().
               std::future<void> future = std::async(worker);
 
-              // Next emplace the shared future object into the queue, in order
+              // Next emplace the future object into the queue, in order
               // to allow other threads to wait for the termination of
               // the current job
-              background_tasks.emplace_back (future.share());
+              background_tasks.emplace_back (std::move(future));
             }
 
 
             // Finally, ensure that the queue does not grow beyond bound by
-            // removing shared_futures that have already been satisfied
+            // removing futures that have already been satisfied
             trim_background_queue();
           };
 
@@ -520,10 +520,10 @@ namespace SampleFlow
   {
     std::lock_guard<std::mutex> parallel_lock (parallel_mode_mutex);
 
-    // For each std::shared_future object, first check whether it
+    // For each std::future object, first check whether it
     // has already been waited on. If that is the case, then just
     // ignore it. If it hasn't, wait for its completion.
-    for (auto &future : background_tasks)
+    for (std::future<void> &future : background_tasks)
       if (future.valid())
         future.wait();
 
@@ -542,7 +542,7 @@ namespace SampleFlow
   {
     std::lock_guard<std::mutex> parallel_lock (parallel_mode_mutex);
 
-    // For each std::shared_future object, first check whether it
+    // For each std::future object, first check whether it
     // has completed (either because someone has waited for it,
     // or because it has finished since someone last looked).
     // If that is the case, then remove it from the list.
