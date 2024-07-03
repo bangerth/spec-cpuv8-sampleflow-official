@@ -25,6 +25,7 @@
 #include <utility>
 #include <future>
 #include <atomic>
+#include <deque>
 
 
 namespace SampleFlow
@@ -254,13 +255,14 @@ namespace SampleFlow
        * A queue of std::future objects that correspond to tasks that
        * process samples.
        */
-      std::list<std::future<void>> background_tasks;
+      std::deque<std::future<void>> background_tasks;
 
 
       /**
        * Ensure that the queue of background tasks does not grow beyond
-       * bounds by going through the queue and deleting all future
-       * objects that have already completed.
+       * bounds by going through the queue and deleting all std::future
+       * objects located at the beginning of the queue that have already
+       * completed.
        */
       void trim_background_queue();
   };
@@ -383,7 +385,7 @@ namespace SampleFlow
             worker();
 
             // Finally, ensure that the queue does not grow beyond bound by
-            // removing futures that have already been satisfied
+            // removing futures at the front that have already been satisfied.
             trim_background_queue();
           };
 
@@ -438,7 +440,7 @@ namespace SampleFlow
 
 
             // Finally, ensure that the queue does not grow beyond bound by
-            // removing futures that have already been satisfied
+            // removing futures at the front that have already been satisfied.
             trim_background_queue();
           };
 
@@ -542,26 +544,13 @@ namespace SampleFlow
   {
     std::lock_guard<std::mutex> parallel_lock (parallel_mode_mutex);
 
-    // For each std::future object, first check whether it
-    // has completed (either because someone has waited for it,
-    // or because it has finished since someone last looked).
+    // Drop elements on the front of the list that have completed (either because
+    // someone has waited for it, or because it has finished since someone last looked).
     // If that is the case, then remove it from the list.
-    auto future = background_tasks.begin();
-    while (future != background_tasks.end())
-      {
-        if (future->wait_for(std::chrono::seconds(0))
-            == std::future_status::ready)
-          {
-            // Move the iterator forward by one, but erase the element
-            // previously pointed to by the iterator:
-            auto old_iterator = future;
-            ++future;
-
-            background_tasks.erase (old_iterator);
-          }
-        else
-          ++future;
-      }
+    while ((background_tasks.size() > 0) &&
+           (background_tasks.front().wait_for(std::chrono::seconds(0))
+            == std::future_status::ready))
+      background_tasks.pop_front();
   }
 
 
