@@ -488,7 +488,7 @@ namespace ForwardSimulator
   {
     SparseILU<double> ilu;
     ilu.initialize(system_matrix);
-    SolverControl control(100, 1e-6*system_rhs.l2_norm());
+    SolverControl control(100, 1e-6*system_rhs.l2_norm(), false, false);
     SolverCG<> solver(control);
     try
       {
