@@ -62,6 +62,7 @@ double spec_exp10(double x) {return pow(10,x);}
 
 #include <sampleflow/producers/differential_evaluation_mh.h>
 #include <sampleflow/filters/take_every_nth.h>
+#include <sampleflow/filters/take_n_every_m.h>
 #include <sampleflow/filters/component_splitter.h>
 #include <sampleflow/filters/pass_through.h>
 #include <sampleflow/filters/conversion.h>
@@ -556,6 +557,8 @@ namespace ForwardSimulator
   std::string
   PoissonSolver<dim>::create_vtk_output(const Vector<double> &coefficients) const
   {
+    //std::cout << "Starting create_vtk_output..." << std::endl;
+    
     SparseMatrix<double>      system_matrix(sparsity_pattern);
 
     Vector<double>            solution(dof_handler.n_dofs());
@@ -572,6 +575,7 @@ namespace ForwardSimulator
     data_out.add_data_vector (solution, "solution");
     data_out.build_patches();
     data_out.write_vtk (out);
+    //std::cout << "Done with create_vtk_output..." << std::endl;
 
     return out.str();
   }
@@ -581,6 +585,8 @@ namespace ForwardSimulator
   void
   PoissonSolver<dim>::interpolate_to_finer_mesh(const Vector<double> &coefficients)
   {
+    std::cout << "Starting interpolate_to_finer_mesh..." << std::endl;
+
     Vector<double>            solution(dof_handler.n_dofs());
     {
       SparseMatrix<double>      system_matrix(sparsity_pattern);
@@ -590,16 +596,22 @@ namespace ForwardSimulator
                       system_matrix, solution, system_rhs);
       solve(system_matrix, solution, system_rhs);
     }
+
+    //std::cout << "1" << std::endl;
     
     // Create a 3d mesh, then use a cubic element on it:
     Triangulation<3> triangulation_3d;
     GridGenerator::hyper_cube(triangulation_3d, 0, 1);
     triangulation_3d.refine_global (3);
 
+    //std::cout << "2" << std::endl;
+    
     FE_Q<3> fe_3d(3);
     DoFHandler<3> dof_handler_3d(triangulation_3d);
     dof_handler_3d.distribute_dofs(fe_3d);
 
+    //std::cout << "3" << std::endl;
+    
     // Now interpolate the 2d solution onto the 3d mesh
     Vector<double> solution_3d (dof_handler_3d.n_dofs());
     Functions::FEFieldFunction<2> solution_2d_as_a_function(dof_handler, solution);
@@ -613,12 +625,14 @@ namespace ForwardSimulator
                               expand_2d_to_3d,
                               solution_3d);
 
+    //std::cout << "4" << std::endl;
+    
     // Take the solution and interpolate it to a finer mesh several
     // times. Then create VTK output again on that fine mesh (which
     // usually we would write to disk, but here discard).
     //
     // The mesh refinement code is basically copied 1:1 from step-26
-    for (unsigned int refinement_step=0; refinement_step<4; ++refinement_step)
+    for (unsigned int refinement_step=0; refinement_step<2; ++refinement_step)
       {
         Vector<float> estimated_error_per_cell(triangulation_3d.n_active_cells());
 
@@ -660,8 +674,12 @@ namespace ForwardSimulator
         DoFTools::make_hanging_node_constraints (dof_handler_3d, constraints);
         constraints.close();
         constraints.distribute (solution_3d);
+
+        //std::cout << "5 " << refinement_step << std::endl;
       }
 
+    //std::cout << "10" << std::endl;
+    
     // Put the solution on this fine mesh through DataOut again:
     std::ostringstream out;
     DataOut<3> data_out;
@@ -669,6 +687,8 @@ namespace ForwardSimulator
     data_out.add_data_vector (solution_3d, "solution");
     data_out.build_patches();
     data_out.write_vtk (out);
+
+    std::cout << "Done with interpolate_to_finer_mesh..." << std::endl;
   }
 } // namespace ForwardSimulator
 
@@ -1237,9 +1257,7 @@ int main(int argc, char **argv)
   //
   // We do this at most 100 times per run, but at least every
   // thousand samples (to make sure the smaller runs catch it).
-  const unsigned int postprocess_subsampler_frequency = std::max((n_samples_per_chain * n_chains)/100,
-                                                                 1000U);
-  SampleFlow::Filters::TakeEveryNth<SampleType> postprocess_subsampler(postprocess_subsampler_frequency);
+  SampleFlow::Filters::TakeNEveryM<SampleType> postprocess_subsampler(n_chains*64, n_chains);
   postprocess_subsampler.connect_to_producer (pass_through);
   SampleFlow::Consumers::Action<SampleType>
     postprocess_finer_solution (&Postprocessing::postprocess_to_finer_solution);

@@ -202,6 +202,8 @@ namespace SampleFlow
           std::vector<std::future<bool>> chain_evaluation_results;
           chain_evaluation_results.reserve(n_chains);
 
+          std::cout << "Enqueuing " << n_chains << " eval tasks" << std::endl;
+          
           // Loop over the desired number of chains and set up the computation
           // of log likelihoods for new samples:
           for (typename std::vector<OutputType>::size_type chain = 0; chain < n_chains; ++chain)
@@ -308,11 +310,16 @@ namespace SampleFlow
                   t();
                 }
             }
-
+          
           // Wait for all of the tasks to finish:
+          std::cout << "Waiting for " << n_chains << " eval tasks" << std::endl;
           thread_pool.join_all();
 
 
+          std::cout << "Enqueuing " << n_chains << " postprocessing tasks, starting with sample "
+                    << generation * n_chains
+                    << std::endl;
+          
           // We have either executed the log likelihood function for
           // all chains right away, or at least set up the asynchronous
           // execution. Now it is time to let the cows come in for
@@ -345,19 +352,25 @@ namespace SampleFlow
               auto task =
                 [&,this,chain,accepted_sample]()
                   {
+                    std::cout << "Issuing sample " << generation * n_chains+chain << "..." << std::endl;
                     this->issue_sample (next_samples[chain],
                                         {
                                               {"relative log likelihood", boost::any(current_log_likelihoods[chain])},
                                               {"sample is repeated", boost::any(!accepted_sample)},
                                               {"chain number", boost::any(std::size_t(chain))}
                                         });
+                    std::cout << "Done with issuing sample " << generation * n_chains+chain << "..." << std::endl;
                   };
               thread_pool.enqueue_task (std::move(task));
             }
 
+          std::cout << "Waiting for " << n_chains << " postprocessing tasks" << std::endl;
+          
           // Again wait for all of the tasks to finish:
           thread_pool.join_all();
 
+          std::cout << "Done with this generation" << std::endl;
+          
           current_samples = next_samples;
         }
     }

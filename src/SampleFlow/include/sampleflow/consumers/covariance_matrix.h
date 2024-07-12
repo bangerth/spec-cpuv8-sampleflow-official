@@ -164,7 +164,10 @@ namespace SampleFlow
     CovarianceMatrix<InputType>::
     consume (InputType sample, AuxiliaryData /*aux_data*/)
     {
+      //      std::cout << "Starting cov::consume..." << std::endl;
+      
       std::lock_guard<std::mutex> lock(mutex);
+      //      std::cout << "  -- now actually cov::consume..." << std::endl;
 
       // If this is the first sample we see, initialize the matrix with
       // this sample. After the first sample, the covariance matrix
@@ -200,6 +203,7 @@ namespace SampleFlow
           mean_update /= n_samples;
           current_mean += mean_update;
         }
+      // std::cout << "Starting cov::consume..." << std::endl;
     }
 
 

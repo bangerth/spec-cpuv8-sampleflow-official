@@ -97,7 +97,7 @@ namespace SampleFlow
        * been produced.
        */
       boost::signals2::signal<void (OutputType, AuxiliaryData)> issue_sample;
-
+    
       /**
        * The signal that is used to notify downstream objects of the
        * end of the stream of samples. This signal is intended to signal
