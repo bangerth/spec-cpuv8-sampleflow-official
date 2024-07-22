@@ -194,7 +194,7 @@ namespace SampleFlow
       // "generations" and an inner loop over the individual chains. We
       // exit from the inner loop when we have reached the desired number of
       // samples.
-      for (types::sample_index generation=0; true; ++generation)
+      for (types::sample_index generation=0; generation * n_chains < n_samples; ++generation)
         {
           // A vector that will contain the std::future objects used to
           // hold results of either synchronous or asynchronous
@@ -335,7 +335,7 @@ namespace SampleFlow
               // thread_pool variable that is executed in the 'return'
               // statement.
               if (generation * n_chains + chain >= n_samples)
-                return;
+                break;
 
               // Wait for the futures to be ready. Then output the new sample
               // (which may of course be equal to the old sample).
