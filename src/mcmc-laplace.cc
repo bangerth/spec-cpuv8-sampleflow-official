@@ -1225,7 +1225,7 @@ int main(int argc, char **argv)
   SampleFlow::Filters::TakeEveryNth<SampleType> every_1000th(1000);
   every_1000th.connect_to_producer (pass_through);
 
-  SampleFlow::Consumers::Action<SampleType> running_mean_error (compute_running_mean_error);
+  SampleFlow::Consumers::Action<SampleType> running_mean_error (compute_running_mean_error, true);
   running_mean_error.connect_to_producer (every_1000th);
 
   // Set up a post-processing step that simulates what we really do
@@ -1242,7 +1242,7 @@ int main(int argc, char **argv)
   SampleFlow::Filters::TakeEveryNth<SampleType> postprocess_subsampler(postprocess_subsampler_frequency);
   postprocess_subsampler.connect_to_producer (pass_through);
   SampleFlow::Consumers::Action<SampleType>
-    postprocess_finer_solution (&Postprocessing::postprocess_to_finer_solution);
+    postprocess_finer_solution (&Postprocessing::postprocess_to_finer_solution, true);
   postprocess_finer_solution.connect_to_producer (postprocess_subsampler);
 
 
@@ -1253,7 +1253,7 @@ int main(int argc, char **argv)
           std::cout << "Sample number " << nth_sample << std::endl;
           nth_sample += 100;
     };
-  SampleFlow::Consumers::Action<SampleType> periodic_output (print_periodic_output);
+  SampleFlow::Consumers::Action<SampleType> periodic_output (print_periodic_output, true);
   periodic_output.connect_to_producer (every_100th);
 
 
