@@ -77,7 +77,7 @@ namespace GridTools
     Cache(const Triangulation<dim, spacedim> &tria,
           const Mapping<dim, spacedim> &      mapping =
             (ReferenceCells::get_hypercube<dim>()
-#ifndef _MSC_VER
+#if !defined(_MSC_VER) || defined(__INTEL_LLVM_COMPILER)
                .template get_default_linear_mapping<dim, spacedim>()
 #else
                .ReferenceCell::get_default_linear_mapping<dim, spacedim>()
