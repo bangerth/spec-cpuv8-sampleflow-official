@@ -619,7 +619,7 @@ namespace ForwardSimulator
     // usually we would write to disk, but here discard).
     //
     // The mesh refinement code is basically copied 1:1 from step-26
-    for (unsigned int refinement_step=0; refinement_step<4; ++refinement_step)
+    for (unsigned int refinement_step=0; refinement_step<3; ++refinement_step)
       {
         Vector<float> estimated_error_per_cell(triangulation_3d.n_active_cells());
 
