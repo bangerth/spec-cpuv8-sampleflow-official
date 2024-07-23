@@ -62,6 +62,7 @@ double spec_exp10(double x) {return pow(10,x);}
 
 #include <sampleflow/producers/differential_evaluation_mh.h>
 #include <sampleflow/filters/take_every_nth.h>
+#include <sampleflow/filters/take_n_every_m.h>
 #include <sampleflow/filters/component_splitter.h>
 #include <sampleflow/filters/pass_through.h>
 #include <sampleflow/filters/conversion.h>
@@ -1235,11 +1236,8 @@ int main(int argc, char **argv)
   // on a substantially finer grid, and create what would usually be
   // graphical output (except of course we don't write it to disk).
   //
-  // We do this at most 100 times per run, but at least every
-  // thousand samples (to make sure the smaller runs catch it).
-  const unsigned int postprocess_subsampler_frequency = std::max((n_samples_per_chain * n_chains)/100,
-                                                                 1000U);
-  SampleFlow::Filters::TakeEveryNth<SampleType> postprocess_subsampler(postprocess_subsampler_frequency);
+  // We do this for all samples of a generation every 64 generations.
+  SampleFlow::Filters::TakeNEveryM<SampleType> postprocess_subsampler(n_chains*64, n_chains);
   postprocess_subsampler.connect_to_producer (pass_through);
   SampleFlow::Consumers::Action<SampleType>
     postprocess_finer_solution (&Postprocessing::postprocess_to_finer_solution, true);
