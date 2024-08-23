@@ -284,7 +284,7 @@ namespace ForwardSimulator
     evaluate(const Vector<double> &coefficients) const override;
 
     std::string create_vtk_output (const Vector<double> &sample) const;
-    void interpolate_to_finer_mesh(const Vector<double> &sample);
+    std::string interpolate_to_finer_mesh(const Vector<double> &sample);
 
   private:
     void make_grid(const unsigned int global_refinements);
@@ -579,7 +579,7 @@ namespace ForwardSimulator
 
 
   template <int dim>
-  void
+  std::string
   PoissonSolver<dim>::interpolate_to_finer_mesh(const Vector<double> &coefficients)
   {
     Vector<double>            solution(dof_handler.n_dofs());
@@ -670,6 +670,8 @@ namespace ForwardSimulator
     data_out.add_data_vector (solution_3d, "solution");
     data_out.build_patches();
     data_out.write_vtk (out);
+
+    return out.str();
   }
 } // namespace ForwardSimulator
 
@@ -863,13 +865,19 @@ namespace Postprocessing
 {
   // Set up a post-processing step that simulates what we would really
   // do with samples if this wasn't a benchmark. We will connect it to
-  // the every_1000th filter to make sure we get (at least marginally)
-  // statistically independent samples, and for each of these, we will
-  // then run the simulation on a substantially finer grid, and create
-  // what would usually be graphical output (except of course we don't
-  // write it to disk).
-  void postprocess_to_finer_solution(const SampleType &sample,
-                                     const SampleFlow::AuxiliaryData &)
+  // the a filter that only takes a subset of samples to make sure we
+  // get (at least marginally) statistically independent samples, and
+  // for each of these, we will then run the simulation on a
+  // substantially finer grid, and create what would usually be
+  // graphical output (except of course we don't write it to disk).
+  //
+  // In order to ensure that the output isn't just discarded (which
+  // would create a dead code that a compiler could discard), we count
+  // how many spaces the output contains. This requires actually
+  // creating the output. We return this number of spaces, and
+  // accumulate it over all samples that have been processed this way.
+  std::pair<std::uint64_t,std::uint64_t>
+  postprocess_to_finer_solution(const SampleType &sample)
   {
     // First set up a solver on a finer mesh and compute the forward
     // solution:
@@ -879,12 +887,17 @@ namespace Postprocessing
 
     // Then put that forward solution into a string that represents
     // what we would write into a file. This being a benchmark, we
-    // discard the string:
-    fine_solver.create_vtk_output (sample);
+    // will discard the string, but not until we have recorded the size
+    // of the string and counted the number of spaces:
+    const std::string vtk_output = fine_solver.create_vtk_output (sample);
 
     // Finally, interpolate the solution so computed to an even finer
     // mesh and compute some statistics on that:
-    fine_solver.interpolate_to_finer_mesh (sample);
+    const std::string fine_vtk_output = fine_solver.interpolate_to_finer_mesh (sample);
+
+    return {vtk_output.size() + fine_vtk_output.size(),
+      std::count (vtk_output.begin(), vtk_output.end(), ' ') +
+      std::count (fine_vtk_output.begin(), fine_vtk_output.end(), ' ')};
   };
 }
 
@@ -1239,10 +1252,20 @@ int main(int argc, char **argv)
   // We do this for all samples of a generation every 64 generations.
   SampleFlow::Filters::TakeNEveryM<SampleType> postprocess_subsampler(n_chains*64, n_chains);
   postprocess_subsampler.connect_to_producer (pass_through);
-  SampleFlow::Consumers::Action<SampleType>
-    postprocess_finer_solution (&Postprocessing::postprocess_to_finer_solution, true);
+  SampleFlow::Filters::Conversion<SampleType,std::pair<std::uint64_t,std::uint64_t>>
+    postprocess_finer_solution (&Postprocessing::postprocess_to_finer_solution);
   postprocess_finer_solution.connect_to_producer (postprocess_subsampler);
 
+  std::atomic<std::uint64_t> total_output_size (0);
+  std::atomic<std::uint64_t> total_number_of_spaces (0);
+  SampleFlow::Consumers::Action<std::pair<std::uint64_t,std::uint64_t>>
+    o ([&total_output_size,&total_number_of_spaces](const std::pair<std::uint64_t,std::uint64_t> s,
+                                                    const SampleFlow::AuxiliaryData &)
+    {
+      total_output_size += s.first;
+      total_number_of_spaces += s.second;
+    });
+  o.connect_to_producer (postprocess_finer_solution);
 
   auto print_periodic_output
     = [&](SampleType, SampleFlow::AuxiliaryData)
@@ -1312,6 +1335,11 @@ int main(int argc, char **argv)
   for (const auto v : Filters::downscaler(mean_value.get()))
     std::cout << v << ' ';
   std::cout << std::endl;
+
+  std::cout << "Total size of output over all upscaled samples:             "
+            << total_output_size << std::endl;
+  std::cout << "Total number of spaces in output over all upscaled samples: "
+            << total_number_of_spaces << std::endl;
 
   std::cout << "Number of samples = " << sample_count.get() << std::endl;
 }
