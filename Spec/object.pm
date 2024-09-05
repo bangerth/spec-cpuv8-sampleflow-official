@@ -6,6 +6,7 @@ $benchlang = 'CXX';
 @benchsets = qw(fprate pthread specrate);
 
 $calctol = 0;
+$reltol = 1e-6;
 
 use Config;
 $bench_flags  = '-Idealii/include -Idealii/bundled/boost-1.70.0/include -ISampleFlow/include';
