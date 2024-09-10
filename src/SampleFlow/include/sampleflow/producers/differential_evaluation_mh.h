@@ -188,7 +188,10 @@ namespace SampleFlow
       // can be performed with the previous set of samples
       std::vector<OutputType> next_samples = starting_points;
 
-      ThreadPool thread_pool;
+      // Create a thread pool that has at most n_chains threads for
+      // work. We won't ever need more, so that seems like the right
+      // number as a limit.
+      ThreadPool thread_pool (n_chains);
 
       // Loop over the desired number of samples, using an outer loop over
       // "generations" and an inner loop over the individual chains. We

@@ -51,7 +51,7 @@ namespace SampleFlow
   class ThreadPool
   {
   public:
-    ThreadPool ();
+    ThreadPool (const unsigned int max_threads);
     ~ThreadPool ();
 
     template <typename TaskType>
@@ -60,7 +60,7 @@ namespace SampleFlow
     void join_all ();
     
   private:
-    unsigned int concurrency;
+    unsigned int n_worker_threads;
     
     bool stop_signal;
     
@@ -78,36 +78,46 @@ namespace SampleFlow
 
 
   inline
-  ThreadPool::ThreadPool ()
+  ThreadPool::ThreadPool (const unsigned int max_threads)
   :
   stop_signal (false),
   currently_executing_tasks (0)
   {
+    unsigned int concurrency;
     if(const char* env_p = std::getenv("OMP_NUM_THREADS"))
       concurrency = std::min<unsigned int> (std::atoi(env_p),
                                             std::thread::hardware_concurrency());
     else
+      // If not explicitly set, just take the number of cores in the
+      // system. Note that hardware_concurrency() is documented as
+      // possibly returning zero if the system does not have the
+      // capability to say how many cores it actually might have. In
+      // that case, we will just bail below and not start any threads
+      // at all.
       concurrency = std::thread::hardware_concurrency();
 
-    // Start all of the worker threads. If we are allowed concurrency
-    // (i.e., if concurrency>=2), then start as many threads as there
-    // are cores on the machine. Note that hardware_concurrency() is
-    // documented as possibly returning zero if the system does not
-    // have the capability to say how many cores it actually might
-    // have. In that case, we just bail and not start any threads at
-    // all.
-    if (concurrency >= 2)
-      {
-        //SPEC Do not print because output is validated std::cout << "Starting thread pool with "
-        //SPECC          << concurrency << " threads." << std::endl;
+    // Reserve one thread for the main thread that spawns all of the
+    // tasks, and allow OMP_NUM_THREADS-1 as workers in this pool:
+    if (concurrency != 0)
+      --concurrency;
+
+    // Limit the concurrency in case someone sets OMP_NUM_THREADS to
+    // something large (or not at all, and is on a large system) but
+    // we only have a fairly low number of chains:
+    n_worker_threads = std::max(concurrency, max_threads);
     
-        worker_threads.reserve (concurrency);
-        for (unsigned int t=0; t<concurrency; ++t)
+    // Start all of the worker threads if we are allowed concurrency
+    // (i.e., if n_worker_threads>=1).
+    if (n_worker_threads >= 1)
+      {
+        worker_threads.reserve (n_worker_threads);
+        for (unsigned int t=0; t<n_worker_threads; ++t)
           worker_threads.emplace_back ([this,t]() { worker_thread(t); } );
       }
     else
       {
-        //SPEC Do not print because output is validated std::cout << "Running sequentially without a thread pool." << std::endl;
+        // No concurrency requested or possible -- in that case, just run
+        // everything sequentially.
       }  
   }
   
@@ -137,7 +147,7 @@ namespace SampleFlow
   inline
   void ThreadPool::enqueue_task (TaskType &&task)
   {
-    if (concurrency >= 2)
+    if (n_worker_threads >= 1)
       {
         static int n_tasks = 0;
     
@@ -164,7 +174,7 @@ namespace SampleFlow
   inline
   void ThreadPool::join_all()
   {
-    if (concurrency >= 2)
+    if (n_worker_threads >= 1)
       {
         // Wait for all currently enqueued tasks to finish. Do this by
         // repeatedly getting the lock and checking the size of the
