@@ -83,6 +83,18 @@ namespace SampleFlow
   stop_signal (false),
   currently_executing_tasks (0)
   {
+    // EXAMPLES: There are 3 inputs to consider:
+    //   - the number of chains (passed as max_threads),
+    //   - the available number of virtual CPUs (std::thread::hardware_concurrency),
+    //   - the user's desire for how many CPUs to consume (expressed as OMP_NUM_THREADS)
+    // Complication: the master thread eats a virtual CPU.
+    // The examples below may help clarify the intended computation of n_worker_threads:
+    //    max_threads aka chains  64   64   64   64   64  64  64  64
+    //    hw_concurrency         192  192  192  192  192   8   8   8
+    //    OMP_NUM_THREADS         32   64   65  128   na  na  16   4
+    //    concurrency             31   63   64  127  191   7   7   3
+    //    n_worker_threads        31   63   64   64   64   7   7   3
+
     unsigned int concurrency;
     if(const char* env_p = std::getenv("OMP_NUM_THREADS"))
       concurrency = std::min<unsigned int> (std::atoi(env_p),
