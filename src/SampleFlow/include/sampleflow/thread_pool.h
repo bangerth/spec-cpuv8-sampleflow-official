@@ -104,7 +104,7 @@ namespace SampleFlow
     // Limit the concurrency in case someone sets OMP_NUM_THREADS to
     // something large (or not at all, and is on a large system) but
     // we only have a fairly low number of chains:
-    n_worker_threads = std::max(concurrency, max_threads);
+    n_worker_threads = std::min(concurrency, max_threads);
     
     // Start all of the worker threads if we are allowed concurrency
     // (i.e., if n_worker_threads>=1).
