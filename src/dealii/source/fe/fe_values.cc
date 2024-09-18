@@ -4242,29 +4242,24 @@ FEValues<dim, spacedim>::initialize(const UpdateFlags update_flags)
                                          flags);
 
   // then get objects into which the FE and the Mapping can store
-  // intermediate data used across calls to reinit. we can do this in parallel
-  Threads::Task<
-    std::unique_ptr<typename FiniteElement<dim, spacedim>::InternalDataBase>>
-    fe_get_data = Threads::new_task([&]() {
-      return this->fe->get_data(flags,
-                                *this->mapping,
-                                quadrature,
-                                this->finite_element_output);
-    });
+  // intermediate data used across calls to reinit.
+  std::unique_ptr<typename FiniteElement<dim, spacedim>::InternalDataBase>
+    fe_get_data = this->fe->get_data(flags,
+                                     *this->mapping,
+                                     quadrature,
+                                     this->finite_element_output);
 
-  Threads::Task<
-    std::unique_ptr<typename Mapping<dim, spacedim>::InternalDataBase>>
+  std::unique_ptr<typename Mapping<dim, spacedim>::InternalDataBase>
     mapping_get_data;
   if (flags & update_mapping)
-    mapping_get_data = Threads::new_task(
-      [&]() { return this->mapping->get_data(flags, quadrature); });
+    mapping_get_data = this->mapping->get_data(flags, quadrature);
 
   this->update_flags = flags;
 
   // then collect answers from the two task above
-  this->fe_data = std::move(fe_get_data.return_value());
+  this->fe_data = std::move(fe_get_data);
   if (flags & update_mapping)
-    this->mapping_data = std::move(mapping_get_data.return_value());
+    this->mapping_data = std::move(mapping_get_data);
   else
     this->mapping_data =
       std::make_unique<typename Mapping<dim, spacedim>::InternalDataBase>();
