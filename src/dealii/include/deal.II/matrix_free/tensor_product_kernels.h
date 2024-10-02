@@ -2896,7 +2896,14 @@ namespace internal
                           if (contract_onto_face)
                             out += n_rows - 2;
                           else
+#if !defined(SPEC_MSVC_INT_ERR_BYPASS)
                             in += n_rows - 2;
+#else
+                            // MSVC generates internal compiler error on above. Below avoids that. -- Daniel from SPEC, Oct 2024.
+                            if (n_rows > 1) {
+                               in += n_rows - 2;
+                            }
+#endif
                         }
                       if (normal_dir == 2)
                         {

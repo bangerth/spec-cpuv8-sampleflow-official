@@ -312,7 +312,7 @@ namespace Physics
 #ifndef DOXYGEN
 
 // --------------------- inline functions and constants -------------------
-
+#if !defined(SPEC_SKIP_DEALII_INLINE_TENSORS)
 
 template <int dim>
 template <typename Number>
@@ -400,6 +400,8 @@ Physics::Elasticity::StandardTensors<dim>::dC_inv_dC(
 
   return dC_inv_dC;
 }
+
+#endif // #if !defined(SPEC_SKIP_DEALII_INLINE_TENSORS)
 
 #endif // DOXYGEN
 
