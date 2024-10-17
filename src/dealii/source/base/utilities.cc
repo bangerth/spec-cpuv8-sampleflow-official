@@ -1050,7 +1050,12 @@ namespace Utilities
       const int ierr = ::posix_memalign(memptr, alignment, size);
 
       AssertThrow(ierr == 0, ExcOutOfMemory(size));
+#if !defined(SPEC)
+      // SPEC: skip this check, because the standard allows the possibility that if the
+      // requested size is zero, then ierr may be zero and the pointer may be null.
+      // Search for "implementation" at https://pubs.opengroup.org/onlinepubs/9799919799/
       AssertThrow(*memptr != nullptr, ExcOutOfMemory(size));
+#endif
 #else
       // Windows does not appear to have posix_memalign. just use the
       // regular malloc in that case
