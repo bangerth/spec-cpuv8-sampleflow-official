@@ -916,6 +916,9 @@ namespace Utilities
     double
     get_cpu_load()
     {
+#ifdef SPEC
+      return 0.;
+#else
       std::ifstream cpuinfo;
       cpuinfo.open("/proc/loadavg");
 
@@ -925,6 +928,7 @@ namespace Utilities
       cpuinfo >> load;
 
       return load;
+#endif
     }
 
 #else
@@ -1015,6 +1019,9 @@ namespace Utilities
     std::string
     get_time()
     {
+#ifdef SPEC
+      return std::string();
+#else
       std::time_t time1 = std::time(nullptr);
       std::tm *   time  = std::localtime(&time1);
 
@@ -1024,6 +1031,7 @@ namespace Utilities
         << time->tm_sec;
 
       return o.str();
+#endif
     }
 
 
@@ -1031,6 +1039,9 @@ namespace Utilities
     std::string
     get_date()
     {
+#ifdef SPEC
+      return std::string();
+#else
       std::time_t time1 = std::time(nullptr);
       std::tm *   time  = std::localtime(&time1);
 
@@ -1039,6 +1050,7 @@ namespace Utilities
         << time->tm_mday;
 
       return o.str();
+#endif
     }
 
 
