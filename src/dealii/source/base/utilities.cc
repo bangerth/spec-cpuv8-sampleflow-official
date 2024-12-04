@@ -972,6 +972,7 @@ namespace Utilities
     {
       stats.VmPeak = stats.VmSize = stats.VmHWM = stats.VmRSS = 0;
 
+#ifndef SPEC
       // parsing /proc/self/stat would be a
       // lot easier, but it does not contain
       // VmHWM, so we use /status instead.
@@ -997,6 +998,7 @@ namespace Utilities
           getline(file, line);
         }
 #endif
+#endif /* SPEC */
     }
 
 
