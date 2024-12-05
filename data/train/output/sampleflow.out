@@ -11,6 +11,6 @@ Mean value of the 4-parameter downscaling:
     0.897202 1.0383 1.06328 1.14361 
 Comparison mean value of the downscaled 64-parameter mean:
     0.897202 1.0383 1.06328 1.14361 
-Total size of output over all upscaled samples:             408647157
+Total size of output over all upscaled samples:             408646645
 Total number of spaces in output over all upscaled samples: 32340549
 Number of samples = 800
