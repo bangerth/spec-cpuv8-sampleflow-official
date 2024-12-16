@@ -56,11 +56,12 @@ li {margin-top:.2em;}
          <p>The current benchmark is an implementation of a testcase that uses a Monte Carlo sampling method to gain
          information about a probability distribution p(x). The definition of the function p(x) involves the solution of a
          partial differential equation using the finite element method. The overall problem this benchmark solves is
-         concisely defined in <a href="https://arxiv.org/abs/2102.07263" class="external">this preprint</a> (which has been
-         accepted for publication in SIAM Review); it is intended as a problem that is simple enough to solve yet complicated
+         concisely defined in <a href="https://doi.org/10.1137/21M1399464" class="external">this publication</a> (see
+         also the <a href="https://arxiv.org/abs/2102.07263" class="external">preprint</a> that is accessible for free);
+         it is intended as a problem that is simple enough to solve yet complicated
          enough that one needs sophisticated algorithms to get answers with sufficient accuracy. For example, the "ground
-         truth" answers provided in the preprint above were obtained using some 30 CPU years of computations. More
-         sophisticated algorithms than those used in the preprint should be able to obtain the same accuracy with far less
+         truth" answers provided in the paper above were obtained using some 30 CPU years of computations. More
+         sophisticated algorithms than those used in the paper should be able to obtain the same accuracy with far less
          effort, but generally the accuracy one gets is inversely proportional to (the square root of) the computational
          effort and the very large effort made for the results in the paper reflects a desire to have published results with
          as much accuracy as possible.</p>
@@ -68,9 +69,9 @@ li {margin-top:.2em;}
          <p>This benchmark implements a sampling algorithm for p(x) that is based on a variation of the Differential
          Evaluation algorithm, which is a parallel version of the 
          <a href="https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm" class="external">Metropolis-Hastings
-            algorithm</a> In it, a number _N_ of chains are running in parallel, occasionally exchanging information. In the
-         version used for this benchmark, _N_ is a parameter that is set in the input file. The resulting algorithm is then
-         of the fork-join type: At the beginning of each iteration, _N_ work items are created to generate a new sample on
+            algorithm</a> In it, a number <i>N</i> of chains are running in parallel, occasionally exchanging information. In the
+         version used for this benchmark, <i>N</i> is a parameter that is set in the input file. The resulting algorithm is then
+         of the fork-join type: At the beginning of each iteration, <i>N</i> work items are created to generate a new sample on
          each of these chains, and these items can be worked on independently; once done, we start another parallel phase
          where the samples are post-processed.</p> 
          
@@ -85,22 +86,25 @@ li {margin-top:.2em;}
 
       <h3 id="output">Output Description</h3>
 
-      <p>The benchmark internally creates a "chain" of samples, i.e., a long sequence of 64-dimensional vectors that have are
-      samples from a specific statistical distribution (in the same way as coin flips are samples from a binomial
+      <p>The benchmark internally creates a "chain" of samples, i.e., a long sequence of 64-dimensional vectors that are
+      samples from a specific statistical distribution (in the same way as coin flips are samples from a Bernoulli
       distribution heads/tails). From these samples, the program then computes statistics such as the mean value of the
       samples, and these are output.</p>
 
       <p>The way the samples are computed is via a Monte Carlo method. Monte Carlo methods are often difficult to make
       bit-by-bit reproducible on different platforms because they depend on randomness. The benchmark addresses this in three
-      ways: (i) it ensures that *what* is computed is independent of the choice of random numbers and round-off, ensuring the
+      ways: (i) it ensures that <i>what</i> is computed is independent of the choice of random numbers and round-off, ensuring the
       exact same load, (ii) it computes statistics that are relatively insensitive to round-off as output quantities to
       ensure correctness of benchmark runs, (iii) in all places where numbers subject to round-off are compared, it first
       casts to lower-precision data types to avoid the vast majority of round-off errors from making a difference.</p>
 
-      <p>The specific statistics that are computed by the program are not directly on the 64-dimensional vectors that are
+      <p>The specific statistics that are computed by the program are
+      not derived directly from the 64-dimensional vectors that are
       internally computed. Rather, the program "pools" the elements of each 64-dimensional vector by adding 16 elements each
       into one number, resulting in one 4-dimensional vector per sample, in order to improve the numerical stability of the
-      computation. It then computes the average of these 4-dimensional vectors and outputs this as the "Mean value of the
+      computation. (The choice of four 16-element pools is geometrically motivated, based on what the original problem
+      actually represents. The four pools correspond to the parameters in each of the four parts of a subdivided square.)
+      It then computes the average of these 4-dimensional vectors and outputs this as the "Mean value of the
       4-parameter downscaling" (which is of course also a 4-dimensional vector). The program also computes this quantity by
       first computing the mean of all of the 64-dimensional vectors, and then applying the 16-component summation; this needs
       to result in the same outcome as before and is reported as "Comparison mean value of the downscaled 64-parameter
@@ -115,6 +119,21 @@ li {margin-top:.2em;}
       Number of samples = 900
       </pre>
 
+      <p>
+      In practice, the samples correspond to a two-dimensional
+      function <i>&theta;(x,y)</i> that one would ordinarily
+      want to visualize. The benchmark creates a representation of
+      a statistically relevant subset of these samples in VTK file
+      format that could be visualized using tools such as VisIt or Paraview. In order to avoid
+      outputting gigabytes of floating point data, these VTK files are only generated
+      in memory and then we compute summary statistics of their string
+      representation (number of characters, words) that is then
+      output. The corresponding part of the output looks like this:
+      </p>
+      <pre>
+        Total size of output over all upscaled samples:             408646645
+        Total number of spaces in output over all upscaled samples: 32340549
+      </pre>
 
 
       <h3 id="language">Programming Language</h3>
@@ -128,6 +147,33 @@ li {margin-top:.2em;}
          toolset, or, in the absence of such direction, then as many as <samp>std::thread::hardware_concurrency()</samp>
          states the machine can provide.</p>
 
+         <p>Traditionally, scientific codes working on structured data
+         such as vectors or dense matrices have used parallel-for
+         approaches (e.g., via OpenMP) to utilize multicore
+         machines. In contrast, more modern scientific codes often
+         work on more unstructured data such as trees, sparse
+         matrices, and other complicated representations of data, and
+         parallel-for is typically not appropriate for these. Rather,
+         they use task-based parallelism. Tasks are then mapped to
+         available resources by a scheduler that keeps a thread-pool,
+         and the current benchmark does this too. An example of a
+         widely-used library that is often used are the Threading
+         Building Blocks (TBB; now part of Intel's OneAPI), but it is
+         not platform independent and uses platform specific code
+         outside the C++ specs. Another example is TaskFlow. To avoid
+         these dependencies, this benchmark implements a simple task
+         pool and scheduler itself. Like all other pure-C++
+         implementations, it has to make do with what the C++ standard
+         provides in terms of synchronization primitives; more
+         sophisticated primitives would allow implementations that
+         have to call less often into the operating system, but the
+         code as written is representative of many other scientific
+         codes in this regard, and testing the performance of C++
+         standard library and operating system implementations of the
+           available primitives is useful in itself.
+         </p>
+
+         
          <p>The SPECrate version maps all work to a single thread.</p>
 
       <h3 id="portability">Known Portability Issues</h3>
